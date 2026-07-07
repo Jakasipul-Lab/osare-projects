@@ -181,7 +181,7 @@ backend:
         -comment: "✅ PASS: GET /api/leads returns array with UUID ids (no _id leakage). GET /api/stats returns all required fields: totalListings, safariCount, localCount, totalLeads, estRevenueUSD (all numeric), leadsByType (object with safari/local), leadsByCategory (array). All working correctly."
 
 frontend:
-  - task: "OSARE full UI (home, safari, local, about, dashboard, admin)"
+  - task: "OSARE full UI (home, safari, local, about, dashboard, admin, vendor portal)"
     implemented: true
     working: "NA"
     file: "app/page.js"
@@ -191,16 +191,32 @@ frontend:
     status_history:
         -working: "NA"
         -agent: "main"
-        -comment: "Built. Home verified via screenshot. Frontend testing not yet requested by user."
+        -comment: "Built. Home verified via screenshot. Added Vendor Portal (login/register, my listings, add listing, my leads). Frontend testing not yet requested by user."
+
+  - task: "Vendor auth (register/login/me) + my-listings + my-stats + ownerId on create"
+    implemented: true
+    working: true
+    file: "app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Built-in vendor auth using node crypto scrypt (no external service). POST /api/auth/register {name,company,email,password,phone} -> {token, vendor} (passwordHash must NOT be leaked). POST /api/auth/login -> {token, vendor}. GET /api/auth/me (Bearer) -> {vendor}. Sessions stored in 'sessions' collection keyed by token. GET /api/my-listings (Bearer) returns only listings with ownerId==vendor.id. GET /api/my-stats (Bearer) returns {listings, leads, commissionOwedUSD, recentLeads}. POST /api/listings now attaches ownerId when Bearer token present."
+        -working: true
+        -agent: "testing"
+        -comment: "✅ PASS: All 13 vendor auth tests passed (13/13). (1) POST /api/auth/register returns 200 with token and vendor (no passwordHash or _id leaked). (2) Duplicate email registration correctly returns 409. (3) POST /api/auth/login returns 200 with token and vendor. (4) Login with wrong password correctly returns 401. (5) GET /api/auth/me with valid token returns vendor info (no passwordHash leaked). (6) GET /api/auth/me without token returns 401. (7) GET /api/auth/me with invalid token returns 401. (8) POST /api/listings with Bearer token correctly attaches ownerId matching vendor.id. (9) GET /api/my-listings returns only vendor's listings (verified ownerId matches). (10) GET /api/my-listings without token returns 401. (11) POST /api/leads works for vendor's listing. (12) GET /api/my-stats returns correct stats (1 listing, 1 lead, $10 commission = 5% of $200). (13) GET /api/my-stats without token returns 401. CRITICAL SECURITY CHECKS VERIFIED: No passwordHash leaked, no MongoDB _id leaked, ownerId correctly attached, all auth-protected endpoints properly reject unauthorized requests."
 
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Vendor auth (register/login/me) + my-listings + my-stats + ownerId on create"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -210,3 +226,7 @@ agent_communication:
     -message: "Please test all OSARE backend endpoints under /api. Flow: (1) POST /api/seed -> expect inserted=15. (2) GET /api/listings -> 15 items; GET /api/listings?type=safari -> 10; type=local -> 5; ?q=kilimanjaro -> at least 1; ?category=Hotel & Resort -> filtered. (3) POST /api/listings with a sample safari listing -> returns object with id; then PUT /api/listings/:id to change price; then DELETE /api/listings/:id. (4) POST /api/leads with a valid listingId from GET listings -> expect whatsappUrl containing wa.me/254758378729 and a commission field. (5) GET /api/leads -> includes the created lead; GET /api/stats -> totalListings, totalLeads, estRevenueUSD numeric, leadsByType. All ids must be UUIDs (no Mongo ObjectID leakage)."
     -agent: "testing"
     -message: "✅ ALL BACKEND TESTS PASSED (13/13). Comprehensive testing completed: (1) Seed endpoint works - returns {inserted:15}. (2) All listing filters work correctly - type=safari (10), type=local (5), search query (2 results), category filter (2 results). All responses use UUID ids with no MongoDB _id leakage. (3) CRUD operations all working - create, update, delete verified. Includes/keywords parsed to arrays. (4) Lead creation works - whatsappUrl contains wa.me/254758378729, commission calculated correctly (5%). Fallback with inline data also works. (5) GET /api/leads and GET /api/stats both working with correct structure and data types. No critical issues found. Backend is fully functional."
+    -agent: "main"
+    -message: "Test the NEW OSARE vendor-auth backend endpoints (Next.js API routes under /api). Prior endpoints already passed; focus on the vendor auth flow now."
+    -agent: "testing"
+    -message: "✅ ALL VENDOR AUTH TESTS PASSED (13/13). Comprehensive vendor auth testing completed: (1) POST /api/auth/register works - returns 200 with token and vendor (no passwordHash or _id leaked). (2) Duplicate email registration correctly rejected with 409. (3) POST /api/auth/login works - returns 200 with token and vendor. (4) Login with wrong password correctly rejected with 401. (5) GET /api/auth/me with valid token works - returns vendor info (no passwordHash leaked). (6) GET /api/auth/me without token correctly rejected with 401. (7) GET /api/auth/me with invalid token correctly rejected with 401. (8) POST /api/listings with Bearer token correctly attaches ownerId matching vendor.id. (9) GET /api/my-listings returns only vendor's listings (verified ownerId matches). (10) GET /api/my-listings without token correctly rejected with 401. (11) POST /api/leads works for vendor's listing. (12) GET /api/my-stats returns correct stats (1 listing, 1 lead, $10 commission = 5% of $200). (13) GET /api/my-stats without token correctly rejected with 401. CRITICAL SECURITY CHECKS VERIFIED: No passwordHash leaked in any response, no MongoDB _id leaked in any response, ownerId correctly attached to listings, all auth-protected endpoints properly reject unauthorized requests. All vendor auth backend endpoints are fully functional and secure."

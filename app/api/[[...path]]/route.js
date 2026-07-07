@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
+import crypto from 'crypto'
 
 // ---------------------------------------------------------------------------
 // MongoDB connection (singleton)
@@ -20,6 +21,39 @@ async function connectToMongo() {
 // Business config
 const WHATSAPP_PHONE = '254758378729'
 const COMMISSION_RATE = 0.05 // 5% charged to vendors
+
+// ---------------------------------------------------------------------------
+// Vendor auth helpers (built-in, no external service)
+// ---------------------------------------------------------------------------
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex')
+  const hash = crypto.scryptSync(String(password), salt, 64).toString('hex')
+  return `${salt}:${hash}`
+}
+
+function verifyPassword(password, stored) {
+  if (!stored || !stored.includes(':')) return false
+  const [salt, hash] = stored.split(':')
+  const test = crypto.scryptSync(String(password), salt, 64).toString('hex')
+  const a = Buffer.from(hash, 'hex')
+  const b = Buffer.from(test, 'hex')
+  return a.length === b.length && crypto.timingSafeEqual(a, b)
+}
+
+function cleanVendor(v) {
+  if (!v) return null
+  const { _id, passwordHash, ...rest } = v
+  return rest
+}
+
+async function getVendorFromRequest(db, request) {
+  const auth = request.headers.get('authorization') || ''
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null
+  if (!token) return null
+  const session = await db.collection('sessions').findOne({ token })
+  if (!session) return null
+  return await db.collection('vendors').findOne({ id: session.vendorId })
+}
 
 // ---------------------------------------------------------------------------
 // CORS helpers
@@ -308,6 +342,80 @@ async function handleRoute(request, { params }) {
       return handleCORS(NextResponse.json({ inserted: docs.length }))
     }
 
+    // ---------------- Vendor auth ----------------
+    if (route === '/auth/register' && method === 'POST') {
+      const body = await request.json()
+      if (!body.email || !body.password) {
+        return handleCORS(NextResponse.json({ error: 'email and password are required' }, { status: 400 }))
+      }
+      const email = String(body.email).toLowerCase().trim()
+      const existing = await db.collection('vendors').findOne({ email })
+      if (existing) {
+        return handleCORS(NextResponse.json({ error: 'Email already registered' }, { status: 409 }))
+      }
+      const vendor = {
+        id: uuidv4(),
+        name: body.name || '',
+        company: body.company || '',
+        email,
+        phone: body.phone || '',
+        passwordHash: hashPassword(body.password),
+        createdAt: new Date()
+      }
+      await db.collection('vendors').insertOne(vendor)
+      const token = uuidv4()
+      await db.collection('sessions').insertOne({ token, vendorId: vendor.id, createdAt: new Date() })
+      return handleCORS(NextResponse.json({ token, vendor: cleanVendor(vendor) }))
+    }
+
+    if (route === '/auth/login' && method === 'POST') {
+      const body = await request.json()
+      const email = String(body.email || '').toLowerCase().trim()
+      const vendor = await db.collection('vendors').findOne({ email })
+      if (!vendor || !verifyPassword(body.password || '', vendor.passwordHash)) {
+        return handleCORS(NextResponse.json({ error: 'Invalid email or password' }, { status: 401 }))
+      }
+      const token = uuidv4()
+      await db.collection('sessions').insertOne({ token, vendorId: vendor.id, createdAt: new Date() })
+      return handleCORS(NextResponse.json({ token, vendor: cleanVendor(vendor) }))
+    }
+
+    if (route === '/auth/me' && method === 'GET') {
+      const vendor = await getVendorFromRequest(db, request)
+      if (!vendor) return handleCORS(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }))
+      return handleCORS(NextResponse.json({ vendor: cleanVendor(vendor) }))
+    }
+
+    // Vendor's own listings
+    if (route === '/my-listings' && method === 'GET') {
+      const vendor = await getVendorFromRequest(db, request)
+      if (!vendor) return handleCORS(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }))
+      let items = await db.collection('listings').find({ ownerId: vendor.id }).sort({ createdAt: -1 }).toArray()
+      items = items.map(({ _id, ...rest }) => rest)
+      return handleCORS(NextResponse.json(items))
+    }
+
+    // Vendor's revenue stats
+    if (route === '/my-stats' && method === 'GET') {
+      const vendor = await getVendorFromRequest(db, request)
+      if (!vendor) return handleCORS(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }))
+      const myListings = await db.collection('listings').find({ ownerId: vendor.id }).toArray()
+      const ids = myListings.map((l) => l.id)
+      let leads = await db.collection('leads').find({ listingId: { $in: ids } }).sort({ createdAt: -1 }).toArray()
+      leads = leads.map(({ _id, ...rest }) => rest)
+      let commissionOwedUSD = 0
+      for (const l of leads) {
+        const usd = l.currency === 'KES' ? (l.priceValue / 150) : l.priceValue
+        commissionOwedUSD += usd * COMMISSION_RATE
+      }
+      return handleCORS(NextResponse.json({
+        listings: myListings.length,
+        leads: leads.length,
+        commissionOwedUSD: Math.round(commissionOwedUSD * 100) / 100,
+        recentLeads: leads.slice(0, 20)
+      }))
+    }
+
     // List / search listings
     if (route === '/listings' && method === 'GET') {
       const type = url.searchParams.get('type')
@@ -330,12 +438,14 @@ async function handleRoute(request, { params }) {
       if (!body.title || !body.type) {
         return handleCORS(NextResponse.json({ error: 'title and type are required' }, { status: 400 }))
       }
+      const vendorAuth = await getVendorFromRequest(db, request)
       const doc = {
         id: uuidv4(),
+        ownerId: vendorAuth ? vendorAuth.id : (body.ownerId || null),
         type: body.type,
         category: body.category || 'General',
         title: body.title,
-        vendor: body.vendor || 'Unknown Vendor',
+        vendor: body.vendor || vendorAuth?.company || vendorAuth?.name || 'Unknown Vendor',
         vendorOffice: body.vendorOffice || '',
         location: body.location || '',
         mapLink: body.mapLink || '',

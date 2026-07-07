@@ -1,0 +1,22 @@
+# ---------------------------------------------------------------------------
+# Render Blueprint for OSARE (Next.js) — deploy from JakasipulLab/eatransport-API
+# In Render: New + -> Blueprint -> connect this repo. Set MONGO_URL secret.
+# ---------------------------------------------------------------------------
+services:
+  - type: web
+    name: osare
+    runtime: node
+    plan: free
+    buildCommand: yarn install && yarn build
+    startCommand: yarn start
+    envVars:
+      - key: MONGO_URL
+        sync: false            # set this in the Render dashboard (MongoDB Atlas URI)
+      - key: DB_NAME
+        value: osare
+      - key: NEXT_PUBLIC_BASE_URL
+        value: https://easafariroutes.com
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: NODE_VERSION
+        value: "20"

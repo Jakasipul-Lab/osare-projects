@@ -16,6 +16,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
 import {
@@ -31,6 +32,7 @@ const NAV = [
   { key: 'local', label: 'Local Transit' },
   { key: 'about', label: 'About' },
   { key: 'dashboard', label: 'Dashboard' },
+  { key: 'vendor', label: 'Vendor Portal' },
   { key: 'admin', label: 'Admin' },
 ]
 
@@ -671,12 +673,261 @@ function Field({ label, v, on, ph }) {
 }
 
 // ---------------------------------------------------------------------------
+// Vendor Portal (login / register + self-service listings & revenue)
+// ---------------------------------------------------------------------------
+function VendorAuth({ onAuth }) {
+  const [mode, setMode] = useState('login')
+  const [f, setF] = useState({ name: '', company: '', email: '', phone: '', password: '' })
+  const [loading, setLoading] = useState(false)
+  const set = (k, v) => setF((s) => ({ ...s, [k]: v }))
+
+  const submit = async () => {
+    if (!f.email || !f.password) { toast.error('Email and password are required'); return }
+    setLoading(true)
+    try {
+      const res = await fetch(`/api/auth/${mode === 'login' ? 'login' : 'register'}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(f)
+      })
+      const data = await res.json()
+      if (!res.ok) { toast.error(data.error || 'Failed'); return }
+      toast.success(mode === 'login' ? 'Welcome back!' : 'Account created!')
+      onAuth(data.token, data.vendor)
+    } catch (e) { toast.error('Something went wrong') }
+    finally { setLoading(false) }
+  }
+
+  return (
+    <div className="mx-auto max-w-md px-5 py-16">
+      <div className="mb-6 text-center">
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-white"><Building2 className="h-7 w-7" /></span>
+        <h1 className="mt-4 text-2xl font-extrabold text-slate-900">Vendor Portal</h1>
+        <p className="text-sm text-slate-500">List your services and track your bookings. We only charge 5% on bookings.</p>
+      </div>
+      <Card className="border-slate-200">
+        <CardContent className="p-6">
+          <Tabs value={mode} onValueChange={setMode}>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="login">Login</TabsTrigger>
+              <TabsTrigger value="register">Register</TabsTrigger>
+            </TabsList>
+            <TabsContent value="login" className="mt-4 space-y-3">
+              <Field label="Email" v={f.email} on={(v) => set('email', v)} ph="you@company.com" />
+              <div>
+                <Label className="text-xs">Password</Label>
+                <Input type="password" value={f.password} onChange={(e) => set('password', e.target.value)} />
+              </div>
+            </TabsContent>
+            <TabsContent value="register" className="mt-4 space-y-3">
+              <Field label="Your name" v={f.name} on={(v) => set('name', v)} />
+              <Field label="Company / operator name" v={f.company} on={(v) => set('company', v)} />
+              <Field label="Email" v={f.email} on={(v) => set('email', v)} ph="you@company.com" />
+              <Field label="Phone (WhatsApp)" v={f.phone} on={(v) => set('phone', v)} ph="2547..." />
+              <div>
+                <Label className="text-xs">Password</Label>
+                <Input type="password" value={f.password} onChange={(e) => set('password', e.target.value)} />
+              </div>
+            </TabsContent>
+            <Button onClick={submit} disabled={loading} className="mt-4 w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              {mode === 'login' ? 'Login' : 'Create vendor account'}
+            </Button>
+          </Tabs>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+function VendorPortal({ token, vendor, onAuth, onLogout }) {
+  const [listings, setListings] = useState([])
+  const [stats, setStats] = useState(null)
+  const [form, setForm] = useState(EMPTY_FORM)
+  const [saving, setSaving] = useState(false)
+
+  const authHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+
+  const load = useCallback(async () => {
+    if (!token) return
+    try {
+      const [l, s] = await Promise.all([
+        fetch('/api/my-listings', { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
+        fetch('/api/my-stats', { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
+      ])
+      setListings(Array.isArray(l) ? l : [])
+      setStats(s && !s.error ? s : null)
+    } catch (e) { /* ignore */ }
+  }, [token])
+
+  useEffect(() => { if (vendor) load() }, [vendor, load])
+
+  if (!vendor) return <VendorAuth onAuth={onAuth} />
+
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
+  const cats = form.type === 'safari' ? SAFARI_CATS.filter((c) => c !== 'All') : LOCAL_CATS.filter((c) => c !== 'All')
+
+  const submit = async () => {
+    if (!form.title) { toast.error('Title is required'); return }
+    setSaving(true)
+    try {
+      const res = await fetch('/api/listings', { method: 'POST', headers: authHeaders, body: JSON.stringify(form) })
+      if (!res.ok) { toast.error('Failed to add listing'); return }
+      toast.success('Listing published')
+      setForm(EMPTY_FORM)
+      load()
+    } catch (e) { toast.error('Failed to add listing') }
+    finally { setSaving(false) }
+  }
+
+  const remove = async (id) => {
+    await fetch(`/api/listings/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+    toast.success('Listing removed')
+    load()
+  }
+
+  return (
+    <div className="mx-auto max-w-6xl px-5 py-12">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900">Welcome, {vendor.company || vendor.name || vendor.email}</h1>
+          <p className="text-slate-500">Manage your listings and track booking leads.</p>
+        </div>
+        <Button variant="outline" onClick={onLogout}>Log out</Button>
+      </div>
+
+      {/* Stat cards */}
+      <div className="mt-8 grid gap-5 sm:grid-cols-3">
+        <StatCard label="My Listings" value={stats?.listings ?? listings.length} icon={<Compass className="h-5 w-5" />} color="#1e3a8a" />
+        <StatCard label="Booking Leads" value={stats?.leads ?? 0} icon={<MessageCircle className="h-5 w-5" />} color="#f97316" />
+        <StatCard label="Commission Owed (5%)" value={`$${stats?.commissionOwedUSD ?? 0}`} icon={<Percent className="h-5 w-5" />} color="#10b981" />
+      </div>
+
+      <Tabs defaultValue="listings" className="mt-8">
+        <TabsList>
+          <TabsTrigger value="listings">My Listings</TabsTrigger>
+          <TabsTrigger value="add">Add Listing</TabsTrigger>
+          <TabsTrigger value="leads">My Leads</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="listings" className="mt-5">
+          <Card className="border-slate-200">
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow><TableHead>Title</TableHead><TableHead>Tier</TableHead><TableHead>Price</TableHead><TableHead></TableHead></TableRow>
+                </TableHeader>
+                <TableBody>
+                  {listings.map((l) => (
+                    <TableRow key={l.id}>
+                      <TableCell className="font-medium">{l.title}</TableCell>
+                      <TableCell><Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge></TableCell>
+                      <TableCell>{l.priceLabel}</TableCell>
+                      <TableCell className="text-right"><Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700"><Trash2 className="h-4 w-4" /></Button></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {listings.length === 0 && <p className="py-10 text-center text-slate-400">No listings yet. Use the "Add Listing" tab.</p>}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="add" className="mt-5">
+          <Card className="border-slate-200">
+            <CardContent className="grid gap-3 p-6 md:grid-cols-2">
+              <div>
+                <Label className="text-xs">Tier</Label>
+                <Select value={form.type} onValueChange={(v) => { set('type', v); set('category', (v === 'safari' ? SAFARI_CATS : LOCAL_CATS)[1]) }}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="safari">Safari / Tourism</SelectItem><SelectItem value="local">Local Transit</SelectItem></SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label className="text-xs">Category</Label>
+                <Select value={form.category} onValueChange={(v) => set('category', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>{cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+              <Field label="Title" v={form.title} on={(v) => set('title', v)} />
+              <Field label="Location" v={form.location} on={(v) => set('location', v)} />
+              <Field label="Map link" v={form.mapLink} on={(v) => set('mapLink', v)} />
+              <Field label="Vendor office" v={form.vendorOffice} on={(v) => set('vendorOffice', v)} />
+              <div className="md:col-span-2">
+                <Label className="text-xs">Description</Label>
+                <Textarea value={form.description} onChange={(e) => set('description', e.target.value)} rows={3} />
+              </div>
+              <Field label="Includes (comma separated)" v={form.includes} on={(v) => set('includes', v)} />
+              <Field label="Keywords (comma separated)" v={form.keywords} on={(v) => set('keywords', v)} />
+              <Field label="Price value (number)" v={form.priceValue} on={(v) => set('priceValue', v)} />
+              <div>
+                <Label className="text-xs">Currency</Label>
+                <Select value={form.currency} onValueChange={(v) => set('currency', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="USD">USD ($)</SelectItem><SelectItem value="KES">KES</SelectItem></SelectContent>
+                </Select>
+              </div>
+              <Field label="Price label" v={form.priceLabel} on={(v) => set('priceLabel', v)} ph="$350" />
+              <Field label="Off-peak label" v={form.offPeakLabel} on={(v) => set('offPeakLabel', v)} ph="$280" />
+              <Field label="Season note" v={form.season} on={(v) => set('season', v)} />
+              <Field label="Image URL" v={form.image} on={(v) => set('image', v)} />
+              <div className="md:col-span-2">
+                <Button onClick={submit} disabled={saving} className="w-full gap-2 bg-[#f97316] text-white hover:bg-[#ea6c0f]">
+                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />} Publish listing
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="leads" className="mt-5">
+          <Card className="border-slate-200">
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow><TableHead>Listing</TableHead><TableHead>Price</TableHead><TableHead className="text-right">Est. 5%</TableHead></TableRow>
+                </TableHeader>
+                <TableBody>
+                  {(stats?.recentLeads || []).map((l) => (
+                    <TableRow key={l.id}>
+                      <TableCell className="font-medium">{l.listingTitle}</TableCell>
+                      <TableCell>{l.priceLabel}</TableCell>
+                      <TableCell className="text-right font-semibold text-emerald-600">{l.currency === 'KES' ? `KES ${Math.round(l.priceValue * 0.05)}` : `$${l.commission}`}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {(!stats?.recentLeads || stats.recentLeads.length === 0) && <p className="py-10 text-center text-slate-400">No booking leads yet.</p>}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}
+
+function StatCard({ label, value, icon, color }) {
+  return (
+    <Card className="border-slate-200">
+      <CardContent className="p-5">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-slate-500">{label}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: color }}>{icon}</span>
+        </div>
+        <p className="mt-3 text-3xl font-extrabold text-slate-900">{value}</p>
+      </CardContent>
+    </Card>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // Root App
 // ---------------------------------------------------------------------------
 function App() {
   const [view, setView] = useState('home')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [pendingQuery, setPendingQuery] = useState('')
+  const [token, setToken] = useState(null)
+  const [vendor, setVendor] = useState(null)
 
   // Seed on first load if empty
   useEffect(() => {
@@ -686,6 +937,28 @@ function App() {
       }
     }).catch(() => {})
   }, [])
+
+  // Restore vendor session
+  useEffect(() => {
+    const t = typeof window !== 'undefined' ? localStorage.getItem('osare_token') : null
+    if (t) {
+      setToken(t)
+      fetch('/api/auth/me', { headers: { Authorization: `Bearer ${t}` } })
+        .then((r) => r.ok ? r.json() : null)
+        .then((d) => { if (d?.vendor) setVendor(d.vendor); else { localStorage.removeItem('osare_token'); setToken(null) } })
+        .catch(() => {})
+    }
+  }, [])
+
+  const onAuth = (t, v) => {
+    setToken(t); setVendor(v)
+    if (typeof window !== 'undefined') localStorage.setItem('osare_token', t)
+  }
+  const onLogout = () => {
+    setToken(null); setVendor(null)
+    if (typeof window !== 'undefined') localStorage.removeItem('osare_token')
+    toast.success('Logged out')
+  }
 
   const go = (v, query = '') => {
     setPendingQuery(query)
@@ -745,6 +1018,7 @@ function App() {
       {view === 'local' && <TierExplorer type="local" key={'local' + pendingQuery} />}
       {view === 'about' && <About />}
       {view === 'dashboard' && <Dashboard />}
+      {view === 'vendor' && <VendorPortal token={token} vendor={vendor} onAuth={onAuth} onLogout={onLogout} />}
       {view === 'admin' && <Admin />}
 
       {/* Footer */}

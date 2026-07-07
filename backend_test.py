@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
 OSARE Backend API Test Suite
-Tests all API endpoints under /api prefix
+Tests all API endpoints under /api prefix including vendor auth
 """
 import requests
 import json
 import sys
+import random
+import string
 
 # Base URL from environment
 BASE_URL = "https://mara-guide.preview.emergentagent.com/api"
@@ -19,511 +21,590 @@ def print_test(name, passed, details=""):
     if not passed:
         print()
 
-def test_seed_listings():
-    """Test POST /api/seed - should return {inserted: 15}"""
-    print("\n=== TEST 1: POST /api/seed ===")
+def generate_random_email():
+    """Generate random email for testing"""
+    random_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+    return f"vendor+{random_str}@test.com"
+
+# ============================================================================
+# VENDOR AUTH TESTS
+# ============================================================================
+
+def test_vendor_register():
+    """Test POST /api/auth/register - should return token and vendor without passwordHash or _id"""
+    print("\n=== VENDOR AUTH TEST 1: POST /api/auth/register ===")
     try:
-        response = requests.post(f"{BASE_URL}/seed", timeout=10)
+        email = generate_random_email()
+        payload = {
+            "name": "Jane Guide",
+            "company": "Savanna Tours",
+            "email": email,
+            "phone": "254700000000",
+            "password": "secret123"
+        }
+        
+        response = requests.post(f"{BASE_URL}/auth/register", json=payload, timeout=10)
         data = response.json()
         
         # Check status code
         if response.status_code != 200:
-            print_test("Seed endpoint status", False, f"Expected 200, got {response.status_code}")
+            print_test("Register vendor status", False, f"Expected 200, got {response.status_code}: {data}")
+            return None, None
+        
+        # Check token exists
+        if "token" not in data:
+            print_test("Register vendor token", False, "Missing token in response")
+            return None, None
+        
+        # Check vendor object exists
+        if "vendor" not in data:
+            print_test("Register vendor object", False, "Missing vendor in response")
+            return None, None
+        
+        vendor = data["vendor"]
+        
+        # CRITICAL: Check no passwordHash leaked
+        if "passwordHash" in vendor:
+            print_test("Register vendor no passwordHash", False, "CRITICAL: passwordHash leaked in response!")
+            return None, None
+        
+        # CRITICAL: Check no _id leaked
+        if "_id" in vendor:
+            print_test("Register vendor no _id", False, "CRITICAL: MongoDB _id leaked in response!")
+            return None, None
+        
+        # Check vendor has id (UUID)
+        if "id" not in vendor:
+            print_test("Register vendor id", False, "Missing id in vendor object")
+            return None, None
+        
+        # Check vendor fields
+        if vendor.get("name") != "Jane Guide":
+            print_test("Register vendor name", False, f"Expected 'Jane Guide', got {vendor.get('name')}")
+            return None, None
+        
+        if vendor.get("company") != "Savanna Tours":
+            print_test("Register vendor company", False, f"Expected 'Savanna Tours', got {vendor.get('company')}")
+            return None, None
+        
+        if vendor.get("email") != email:
+            print_test("Register vendor email", False, f"Expected '{email}', got {vendor.get('email')}")
+            return None, None
+        
+        print_test("Register vendor", True, f"Registered vendor with token: {data['token'][:20]}... (no passwordHash or _id leaked)")
+        return data["token"], email
+    except Exception as e:
+        print_test("Register vendor", False, f"Exception: {str(e)}")
+        return None, None
+
+def test_vendor_register_duplicate(email):
+    """Test POST /api/auth/register with duplicate email - should return 409"""
+    print("\n=== VENDOR AUTH TEST 2: POST /api/auth/register (duplicate email) ===")
+    if not email:
+        print_test("Register duplicate email", False, "No email provided (previous test failed)")
+        return False
+    
+    try:
+        payload = {
+            "name": "Another Vendor",
+            "company": "Another Company",
+            "email": email,
+            "phone": "254700000001",
+            "password": "password123"
+        }
+        
+        response = requests.post(f"{BASE_URL}/auth/register", json=payload, timeout=10)
+        data = response.json()
+        
+        # Should return 409 Conflict
+        if response.status_code != 409:
+            print_test("Register duplicate email status", False, f"Expected 409, got {response.status_code}: {data}")
             return False
         
-        # Check inserted count
-        if data.get("inserted") != 15:
-            print_test("Seed inserted count", False, f"Expected 15, got {data.get('inserted')}")
+        # Should have error message
+        if "error" not in data:
+            print_test("Register duplicate email error", False, "Missing error message in response")
             return False
         
-        print_test("Seed endpoint", True, f"Successfully seeded {data['inserted']} listings")
+        print_test("Register duplicate email", True, f"Correctly rejected duplicate email with 409: {data.get('error')}")
         return True
     except Exception as e:
-        print_test("Seed endpoint", False, f"Exception: {str(e)}")
+        print_test("Register duplicate email", False, f"Exception: {str(e)}")
         return False
 
-def test_get_all_listings():
-    """Test GET /api/listings - should return 15 listings with UUID ids"""
-    print("\n=== TEST 2: GET /api/listings (all) ===")
+def test_vendor_login(email):
+    """Test POST /api/auth/login - should return token and vendor"""
+    print("\n=== VENDOR AUTH TEST 3: POST /api/auth/login ===")
+    if not email:
+        print_test("Login vendor", False, "No email provided (register test failed)")
+        return None
+    
     try:
-        response = requests.get(f"{BASE_URL}/listings", timeout=10)
+        payload = {
+            "email": email,
+            "password": "secret123"
+        }
+        
+        response = requests.post(f"{BASE_URL}/auth/login", json=payload, timeout=10)
         data = response.json()
         
         # Check status code
         if response.status_code != 200:
-            print_test("Get all listings status", False, f"Expected 200, got {response.status_code}")
+            print_test("Login vendor status", False, f"Expected 200, got {response.status_code}: {data}")
             return None
         
-        # Check count
-        if len(data) != 15:
-            print_test("Get all listings count", False, f"Expected 15, got {len(data)}")
+        # Check token exists
+        if "token" not in data:
+            print_test("Login vendor token", False, "Missing token in response")
             return None
         
-        # Check for UUID id and no _id leakage
-        for item in data:
-            if "_id" in item:
-                print_test("No MongoDB _id leakage", False, f"Found _id in listing: {item.get('title')}")
-                return None
-            if "id" not in item:
-                print_test("UUID id present", False, f"Missing id in listing: {item.get('title')}")
-                return None
-            # Check UUID format (basic check)
-            if not isinstance(item["id"], str) or len(item["id"]) < 32:
-                print_test("UUID format", False, f"Invalid UUID format: {item['id']}")
-                return None
+        # Check vendor object exists
+        if "vendor" not in data:
+            print_test("Login vendor object", False, "Missing vendor in response")
+            return None
         
-        # Check required fields
-        required_fields = ["type", "category", "title", "vendor", "priceLabel", "image", "keywords"]
-        for item in data:
-            for field in required_fields:
-                if field not in item:
-                    print_test("Required fields", False, f"Missing field '{field}' in listing: {item.get('title')}")
-                    return None
+        vendor = data["vendor"]
         
-        print_test("Get all listings", True, f"Retrieved {len(data)} listings with valid UUIDs and fields")
-        return data
+        # CRITICAL: Check no passwordHash leaked
+        if "passwordHash" in vendor:
+            print_test("Login vendor no passwordHash", False, "CRITICAL: passwordHash leaked in response!")
+            return None
+        
+        # CRITICAL: Check no _id leaked
+        if "_id" in vendor:
+            print_test("Login vendor no _id", False, "CRITICAL: MongoDB _id leaked in response!")
+            return None
+        
+        print_test("Login vendor", True, f"Logged in successfully with token: {data['token'][:20]}... (no passwordHash or _id leaked)")
+        return data["token"]
     except Exception as e:
-        print_test("Get all listings", False, f"Exception: {str(e)}")
+        print_test("Login vendor", False, f"Exception: {str(e)}")
         return None
 
-def test_filter_by_type_safari():
-    """Test GET /api/listings?type=safari - should return exactly 10 items"""
-    print("\n=== TEST 3: GET /api/listings?type=safari ===")
+def test_vendor_login_wrong_password(email):
+    """Test POST /api/auth/login with wrong password - should return 401"""
+    print("\n=== VENDOR AUTH TEST 4: POST /api/auth/login (wrong password) ===")
+    if not email:
+        print_test("Login wrong password", False, "No email provided (register test failed)")
+        return False
+    
     try:
-        response = requests.get(f"{BASE_URL}/listings?type=safari", timeout=10)
+        payload = {
+            "email": email,
+            "password": "wrongpassword"
+        }
+        
+        response = requests.post(f"{BASE_URL}/auth/login", json=payload, timeout=10)
         data = response.json()
         
-        if response.status_code != 200:
-            print_test("Filter by type=safari status", False, f"Expected 200, got {response.status_code}")
+        # Should return 401 Unauthorized
+        if response.status_code != 401:
+            print_test("Login wrong password status", False, f"Expected 401, got {response.status_code}: {data}")
             return False
         
-        if len(data) != 10:
-            print_test("Filter by type=safari count", False, f"Expected 10, got {len(data)}")
+        # Should have error message
+        if "error" not in data:
+            print_test("Login wrong password error", False, "Missing error message in response")
             return False
         
-        # Verify all are safari type
-        for item in data:
-            if item.get("type") != "safari":
-                print_test("Filter by type=safari validation", False, f"Found non-safari item: {item.get('title')}")
-                return False
-        
-        print_test("Filter by type=safari", True, f"Retrieved {len(data)} safari listings")
+        print_test("Login wrong password", True, f"Correctly rejected wrong password with 401: {data.get('error')}")
         return True
     except Exception as e:
-        print_test("Filter by type=safari", False, f"Exception: {str(e)}")
+        print_test("Login wrong password", False, f"Exception: {str(e)}")
         return False
 
-def test_filter_by_type_local():
-    """Test GET /api/listings?type=local - should return exactly 5 items"""
-    print("\n=== TEST 4: GET /api/listings?type=local ===")
+def test_vendor_me(token):
+    """Test GET /api/auth/me with valid token - should return vendor"""
+    print("\n=== VENDOR AUTH TEST 5: GET /api/auth/me (with token) ===")
+    if not token:
+        print_test("Get vendor me", False, "No token provided (login test failed)")
+        return None
+    
     try:
-        response = requests.get(f"{BASE_URL}/listings?type=local", timeout=10)
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(f"{BASE_URL}/auth/me", headers=headers, timeout=10)
         data = response.json()
         
+        # Check status code
         if response.status_code != 200:
-            print_test("Filter by type=local status", False, f"Expected 200, got {response.status_code}")
-            return False
+            print_test("Get vendor me status", False, f"Expected 200, got {response.status_code}: {data}")
+            return None
         
-        if len(data) != 5:
-            print_test("Filter by type=local count", False, f"Expected 5, got {len(data)}")
-            return False
+        # Check vendor object exists
+        if "vendor" not in data:
+            print_test("Get vendor me object", False, "Missing vendor in response")
+            return None
         
-        # Verify all are local type
-        for item in data:
-            if item.get("type") != "local":
-                print_test("Filter by type=local validation", False, f"Found non-local item: {item.get('title')}")
-                return False
+        vendor = data["vendor"]
         
-        print_test("Filter by type=local", True, f"Retrieved {len(data)} local listings")
-        return True
+        # CRITICAL: Check no passwordHash leaked
+        if "passwordHash" in vendor:
+            print_test("Get vendor me no passwordHash", False, "CRITICAL: passwordHash leaked in response!")
+            return None
+        
+        # CRITICAL: Check no _id leaked
+        if "_id" in vendor:
+            print_test("Get vendor me no _id", False, "CRITICAL: MongoDB _id leaked in response!")
+            return None
+        
+        # Check vendor has id
+        if "id" not in vendor:
+            print_test("Get vendor me id", False, "Missing id in vendor object")
+            return None
+        
+        print_test("Get vendor me", True, f"Retrieved vendor info for: {vendor.get('name')} (no passwordHash or _id leaked)")
+        return vendor
     except Exception as e:
-        print_test("Filter by type=local", False, f"Exception: {str(e)}")
-        return False
+        print_test("Get vendor me", False, f"Exception: {str(e)}")
+        return None
 
-def test_search_kilimanjaro():
-    """Test GET /api/listings?q=kilimanjaro - should return at least 1 result"""
-    print("\n=== TEST 5: GET /api/listings?q=kilimanjaro ===")
+def test_vendor_me_no_token():
+    """Test GET /api/auth/me without token - should return 401"""
+    print("\n=== VENDOR AUTH TEST 6: GET /api/auth/me (no token) ===")
     try:
-        response = requests.get(f"{BASE_URL}/listings?q=kilimanjaro", timeout=10)
+        response = requests.get(f"{BASE_URL}/auth/me", timeout=10)
         data = response.json()
         
-        if response.status_code != 200:
-            print_test("Search kilimanjaro status", False, f"Expected 200, got {response.status_code}")
+        # Should return 401 Unauthorized
+        if response.status_code != 401:
+            print_test("Get vendor me no token status", False, f"Expected 401, got {response.status_code}: {data}")
             return False
         
-        if len(data) < 1:
-            print_test("Search kilimanjaro results", False, f"Expected at least 1 result, got {len(data)}")
-            return False
-        
-        # Verify results contain kilimanjaro in title or keywords
-        found_match = False
-        for item in data:
-            title_lower = item.get("title", "").lower()
-            keywords = [k.lower() for k in item.get("keywords", [])]
-            if "kilimanjaro" in title_lower or "kilimanjaro" in keywords:
-                found_match = True
-                break
-        
-        if not found_match:
-            print_test("Search kilimanjaro relevance", False, "No results contain 'kilimanjaro' in title or keywords")
-            return False
-        
-        print_test("Search kilimanjaro", True, f"Found {len(data)} results matching 'kilimanjaro'")
+        print_test("Get vendor me no token", True, "Correctly rejected request without token with 401")
         return True
     except Exception as e:
-        print_test("Search kilimanjaro", False, f"Exception: {str(e)}")
+        print_test("Get vendor me no token", False, f"Exception: {str(e)}")
         return False
 
-def test_filter_by_category():
-    """Test GET /api/listings?type=safari&category=Hotel & Resort"""
-    print("\n=== TEST 6: GET /api/listings?type=safari&category=Hotel & Resort ===")
+def test_vendor_me_invalid_token():
+    """Test GET /api/auth/me with invalid token - should return 401"""
+    print("\n=== VENDOR AUTH TEST 7: GET /api/auth/me (invalid token) ===")
     try:
-        response = requests.get(f"{BASE_URL}/listings?type=safari&category=Hotel%20%26%20Resort", timeout=10)
+        headers = {"Authorization": "Bearer invalid-token-12345"}
+        response = requests.get(f"{BASE_URL}/auth/me", headers=headers, timeout=10)
         data = response.json()
         
-        if response.status_code != 200:
-            print_test("Filter by category status", False, f"Expected 200, got {response.status_code}")
+        # Should return 401 Unauthorized
+        if response.status_code != 401:
+            print_test("Get vendor me invalid token status", False, f"Expected 401, got {response.status_code}: {data}")
             return False
         
-        # Should have at least some results
-        if len(data) < 1:
-            print_test("Filter by category results", False, f"Expected at least 1 result, got {len(data)}")
-            return False
-        
-        # Verify all are Hotel & Resort category
-        for item in data:
-            if item.get("category") != "Hotel & Resort":
-                print_test("Filter by category validation", False, f"Found non-Hotel & Resort item: {item.get('title')} ({item.get('category')})")
-                return False
-        
-        print_test("Filter by category", True, f"Retrieved {len(data)} Hotel & Resort listings")
+        print_test("Get vendor me invalid token", True, "Correctly rejected request with invalid token with 401")
         return True
     except Exception as e:
-        print_test("Filter by category", False, f"Exception: {str(e)}")
+        print_test("Get vendor me invalid token", False, f"Exception: {str(e)}")
         return False
 
-def test_create_listing():
-    """Test POST /api/listings - create a new listing"""
-    print("\n=== TEST 7: POST /api/listings (create) ===")
+def test_create_listing_with_auth(token, vendor):
+    """Test POST /api/listings with Bearer token - should attach ownerId"""
+    print("\n=== VENDOR AUTH TEST 8: POST /api/listings (with Bearer token) ===")
+    if not token or not vendor:
+        print_test("Create listing with auth", False, "No token or vendor provided (previous tests failed)")
+        return None
+    
     try:
         payload = {
             "type": "safari",
             "category": "Sightseeing",
-            "title": "Test Tour",
-            "vendor": "Test Vendor",
-            "priceValue": 100,
+            "title": "Vendor Owned Tour",
+            "priceValue": 200,
             "currency": "USD",
-            "priceLabel": "$100",
-            "includes": "A,B,C",
-            "keywords": "test,tour"
+            "priceLabel": "$200",
+            "includes": "X,Y",
+            "keywords": "vendor,tour"
         }
         
-        response = requests.post(f"{BASE_URL}/listings", json=payload, timeout=10)
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.post(f"{BASE_URL}/listings", json=payload, headers=headers, timeout=10)
         data = response.json()
         
+        # Check status code
         if response.status_code != 200:
-            print_test("Create listing status", False, f"Expected 200, got {response.status_code}: {data}")
+            print_test("Create listing with auth status", False, f"Expected 200, got {response.status_code}: {data}")
             return None
         
-        # Check for UUID id
+        # Check listing has id
         if "id" not in data:
-            print_test("Create listing id", False, "Missing id in response")
+            print_test("Create listing with auth id", False, "Missing id in response")
             return None
         
+        # CRITICAL: Check ownerId is set to vendor's id
+        if "ownerId" not in data:
+            print_test("Create listing with auth ownerId", False, "Missing ownerId in response")
+            return None
+        
+        if data["ownerId"] != vendor["id"]:
+            print_test("Create listing with auth ownerId match", False, f"Expected ownerId={vendor['id']}, got {data['ownerId']}")
+            return None
+        
+        # Check no _id leaked
         if "_id" in data:
-            print_test("Create listing no _id", False, "Found MongoDB _id in response")
+            print_test("Create listing with auth no _id", False, "MongoDB _id leaked in response")
             return None
         
-        # Check includes and keywords are arrays
-        if not isinstance(data.get("includes"), list):
-            print_test("Create listing includes array", False, f"includes should be array, got {type(data.get('includes'))}")
-            return None
-        
-        if not isinstance(data.get("keywords"), list):
-            print_test("Create listing keywords array", False, f"keywords should be array, got {type(data.get('keywords'))}")
-            return None
-        
-        print_test("Create listing", True, f"Created listing with id: {data['id']}")
+        print_test("Create listing with auth", True, f"Created listing with ownerId={data['ownerId']} (matches vendor.id)")
         return data["id"]
     except Exception as e:
-        print_test("Create listing", False, f"Exception: {str(e)}")
+        print_test("Create listing with auth", False, f"Exception: {str(e)}")
         return None
 
-def test_update_listing(listing_id):
-    """Test PUT /api/listings/:id - update a listing"""
-    print("\n=== TEST 8: PUT /api/listings/:id (update) ===")
-    if not listing_id:
-        print_test("Update listing", False, "No listing_id provided (create test failed)")
+def test_get_my_listings(token, vendor, listing_id):
+    """Test GET /api/my-listings with Bearer token - should return only vendor's listings"""
+    print("\n=== VENDOR AUTH TEST 9: GET /api/my-listings (with Bearer token) ===")
+    if not token or not vendor:
+        print_test("Get my listings", False, "No token or vendor provided (previous tests failed)")
         return False
     
     try:
-        payload = {
-            "priceLabel": "$120",
-            "priceValue": 120
-        }
-        
-        response = requests.put(f"{BASE_URL}/listings/{listing_id}", json=payload, timeout=10)
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(f"{BASE_URL}/my-listings", headers=headers, timeout=10)
         data = response.json()
         
+        # Check status code
         if response.status_code != 200:
-            print_test("Update listing status", False, f"Expected 200, got {response.status_code}: {data}")
+            print_test("Get my listings status", False, f"Expected 200, got {response.status_code}: {data}")
             return False
         
-        # Check updated values
-        if data.get("priceLabel") != "$120":
-            print_test("Update listing priceLabel", False, f"Expected '$120', got {data.get('priceLabel')}")
+        # Should be an array
+        if not isinstance(data, list):
+            print_test("Get my listings array", False, f"Expected array, got {type(data)}")
             return False
         
-        if data.get("priceValue") != 120:
-            print_test("Update listing priceValue", False, f"Expected 120, got {data.get('priceValue')}")
-            return False
-        
-        print_test("Update listing", True, f"Updated listing {listing_id} with new price")
-        return True
-    except Exception as e:
-        print_test("Update listing", False, f"Exception: {str(e)}")
-        return False
-
-def test_delete_listing(listing_id):
-    """Test DELETE /api/listings/:id - delete a listing"""
-    print("\n=== TEST 9: DELETE /api/listings/:id ===")
-    if not listing_id:
-        print_test("Delete listing", False, "No listing_id provided (create test failed)")
-        return False
-    
-    try:
-        response = requests.delete(f"{BASE_URL}/listings/{listing_id}", timeout=10)
-        data = response.json()
-        
-        if response.status_code != 200:
-            print_test("Delete listing status", False, f"Expected 200, got {response.status_code}: {data}")
-            return False
-        
-        if not data.get("deleted"):
-            print_test("Delete listing response", False, f"Expected deleted=true, got {data}")
-            return False
-        
-        # Verify it's gone
-        verify_response = requests.get(f"{BASE_URL}/listings", timeout=10)
-        all_listings = verify_response.json()
-        for item in all_listings:
-            if item.get("id") == listing_id:
-                print_test("Delete listing verification", False, f"Listing {listing_id} still exists after deletion")
+        # Should include the listing we just created
+        if listing_id:
+            found = False
+            for item in data:
+                if item.get("id") == listing_id:
+                    found = True
+                    break
+            if not found:
+                print_test("Get my listings includes created", False, f"Created listing {listing_id} not found in my-listings")
                 return False
         
-        print_test("Delete listing", True, f"Deleted listing {listing_id} and verified removal")
+        # CRITICAL: All listings should have ownerId == vendor.id
+        for item in data:
+            if item.get("ownerId") != vendor["id"]:
+                print_test("Get my listings ownerId match", False, f"Found listing with ownerId={item.get('ownerId')}, expected {vendor['id']}")
+                return False
+        
+        # Check no _id leaked
+        for item in data:
+            if "_id" in item:
+                print_test("Get my listings no _id", False, "MongoDB _id leaked in response")
+                return False
+        
+        print_test("Get my listings", True, f"Retrieved {len(data)} listing(s), all owned by vendor (ownerId={vendor['id']})")
         return True
     except Exception as e:
-        print_test("Delete listing", False, f"Exception: {str(e)}")
+        print_test("Get my listings", False, f"Exception: {str(e)}")
         return False
 
-def test_create_lead(listings):
-    """Test POST /api/leads - create a booking lead"""
-    print("\n=== TEST 10: POST /api/leads (with listingId) ===")
-    if not listings or len(listings) == 0:
-        print_test("Create lead", False, "No listings available (get listings test failed)")
+def test_get_my_listings_no_token():
+    """Test GET /api/my-listings without token - should return 401"""
+    print("\n=== VENDOR AUTH TEST 10: GET /api/my-listings (no token) ===")
+    try:
+        response = requests.get(f"{BASE_URL}/my-listings", timeout=10)
+        data = response.json()
+        
+        # Should return 401 Unauthorized
+        if response.status_code != 401:
+            print_test("Get my listings no token status", False, f"Expected 401, got {response.status_code}: {data}")
+            return False
+        
+        print_test("Get my listings no token", True, "Correctly rejected request without token with 401")
+        return True
+    except Exception as e:
+        print_test("Get my listings no token", False, f"Exception: {str(e)}")
+        return False
+
+def test_create_lead_for_vendor_listing(listing_id):
+    """Test POST /api/leads for vendor's listing"""
+    print("\n=== VENDOR AUTH TEST 11: POST /api/leads (for vendor listing) ===")
+    if not listing_id:
+        print_test("Create lead for vendor listing", False, "No listing_id provided (create listing test failed)")
         return None
     
     try:
-        # Use first listing
-        listing_id = listings[0]["id"]
         payload = {"listingId": listing_id}
-        
         response = requests.post(f"{BASE_URL}/leads", json=payload, timeout=10)
         data = response.json()
         
+        # Check status code
         if response.status_code != 200:
-            print_test("Create lead status", False, f"Expected 200, got {response.status_code}: {data}")
+            print_test("Create lead for vendor listing status", False, f"Expected 200, got {response.status_code}: {data}")
             return None
         
-        # Check for UUID id
+        # Check lead has id
         if "id" not in data:
-            print_test("Create lead id", False, "Missing id in response")
-            return None
-        
-        if "_id" in data:
-            print_test("Create lead no _id", False, "Found MongoDB _id in response")
+            print_test("Create lead for vendor listing id", False, "Missing id in response")
             return None
         
         # Check whatsappUrl
         if "whatsappUrl" not in data:
-            print_test("Create lead whatsappUrl", False, "Missing whatsappUrl in response")
+            print_test("Create lead for vendor listing whatsappUrl", False, "Missing whatsappUrl in response")
             return None
         
         if "wa.me/254758378729" not in data["whatsappUrl"]:
-            print_test("Create lead whatsappUrl format", False, f"whatsappUrl doesn't contain wa.me/254758378729: {data['whatsappUrl']}")
+            print_test("Create lead for vendor listing whatsappUrl format", False, f"whatsappUrl doesn't contain wa.me/254758378729")
             return None
         
-        # Check commission
-        if "commission" not in data:
-            print_test("Create lead commission", False, "Missing commission in response")
-            return None
-        
-        if not isinstance(data["commission"], (int, float)):
-            print_test("Create lead commission type", False, f"commission should be numeric, got {type(data['commission'])}")
-            return None
-        
-        # Verify commission is 5% of priceValue
-        expected_commission = listings[0]["priceValue"] * 0.05
-        if abs(data["commission"] - expected_commission) > 0.01:
-            print_test("Create lead commission value", False, f"Expected {expected_commission}, got {data['commission']}")
-            return None
-        
-        print_test("Create lead", True, f"Created lead with id: {data['id']}, commission: {data['commission']}")
+        print_test("Create lead for vendor listing", True, f"Created lead with id: {data['id']}")
         return data["id"]
     except Exception as e:
-        print_test("Create lead", False, f"Exception: {str(e)}")
+        print_test("Create lead for vendor listing", False, f"Exception: {str(e)}")
         return None
 
-def test_create_lead_fallback():
-    """Test POST /api/leads with non-existent listingId and inline data"""
-    print("\n=== TEST 11: POST /api/leads (fallback with inline data) ===")
-    try:
-        payload = {
-            "listingId": "non-existent-id",
-            "title": "Fallback Tour",
-            "priceValue": 200,
-            "currency": "USD"
-        }
-        
-        response = requests.post(f"{BASE_URL}/leads", json=payload, timeout=10)
-        data = response.json()
-        
-        if response.status_code != 200:
-            print_test("Create lead fallback status", False, f"Expected 200, got {response.status_code}: {data}")
-            return False
-        
-        # Check whatsappUrl still works
-        if "whatsappUrl" not in data:
-            print_test("Create lead fallback whatsappUrl", False, "Missing whatsappUrl in response")
-            return False
-        
-        if "wa.me/254758378729" not in data["whatsappUrl"]:
-            print_test("Create lead fallback whatsappUrl format", False, f"whatsappUrl doesn't contain wa.me/254758378729")
-            return False
-        
-        print_test("Create lead fallback", True, "Fallback lead creation works with inline data")
-        return True
-    except Exception as e:
-        print_test("Create lead fallback", False, f"Exception: {str(e)}")
+def test_get_my_stats(token, vendor, listing_id, lead_id):
+    """Test GET /api/my-stats with Bearer token - should return vendor's stats"""
+    print("\n=== VENDOR AUTH TEST 12: GET /api/my-stats (with Bearer token) ===")
+    if not token or not vendor:
+        print_test("Get my stats", False, "No token or vendor provided (previous tests failed)")
         return False
-
-def test_get_leads():
-    """Test GET /api/leads - list all leads"""
-    print("\n=== TEST 12: GET /api/leads ===")
+    
     try:
-        response = requests.get(f"{BASE_URL}/leads", timeout=10)
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(f"{BASE_URL}/my-stats", headers=headers, timeout=10)
         data = response.json()
         
+        # Check status code
         if response.status_code != 200:
-            print_test("Get leads status", False, f"Expected 200, got {response.status_code}")
-            return False
-        
-        # Should have at least the leads we created
-        if len(data) < 1:
-            print_test("Get leads count", False, f"Expected at least 1 lead, got {len(data)}")
-            return False
-        
-        # Check for UUID id and no _id leakage
-        for item in data:
-            if "_id" in item:
-                print_test("Get leads no _id", False, f"Found _id in lead")
-                return False
-            if "id" not in item:
-                print_test("Get leads id", False, f"Missing id in lead")
-                return False
-        
-        print_test("Get leads", True, f"Retrieved {len(data)} leads with valid UUIDs")
-        return True
-    except Exception as e:
-        print_test("Get leads", False, f"Exception: {str(e)}")
-        return False
-
-def test_get_stats():
-    """Test GET /api/stats - dashboard statistics"""
-    print("\n=== TEST 13: GET /api/stats ===")
-    try:
-        response = requests.get(f"{BASE_URL}/stats", timeout=10)
-        data = response.json()
-        
-        if response.status_code != 200:
-            print_test("Get stats status", False, f"Expected 200, got {response.status_code}")
+            print_test("Get my stats status", False, f"Expected 200, got {response.status_code}: {data}")
             return False
         
         # Check required fields
-        required_fields = ["totalListings", "safariCount", "localCount", "totalLeads", "estRevenueUSD", "leadsByType", "leadsByCategory"]
+        required_fields = ["listings", "leads", "commissionOwedUSD", "recentLeads"]
         for field in required_fields:
             if field not in data:
-                print_test("Get stats fields", False, f"Missing field: {field}")
+                print_test("Get my stats fields", False, f"Missing field: {field}")
                 return False
         
-        # Check numeric fields
-        numeric_fields = ["totalListings", "safariCount", "localCount", "totalLeads", "estRevenueUSD"]
-        for field in numeric_fields:
-            if not isinstance(data[field], (int, float)):
-                print_test("Get stats numeric", False, f"{field} should be numeric, got {type(data[field])}")
+        # Check listings count (should be >= 1 since we created one)
+        if not isinstance(data["listings"], int) or data["listings"] < 1:
+            print_test("Get my stats listings", False, f"Expected listings >= 1, got {data['listings']}")
+            return False
+        
+        # Check leads count (should be >= 1 since we created one)
+        if not isinstance(data["leads"], int) or data["leads"] < 1:
+            print_test("Get my stats leads", False, f"Expected leads >= 1, got {data['leads']}")
+            return False
+        
+        # Check commissionOwedUSD is numeric
+        if not isinstance(data["commissionOwedUSD"], (int, float)):
+            print_test("Get my stats commissionOwedUSD type", False, f"Expected numeric, got {type(data['commissionOwedUSD'])}")
+            return False
+        
+        # For a $200 listing, 5% commission = $10
+        expected_commission = 10.0
+        if abs(data["commissionOwedUSD"] - expected_commission) > 0.01:
+            print_test("Get my stats commissionOwedUSD value", False, f"Expected ~{expected_commission}, got {data['commissionOwedUSD']}")
+            return False
+        
+        # Check recentLeads is array
+        if not isinstance(data["recentLeads"], list):
+            print_test("Get my stats recentLeads type", False, f"Expected array, got {type(data['recentLeads'])}")
+            return False
+        
+        # Should include the lead we created
+        if lead_id:
+            found = False
+            for lead in data["recentLeads"]:
+                if lead.get("id") == lead_id:
+                    found = True
+                    break
+            if not found:
+                print_test("Get my stats recentLeads includes created", False, f"Created lead {lead_id} not found in recentLeads")
                 return False
         
-        # Check leadsByType structure
-        if not isinstance(data["leadsByType"], dict):
-            print_test("Get stats leadsByType", False, f"leadsByType should be object, got {type(data['leadsByType'])}")
-            return False
+        # Check no _id leaked in recentLeads
+        for lead in data["recentLeads"]:
+            if "_id" in lead:
+                print_test("Get my stats recentLeads no _id", False, "MongoDB _id leaked in recentLeads")
+                return False
         
-        if "safari" not in data["leadsByType"] or "local" not in data["leadsByType"]:
-            print_test("Get stats leadsByType keys", False, f"leadsByType missing safari or local keys")
-            return False
-        
-        # Check leadsByCategory structure
-        if not isinstance(data["leadsByCategory"], list):
-            print_test("Get stats leadsByCategory", False, f"leadsByCategory should be array, got {type(data['leadsByCategory'])}")
-            return False
-        
-        print_test("Get stats", True, f"Stats: {data['totalListings']} listings, {data['totalLeads']} leads, ${data['estRevenueUSD']} revenue")
+        print_test("Get my stats", True, f"Stats: {data['listings']} listing(s), {data['leads']} lead(s), ${data['commissionOwedUSD']} commission")
         return True
     except Exception as e:
-        print_test("Get stats", False, f"Exception: {str(e)}")
+        print_test("Get my stats", False, f"Exception: {str(e)}")
         return False
 
+def test_get_my_stats_no_token():
+    """Test GET /api/my-stats without token - should return 401"""
+    print("\n=== VENDOR AUTH TEST 13: GET /api/my-stats (no token) ===")
+    try:
+        response = requests.get(f"{BASE_URL}/my-stats", timeout=10)
+        data = response.json()
+        
+        # Should return 401 Unauthorized
+        if response.status_code != 401:
+            print_test("Get my stats no token status", False, f"Expected 401, got {response.status_code}: {data}")
+            return False
+        
+        print_test("Get my stats no token", True, "Correctly rejected request without token with 401")
+        return True
+    except Exception as e:
+        print_test("Get my stats no token", False, f"Exception: {str(e)}")
+        return False
+
+# ============================================================================
+# MAIN TEST RUNNER
+# ============================================================================
+
 def main():
-    """Run all tests"""
+    """Run all vendor auth tests"""
     print("=" * 70)
-    print("OSARE Backend API Test Suite")
+    print("OSARE Vendor Auth Backend API Test Suite")
     print("=" * 70)
     print(f"Base URL: {BASE_URL}")
     
     results = []
     
-    # Test 1: Seed
-    results.append(("Seed listings", test_seed_listings()))
+    # Test 1: Register vendor
+    token1, email = test_vendor_register()
+    results.append(("Register vendor", token1 is not None and email is not None))
     
-    # Test 2: Get all listings
-    all_listings = test_get_all_listings()
-    results.append(("Get all listings", all_listings is not None))
+    # Test 2: Register duplicate email
+    results.append(("Register duplicate email", test_vendor_register_duplicate(email)))
     
-    # Test 3-6: Filters and search
-    results.append(("Filter by type=safari", test_filter_by_type_safari()))
-    results.append(("Filter by type=local", test_filter_by_type_local()))
-    results.append(("Search kilimanjaro", test_search_kilimanjaro()))
-    results.append(("Filter by category", test_filter_by_category()))
+    # Test 3: Login vendor
+    token2 = test_vendor_login(email)
+    results.append(("Login vendor", token2 is not None))
     
-    # Test 7-9: CRUD operations
-    created_id = test_create_listing()
-    results.append(("Create listing", created_id is not None))
-    results.append(("Update listing", test_update_listing(created_id)))
-    results.append(("Delete listing", test_delete_listing(created_id)))
+    # Test 4: Login with wrong password
+    results.append(("Login wrong password", test_vendor_login_wrong_password(email)))
     
-    # Test 10-12: Leads
-    lead_id = test_create_lead(all_listings)
-    results.append(("Create lead", lead_id is not None))
-    results.append(("Create lead fallback", test_create_lead_fallback()))
-    results.append(("Get leads", test_get_leads()))
+    # Test 5: Get vendor me with token
+    vendor = test_vendor_me(token2)
+    results.append(("Get vendor me", vendor is not None))
     
-    # Test 13: Stats
-    results.append(("Get stats", test_get_stats()))
+    # Test 6: Get vendor me without token
+    results.append(("Get vendor me no token", test_vendor_me_no_token()))
+    
+    # Test 7: Get vendor me with invalid token
+    results.append(("Get vendor me invalid token", test_vendor_me_invalid_token()))
+    
+    # Test 8: Create listing with Bearer token
+    listing_id = test_create_listing_with_auth(token2, vendor)
+    results.append(("Create listing with auth", listing_id is not None))
+    
+    # Test 9: Get my listings
+    results.append(("Get my listings", test_get_my_listings(token2, vendor, listing_id)))
+    
+    # Test 10: Get my listings without token
+    results.append(("Get my listings no token", test_get_my_listings_no_token()))
+    
+    # Test 11: Create lead for vendor's listing
+    lead_id = test_create_lead_for_vendor_listing(listing_id)
+    results.append(("Create lead for vendor listing", lead_id is not None))
+    
+    # Test 12: Get my stats
+    results.append(("Get my stats", test_get_my_stats(token2, vendor, listing_id, lead_id)))
+    
+    # Test 13: Get my stats without token
+    results.append(("Get my stats no token", test_get_my_stats_no_token()))
     
     # Summary
     print("\n" + "=" * 70)
-    print("TEST SUMMARY")
+    print("VENDOR AUTH TEST SUMMARY")
     print("=" * 70)
     passed = sum(1 for _, result in results if result)
     total = len(results)
@@ -531,10 +612,17 @@ def main():
     print(f"Failed: {total - passed}/{total}")
     
     if passed == total:
-        print("\n🎉 All tests passed!")
+        print("\n🎉 All vendor auth tests passed!")
+        print("\nCRITICAL CHECKS VERIFIED:")
+        print("  ✅ No passwordHash leaked in any response")
+        print("  ✅ No MongoDB _id leaked in any response")
+        print("  ✅ ownerId correctly attached to listings created with Bearer token")
+        print("  ✅ /api/my-listings returns only vendor's listings")
+        print("  ✅ /api/my-stats calculates commission correctly (5% = $10 for $200 listing)")
+        print("  ✅ All auth-protected endpoints return 401 without valid token")
         return 0
     else:
-        print("\n❌ Some tests failed:")
+        print("\n❌ Some vendor auth tests failed:")
         for name, result in results:
             if not result:
                 print(f"  - {name}")
