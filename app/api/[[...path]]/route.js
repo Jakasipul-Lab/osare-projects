@@ -11,7 +11,7 @@ const STATIC_DATABASE = [
   { 
     id: 'mara-001',
     category: 'Safari Package', 
-    title: 'Masai Mara 3-Day Migration Safari', 
+    title: 'Masai Mara LÍDay Migration Safari', 
     vendor: 'Mara Safari Lodges Ltd', 
     vendorContact: '+254 700 111 222',
     vendorUrl: 'https://www.masaimara.com/',
@@ -51,7 +51,7 @@ const STATIC_DATABASE = [
     assets: ['Ocean View Suites', 'Spa & Wellness', 'Private Beach']
   },
   { 
-    id: 'safari-park-001', 
+    id: 'safari-park-001',
     category: 'Hotel & Resort', 
     title: 'Safari Park Hotel - City Resort', 
     vendor: 'Safari Park', 
@@ -65,7 +65,7 @@ const STATIC_DATABASE = [
     assets: ['Conference Halls', 'Themed Restaurants', 'Large Pool']
   },
   { 
-    id: 'spice-001', 
+    id: 'spice-001',
     category: 'Car & Caravan Hire', 
     title: '4x4 Land Cruiser - Mara & Kilimanjaro', 
     vendor: 'African Spice Car Hire', 
@@ -79,7 +79,7 @@ const STATIC_DATABASE = [
     assets: ['Land Cruisers', 'Overland Trucks']
   },
   { 
-    id: 'sgr-001', 
+    id: 'sgr-001',
     category: 'Train (SGR)', 
     title: 'SGR Train - Nairobi to Mombasa', 
     vendor: 'Madaraka Express', 
@@ -90,7 +90,7 @@ const STATIC_DATABASE = [
     priceLabel: 'KES 1,500', priceValue: 1500, currency: 'KES', type: 'local', 
     image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80', 
     keywords: ['sgr', 'train', 'nairobi', 'mombasa'],
-    assets: ['Economy Coaches', 'First Class Coaches']
+    assets: ['Econofy Coaches', 'First Class Coaches']
   },
 ];
 
@@ -98,7 +98,9 @@ let pool
 function getPool() {
   if (!pool) {
     const cs = (process.env.DATABASE_URL || process.env.NEON_DB_URL || '').replace(/&?channel_binding=require/gi, '')
-    if (cs) { pool = new Pool({ connectionString: cs, ssl: { rejectUnauthorized: false }, max: 2, idleTimeoutMillis: 10000 }) }
+    if (cs) {
+      pool = new Pool({ connectionString: cs, ssl: { rejectUnauthorized: false }, max: 2, idleTimeoutMillis: 10000 })
+    }
   }
   return pool
 }
@@ -111,9 +113,12 @@ function matchesQuery(item, query) {
   return words.every(w => haystack.includes(w))
 }
 
+const WHATSAPP_PHONE = '254758378729'
+
 async function handleRoute(request, { params }) {
   const { path = [] } = await params
   const route = `/${path.join('/')}`
+  const method = request.method
   const url = new URL(request.url)
 
   try {
@@ -133,6 +138,7 @@ async function handleRoute(request, { params }) {
       }
 
       if (target) {
+        // Log click lead for tracking commission
         if (p) {
           try {
              await p.query(
@@ -184,7 +190,11 @@ async function handleRoute(request, { params }) {
       return NextResponse.json({ success: true })
     }
 
-    return NextResponse.json({ message: 'OSARE API Ready' }, { headers: { 'Access-Control-Allow-Origin': '*' } })
+    if (route === '/') {
+      return NextResponse.json({ message: 'OSARE API with Tracking Link Support' })
+    }
+
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
   } catch (err) {
     return NextResponse.json({ error: 'Internal Error' }, { status: 500 })
   }
@@ -192,4 +202,4 @@ async function handleRoute(request, { params }) {
 
 export const GET = handleRoute
 export const POST = handleRoute
-export const OPTIONS = async () => NextResponse.json({}, { headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS' } })
+export const OPTIONS = async () => NextResponse.json({}, { headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONR' } })
