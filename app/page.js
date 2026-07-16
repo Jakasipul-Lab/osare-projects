@@ -1,29 +1,331 @@
-J3VzZSBjbGllbnQnCgppbXBvcnQgeyB1c2VFZmZlY3QsIHVzZVN0YXRlLCB1c2VDYWxsYmFjayB9IGZyb20gJ3JlYWN0JwppbXBvcnQgewogIFNlYXJjaCwgTWFwUGluLCBNZW51LCBYLCBDb21wYXNzLCBCdXMsIFBsYW5lLCBDYXIsIEhvdGVsLCBNb3VudGFpbiwKICBCaW5vY3VsYXJzLCBCdWlsZGluZzIsIFBob25lLCBTaGllbGRDaGVjaywgVHJlbmRpbmdVcCwgUGVyY2VudCwgVXNlcnMsCiAgTGVhZiwgU3BhcmtsZXMsIEFycm93UmlnaHQsIFRyYXNoMiwgUGx1cywgTG9hZGVyMiwgTWVzc2FnZUNpcmNsZSwgVGFnLCBFeHRlcm5hbExpbmssIEdsb2JlCn0gZnJvbSAnbHVjaWRlLXJlYWN0JwppbXBvcnQgeyBCdXR0b24gfSBmcm9tICdAL2NvbXBvbmVudHMvdWkvYnV0dG9uJwppbXBvcnQgeyBJbnB1dCB9IGZyb20gJ0AvY29tcG9uZW50cy91aS9pbnB1dCcKaW1wb3J0IHsgVGV4dGFyZWEgfSBmcm9tICdAL2NvbXBvbmVudHMvdWkvdGV4dGFyZWEnCmltcG9ydCB7IExhYmVsIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL2xhYmVsJwppbXBvcnQgeyBDYXJkLCBDYXJkQ29udGVudCwgQ2FyZEhlYWRlciwgQ2FyZFRpdGxlIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL2NhcmQnCmltcG9ydCB7IEJhZGdlIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL2JhZGdlJwppbXBvcnQgewogIFNlbGVjdCwgU2VsZWN0Q29udGVudCwgU2VsZWN0SXRlbSwgU2VsZWN0VHJpZ2dlciwgU2VsZWN0VmFsdWUKfSBmcm9tICdAL2NvbXBvbmVudHMvdWkvc2VsZWN0JwppbXBvcnQgeyBUYWJsZSwgVGFibGVCb2R5LCBUYWJsZUNlbGwsIFRhYmxlSGVhZCwgVGFibGVIZWFkZXIsIFRhYmxlUm93IH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL3RhYnxlJwppbXBvcnQgeyBUYWJzLCBUYWJzQ29udGVudCwgVGFic0xpc3QsIFRhYnNUcmlnZ2VyIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL3RhYnMnCmltcG9ydCB7IFRvYXN0ZXIgfSBmcm9tICdAL2NvbXBvbmVudHMvdWkvc29ubmVyJwppbXBvcnQgeyB0b2FzdCB9IGZyb20gJ3Nvbm5lcicKaW1wb3J0IHsKICBCYXJDaGFydCwgQmFyLCBQaWVDaGFydCwgUGllLCBDZWxsLCBYQXhpcywgWUF4aXMsIFRvb2x0aXAsIFJlc3BvbnNpdmVDb250YWluZXIKfSBmcm9tICdyZWNoYXJ0cycKCmNvbnN0IEhFUk8gPSAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1MTYwMjY2NzIzMjItYmM1MmQ2MWE1NWQ1P2Nyb3A9ZW50cm9weSZjcz1zcmdiJmZtPWpwZyZpeGlkPU0zdzROakExT1RWOE1Id3hmSE5sWVhKamFIdzBmSHhCWm5KcFkyRnVKVEl3YzJGbVlYSnBmR1Z1ZkRCOGZIeDhNVGM0TXpNNE1qQTJObnd3Jml4bGliPXJiLTQuMS4wJnE9ODUnCmNvbnN0IExPQ0FMX0hFUk8gPSAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE3NzAyODM1NTM4ODUtYmFkMWQ2ZjdhY2Q3P2Nyb3A9ZW50cm9weSZjcz1zcmdiJmZtPWpwZyZpeGlkPU0zdzNOVFkyTnpSOE1Id3hmSE5sWVhKamFId3hmSHh0WVhSaGRIVWxNakJpZFhOOFpXNThNSHg4Zkh3eE56Z3pNemd5TURjNGZEQSZpeGxpYj1yYi00LjEuMCZxPTg1JwoKY29uc3QgTkFWID0gWwogIHsga2V5OiAnaG9tZScsIGxhYmVsOiAnSG9tZScgfSwKICB7IGtleTogJ3NhZmFyaScsIGxhYmVsOiAnU2FmYXJpJyB9LAogIHsga2V5OiAnbG9jYWwnLCBsYWJlbDogJ0xvY2FsIFRyYW5zaXQnIH0sCiAgeyBrZXk6ICdhYm91dCcsIGxhYmVsOiAnQWJvdXQnIH0sCiAgeyBrZXk6ICdkYXNoYm9hcmQnLCBsYWJlbDogJ0Rhc2hib2FyZCcgfSwKICB7IGtleTogJ3ZlbmRvcicsIGxhYmVsOiAnVmVuZG9yIFBvcnRhbCcgfSwKICB7IGtleTogJ2FkbWluJywgbGFiZWw6ICdBZG1pbicgfSwKXQoKY29uc3QgU0FGQVJJX0NBVFMgPSBbJ0FsbCcsICdTYWZhcmkgUGFja2FnZScsICdLaWxpbWFuamFybyBDbGltYicsICdIb3RlbCAmIFJlc29ydCcsICdDYXIgJiBDYXJhdmFuIEhpcmUnLCAnTGlnaHQgQWlyY3JhZnQgQ2hhcnRlcicsICdTaWdodHNlZWluZyddCmNvbnN0IExPQ0FMX0NBVFMgPSBbJ0FsbCcsICdNYXRhdHUgLyBTaHV0dGxlJywgJ1RyYWluIChTR1IpJywgJ1RheGkgLyBDYXIgSGlyZScsICdBaXJwb3J0IFRyYW5zZmVyJ10KY29uc3QgQ0hBUlRfQ09MT1JTID0gWycjZjk3MzE2JywgJyMxZTNhOGEnLCAnIzNiODJmNicsICcjMTBiOTgxJywgJyNlYWIzMDgnLCAnIzhiNWNmNicsICcjZWY0NDQ0J10KCmNvbnN0IGNhdEljb24gPSAoY2F0KSA9PiB7CiAgaWYgKC9raWxpbWFuamFyby9pLnRlc3QoY2F0KSkgcmV0dXJuIDxNb3VudGFpbiBjbGFzc05hbWU9ImgtNCB3LTQiIC8+CiAgaWYgKC9ob3RlbHxyZXNvcnQvaS50ZXN0KGNhdCkpIHJldHVybiA8SG90ZWwgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogIGlmICgvY2FyfGNhcmF2YW4vaS50ZXN0KGNhdCkpIHJldHVybiA8Q2FyIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICBpZiAoL2FpcmNyYWZ0L2kudGVzdChjYXQpKSByZXR1cm4gPFBsYW5lIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICBpZiAoL3NpZ2h0c2VlaW5nL2kudGVzdChjYXQpKSByZXR1cm4gPEJpbm9jdWxhcnMgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgogIGlmICgvdHJhaW4vaS50ZXN0KGNhdCkpIHJldHVybiA8QnVzIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICBpZiAoL3RheGkvaS50ZXN0KGNhdCkpIHJldHVybiA8Q2FyIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICBpZiAoL21hdGF0dXxzaHV0dGxlL2kudGVzdChjYXQpKSByZXR1cm4gPEJ1cyBjbGFzc05hbWU9ImgtNCB3LTQiIC8+CiAgaWYgKC9haXJwb3J0L2kudGVzdChjYXQpKSByZXR1cm4gPFBsYW5lIGNsYXNzTmFtZT0iaC00IHctNCIgLz4KICByZXR1cm4gPENvbXBhc3MgY2xhc3NOYW1lPSJoLTQgdy00IiAvPgp9CgovLyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KLy8gTGlzdGluZyBjYXJkCi8vIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKZnVuY3Rpb24gTGlzdGluZ0NhcmQoeyBpdGVtLCBvbkJvb2ssIGJvb2tpbmcgfSkgewogIGNvbnN0IGFjY2VudCA9IGl0ZW0udHlwZSA9PT0gJ3NhZmFyaScgPyAnI2Y5NzMxNicgOiAnIzFlM2E4YScKICByZXR1cm4gKAogICAgPENhcmQgY2xhc3NOYW1lPSJvdmVyZmxvdy1oaWRkZW4gYm9yZGVyLXNsYXRlLTIwMCBob3ZlcjpzaGFkb3cteGwgdHJhbnNpdGlvbi1zaGFkb3cgZHVyYXRpb24tMzAwIGZsZXggZmxleC1jb2wiPgogICAgICA8ZGl2IGNsYXNzTmFtZT0icmVsYXRpdmUgaC01MiB3LWZ1bGwgb3ZlcmZsb3ctaGlkZGVuIj4KICAgICAgICA8aW1nIHNyYz17aXRlbS5pbWFnZX0gYWx0PXtpdGVtLnRpdGxlfSBjbGFzc05hbWU9ImgtZnVsbCB3LWZ1bGwgb2JqZWN0LWNvdmVyIHRyYW5zaXRpb24tdHJhbnNmb3JtIGR1cmF0aW9uLTUwMCBob3ZlcjpzY2FsZS0xMDUiIC8+CiAgICAgICAgPEJhZGdlIGNsYXNzTmFtZT0iYWJzb2x1dGUgbGVmdC0zIHRvcC0zIGdhcC0xIGJvcmRlci0wIHRleHQtd2hpdGUgc2hhZG93IiBzdHlsZT17eyBiYWNrZ3JvdW5kQ29sb3I6IGFjY2VudCB9fT4KICAgICAgICAgIHtjYXRJY29uKGl0ZW0uY2F0ZWdvcnkpfSB7aXRlbS5jYXRlZ29yeX0KICAgICAgICA8L0JhZGdlPgogICAgICAgIHtpdGVtLm9mZlBlYWtMYWJlbCA/ICgKICAgICAgICAgIDxCYWRnZSBjbGFzc05hbWU9ImFic29sdXRlIHJpZ2h0LTMgdG9wLTMgZ2FwLTEgYmctZW1lcmFsZC02MDAgdGV4dC13aGl0ZSBib3JkZXItMCBzaGFkb3ciPgogICAgICAgICAgICA8VGFnIGNsYXNzTmFtZT0iaC0zIHctMyIgLz4gT2ZmLXBlYWsge2l0ZW0ub2ZmUGVha0xhYmVsfQogICAgICAgICAgPC9CYWRnZT4KICAgICAgICApIDogbnVsbH0KICAgICAgPC9kaXY+CiAgICAgIDxDYXJkQ29udGVudCBjbGFzc05hbWU9ImZsZXggZmxleC1xIGZsZXgtY29sIHAtNSI+CiAgICAgICAgPGgzIGNsYXNzTmFtZT0idGV4dC1sZyBmb250LWJvbGQgdGV4dC1zbGF0ZS05MDAgbGVhZGluZy1zbnVnIj57aXRlbS50aXRsZX08L2gzPgogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIGZvbnQtc2VtaWJvbGQiIHN0eWxlPXt7IGNvbG9yOiBhY2NlbnQgfX0+Qnkge2l0ZW0udmVuZG9yfTwvcD4KICAgICAgICAKICAgICAgICB7LyogVmVuZG9yIFByb2ZpbGUgSW5mbyAqL30KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMiBzcGFjZS15LTEiPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMS41IHRleHQteHMgdGV4dC1zbGF0ZS01MDAgZm9udC1tZWRpdW0iPgogICAgICAgICAgICA8UGhvbmUgY2xhc3NOYW1lPSJoLTMgdy0zIiAvPiB7aXRlbS52ZW5kb3JDb250YWN0IHx8ICdDb250YWN0IG9uIHNpdGUnfQogICAgICAgICAgPC9wPgogICAgICAgICAgPGEgaHJlZj17aXRlbS5tYXBMaW5rfSB0YXJnZXQ9Il9ibGFuayIgcmVsPSJub29wZW5lciBub3JlZmVycmVyIiBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC14cyB0ZXh0LXNsYXRlLTUwMCBob3Zlcjp0ZXh0LXNsYXRlLTcwMCI+CiAgICAgICAgICAgIDxNYXBQaW4gY2xhc3NOYW1lPSJoLTMgdy0zIiAvPiB7aXRlbS5sb2NhdGlvbn0KICAgICAgICAgIDwvYT4KICAgICAgICA8L2Rpdj4KCiAgICAgICAgey8qIEFzc2V0cyAvIEludmVudG9yeSAqL30KICAgICAgIHtpdGVtLmFzc2V0cz8ubGVuZ3RoID8gKAogICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTMiPgogICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtWzEwcHhdIHVwcGVyY2FzZSB0cmFja2luZy13aWRlciBmb250LWJvbGQgdGV4dC1zbGF0ZS00MDAgbWItMS41Ij5BdmFpbGFibGUgQXNzZXRzPC9wPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LXdyYXAgZ2FwLTEiPgogICAgICAgICAgICAgIHtpdGVtLmFzc2V0cy5tYXAoKGFzc2V0LCBpZHgpID0+ICgKICAgICAgICAgICAgICAgIDxCYWRnZSBrZXk9e2lkeH0gdmFyaWFudD0ib3V0bGluZSIgY2xhc3NOYW1lPSJ0ZXh0LVsxMHB4XSBweC0xLjUgcHktMCBib3JkZXItc2xhdGUtMjAwIHRleHQtc2xhdGUtNTAwIj57YXNzZXR9PC9CYWRnZT4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApIDogbnVsbH0KCiAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0zIHRleHQtc20gdGV4dC1zbGF0ZS02MDAgbGluZS1jbGFtcC0yIj57aXRlbS5kZXNjcmlwdGlvbn08L3A+CgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC00IGZsZXggaXRlbXMtZW5kIGp1c3RpZnktYmV0d2VlbiBib3JkZXItdCBib3JkZXItc2xhdGUtMTAwIHB0LTMiPgogICAgICAgICAgPGRpdj4KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhsIGZvbnQtZXh0cmFib2xkIHRleHQtZW1lcmFsZC02MDAiPntpdGVtLnByaWNlTGFiZWx9PC9wPgogICAgICAgICAgICB7aXRlbS5zZWFzb24gPyA8cCBjbGFzc05hbWU9InRleHQtWzExcHhdIHRleHQtc2xhdGUtNDAwIj57aXRlbS5zZWFzb259PC9wPiA6IG51bGx9CiAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEgdGV4dC1bMTFweF0gdGV4dC1zbGF0ZS00MDAiPjxCdWlsZGluZzIgY2xhc3NOYW1lPSJoLTMgdy0zIiAvPiB7aXRlbS52ZW5kb3JPZmZpY2V9PC9wPgogICAgICAgIDwvZGl2PgoKICAgICAgICA8QnV0dG9uCiAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBvbkJvb2soaXRlbSl9CiAgICAgICAgICBkaXNhYmxlZD17Ym9va2luZyA9PT0gaXRlbS5pZH0KICAgICAgICAgIGNsYXNzTmFtZT0ibXQtNCB3LWZ1bGwgZ2FwLTIgYmctc2xhdGUtOTAwIHRleHQtd2hpdGUgaG92ZXI6Ymctb3JhbmdlLTYwMCB0cmFuc2l0aW9uLWNvbG9ycyIKICAgICAgICA+CiAgICAgICAgICB7Ym9va2luZyA9PT0gaXRlbS5pZCA/IDxMb2FkZXIyIGNsYXNzTmFtZT0iaC00IHctNCBhbmltYXRlLXNwaW4iIC8+IDogPEdsb2JlIGNsYXNzTmFtZT0iaC00IHctNCIgLz59CiAgICAgICAgICBWaXNpdCBWZW5kb3IgU2l0ZQogICAgICAgIDwvQnV0dG9uPgogICAgICA8L0NhcmRDb250ZW50PgogICAgPC9DYXJkPgogICApCn0KCi8vIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQovLyBTZWFyY2ggKyByZXN1bHRzIHNlY3Rpb24gKHNoYXJlZCBieSBTYWZhcmkgJiBMb2NhbCkKLy8gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCmZ1bmN0aW9uIFRpZXJFeHBsb3Jlcih7IHR5cGUgfSkgewogIGNvbnN0IGlzU2FmYXJpID0gdHlwZSA9PT0gJ3NhZmFyaScKICBjb25zdCBjYXRzID0gaXNTYWZhcmkgPyBTQUZBUklfQ0FUUyA6IExPQ0FMX0NBVFMKICBjb25zdCBhY2NlbnQgPSBpc1NhZmFyaSA/ICcjZjk3MzE2JyA6ICcjMWUzYThhJwogIGNvbnN0IFtxLCBzZXRRXSA9IHVzZVN0YXRlKCcnKQogIGNvbnN0IFtjYXQsIHNldENhdF0gPSB1c2VTdGF0ZSgnQWxsJykKICBjb25zdCBbaXRlbXMsIHNldEl0ZW1zXSA9IHVzZVN0YXRlKFtdKQogIGNvbnN0IFtsb2FkaW5nLCBzZXRMb2FkaW5nXSA9IHVzZVN0YXRlKHRydWUpCiAgY29uc3QgW2Jvb2tpbmcsIHNldEJvb2tpbmddID0gdXNlU3RhdGUobnVsbCkKCiAgY29uc3QgbG9hZCA9IHVzZUNhbGxiYWNrKGFzeW5jICgpID0+IHsKICAgIHNldExvYWRpbmcodHJ1ZSkKICAgIHRyeSB7CiAgICAgIGNvbnN0IHBhcmFtcyA9IG5ldyBVUkxTZWFyY2hQYXJhbXMoeyB0eXBlIH0pCiAgICAgIGlmIChxKSBwYXJhbXMuc2V0KCdxJywgcSkKICAgICAgaWYgKGNhdCAmJiBjYXQgIT09ICdBbGwnKSBwYXJhbXMuc2V0KCdjYXRlZ29yeScsIGNhdCkKICAgICAgY29uc3QgcmVzID0gYXdhaXQgZmV0Y2goYC9hcGkvbGlzdGluZ3M/JHtwYXJhbXMudG9TdHJpbmcoKX1gKQogICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzLmpzb24oKQogICAgICBzZXRJdGVtcyhBcnJheS5pc0FycmF5KGRhdGEpID8gZGF0YSA6IFtdKQogICAgfSBjYXRjaCAoZSkgewogICAgICB0b2FzdC5lcnJvcignRmFpbGVkIHRvIGxvYWQgbGlzdGluZ3MnKQogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0TG9hZGluZyhmYWxzZSkKICAgIH0KICB9LCBbdHlwZSwgcSwgY2F0XSkKCiAgdXNlRWZmZWN0KCgpID0+IHsgbG9hZCgpIH0sIFtjYXRdKSAvLyBlc2xpbnQtZGlzYWJsZS1saW5lCgogIHVzZUVmZmVjdCgoKSA9PiB7IGxvYWQoKSB9LCBbXSkgLy8gZXNsaW50LWRpc2FibGUtbGluZQoKICBjb25zdCBoYW5kbGVCb29rID0gYXN5bmMgKGl0ZW0pID0+IHsKICAgIHNldEJvb2tpbmcoaXRlbS5pZCkKICAgIHRyeSB7CiAgICAgIGF3YWl0IGZldGNoKCcvYXBpL2xlYWRzJywgewogICAgICAgIG1ldGhvZDogJ1BPU1QnLAogICAgICAgIGhlYWRlcnM6IHsgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyB9LAogICAgICAgIGJvZHk6IEpTT04uc3RyaW5naWZ5KHsgbGlzdGluZ0lkOiBpdGVtLmlkLCBsaXN0aW5nVGl0bGU6IGl0ZW0udGl0bGUsIHZlbmRvcjogaXRlbS52ZW5kb3IgfSkKICAgICAgfSkKICAgICAgd2luZG93LmxvY2F0aW9uLmhyZWYgPSBgL2FwaS9vdXQvJHtpdGVtLmlkfT9yZWY9b3NhcmVfaHViYAogICAgfSBjYXRjaCAoZSkgewogICAgICB3aW5kb3cubG9jYXRpb24uaHJlZSA9IGAvYXBpL291dC8ke2l0ZW0uaWR9P3JlZj1vc2FyZV9odWJgCiAgICB9IGZpbmFsbHkgewogICAgICBzZXRCb29raW5nKG51bGwpCiAgICB9CiAgfQoKICByZXR1cm4gKAogICAgPGRpdj4KICAgICAgPGRpdiBjbGFzc05hbWU9InJlbGF0aXZlIGgtNjQgdy1mdWxsIG92ZXJmbG93LWhpZGRlbiI+CiAgICAgICAgPGltZyBzcmM9e2lzU2FmYXJpID8gSEVSTyA6IExPQ0FMX0hFUk99IGFsdD0iYmFubmVyIiBjbGFzc05hbWU9ImgtZnVsbCB3LWZ1bGwgb2JqZWN0LWNvdmVyIiAvPgogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhYnNvbHV0ZSBpbnNldC0wIiBzdHlsZT17eyBiYWNrZ3JvdW5kOiBpc1NhZmFyaSA/ICAnbGluZWFyLWdyYWRpZW50KDEzNWRlZywgcmdiYSgyNDksMTE1LDIyLC44NSksIHJnYmEoMzAsNTgsMTM4LC43KScgOiAnbGluZWFyLWdyYWRpZW50KDEzNWRlZywgcmdiYSgzMCw1OCwxMzgsLjkpLCByZ2JhKDU5LDEzMCwyNDYsLjc1KSknIH19IC8+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImFic29sdXRlIGluc2V0LTAgbXgtYXV0byBmbGV4IG1heC13LTV4bCBmbGV4LWNvbCBqdXN0aWZ5LWNlbnRlciBweC01IHRleHQtd2hpdGUiPgogICAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC0zeGwgZm9udC1leHRyYWJvbGQgbWQ6dGV4dC00eGwiPntpc1NhZmFyaSA/ICdUb3VyaXN0IEFzc2lzdGFuY2Ug4oCUIEVhc3QgQWZyaWNhJyA6ICdMb2NhbCBDb21tdXRlIOKAlCBOYWlyb2JpICYgQmV5b25kJ308L2gxPgogICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0yIG1heC13LTJ4bCB0ZXh0LXdoaXRlLzkwIj57aXNTYWZhcmkgPyAnU2FmYXJpcywgS2lsaW1hbmphcm8gY2xpbWJzLCBob3RlbHMsIGNhciAmIGFpcmNyYWZ0IGhpcmUg4oCUIGNvbXBhcmUgYW5kIGJvb2sgaW5zdGFudGx5LicgOiAnQ29tcGFyZSBtYXRhdHVzLCBTR1IgdHJhaW5zLCB0YXhpcyAmIGFpcnBvcnQgc2h1dHRsZXMgYWNyb3NzIE5haXJvYmkgQ0JEIGFuZCBpdHMgZW52aXJvbnMuJ308L3A+CiAgICAgICAgPC9kaXY+CiAgICAgIDwvZGl2PgoKICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gLW10LTggbWF4LXctNHhsIHB4LTUiPgogICAgICAgIDxDYXJkIGNsYXNzTmFtZT0iYm9yZGVyLXNsYXRlLTIwMCBzaGFkb3ctbGciPgogICAgICAgICAgPENhcmRDb250ZW50IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCBnYXAtMyBwLTQgbWQ6ZmxleC1yb3cgbWQ6aXRlbXMtY2VudGVyIj4KICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9InJlbGF0aXZlIGZsZXgtMSI+CiAgICAgICAgICAgICAgPFNlYXJjaCBjbGFzc05hbWU9ImFic29sdXRlIGxlZnQtMyB0b3AtMS8yIGgtNSB3LTUgLXRyYW5zbGF0ZS15LTEvMiB0ZXh0LXNsYXRlLTQwMCIAvPgogICAgICAgICAgICAgIDxJbnB1dAogICAgICAgICAgICAgICAgdmFsdWU9e3F9CiAgICAgICAgICAgICAgICBvbmNoYW5nZT17KGUpID0+IHNldFEoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICAgICAgb25LZXlEb3duPXsoZSkgPT4gZS5rZXkgPT09ICdFbnRlcicgJiYgbG9hZCgpfQogICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI9e2lzU2FmYXJpID8gJ2UuZy4gTWFyYSBzYWZhcmksIEtpbGltYW5qYXJvLCBjYXIgaGlyZSwgWmFuemliYXIuLi4nIDogJ2UuZy4gU0dSIHRyYWluLCBtYXRhdHUsIHRheGksIGFpcnBvcnQuLi4nfQogICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJoLTEyIHBsLTEwIHRleHQtYmFzZSIKICAgICAgICAgICAgICAvPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPFNlbGVjdCB2YWx1ZT17Y2F0fSBvblZhbHVlQ2hhbmdlPXtzZXRDYXR9PgogICAgICAgICAgICAgIDxTZWxlY3RUcmlnZ2VyIGNsYXNzTmFtZT0iaC0xMiBtZDp3LTU2Ij48U2VsZWN0VmFsdWUgcGxhY2Vob2xkZXI9IkNhdGVnb3J5IiAvPjwvU2VsZWN0VHJpZ2dlcj4KICAgICAgICAgICAgICA8U2VsZWN0Q29udGVudD4KICAgICAgICAgICAgICAgIHtjYXRzLm1hcCgoYykgPT4gPFNlbGVjdEl0ZW0ga2V5PXtjfSB2YWx1ZT17Y30+e2N9PC9TZWxlY3RJ0ZW0+KX0KICAgICAgICAgICAgICA8L1NlbGVjdENvbnRlbnQ+CiAgICAgICAgICAgIDwvU2VsZWN0PgogICAgICAgICAgICA8QnV0dG9uIG9uQ2xpY2s9e2xvYWR9IGNsYXNzTmFtZT0iaC0xMiBnYXAtMiBweC02IHRleHQtd2hpdGUiIHN0eWxlPXt7IGJhY2tncm91bmRDb2xvcjogYWNjZW50IH19PgogICAgICAgICAgICAgIDxTZWFyY2ggY2xhc3NOYW1lPSJoLTQgdy00IiAvPiBTZWFyY2gKICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICA8L0NhcmRDb250ZW50PgogICAgICAgIDwvQ2FyZD4KICAgICAgPC9kaXY+CgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXgtYXV0byBtYXgtdy03eGwgcHgtNSBweS0xMCI+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1iLTUgZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIj4KICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LXNsYXRlLTUwMCI+e2xvYWRpbmcgPyAnU2VhcmNoaW5n4oCmJyA6IGAke2l0ZW1zLmxlbmd0aH0gb3B0aW9uJHtpdGVtcy5sZW5ndGggPT09IDEgPyAnJyA6ICdzJ30gZm91bmRgfTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICB7bG9hZGluZyA/ICgKICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGp1c3RpZnktY2VudGVyIHB5LTIwIj48TG9hZGVyMiBjbGFzc05hbWU9ImgtOCB3LTggYW5pbWF0ZS1zcGluIHRleHQtc2xhdGUtNDAwIiAvPjwvZGl2PgogICAgICAgICkgOiBpdGVtcy5sZW5ndGggPT09IDAgPyAoCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icm91bmRlZC14bCBib3JkZXIgYm9yZGVyLWRhc2hlZCBib3JkZXItc2xhdGUtMzAwIHB5LTIwIHRleHQtY2VudGVyIHRleHQtd2hpdGUiPgogICAgICAgICAgICBObyBtYXRjaGVzIGZvdW5kLiBUcnkgYnJvYWRlciB0ZXJtcyBsaWtlIHtpc1NhZmFyaSA/ICAnInNhZmFyaSIsICJiZWFjaCIsICJob3RlbCInIDogJyJ0cmFpbiIsICJ0YXhpIiwgIm1hdGF0dSInfS4KICAgICAgICAgIDwvZGl2PgogICAgICAgICkgOiAoCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZ3JpZCBncmlkLWNvbHMtMSBnYXAtNiBzbTpncmlkLWNvbHMtMiBsZzpncmlkLWNvbHMtMyI+CiAgICAgICAgICAgIHtpdGVtcy5tYXAoKGl0ZW0pID0+IDxMaXN0aW5nQ2FyZCBrZXk9e2l0ZW0uaWR9IGl0ZW09e2l0ZW19IG9uQm9vaz17aGFuZGxlQm9va30gYm9va2luZz17Ym9va2luZ30gLz4pfQogICAgICAgICAgPC9kaXY+CiAgICAgICAgKSwKICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICApCn0KCmZ1bmN0aW9uIEhvbWUoeyBnbyB9KSB7CiAgY29uc3QgW3EsIHNldFFdID0gdXNlU3RhdGUoJycpCiAgY29uc3QgW3RpZXIsIHNldFRpZXJdID0gdXNlU3RhdGUoJ3NhZmFyaScpCiAgY29uc3Qgc2VhcmNoID0gKCkgPT4geyBnbyh0aWVyLCBxKSB9CiAgcmV0dXJuICgKICAgIDxkaXY+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJyZWxhdGl2ZSBtaW4taC1bNTYwcHhdIHctZnVsbCBvdmVyZmxvdy1oaWRkZW4iPgogICAgICAgIDxpbWcgc3JjPXtIRVJPfSBhbHQ9Imhlcm8iIGNsYXNzTmFtZT0iYWJzb2x1dGUgaW5zZXQtMCBoLWZ1bGwgdy1mdWxsIG9iamVjdC1jb3ZlciIgLz4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iYWJzb2x1dGUgaW5zZXQtMCBiZy1ncmFkaWVudC10by1iciBmcm9tLVsjMWUzYThhXS84NSB2aWEtWzMxZTNhOGFdLzYwIHRvLVsjZjk3MzE2XS83MCIgLz4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icmVsYXRpdmUgbXgtYXV0byBmbGV4IG1heC13LTV4bCBmbGV4LWNvbCBpdGVtcy1jZW50ZXIgcHgtNSBweS0yNCB0ZXh0LWNlbnRlciB0ZXh0LXdoaXRlIj4KICAgICAgICAgIDxCYWRnZSBjbGFzc05hbWU9Im1iLTQgZ2FwLTEgYm9yZGVyLXdoaXRlLzMwIGJnLXdoaXRlLzE1IHRleHQtd2hpdGUgYmFja2Ryb3AtYmx1ciI+CiAgICAgICAgICAgIDxTcGFya2xlcyBjbGFzc05hbWU9ImgtMyB3LTMiIC8+IEZyZWUgaW5mb3JtYXRpb24gYXNzaXN0YW50IOKAlCBCb29rIGRpcmVjdAogICAgICAgICAgPC9CYWRnZT4KICAgICAgICAgIDxoMSBjbGFzc05hbWU9InRleHQtNHhsIGZvbnQtZXh0cmFib2xkIGxlYWRpbmctdGlnaHQgbWQ6dGV4dC02eGwiPgogICAgICAgICAgICBPU0FSRSDigAlCBFYXN0IEFmcmljYTxiciBjbGFzc05hbWU9ImhpZGRlbiBtZDpibG9jayIgLz4gU2FmYXJpIFJvdXRlcyAmIFRyYW5zaXQKICAgICAgICAgIDwvaDE+CiAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTUgbWF4LXctMnhsIHRleHQtbGcgdGV4dC13aGl0ZS85MCI+CiAgICAgICAgICAgIEV2ZXJ5dGhpbmcgYSB0b3VyaXN0IG9yIGxvY2FsIG5lZWRzIGF0IHRoZWlyIGZpbmdlcnRpcHMuIENvbXBhcmUgc2FmYXJpcywgS2lsaW1hbmphcm8gY2xpbWJzLCBob3RlbHMsIGNhciAmYW1wOyBhaXJjcmFmdCBoaXJlIOKAlCBhbmQgTmFpcm9iaSB0cmFuc2l0IOKAlCB0aGVuIGJvb2sgZGlyZWN0LiBXaGF0IHlvdSBzZWUgaXMgd2hhdCB5b3UgZ2V0LgogICAgICAgICAgPC9wPgogICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTggdy1mdWxsIG1heC13LTJ4bCI+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYi0zIGZsZXganVzdGlmeS1jZW50ZXIgZ2FwLTMiPgogICAgICAgICAgICAgIDxidXR0b24gb25DbGljaz17KCkgPT4gc2V0VGllcignc2FmYXJpJyl9IGNsYXNzTmFtZT17YHJvdW5kZWQtZnVsbCBweC02IHB5LTIgdGV4dC1zbSBmb250LWJvbGQgdHJhbnNpdGlvbiAke3RpZXIgPT09ICdzYWZhcmknID8gJ2JnLVsjZjk3MzE2XSB0ZXh0LXdoaXRlJyA6ICdiZy13aGl0ZS8yMCB0ZXh0LXdoaXRlIGhvdmVyOmJnLXdoaXRlLzMwJ31gfT5Ub3VyaXN0IEFzc2lzdGFuY2U8L2J1dHRvbj4KICAgICAgICAgICAgICA8YnV0dG9uIG9uQ2xpY2s9eygpID0+IHNldFRpZXIoJ2xvY2FsJyl9IGNsYXNzTmFtZT17YHJvdW5kZWQtZnVsbCBweC02IHB5LTIgdGV4dC1zbSBmb250LWJvbGQgdHJhbnNpdGlvbiAke3RpZXIgPT09ICdsb2NhbCcgPyAnYmctd2hpdGUgdGV4dC1bIzFlM2E4YV0nIDogJ2JnLXdoaXRlLzIwIHRleHQtd2hpdGUgaG92ZXI6Ymctd2hpdGUvMzAnfWB9PkxvY2FsIENvbW11dGU8L2J1dHRvbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGdhcC0yIHJvdW5kZWQtMnhsIGJnLXdoaXRlIHAtMiBzaGFkb3ctMnhsIj4KICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icmVsYXRpdmUgZmxleC0xIj4KICAgICAgICAgICAgICAgIDxTZWFyY2ggY2xhc3NOYW1lPSJhYnNvbHV0ZSBsZWZ0LTMgdG9wLTEvMiBoLTUgdy01IC10cmFuc2xhdGUteS0xLzIgdGV4dC1zbGF0ZS00MDAiIC8+CiAgICAgICAgICAgICAgICA8SW5wdXQgdmFsdWU9e3F9IG9uQ2hhbmdlPXsoZSkgPT4gc2V0UShlLnRhcmdldC52YWx1ZSl9IG9uS2V5RG93bj17KGUpID0+IGUua2V5ID09PSAnRW50ZXInICYmIHNlYXJjaCgpfSBwbGFjZWhvbGRlcj17dGllciA9PT0gJ3NhZmFyaScgPyAnTWFyYSBtaWdyYXRpb24sIEtpbGltYW5qYXJvLCBaYW56aWJhciwgY2FyIGhpcmXigKYnIDogJ05haXJvYmkgdG8gTW9tYmFzYSwgbWF0YXR1LCB0YXhpLCBTR1LigKYnfSBjbGFzc05hbWU9ImgtMTIgYm9yZGVyLTAgcGwtMTAgdGV4dC1iYXNlIHRleHQtc2xhdGUtOTAwIGZvY3VzLXZpc2libGU6cmluZy0wIiAvPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDxCdXR0b24gb25DbGljaz17c2VhcmNofSBjbGFzc05hbWU9ImgtMTIgZ2FwLTIgcHgtNiB0ZXh0LXdoaXRlIiBzdHlsZT17eyBiYWNrZ3JvdW5kQ29sb3I6IHRpZXIgPT09ICdzYWZhcmknID8gJyNmOTczMTYnIDogJyMxZTNhOGEnIH19PlNlYXJjaCA8QXJyb3dSaWdodCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+PC9CdXR0b24+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzTmFtZT0ibXgtYXV0byBtYXgtdy02eGwgcHgtNSBweS0xNiI+CiAgICAgICAgPGgyIGNsYXNzTmFtZT0idGV4dC1jZW50ZXIgdGV4dC0zeGwgZm9udC1leHRyYWJvbGQgdGV4dC1zbGF0ZS05MDAiPlR3byBwbGF0Zm9ybXMuIE9uZSB0cnVzdGVkIGh1Yi48L2gyPgogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMiB0ZXh0LWNlbnRlciB0ZXh0LXNsYXRlLTUwMCI+Q2hvb3NlIHlvdXIgam91cm5leS48L3A+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTEwIGdyaWQgZ2FwLTYgbWQ6Z3JpZC1jb2xzLTIiPgogICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXsoKSA9PiBnbygnc2FmYXJpJyl9IGNsYXNzTmFtZT0iZ3JvdXAgcmVsYXRpdmUgaC03MiBvdmVyZmxvdy1oaWRkZW4gcm91bmRlZC0yeGwgdGV4dC1sZWZ0IHNoYWRvdy1sZyI+CiAgICAgICAgICAgIDxpbWcgc3JjPXtIRVJPfSBhbHQ9InNhZmFyaSIgY2xhc3NOYW1lPSJhYnNvbHV0ZSBpbnNldC0wIGgtZnVsbCB3LWZ1bGwgb2JqZWN0LWNvdmVyIHRyYW5zaXRpb24tdHJhbnNmb3JtIGR1cmF0aW9uLTUwMCBncm91cC1ob3ZlcjpzY2FsZS0xMDUiIC8+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhYnNvbHV0ZSBpbnNldC0wIGJnLWdyYWRpZW50LXRvLXQgZnJvbS1ibGFjay84MCB2aWEtYmxhY2svMzAgdG8tdHJhbnNwYXJlbnQiIC8+CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhYnNvbHV0ZSBib3R0b20tMCBwLTYgdGV4dC13aGl0ZSI+CiAgICAgICAgICAgICAgPEJhZGdlIGNsYXNzTmFtZT0ibWItMiBnYXAtMSBib3JkZXItMCBiZy1bI2Y5NzMxNl0gdGV4dC13aGl0ZSI+PENvbXBhc3MgY2xhc3NOYW1lPSJoLTMgdy0zIiAvPiBUaWVyIDE8L0JhZGdlPgogICAgICAgICAgICAgIDxoMyBjbGFzc05hbWU9InRleHQtMnhsIGZvbnQtYm9sZCI+U2FmYXJpICYgVG91cmlzbTwvaDM+CiAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gdGV4dC13aGl0ZS84NSI+TWFyYSBtaWdyYXRpb24sIEtpbGltYW5qYXJvLCBob3RlbHMsIGNhciAmIGFpcmNyYWZ0IGhpcmUsIHNpZ2h0c2VlaW5nLjwvcD4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9Im10LTMgaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xIHRleHQtc20gZm9udC1zZW1pYm9sZCB0ZXh0LW9yYW5nZS0zMDAiPkV4cGxvcmUgc2FmYXJpcyA8QXJyb3dSaWdodCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+PC9zcGFuPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXsoKSA9PiBnbygnbG9jYWwnyl0gY2xhc3NOYW1lPSJncm91cCByZWxhdGl2ZSBoLTcyIG92ZXJmbG93LWhpZGRlbiByb3VuZGVkLTJ4bCB0ZXh0LWxlZnQgc2hhZG93LWxnIj4KICAgICAgICAgICAgPGltZyBzcmM9e0xPQ0FMX0hFUk99IGFsdD0ibG9jYWwiIGNsYXNzTmFtZT0iYWJzb2x1dGUgaW5zZXQtMCBoLWZ1bGwgdy1mdWxsIG9iamVjdC1jb3ZlciB0cmFuc2l0aW9uLXRyYW5zZm9ybSBkdXJhdGlvbi01MDAgZ3JvdXAtaG92ZXI6z2NhbGUtMTA1IiAvPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iYWJzb2x1dGUgaW5zZXQtMCBiZy1ncmFkaWVudC10by10IGZyb20tYmxhY2svODAgdmlhLWJsYWNrLzMwIHRvLXRyYW5zcGFyZW50IiAvPgogICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iYWJzb2x1dGUgYm90dG9tLTAgcC02IHRleHQtd2hpdGUiPgogICAgICAgICAgICAgIDxCYWRnZSBjbGFzc05hbWU9Im1iLTIgZ2FwLTEgYm9yZGVyLTAgYmctWyMxZTNhOGFdIHRleHQtd2hpdGUiPjxCdXMgY2xhc3NOYW1lPSJoLTMgdy0zIiAvPiBUaWVyIDI8L0JhZGdlPgogICAgICAgICAgICAgIDxoMyBjbGFzc05hbWU9InRleHQtMnhsIGZvbnQtYm9sZCI+TG9jYWwgQ29tbXV0ZTwvaDM+CiAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0xIHRleHQtc20gdGV4dC13aGl0ZS84NSI+TmFpcm9iaSBDQkQgdHJhbnNpdDogbWF0YXR1cywgU0dSIHRyYWlucywgdGF4aXMgJiBhaXJwb3J0IHNodXR0bGVzLjwvcD4KICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9Im10LTMgaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0xIHRleHQtc20gZm9udC1zZW1pYm9sZCB0ZXh0LWJsdWUtMzAwIj5GaW5kIHRyYW5zaXQgPEFycm93UmlnaHQgY2xhc3NOYW1lPSJoLTQgdy00IiAvPjwvc3Bhbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3NOYW1lPSJiZy1zbGF0ZS01MCBweS0xNiI+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctNnhsIHB4LTUiPgogICAgICAgICAgPGgyIGNsYXNzTmFtZT0idGV4dC1jZW50ZXIgdGV4dC1zeGwgZm9udC1leHRyYWJvbGQgdGV4dC1zbGF0ZS05MDAiPldoeSBPU0FSRTwvaDI+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMTAgZ3JpZCBnYXAtNiBtZDpncmlkLWNvbHMtNCI+CiAgICAgICAgICAgIHtbaWNvbjogPFNoaWVsZENoZWNrIGNsYXNzTmFtZT0iaC02IHctNiIgLz4sIHQ6ICdUcnVzdGVkIHZlbmRvcnMnLCBkOiAnVmVyaWZpZWQgb3BlcmF0b3JzIHdpdGggb2ZmaWNlICYgbG9jYXRpb24gc2hvd24uJyB9LCB7aWNvbjogPFBlcmNlbnQgY2xhc3NOYW1lPSJoLTYgdy02IiAvPiwgdDogJ0ZyZWUgZm9yIHRvdXJpc3RzJywgZDogJ1lvdSBwYXkgbm90aGluZyBleHRyYS4gVmVuZG9ycyBwYXkgdXMgNSUsIG5vdCB5b3UuJyB9LCB7aWNvbjogPFRyZW5kaW5nVXAgY2xhc3NOYW1lPSJoLTYgdy02IiAvPiwgdDogJ09mZi1wZWFrIHByaWNlcycsIGQ6ICdMb3ctc2Vhc29uIGRlYWxzIHN1cmZhY2VkIGF1dG9tYXRpY2FsbHkuJyB9LCB7aWNvbjogPE1lc3NhZ2VDaXJjbGUgY2xhc3NOYW1lPSJoLTYgdy02IiAvPiwgdDogJ0Jvb2sgb24gV2hhdHNBcHAnLCBkOiAnT25lIHRhcCB0byByZWFjaCB0aGUgdmVuZG9yIGFuZCBjb25maXJtLicgfV0ubWFwKChmLCBpKSA9PiAoPENhcmQga2V5PXtpfSBjbGFzc05hbWU9ImJvcmRlci1zbGF0ZS0yMDAiPjxDYXJkQ29udGVudCBjbGFzc05hbWU9InAtNiI+PGRpdiBjbGFzc05hbWU9ImZsZXggaC0xMiB3LTEyIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciByb3VuZGVkLXhsIGJnLVsjZjk3MzE2XS8xMCB0ZXh0LVsjZjk3MzE2XSI+e2YuaWNvbn08L2Rpdj48aDMgY2xhc3NOYW1lPSJtdC00IGZvbnQtYm9sZCB0ZXh0LXNsYXRlLTkwMCI+e2YudH08L2gzPjxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIHRleHQtc2xhdGUtNTAwIj57Zi5kfTwvcD48L0NhcmRDb250ZW50PjwvQ2FyZD4pKX0KICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogIikKfQoKZnVuY3Rpb24gQWJvdXQoKSB7CiAgY29uc3QgYnJhbmNoZXMgPSBbe3JlZ2lvbjogJ0tpc3VtdSBIZWFkcXVhcnRlcnMnLCBuYW1lOiAnTXJzIEphY3F1ZWxpbmUgU3VzYW4gTmFraW5zb24nLCByb2xlOiAnT2ZmaWNlci1pbi1DaGFyZ2UnLCBjb3VudHJ5OiAnS2VueWEnfSwge3JlZ2lvbjogJ0tlbnlhIFx1MjAxNCBOYWlyb2JpJywgbmFtZTogJ0tlbm5ldGggT2tldGNoJywgcm9sZTogJ0JyYW5jaCBNYW5hZ2VyJywgY291bnRyeTogJ0tlbnlhJ30sIHtyZWdpb246ICdVZ2FuZGEgXHUyMDE0IEthbXBhbGEnLCBuYW1lOiAnQnJpYW4gT21vbGxvJywgcm9sZTogJ0JyYW5jaCBNYW5hZ2VyJywgY291bnRyeTogJ1VnYW5kYSd9LCB7cmVnaW9uOiAnVGFuemFuaWEgXHUyMDE0IERhciBlcyBTYWxhYW0nLCBuYW1lOiAnSm9obnNvbiBZb25nbycsIHJvbGU6ICdCcmFuY2ggTWFuYWdlcicsIGNvdW50cnk6ICdUYW56YW5pYSd9LCB7cmVnaW9uOiAnR2VybWFueSBCcmFuY2gnLCBuYW1lOiAnQnJ1bm5lbnN0cmFzc2UgNDgnLCByb2xlOiAnMzQ1MzcsIEJhZ Wildungen', country: 'Germany'}] 
+'use client'
+
+import { useEffect, useState, useCallback } from 'react'
+import {
+  Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
+  Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
+  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag, ExternalLink, Globe
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Toaster } from '@/components/ui/sonner'
+import { toast } from 'sonner'
+import {
+  BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
+} from 'recharts'
+
+const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
+const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
+
+const NAV = [
+  { key: 'home', label: 'Home' },
+  { key: 'safari', label: 'Safari & Tourism' },
+  { key: 'local', label: 'Local Transit' },
+  { key: 'about', label: 'About OSARE' },
+  { key: 'dashboard', label: 'Revenue Dashboard' },
+  { key: 'vendor', label: 'Vendor Portal' },
+  { key: 'admin', label: 'Admin' },
+]
+
+const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
+const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
+const CHART_COLORS = ['#f97316', '#1e3a8a', '#3b82f6', '#10b981', '#eab308', '#8b5cf6', '#ef4444']
+
+const catIcon = (cat) => {
+  if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
+  if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
+  if (/car|caravan/i.test(cat)) return <Car className="h-4 w-4" />
+  if (/aircraft/i.test(cat)) return <Plane className="h-4 w-4" />
+  if (/sightseeing/i.test(cat)) return <Binoculars className="h-4 w-4" />
+  if (/train/i.test(cat)) return <Bus className="h-4 w-4" />
+  if (/taxi/i.test(cat)) return <Car className="h-4 w-4" />
+  if (/matatu|shuttle/i.test(cat)) return <Bus className="h-4 w-4" />
+  if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />
+  return <Compass className="h-4 w-4" />
+}
+
+function ListingCard({ item, onBook, booking }) {
+  const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
+  return (
+    <Card className="overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col">
+      <div className="relative h-52 w-full overflow-hidden">
+        <img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+        <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow" style={{ backgroundColor: accent }}>
+          {catIcon(item.category)} {item.category}
+        </Badge>
+        {item.offPeakLabel ? (
+          <Badge className="absolute right-3 top-3 gap-1 bg-emerald-600 text-white border-0 shadow">
+            <Tag className="h-3 w-3" /> Off-peak {item.offPeakLabel}
+          </Badge>
+        ) : null}
+      </div>
+      <CardContent className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
+        <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
+        <div className="mt-2 space-y-1">
+          <p className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+             <Phone className="h-3 w-3" /> {item.vendorContact || 'Contact on site'}
+          </p>
+          <a href={item.mapLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 font-medium">
+            <MapPin className="h-3 w-3" /> {item.location}
+          </a>
+        </div>
+        
+        {item.assets?.length ? (
+          <div className="mt-3">
+            <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1.5">Available Assets</p>
+            <div className="flex flex-wrap gap-1">
+              {item.assets.map((asset, idx) => (
+                <Badge className="text-[10px] px-1.5 py-0 border-slate-200 text-slate-500" variant="outline">{asset}</Badge>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
+
+        <div className="mt-4 flex items-end justify-between border-t border-slate-100 pt-3">
+          <div>
+            <p className="text-xl font-extrabold text-emerald-600">{item.priceLabel}</p>
+            {item.season ? <p className="text-[11px] text-slate-400">{item.season}</p> : null}
+          </div>
+          <p className="flex items-center gap-1 text-[11px] text-slate-400"><Building2 className="h-3 w-3" /> {item.vendorOffice}</p>
+        </div>
+
+        <Button
+          onClick={() => onBook(item)}
+          disabled={booking === item.id}
+          className="mt-4 w-full gap-2 bg-slate-900 text-white hover:bg-[#f97316] transition-colors"
+        >
+          {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Globe className="h-4 w-4" />}
+          Visit Vendor Site
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+
+function TierExplorer({ type }) {
+  const isSafari = type === 'safari'
+  const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
+  const accent = isSafari ? '#f97316'' : '#1e3a8a'
+  const [q, setQ] = useState('')
+  const [cat, setCat] = useState('All')
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [booking, setBooking] = useState(null)
+
+  const load = useCallback(async () => {
+    setLoading(true)
+    try {
+      const params = new URLSearchParams({ type })
+      if (q) params.set('q', q)
+      if (cat && cat !== 'All') params.set('category', cat)
+      const res = await fetch(`/api/listings?${params.toString()}`)
+      const data = await res.json()
+      setItems(Array.isArray(data) ? data : [])
+    } catch (e) {
+      toast.error('Failed to load listings')
+    } finally {
+      setLoading(false)
+    }
+  }, [type, q, cat])
+
+  useEffect(() => { load() }, [load])
+
+  const handleBook = async (item) => {
+    setBooking(item.id)
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listingId: item.id, listingTitle: item.title, vendor: item.vendor })
+      })
+      window.location.href = `/api/out/${item.id}?ref=osare_hub`
+    } catch (e) {
+      window.location.href = `/api/out/${item.id}?ref=osare_hub`
+    } finally {
+      setBooking(null)
+    }
+  }
+
+  return (
+    <div>
+      <div className="relative h-64 w-full overflow-hidden">
+        <img src={isSafari ? HERO : LOCAL_HERO} alt="banner" className="h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: isSafari ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))' : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' }} />
+        <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
+          <h1 className="text-3xl font-extrabold md:text-4xl">{isSafari ? 'Tourist Assistance — East Africa' : 'Local Commute — Nairobi & Beyond'}</h1>
+          <p className="mt-2 max-w-2xl text-white/90">{isSafari ? 'Safaris, Kilimanjaro climbs, hotels, car & aircraft hire — compare and book direct.' : 'Compare matatus, SGR trains, taxis & airport shuttles across Nairobi CBD and its environs.'}</p>
+        </div>
+      </div>
+
+      <div className="mx-auto -mt-8 max-w-4xl px-5">
+        <Card className="border-slate-200 shadow-lg">
+          <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+              <Input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && load()}
+                placeholder={isSafari ? 'e.g. Mara safari, Kilimanjaro, car hire...' : 'e.g. SGR train, matatu, taxi...'}
+                className="h-12 pl-10 text-base"
+              />
+            </div>
+            <Select value={cat} onValueChange={setCat}>
+              <SelectTrigger className="h-12 md:w-56"><SelectValue placeholder="Category" /></SelectTrigger>
+              <SelectContent>
+                {cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Button onClick={load} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: accent }}>
+              <Search className="h-4 w-4" /> Search
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-5 py-10">
+        <div className="mb-5 flex items-center justify-between">
+          <p className="text-sm text-slate-500">{loading ? 'Searching…' : `${items.length} option${items.length === 1 ? '' : 's'} found`}</p>
+        </div>
+        {loading ? (
+          <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+        ) : items.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
+            No matches found. Try broader terms like {isSafari ? '"safari", "beach", "hotel"' : '"train", "taxi", "matatu"'}.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} />)}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function Home({ go }) {
+  const [q, setQ] = useState('')
+  const [tier, setTier] = useState('safari')
+  return (
+    <div>
+      <div className="relative min-h-[560px] w-full overflow-hidden">
+        <img src={HERO} alt="hero" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/85 via-[#1e3a8a]/60 to-[#f97316]/70" />
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-5 py-24 text-center text-white">
+          <Badge className="mb-4 gap-1 border-white/30 bg-white/15 text-white backdrop-blur">
+            <Sparkles className="h-3 w-3" /> Free information assistant • Book direct
+          </Badge>
+          <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
+            OSARE — East Africa<br className="hidden md:block" /> Safari Routes & Transit
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg text-white/90">
+            Everything a tourist or local needs at their fingertips. Compare safaris, Kilimanjaro climbs, hotels, car & aircraft hire — and Nairobi transit — then book direct.
+          </p>
+          <div className="mt-8 w-full max-w-2xl">
+            <div className="mb-3 flex justify-center gap-3">
+              <button onClick={() => setTier('safari')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}>Tourist Assistance</button>
+              <button onClick={() => setTier('local')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30'}`}>Local Commute</button>
+            </div>
+            <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <Input
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && go(tier, q)}
+                  placeholder={tier === 'safari' ? 'Mara migration, Kilimanjaro, Zanzibar, car hire…' : 'Nairobi to Mombasa, matatu, taxi, SGR…'}
+                  className="h-12 border-0 pl-10 text-base text-slate-900 focus-visible:ring-0"
+                />
+              </div>
+              <Button onClick={() => go(tier, q)} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: tier === 'safari' ? '#f97316' : '#1e3a8a' }}>
+                Search <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="text-center text-3xl font-extrabold text-slate-900">Two platforms. One trusted hub.</h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <button onClick={() => go('safari')} className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
+            <img src={HERO} alt="safari" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute bottom-0 p-6 text-white">
+              <Badge className="mb-2 gap-1 border-0 bg-[#f97316] text-white"><Compass className="h-3 w-3" /> Tier 1</Badge>
+              <h3 className="text-2xl font-bold">Safari & Tourism</h3>
+              <p className="mt-1 text-sm text-white/85">Mara migration, Kilimanjaro, hotels, car & aircraft hire, sightseeing.</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-orange-300">Explore safaris <ArrowRight className="h-4 w-4" /></span>
+            </div>
+          </button>
+          <button onClick={() => go('local')} className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
+            <img src={LOCAL_HERO} alt="local" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute bottom-0 p-6 text-white">
+              <Badge className="mb-2 gap-1 border-0 bg-[#1e3a8a] text-white"><Bus className="h-3 w-3" /> Tier 2</Badge>
+              <h3 className="text-2xl font-bold">Local Commute</h3>
+              <p className="mt-1 text-sm text-white/85">Nairobi CBD transit: matatus, SGR trains, taxis & airport shuttles.</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-blue-300">Find transit <ArrowRight className="h-4 w-4" /></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function About() {
+  const branches = [
+    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
+    { region: 'Kenya — Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
+    { region: 'Uganda — Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
+    { region: 'Tanzania — Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
+    { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' },
+  ]
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
       <Badge className="gap-1 bg-[#f97316] text-white border-0"><Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes</Badge>
       <h1 className="mt-4 text-4xl font-extrabold text-slate-900">Connecting East Africa through trusted travel & logistics.</h1>
-      <p className="mt-4 text-lg text-slate-600">OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa. It also serves tourists with safaris, Kilimanjaro climbs, hotels, car &amp; aircraft hire and sightseeing.</p>
+      <p className="mt-4 text-lg text-slate-600">OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa.</p>
       <div className="mt-12 grid items-center gap-8 rounded-2xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 md:grid-cols-[220px_1fr]">
         <img src="https://github.com/Jakasipul-Lab.png" alt="Osare" className="h-52 w-52 rounded-2xl object-cover shadow-lg" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=440' }} />
         <div>
           <h3 className="text-2xl font-extrabold text-[#1b5e20]">Osare Nakinson</h3>
-          <span className="mt-1 inline-block font-semibold text-[#2e7d32]">Founder &amp; Lead Developer</span>
-          <p className="mt-3 text-slate-600">Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.</p>
+          <span className="mt-1 inline-block font-semibold text-[#2e7d32]">Founder & Lead Developer</span>
+          <p className="mt-3 text-slate-600">Driving innovation in East African mobility through technology-first logistics and transport partnerships.</p>
         </div>
       </div>
       <div className="mt-12 grid gap-6 md:grid-cols-3">
-        <Card className="border-slate-200"><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos and prices. Visit vendor sites direct.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. Tracked affiliate links for 5% commission.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p></CardContent></Card>
+        <Card><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos and prices. Visit vendor sites direct.</p></CardContent></Card>
+        <Card><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. Tracked affiliate links for 5% commission.</p></CardContent></Card>
+        <Card><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist.</p></CardContent></Card>
       </div>
       <div className="mt-14">
-        <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters &amp; Branches</h2>
+        <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters & Branches</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {branches.map((b, i) => (<Card key={i} className="border-slate-200"><CardContent className="p-5"><div className="flex items-center gap-2 text-[#2e7d32]"><MapPin className="h-4 w-4" /><span className="font-bold">{b.region}</span></div><p className="mt-2 font-medium text-slate-800">{b.name}</p><p className="text-sm text-slate-500">{b.role}</p><Badge variant="secondary" className="mt-3 bg-slate-100 text-slate-600">{b.country}</Badge></CardContent></Card>))}
+          {branches.map((b, i) => (
+            <Card key={i} className="border-slate-200">
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 text-[#2e7d32]"><MapPin className="h-4 w-4" /><span className="font-bold">{b.region}</span></div>
+                <p className="mt-2 font-medium text-slate-800">{b.name}</p>
+                <p className="text-sm text-slate-500">{b.role}</p>
+                <Badge variant="secondary" className="mt-3">{b.country}</Badge>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
-      <p className="mt-10 text-center text-sm text-slate-400">© 2026 OSARE — EA SafariRoutes. All rights reserved.</p>
     </div>
   )
 }
@@ -56,62 +358,56 @@ function Dashboard() {
   )
 }
 
-const EMPTY_FORM = { type: 'safari', category: 'Safari Package', title: '', vendor: '', vendorOffice: '', location: '', mapLink: '', description: '', includes: '', priceValue: '', currency: 'USD', priceLabel: '', offPeakValue: '', offPeakLabel: '', season: '', image: '', keywords: '' }
-
 function Admin() {
-  const [listings, setListings] = useState([]); const [form, setForm] = useState(EMPTY_FORM); const [saving, setSaving] = useState(false); const [seeding, setSeeding] = useState(false)
-  const load = async () => { const data = await fetch('/api/listings').then(r => r.json()); setListings(Array.isArray(data) ? data : []) }
+  const [listings, setListings] = useState([]); const [loading, setLoading] = useState(true)
+  const load = async () => { try { const res = await fetch('/api/listings'); const data = await res.json(); setListings(Array.isArray(data) ? data : []) } finally { setLoading(false) } }
   useEffect(() => { load() }, [])
-  const submit = async () => { if (!form.title) return; setSaving(true); try { await fetch('/api/listings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) }); setForm(EMPTY_FORM); load() } finally { setSaving(false) } }
   return (
-    <div className="mx-auto max-w-6xl px-5 py-12">
-      <h1 className="text-3xl font-extrabold text-slate-900">Admin — Manage Inventory</h1>
-      <div className="mt-8 grid gap-8 lg:grid-cols-2">
-        <Card className="border-slate-200"><CardHeader><CardTitle>Add Listing</CardTitle></CardHeader><CardContent className="space-y-4"><Input placeholder="Title" value={form.title} onChange={e => setForm({...form, title: e.target.value})} /><Input placeholder="Vendor" value={form.vendor} onChange={e => setForm({...form, vendor: e.target.value})} /><Button onClick={submit} disabled={saving} className="w-full">{saving ? 'Saving...' : 'Add Listing'}</Button></CardContent></Card>
-        <Card className="border-slate-200"><CardHeader><CardTitle>Current Listings ({listings.length})</CardTitle></CardHeader><CardContent><div className="space-y-2">{listings.map(l => (<div key={l.id} className="p-3 border rounded-lg flex justify-between"><div><p className="font-bold">{l.title}</p><p className="text-xs">{l.vendor}</p></div><Badge>{l.type}</Badge></div>))}</div></CardContent></Card>
+    <div className="mx-auto max-w-6xl px-5 py-12 text-center">
+      <h1 className="text-3xl font-extrabold text-slate-900">Admin Portal</h1>
+      <p className="mt-4 text-slate-600">Inventory management is handled via the internal CMS. Contact support for access.</p>
+      <div className="mt-8 grid gap-4 max-w-2xl mx-auto">
+         {listings.map(l => (
+           <Card key={l.id} className="text-left"><CardContent className="p-4 flex justify-between items-center"><div><p className="font-bold">{l.title}</p><p className="text-xs text-slate-500">{l.vendor}</p></div><Badge>{l.type}</Badge></CardContent></Card>
+         ))}
       </div>
     </div>
   )
 }
 
-function VendorAuth({ onAuth }) { return <div className="py-20 text-center"><h2 className="text-2xl font-bold">Vendor Portal Coming Soon</h2><p className="mt-2 text-slate-500">Please contact OSARE support to list your assets.</p></div> }
-function VendorPortal() { return <VendorAuth /> }
-
-export default function Home() {
-  const [view, setView] = useState('home'); const [searchParams, setSearchParams] = useState({ type: 'safari', q: '' }); const [mobileMenu, setMobileMenu] = useState(false)
-  const go = (type, q = '') => { setSearchParams({ type, q }); setView('explorer'); window.scrollTo(0, 0) }
-  const handleNav = (key) => { if (key === 'ads') { window.location.href = '/ads'; return }; setView(key); setMobileMenu(false); window.scrollTo(0, 0) }
-  useEffect(() => { fetch('/api/seed', { method: 'POST' }).catch(() => {}) }, [])
-  const handleBook = async (item) => { setBooking(item.id); try { await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ listingId: item.id, listingTitle: item.title, vendor: item.vendor }) }); window.location.href = `/api/out/${item.id}?ref=osare_hub` } catch (e) { window.location.href = `/api/out/${item.id}?ref=osare_hub` } finally { setBooking(null) } }
-  const [booking, setBooking] = useState(null)
-
+export default function App() {
+  const [view, setView] = useState('home'); const [params, setParams] = useState({ type: 'safari', q: '' }); const [mobile, setMobile] = useState(false)
+  const go = (type, q = '') => { setParams({ type, q }); setView('explorer'); setMobile(false); window.scrollTo(0, 0) }
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <Toaster position="top-center" />
       <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           <button onClick={() => setView('home')} className="flex items-center gap-2"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-white"><Compass className="h-6 w-6" /></div><span className="text-xl font-black tracking-tighter">OSARE</span></button>
-          <div className="hidden items-center gap-8 md:flex">{NAV.map((n) => (<button key={n.key} onClick={() => handleNav(n.key)} className={`text-sm font-bold transition-colors ${view === n.key ? 'text-[#f97316]' : 'text-slate-500 hover:text-slate-900'}`}>{n.label}</button>))}<Button onClick={() => go('safari')} size="sm" className="bg-[#1e3a8a] text-white">Explore</Button></div>
-          <button className="md:hidden" onClick={() => setMobileMenu(!mobileMenu)}>{mobileMenu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
+          <div className="hidden items-center gap-8 md:flex">
+            {NAV.map((n) => (<button key={n.key} onClick={() => { setView(n.key); setMobile(false) }} className={`text-sm font-bold transition-colors ${view === n.key ? 'text-[#f97316]' : 'text-slate-500 hover:text-slate-900'}`}>{n.label}</button>))}
+            <Button onClick={() => go('safari')} size="sm" className="bg-[#1e3a8a] text-white">Explore</Button>
+          </div>
+          <button className="md:hidden" onClick={() => setMobile(!mobile)}>{mobile ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
         </div>
       </nav>
       {view === 'home' && <Home go={go} />}
-      {view === 'explorer' && <TierExplorer type={searchParams.type} />}
+      {view === 'explorer' && <TierExplorer type={params.type} />}
       {view === 'safari' && <TierExplorer type="safari" />}
       {view === 'local' && <TierExplorer type="local" />}
       {view === 'about' && <About />}
       {view === 'dashboard' && <Dashboard />}
-      {view === 'vendor' && <VendorPortal />}
       {view === 'admin' && <Admin />}
+      {view === 'vendor' && <div className="py-20 text-center"><h2 className="text-2xl font-bold">Vendor Portal Coming Soon</h2></div>}
       <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20">
-        <div className="mx-auto max-w-7xl px-5">
+        <div className="mx-auto max-w-7xl px-5 text-center md:text-left">
           <div className="grid gap-12 md:grid-cols-4">
-            <div className="md:col-span-1"><div className="flex items-center gap-2"><div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1e3a8a] text-white"><Compass className="h-5 w-5" /></div><span className="text-lg font-black">OSARE</span></div><p className="mt-4 text-sm text-slate-500">East Africa Safari Routes & Transit Hub. Free information for tourists & locals.</p></div>
+            <div className="md:col-span-1"><div className="flex items-center gap-2 justify-center md:justify-start"><div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1e3a8a] text-white"><Compass className="h-5 w-5" /></div><span className="text-lg font-black">OSARE</span></div><p className="mt-4 text-sm text-slate-500">East Africa Safari Routes & Transit Hub.</p></div>
             <div><h4 className="text-sm font-bold uppercase text-slate-400">Platform</h4><ul className="mt-4 space-y-2"><li><button onClick={() => go('safari')} className="text-sm text-slate-600">Safari & Tourism</button></li><li><button onClick={() => go('local')} className="text-sm text-slate-600">Local Transit</button></li></ul></div>
             <div><h4 className="text-sm font-bold uppercase text-slate-400">Vendors</h4><ul className="mt-4 space-y-2"><li><button onClick={() => setView('vendor')} className="text-sm text-slate-600">Vendor Portal</button></li><li className="text-sm text-slate-400">Only 5% commission</li></ul></div>
             <div><h4 className="text-sm font-bold uppercase text-slate-400">Contact</h4><ul className="mt-4 space-y-2"><li className="text-sm text-slate-600">+254 758 378 729</li><li className="text-sm text-slate-600">Nairobi CBD, Kenya</li></ul></div>
           </div>
-          <div className="mt-16 border-t border-slate-200 pt-8"><p className="text-xs text-slate-400">© 2025 OSARE — easafariroutes.com. All rights reserved.</p></div>
+          <div className="mt-16 border-t border-slate-200 pt-8"><p className="text-xs text-slate-400">© 2026 OSARE — easafariroutes.com. All rights reserved. Built by nakinson osare.</p></div>
         </div>
       </footer>
     </main>
