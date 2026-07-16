@@ -1,1 +1,196 @@
-aW1wb3J0IHsgdjQgYXMgdXVpZHY0IH0gZnJvbSAndXVpZCcKaW1wb3J0IHsgTmV4dFJlc3BvbnNlIH0gZnJvbSAnbmV4dC9zZXJ2ZXInCmltcG9ydCBwZyBmcm9tICdwZycKCmNvbnN0IHsgUG9vbCB9ID0gcGcKCmNvbnN0IFNUQVRJQ19EQVRBQkFTRSA9IFsKICB7IAogICAgaWQ6ICdtYXJhLTAwMScsCiAgICBjYXRlZ29yeTogJ1NhZmFyaSBQYWNrYWdlJywgCiAgICB0aXRsZTogJ01hc2FpIE1hcmEgMy1EYXkgTWlncmF0aW9uIFNhZmFyaScsIAogICAgdmVuZG9yOiAnTWFyYSBTYWZhcmkgTG9kZ2VzIEx0ZCcsIAogICAgdmVuZG9yQ29udGFjdDogJysyNTQgNzAwIDExMSAyMjInLAogICAgdmVuZG9yVXJsOiAnaHR0cHM6Ly93d3cubWFzYWltYXJhLmNvbS8nLAogICAgbG9jYXRpb246ICdNYXNhaSBNYXJhIE5hdGlvbmFsIFJlc2VydmUnLCAKICAgIGRlc2NyaXB0aW9uOiAnRXhwZXJpZW5jZSB0aGUgQmlnIEZpdmUgYW5kIHRoZSBHcmVhdCBNaWdyYXRpb24uIEluY2x1ZGVzIGdhbWUgZHJpdmVzIGFuZCBsdXh1cnkgdGVudGVkIHN0YXkuJywgCiAgICBwcmljZUxhYmVsOiAnJDM1MCcsIHByaWNlVmFsdWU6IDM1MCwgY3VycmVuY3k6ICdVU0QnLCB0eXBlOiAnc2FmYXJpJywgCiAgICBpbWFnZTogJ2h0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE5NjU5NTI4NTM0LTdmZDczM2E4MzJhMD9xPTgwJywgCiAgICBrZXl3b3JkczogWydtYXJhJywgJ3NhZmFyaScsICdtaWdyYXRpb24nLCAnbWFzYWknXSwKICAgIGFzc2V0czogWyc0eDQgTGFuZCBDcnVpc2VyJywgJ0x1eHVyeSBUZW50cycsICdQcm9mZXNzaW9uYWwgR3VpZGVzJ10KICB9LAogIHsgCiAgICBpZDogJ2tpbGktMDAxJywKICAgIGNhdGVnb3J5OiAnU2FmYXJpIFBhY2thZ2UnLCAKICAgIHRpdGxlOiAnTW91bnQgS2lsaW1hbmphcm8gVHJla3MgLSBNYWNoYW1lIFJvdXRlJywgCiAgICB2ZW5kb3I6ICdTdW1taXQgQWZyaWNhIFRyZWtzJywgCiAgICB2ZW5kb3JDb250YWN0OiAnKzI1NSA3MDAgMzMzIDQ0NCcsCiAgICB2ZW5kb3JVcmw6ICdodHRwczovL3d3dy5tb3VudGtpbGltYW5qYXJvZ3VpZGUuY29tLycsCiAgICBsb2NhdGlvbjogJ01vdW50IEtpbGltYW5qYXJvLCBUYW56YW5pYScsIAogICAgZGVzY3JpcHRpb246ICc3LWRheSBjbGltYiB0byBVaHVydSBQZWFrLiBDZXJ0aWZpZWQgZ3VpZGVzIGFuZCBmdWxsIGdlYXIgaW5jbHVkZWQuJywgCiAgICBwcmljZUxhYmVsOiAnJDEsNDUwJywgcHJpY2VWYWx1ZTogMTQ1MCwgY3VycmVuY3k6ICdVU0QnLCB0eXBlOiAnc2FmYXJpJywgCiAgICBpbWFnZTogJ2h0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjEzMDYxNDQ1NTEwLWUyOTZiZmVkYjczZT9xPTgwJywgCiAgICBrZXl3b3JkczogWydraWxpbWFuamFybycsICdtb3VudGFpbicsICdjbGltYicsICd0cmVrJywgJ2tpbGknXSwKICAgIGFzc2V0czogWydDYW1waW5nIEdlYXInLCAnT3h5Z2VuIEtpdHMnLCAnRXhwZXJ0IFBvcnRlcnMnXQogIH0sCiAgeyAKICAgIGlkOiAnc2VyZW5hLTAwMScsCiAgICBjYXRlZ29yeTogJ0hvdGVsICYgUmVzb3J0JywgCiAgICB0aXRsZTogJ1NlcmVuYSBIb3RlbCAmIFJlc29ydCAtIEx1eHVyeSBCZWFjaCBTdGF5JywgCiAgICB2ZW5kb3I6ICdTZXJlbmEgSG90ZWxzJywgCiAgICB2ZW5kb3JDb250YWN0OiAnKzI1NCA3MDAgNTU1IDY2NicsCiAgICB2ZW5kb3JVcmw6ICdodHRwczovL3d3dy5zZXJlbmFob3RlbHMuY29tL21vbWJhc2EnLAogICAgbG9jYXRpb246ICdEaWFuaSBCZWFjaCwgTW9tYmFzYScsIAogICAgZGVzY3JpcHRpb246ICc1LXN0YXIgYmVhY2ggcmVzb3J0IHdpdGggcHJpdmF0ZSByZWVmIGFjY2VzcyBhbmQgc3BhLicsIAogICAgcHJpY2VMYWJlbDogJyQxODAvbmlnaHQnLCBwcmljZVZhbHVlOiAxODAsIGN1cnJlbmN5OiAnVVNEJywgdHlwZTogJ3NhZmFyaScsIAogICAgaW1hZ2U6ICdodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTY0NjY2ODA3MjUwNy1iMjIxNWI4NzNjNzA/cT04MCcsIAogICAga2V5d29yZHM6IFsnc2VyZW5hJywgJ2hvdGVsJywgJ3Jlc29ydCcsICdiZWFjaCcsICdtb21iYXNhJ10sCiAgICBhc3NldHM6IFsnT2NlYW4gVmlldyBTdWl0ZXMnLCAnU3BhICYgV2VsbG5lc3MnLCAnUHJpdmF0ZSBCZWFjaCddCiAgfSwKICB7IAogICAgaWQ6ICdzYWZhcmktcGFyay0wMDEnLAogICAgY2F0ZWdvcnk6ICdIb3RlbCAmIFJlc29ydCcsIAogICAgdGl0bGU6ICdTYWZhcmkgUGFyayBIb3RlbCAtIENpdHkgUmVzb3J0JywgCiAgICB2ZW5kb3I6ICdTYWZhcmkgUGFyaycsIAogICAgdmVuZG9yQ29udGFjdDogJysyNTQgNzAwIDc3NyA4ODgnLAogICAgdmVuZG9yVXJsOiAnaHR0cHM6Ly93d3cuc2FmYXJpcGFyay1ob3RlbC5jb20nLAogICAgbG9jYXRpb246ICdUaGlrYSBSb2FkLCBOYWlyb2JpJywgCiAgICBkZXNjcmlwdGlvbjogJ0x1c2ggZ2FyZGVucywgY3VsdHVyYWwgZGlubmVyIHNob3dzLCBhbmQgcHJlbWl1bSBjaXR5IHN0YXkuJywgCiAgICBwcmljZUxhYmVsOiAnJDE1MC9uaWdodCcsIHByaWNlVmFsdWU6IDE1MCwgY3VycmVuY3k6ICdVU0QnLCB0eXBlOiAnc2FmYXJpJywgCiAgICBpbWFnZTogJ2h0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTY0MTAxMTYwNTMxLTQ4MzhlOGE1ZjRlNz9xPTgwJywgCiAgICBrZXl3b3JkczogWydob3RlbCcsICdyZXNvcnQnLCAnc2FmYXJpIHBhcmsnLCAnbmFpcm9iaSddLAogICAgYXNzZXRzOiBbJ0NvbmZlcmVuY2UgSGFsbHMnLCAnVGhlbWVkIFJlc3RhdXJhbnRzJywgJ0xhcmdlIFBvb2wnXQogIH0sCiAgeyAKICAgIGlkOiAnc3BpY2UtMDAxJywKICAgIGNhdGVnb3J5OiAnQ2FyICYgQ2FyYXZhbiBIaXJlJywgCiAgICB0aXRsZTogJzR4NCBMYW5kIENydWlzZXIgLSBNYXJhICYgS2lsaW1hbmphcm8nLCAKICAgIHZlbmRvcjogJ0FmcmljYW4gU3BpY2UgQ2FyIEhpcmUnLCAKICAgIHZlbmRvckNvbnRhY3Q6ICcrMjU0IDc1OCAzNzggNzI5JywKICAgIHZlbmRvclVybDogJ2h0dHBzOi8vd3d3LmFmcmljYW5zcGljZS1zYWZhcmlzLmNvbS9jYXItaGlyZS8nLAogICAgbG9jYXRpb246ICdOYWlyb2JpIC8gSktJQScsIAogICAgZGVzY3JpcHRpb246ICdzYWZhcmktcmVhZHkgdmVoaWNsZSB3aXRoIHBvcC11cCByb29mIGZvciB2aWV3aW5nLicsIAogICAgcHJpY2VMYWJlbDogJyQxMjAvZGF5JywgcHJpY2VWYWx1ZTogMTIwLCBjdXJyZW5jeTogJ1VTRCcsIHR5cGU6ICdzYWZhcmknLCAKICAgIGltYWdlOiAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE3MDk0MDI2MDY2ODItNDAwMTMzZDkyYWIyP3E9ODAnLCAKICAgIGtleXdvcmRzOiBbJ2NhcicsICdoaXJlJywgJ3JlbnRhbCcsICc0eDQnLCAnamVlcCddLAogICAgYXNzZXRzOiBbJ0xhbmQgQ3J1aXNlcnMnLCAnT3ZlcmxhbmQgVHJ1Y2tzJ10KICB9LAogIHsgCiAgICBpZDogJ3Nnci0wMDEnLAogICAgY2F0ZWdvcnk6ICdUcmFpbiAoU0dSKScsIAogICAgdGl0bGU6ICdTR1IgVHJhaW4gLSBOYWlyb2JpIHRvIE1vbWJhc2EnLCAKICAgIHZlbmRvcjogJ01hZGFyYWthIEV4cHJlc3MnLCAKICAgIHZlbmRvckNvbnRhY3Q6ICdpbmZvQGtyYy5jby5rZScsCiAgICB2ZW5kb3JVcmw6ICdodHRwczovL21ldGlja2V0cy5rcmMuY28ua2UnLAogICAgbG9jYXRpb246ICdOYWlyb2JpIHRvIE1vbWJhc2EnLCAKICAgIGRlc2NyaXB0aW9uOiAnRmFzdCB0cmFpbiBzZXJ2aWNlIGJldHdlZW4gY2FwaXRhbCBhbmQgY29hc3QuJywgCiAgICBwcmljZUxhYmVsOiAnS0VTIDEsNTAwJywgcHJpY2VWYWx1ZTogMTUwMCwgY3VycmVuY3k6ICdLRVMnLCB0eXBlOiAnbG9jYWwnLCAKICAgIGltYWdlOiAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1MTYwMjY2NzIzMjItYmM1MmQ2MWE1NWQ1P3E9ODAnLCAKICAgIGtleXdvcmRzOiBbJ3NncnInLCAndHJhaW4nLCAnbmFpcm9iaScsICdtb21iYXNhJ10sCiAgICBhc3NldHM6IFsnRWNvbm9meSBDb2FjaGVzJywgJ0ZpcnN0IENsYXNzIENvYWNoZXMnXQogIH0sCl0KCmxldCBwb29sCmZ1bmN0aW9uIGdldFBvb2woKSB7CiAgaWYgKCFwb29sKSB7CiAgICBjb25zdCBjcyA9IChwcm9jZXNzLmVudi5EQVRBQkFTRV9VUkwgfHwgcHJvY2Vzcy5lbnYuTkVPTl9EQl9VUkwgfHwgJycpLnJlcGxhY2UoLyY/Y2hhbm5lbF9iaW5kaW5nPXJlcXVpcmUvZ2ksICcnKQogICAgaWYgKGNzKSB7CiAgICAgIHBvb2wgPSBuZXcgUG9vbCh7IGNvbm5lY3Rpb25TdHJpbmc6IGNzLCBzc2w6IHsgcmVqZWN0VW5hdXRob3JpemVkOiBmYWxzZSB9LCBtYXg6IDIsIGlkbGVUaW1lb3V0TWlsbGlzOiAxMDAwMCB9KQogICAgfQogIH0KICByZXR1cm4gcG9vbAp9CgpmdW5jdGlvbiBtYXRjaGVzUXVlcnkoaXRlbSwgcXVlcnkpIHsKICBpZiAoIXF1ZXJ5KSByZXR1cm4gdHJ1ZQogIGNvbnN0IHMgPSBxdWVyeS50b0xvd2VyQ2FzZSgpLnRyaW0oKQogIGNvbnN0IHdvcmRzID0gcy5zcGxpdCgvW1xzL10rLykKICBjb25zdCBoYXlzdGFjayA9IFtpdGVtLnRpdGxlLCBpdGVtLnZlbmRvciwgaXRlbS5sb2NhdGlvbiwgaXRlbS5jYXRlZ29yeSwgaXRlbS5kZXNjcmlwdGlvbiwgLi4uKGl0ZW0ua2V5d29yZHMgfHwgW10pXS5qb2luignICcpLnRvTG93ZXJDYXNlKCkKICByZXR1cm4gd29yZHMuZXZlcnkodyA9PiBoYXlzdGFjay5pbmNsdWRlcyh3KSkKfQoKYXN5bmMgZnVuY3Rpb24gaGFuZGxlUm91dGUocmVxdWVzdCwgeyBwYXJhbXMgfSkgewogIGNvbnN0IHsgcGF0aCA9IFtdIH0gPSBhd2FpdCBwYXJhbXMKICBjb25zdCByb3V0ZSA9ICcvJyArIHBhdGguam9pbignLycpCiAgY29uc3QgbWV0aG9kID0gcmVxdWVzdC5tZXRob2QKICBjb25zdCB1cmwgPSBuZXcgVVJMKHJlcXVlc3QudXJsKQoKICB0cnkgewogICAgY29uc3QgcCA9IGdldFBvb2woKQoKICAgIGlmIChwYXRoWzBdID09PSAnb3V0JyAmJiBwYXRoWzFdKSB7CiAgICAgIGNvbnN0IGlkID0gcGF0aFsxXQogICAgICBsZXQgdGFyZ2V0ID0gU1RBVElDX0RBVEFCQVNFLmZpbmQoaXQgPT4gaXQuaWQgPT09IGlkKQogICAgICBpZiAoIXRhcmdldCAmJiBwKSB7CiAgICAgICAgdHJ5IHsKICAgICAgICAgIGNvbnN0IGRiUmVzID0gYXdhaXQgcC5xdWVyeSgnU0VMRUNUICogRlJPTSBsaXN0aW5ncyBXSEVSRSBpZCA9ICQxJywgW2lkXSkKICAgICAgICAgIGlmIChkYlJlcy5yb3dzWzBdKSB7CiAgICAgICAgICAgIHRhcmdldCA9IGRiUmVzLnJvd3NbMF0KICAgICAgICAgICAgdGFyZ2V0LnZlbmRvclVybCA9IHRhcmdldC52ZW5kb3JfdXJsCiAgICAgICAgICB9CiAgICAgICAgfSBjYXRjaCAoZSkge30KICAgICAgfQogICAgICBpZiAodGFyZ2V0KSB7CiAgICAgICAgaWYgKHApIHsKICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgIGF3YWl0IHAucXVlcnkoCiAgICAgICAgICAgICAgJ0lOU0VSVCBJTlRPIGxlYWRzIChpZCwgbGlzdGluZ19pZCwgbGlzdGluZ190aXRsZSwgdmVuZG9yLCBjcmVhdGVkX2F0KSBWQUxVRVMgKCQxLCAkMiwgJDMsICQ0LCBub3coKSknLAogICAgICAgICAgICAgIFt1dWlkdjQoKSwgdGFyZ2V0LmlkLCB0YXJnZXQudGl0bGUsIHRhcmdldC52ZW5kb3JdCiAgICAgICAgICAgICkKICAgICAgICAgIH0gY2F0Y2ggKGUpIHt9CiAgICAgICAgfQogICAgICAgIHJldHVybiBOZXh0UmVzcG9uc2UucmVkaXJlY3QodGFyZ2V0LnZlbmRvclVybCB8fCAnaHR0cHM6Ly9lYXNhZmFyaXJvdXRlcy5jb20nKQogICAgICB9CiAgICB9CgogICAgaWYgKHJvdXRlID09PSAnL2xpc3RpbmdzJykgewogICAgICBjb25zdCB0eXBlID0gdXJsLnNlYXJjaFBhcmFtcy5nZXQoJ3R5cGUnKQogICAgICBjb25zdCBzZWFyY2ggPSB1cmwuc2VhcmNoUGFyYW1zLmdldCgncScKICAgICAgbGV0IGl0ZW1zID0gW10KICAgICAgaWYgKHApIHsKICAgICAgICB0cnkgewogICAgICAgICAgY29uc3Qgcm93cyA9IChhd2FpdCBwLnF1ZXJ5KCdTRUxFQ1QgKiBGUk9NIGxpc3RpbmdzIE9SREVSIEJZIGNyZWF0ZWRfYXQgREVTQycpKS5yb3dzCiAgICAgICAgICBpdGVtcyA9IHJvd3MubWFwKHIgPT4gKHsgCiAgICAgICAgICAgIC4uLnIsIAogICAgICAgICAgICBwcmljZVZhbHVlOiBOdW1iZXIoci5wcmljZV92YWx1ZSksIAogICAgICAgICAgICBpbmNsdWRlczogci5pbmNsdWRlcyB8fCBbXSwgCiAgICAgICAgICAgIGtleXdvcmRzOiByLmtleXdvcmRzIHx8IFtdLAogICAgICAgICAgICB2ZW5kb3JVcmw6IHIudmVuZG9yX3VybCwKICAgICAgICAgICAgdmVuZG9yQ29udGFjdDogci52ZW5kb3JfY29udGFjdCwKICAgICAgICAgICBhc3NldHM6IHIuYXNzZXRzIHx8IFtdCiAgICAgICAgICB9KSkKICAgICAgICB9IGNhdGNoIChlKSB7fQogICAgICB9CiAgICAgIGlmIChpdGVtcy5sZW5ndGggPT09IDApIGl0ZW1zID0gU1RBVElDX0RBVEFCQVNFCiAgICAgIGlmICh0eXBlICYmIHR5cGUgIT09ICdBbGwnKSBpdGVtcyA9IGl0ZW1zLmZpbHRlcihpdCA9PiBpdC50eXBlID09PSB0eXBlKQogICAgICBpZiAoc2VhcmNoKSBpdGVtcyA9IGl0ZW1zLmZpbHRlcihpdCA9PiBtYXRjaGVzUXVlcnkoaXQsIHNlYXJjaCkpCiAgICAgIHJldHVybiBOZXh0UmVzcG9uc2UuanNvbihpdGVtcywgeyBoZWFkZXJzOiB7ICdBY2Nlc3MtQ29udHJvbC1BbGxvdy1PcmlnaW4nOiAnKicgfSB9KQogICAgfQoKICAgIGlmIChyb3V0ZSA9PT0gJy9sZWFkcycgJiYgbWV0aG9kID09PSAnUE9TVCcpIHsKICAgICAgY29uc3QgYm9keSA9IGF3YWl0IHJlcXVlc3QuanNvbigpCiAgICAgIGlmIChwKSB7CiAgICAgICAgdHJ5IHsKICAgICAgICAgIGF3YWl0IHAucXVlcnkoCiAgICAgICAgICAgICAnSU5TRVJUIElOVE8gbGVhZHMgKGlkLCBsaXN0aW5nX2lkLCBsaXN0aW5nX3RpdGxlLCB2ZW5kb3IsIGNyZWF0ZWRfYXQpIFZBTFVFUyAoJDEsICQyLCAkMywgJDQsIG5vdygpKScsCiAgICAgICAgICAgIFt1dWlkdjQoKSwgYm9keS5saXN0aW5nSWQsIGJvZHkubGlzdGluZ1RpdGxlIHx8ICdDbGljaycsIGJvZHkudmVuZG9yIHx8ICdVbmtub3duJ10KICAgICAgICAgICkKICAgICAgICB9IGNhdGNoIChlKSB7fQogICAgICB9CiAgICAgIHJldHVybiBOZXh0UmVzcG9uc2UuanNvbih7IHN1Y2Nlc3M6IHRydWUgfSkKICAgIH0KCiAgICBpZiAocm91dGUgPT09ICcvJykgewogICAgICByZXR1cm4gTmV4dFJlc3BvbnNlLmpzb24oeyBtZXNzYWdlOiAnT1NBUkUgQVBJIEFjdGl2ZScgfSkKICAgIH0KCiAgICByZXR1cm4gTmV4dFJlc3BvbnNlLmpzb24oeyBlcnJvcjogJ05vdCBmb3VuZCcgfSwgeyBzdGF0dXM6IDQwNCB9KQogIH0gY2F0Y2ggKGVycikgewogICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKHsgZXJyb3I6ICdJbnRlcm5hbCBFcnJvcicgfSwgeyBzdGF0dXM6IDUwMCB9KQogIH0KfQoKZXhwb3J0IGNvbnN0IEdFVCA9IGhhbmRsZVJvdXRlCmV4cG9ydCBjb25zdCBQT1NUID0gaGFuZGxlUm91dGUKZXhwb3J0IGNvbnN0IE9QVElPTlMgPSBhc3luYyAoKSA9PiBOZXh0UmVzcG9uc2UuanNvbih7fSwgeyBoZWFkZXJzOiB7ICdBY2Nlc3MtQ29udHJvbC1BbGxvdy1PcmlnaW4nOiAnKicsICdBY2Nlc3MtQ29udHJvbC1BbGxvdy1NZXRob2RzJzogJ0dFVCwgUE9TVCwgT1BUSU9OUycgfSB9KQo=
+import { v4 as uuidv4 } from 'uuid'
+import { NextResponse } from 'next/server'
+import pg from 'pg'
+
+const { Pool } = pg
+
+const STATIC_DATABASE = [
+  { 
+    id: 'mara-001', 
+    category: 'Safari Package', 
+    title: 'Masai Mara 3-Day Migration Safari', 
+    vendor: 'Mara Safari Lodges Ltd', 
+    vendorContact: '+254 700 111 222', 
+    vendorUrl: 'https://www.masaimara.com/', 
+    location: 'Masai Mara National Reserve', 
+    description: 'Experience the Big Five and the Great Migration. Includes game drives and luxury tented stay.', 
+    priceLabel: '$350', priceValue: 350, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1519659528534-7fd733a832a0?q=80', 
+    keywords: ['mara', 'safari', 'migration', 'masai'], 
+    assets: ['4x4 Land Cruiser', 'Luxury Tents', 'Professional Guides'] 
+  }, 
+  { 
+    id: 'kili-001', 
+    category: 'Safari Package', 
+    title: 'Mount Kilimanjaro Treks - Machame Route', 
+    vendor: 'Summit Africa Treks', 
+    vendorContact: '+255 700 333 444', 
+    vendorUrl: 'https://www.mountkilimanjaroguide.com/', 
+    location: 'Mount Kilimanjaro, Tanzania', 
+    description: '7-day climb to Uhuru Peak. Certified guides and full gear included.', 
+    priceLabel: '$1,450', priceValue: 1450, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1613061445510-e296bfedb73e?q=80', 
+    keywords: ['kilimanjaro', 'mountain', 'climb', 'trek', 'kili'], 
+    assets: ['Camping Gear', 'Oxygen Kits', 'Expert Porters'] 
+  }, 
+  { 
+    id: 'serena-001', 
+    category: 'Hotel & Resort', 
+    title: 'Serena Hotel & Resort - Luxury Beach Stay', 
+    vendor: 'Serena Hotels', 
+    vendorContact: '+254 700 555 666', 
+    vendorUrl: 'https://www.serenahotels.com/mombasa', 
+    location: 'Diani Beach, Mombasa', 
+    description: '5-star beach resort with private reef access and spa.', 
+    priceLabel: '$180/night', priceValue: 180, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1646668072507-b2215b873c70?q=80', 
+    keywords: ['serena', 'hotel', 'resort', 'beach', 'mombasa'], 
+    assets: ['Ocean View Suites', 'Spa & Wellness', 'Private Beach'] 
+  }, 
+  { 
+    id: 'safari-park-001', 
+    category: 'Hotel & Resort', 
+    title: 'Safari Park Hotel - City Resort', 
+    vendor: 'Safari Park', 
+    vendorContact: '+254 700 777 888', 
+    vendorUrl: 'https://www.safaripark-hotel.com', 
+    location: 'Thika Road, Nairobi', 
+    description: 'Lush gardens, cultural dinner shows, and premium city stay.', 
+    priceLabel: '$150/night', priceValue: 150, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1564101160531-4838e8a5f4e7?q=80', 
+    keywords: ['hotel', 'resort', 'safari park', 'nairobi'], 
+    assets: ['Conference Halls', 'Themed Restaurants', 'Large Pool'] 
+  }, 
+  { 
+    id: 'spice-001', 
+    category: 'Car & Caravan Hire', 
+    title: '4x4 Land Cruiser - Mara & Kilimanjaro', 
+    vendor: 'African Spice Car Hire', 
+    vendorContact: '+254 758 378 729', 
+    vendorUrl: 'https://www.africanspice-safaris.com/car-hire/', 
+    location: 'Nairobi / JKIA', 
+    description: 'Safari-ready vehicle with pop-up roof for viewing.', 
+    priceLabel: '$120/day', priceValue: 120, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1709402606682-400133d92ab2?q=80', 
+    keywords: ['car', 'hire', 'rental', '4x4', 'jeep'], 
+    assets: ['Land Cruisers', 'Overland Trucks'] 
+  }, 
+  { 
+    id: 'sgr-001', 
+    category: 'Train (SGR)', 
+    title: 'SGR Train - Nairobi to Mombasa', 
+    vendor: 'Madaraka Express', 
+    vendorContact: 'info@krc.co.ke', 
+    vendorUrl: 'https://metickets.krc.co.ke', 
+    location: 'Nairobi to Mombasa', 
+    description: 'Fast train service between capital and coast.', 
+    priceLabel: 'KES 1,500', priceValue: 1500, currency: 'KES', type: 'local', 
+    image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80', 
+    keywords: ['sgr', 'train', 'nairobi', 'mombasa'], 
+    assets: ['Economy Coaches', 'First Class Coaches'] 
+  } 
+]
+
+let pool
+function getPool() {
+  if (!pool) {
+    const cs = (process.env.DATABASE_URL || process.env.NEON_DB_URL || '').replace(/&?channel_binding=require/gi, '')
+    if (cs) {
+      pool = new Pool({ connectionString: cs, ssl: { rejectUnauthorized: false }, max: 2, idleTimeoutMillis: 10000 })
+    }
+  }
+  return pool
+}
+
+function matchesQuery(item, query) {
+  if (!query) return true
+  const s = query.toLowerCase().trim()
+  const words = s.split(/[\s/]+/)
+  const haystack = [item.title, item.vendor, item.location, item.category, item.description, ...(item.keywords || [])].join(' ').toLowerCase()
+  return words.every(w => haystack.includes(w))
+}
+
+async function handleRoute(request, { params }) {
+  const { path = [] } = await params
+  const route = '/' + path.join('/')
+  const method = request.method
+  const url = new URL(request.url)
+
+  try {
+    const p = getPool()
+
+    if (path[0] === 'out' && path[1]) {
+      const id = path[1]
+      let target = STATIC_DATABASE.find(it => it.id === id)
+      if (!target && p) {
+        try {
+          const dbRes = await p.query('SELECT * FROM listings WHERE id = $1', [id])
+          if (dbRes.rows[0]) {
+            target = dbRes.rows[0]
+            target.vendorUrl = target.vendor_url
+          }
+        } catch (e) {}
+      }
+      if (target) {
+        if (p) {
+          try {
+            await p.query(
+              'INSERT INTO leads (id, listing_id, listing_title, vendor, created_at) VALUES ($1, $2, $3, $4, now())',
+              [uuidv4(), target.id, target.title, target.vendor]
+            )
+          } catch (e) {}
+        }
+        return NextResponse.redirect(target.vendorUrl || 'https://easafariroutes.com')
+      }
+    }
+
+    if (route === '/listings') {
+      const type = url.searchParams.get('type')
+      const search = url.searchParams.get('q')
+      let items = []
+      if (p) {
+        try {
+          const rows = (await p.query('SELECT * FROM listings ORDER BY created_at DESC')).rows
+          items = rows.map(r => ({ 
+            ...r, 
+            priceValue: Number(r.price_value), 
+            includes: r.includes || [], 
+            keywords: r.keywords || [],
+            vendorUrl: r.vendor_url, 
+            vendorContact: r.vendor_contact, 
+            assets: r.assets || [] 
+          }))
+        } catch (e) {}
+      }
+      if (items.length === 0) items = STATIC_DATABASE
+      if (type && type !== 'All') items = items.filter(it => it.type === type)
+      if (search) items = items.filter(it => matchesQuery(it, search))
+      return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
+    }
+
+    if (route === '/leads' && method === 'POST') {
+      const body = await request.json()
+      if (p) {
+        try {
+          await p.query(
+            'INSERT INTO leads (id, listing_id, listing_title, vendor, created_at) VALUES ($1, $2, $3, $4, now())',
+            [uuidv4(), body.listingId, body.listingTitle || 'Click', body.vendor || 'Unknown']
+          )
+        } catch (e) {}
+      }
+      return NextResponse.json({ success: true })
+    }
+
+    if (route === '/') {
+      return NextResponse.json({ message: 'OSARE API Active' })
+    }
+
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  } catch (err) {
+    return NextResponse.json({ error: 'Internal Error' }, { status: 500 })
+  }
+}
+
+export const GET = handleRoute
+export const POST = handleRoute
+export const OPTIONS = async () => NextResponse.json({}, { headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS' } })
