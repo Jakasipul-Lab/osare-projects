@@ -87,13 +87,13 @@ function ListingCard({ item, onBook, booking }) {
 
         <div className="mt-3 grid grid-cols-2 gap-2 border-y border-slate-50 py-3">
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-400">Vendor Contact</p>
+            <p className="text-[10px] uppercase font-bold text-slate-500">Vendor Contact</p>
             <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
                <Phone className="h-3 w-3" /> {item.vendorContact || 'Official Line'}
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-400">Primary Hub</p>
+            <p className="text-[10px] uppercase font-bold text-slate-500">Primary Hub</p>
             <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium line-clamp-1">
                <MapPin className="h-3 w-3" /> {item.location}
             </p>
@@ -102,7 +102,7 @@ function ListingCard({ item, onBook, booking }) {
         
         {item.assets && item.assets.length > 0 && (
           <div className="mt-4">
-            <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-2">Available Assets</p>
+            <p className="text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-2">Available Assets</p>
             <div className="flex flex-wrap gap-1.5">
               {item.assets.map((asset, idx) => (
                 <Badge key={idx} variant="outline" className="text-[10px] px-2 py-0.5 border-slate-200 bg-slate-50 text-slate-600 font-medium hover:bg-slate-100 transition-colors">
@@ -118,7 +118,7 @@ function ListingCard({ item, onBook, booking }) {
         <div className="mt-auto pt-5">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-400">Pricing Estimate</p>
+              <p className="text-[10px] uppercase font-bold text-slate-500">Pricing Estimate</p>
               <p className="text-2xl font-black text-emerald-600 tracking-tight">{item.priceLabel}</p>
             </div>
             {item.season && (
@@ -137,7 +137,7 @@ function ListingCard({ item, onBook, booking }) {
             {booking === item.id ? <Loader2 className="h-5 w-5 animate-spin" /> : <MessageCircle className="h-5 w-5" />}
             Book on WhatsApp
           </Button>
-          <p className="mt-2 text-[10px] text-center text-slate-400 font-medium">
+          <p className="mt-2 text-[10px] text-center text-slate-500 font-medium">
             Lead tracked via OSARE Affiliate Network (5% Vendor Fee)
           </p>
         </div>
@@ -213,13 +213,13 @@ function TierExplorer({ type }) {
         <Card className="border-slate-200 shadow-lg">
           <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
               <Input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && load()}
                 placeholder={isSafari ? 'e.g. Mara safari, Kilimanjaro, car hire...' : 'e.g. SGR train, matatu, taxi...'}
-                className="h-12 pl-10 text-base"
+                className="h-12 pl-10 text-base border-slate-300 focus:border-orange-500 bg-white shadow-sm"
               />
             </div>
             <Select value={cat} onValueChange={setCat}>
@@ -228,17 +228,17 @@ function TierExplorer({ type }) {
                 {cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
               </SelectContent>
             </Select>
-            <Button onClick={load} className="h-12 gap-2 px-6 text-white shadow-xl hover:brightness-110 transition-all active:scale-95" style={{ backgroundColor: accentColor }}>
+            <Button onClick={load} className="h-12 gap-2 px-6 text-white shadow-lg hover:shadow-orange-200/50 hover:brightness-110 transition-all active:scale-95 font-black uppercase tracking-wide" style={{ backgroundColor: accentColor }}>
               <Search className="h-4 w-4" /> Search OSARE
             </Button>
           </CardContent>
           <div className="px-4 pb-4 flex flex-wrap gap-2 items-center">
-            <span className="text-[10px] uppercase font-bold text-slate-400 mr-2">Quick Discovery:</span>
+            <span className="text-[10px] uppercase font-bold text-slate-500 mr-2">Quick Discovery:</span>
             {QUICK_DISCOVERY.map((chip, idx) => (
               <button
                 key={idx}
                 onClick={() => { setQ(chip.query); load(chip.query); }}
-                className="text-[11px] px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-orange-50 hover:text-orange-600 border border-slate-200 transition-colors"
+                className="text-[11px] px-2.5 py-1 rounded-full bg-slate-200 text-slate-800 hover:bg-orange-100 hover:text-orange-600 border border-slate-200 transition-colors"
               >
                 {chip.label}
               </button>
@@ -252,7 +252,7 @@ function TierExplorer({ type }) {
           <p className="text-sm text-slate-500">{loading ? 'Searching...' : items.length + ' options found'}</p>
         </div>
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+          <div className="flex flex-col items-center justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-500" /></div>
         ) : items.length === 0 ? (
           <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
             No matches found. Try broader terms.
@@ -290,15 +290,15 @@ function HomeView({ go }) {
               <button onClick={() => setTier('safari')} className={'rounded-full px-6 py-2 text-sm font-bold transition ' + (tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30')}>Tourist Discovery</button>
               <button onClick={() => setTier('local')} className={'rounded-full px-6 py-2 text-sm font-bold transition ' + (tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30')}>Local Commute</button>
             </div>
-            <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl">
+            <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl border border-slate-200">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
                 <Input
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && go(tier, q)}
                   placeholder={tier === 'safari' ? 'Tourist Discovery Algorithm...' : 'Regional transit, matatu, taxi, SGR...'}
-                  className="h-12 border-0 pl-10 text-base text-slate-900 focus-visible:ring-0"
+                  className="h-12 border-0 pl-10 text-base text-slate-900 focus-visible:ring-0 placeholder:text-slate-400"
                 />
               </div>
               <Button onClick={() => go(tier, q)} className="h-12 gap-2 px-6 text-white shadow-lg active:scale-95 transition-transform" style={{ backgroundColor: tier === 'safari' ? '#f97316' : '#1e3a8a' }}>Search OSARE <ArrowRight className="h-4 w-4" /></Button>
@@ -409,7 +409,7 @@ function DashboardView() {
     } finally { setLoading(false) }
   }, [])
   useEffect(() => { load() }, [load])
-  if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+  if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-500" /></div>
   const cards = [
     { label: 'Total Listings', value: stats.totalListings, icon: <Compass className="h-5 w-5" />, color: '#1e3a8a' },
     { label: 'WhatsApp Leads', value: stats.totalLeads, icon: <MessageCircle className="h-5 w-5" />, color: '#f97316' },
@@ -502,7 +502,7 @@ export default function Page() {
             {NAV.map((n) => (
               <button
                 onClick={() => { setView(n.key); setMobile(false) }} key={n.key} className="text-sm font-bold transition-colors" style={{ color: view === n.key ? '#f97316' : '#64748b' }}>{n.label}</button>))}
-            <Button onClick={() => go('safari')} size="sm" className="bg-[#1e3a8a] text-white">Discovery</Button>
+            <Button onClick={() => go('safari')} size="sm" className="bg-[#1e3a8a] text-white hover:bg-[#2a4a9a] shadow-md font-bold">Discovery</Button>
           </div>
           <button className="md:hidden" onClick={() => setMobile(!mobile)}>{mobile ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
         </div>
