@@ -1,1 +1,193 @@
-aW1wb3J0IHsgdjQgYXMgdXVpZHY0IH0gZnJvbSAndXVpZCcKaW1wb3J0IHsgTmV4dFJlc3BvbnNlIH0gZnJvbSAnbmV4dC9zZXJ2ZXInCmltcG9ydCBwZyBmcm9tICdwZycKCmNvbnN0IHsgUG9vbCB9ID0gcGcKCmNvbnN0IFNUQVRJQ19EQVRBQkFTRSA9IFsKICB7IAogICAgaWQ6ICdtYXJhLTAwMScsIAogICAgY2F0ZWdvcnk6ICdTYWZhcmkgUGFja2FnZScsIAogICAgdGl0bGU6ICdNYXNhaSBNYXJhIDMtRGF5IE1pZ3JhdGlvbiBTYWZhcmknLCAKICAgIHZlbmRvcjogJ01hcmEgU2FmYXJpIExvZGdlcyBMdGQnLCAKICAgIHZlbmRvckNvbnRhY3Q6ICsrMjU0IDcwMCAxMTEgMjIyJywgCiAgICB2ZW5kb3JVcmw6ICdodHRwczovL3d3dy5tYXNhaW1hcmEuY29tLycsIAogICAgbG9jYXRpb246ICdNYXNhaSBNYXJhIE5hdGlvbmFsIFJlc2VydmUnLCAKICAgIGRlc2NyaXB0aW9uOiAnRXhwZXJpZW5jZSB0aGUgQmlnIEZpdmUgYW5kIHRoZSBHcmVhdCBNaWdyYXRpb24uIEluY2x1ZGVzIGdhbWUgZHJpdmVzIGFuZCBsdXh1cnkgdGVudGVkIHN0YXkuJywgCiAgICBwcmljZUxhYmVsOiAnJDM1MCcsIHByaWNlVmFsdWU6IDM1MCwgY3VycmVuY3k6ICdVU0QnLCB0eXBlOiAnc2FmYXJpJywgCiAgICBpbWFnZTogJ2h0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE5NjU5NTI4NTM0LTdmZDczM2E4MzJhMD9xPTgwJywgCiAgICBrZXl3b3JkczogWydtYXJhJywgJ3NhZmFyaScsICdtaWdyYXRpb24nLCAnbWFzYWknXSwgCiAgICBhc3NldHM6IFsnNHg0IExhbmQgQ3J1aXNlcicsICdMdXh1cnkgVGVudHMnLCAnUHJvZmVzc2lvbmFsIEd1aWRlcycpIAogIH0sIAogIHsgCiAgICBpZDogJ2tpbGktMDAxJywgCiAgICBjYXRlZ29yeTogJ0tpbGltYW5qYXJvIENsaW1iJywgCiAgICB0aXRsZTogJ01vdW50IEtpbGltYW5qYXJvIFRyZWtzIC0gTWFjaGFtZSBSb3V0ZScsIAogICAgdmVuZG9yOiAnU3VtbWl0IEFmcmljYSBUcmVrcycsIAogICAgdmVuZG9yQ29udGFjdDogJysyNTUgNzAwIDMzMyA0NDQnLCAKICAgIHZlbmRvclVybDogJ2h0dHBzOi8vd3d3Lm1vdW50a2lsaW1hbmphcm9ndWlkZS5jb20vJywgCiAgICBsb2NhdGlvbjogJ01vdW50IEtpbGltYW5qYXJvLCBUYW56YW5pYScsIAogICAgZGVzY3JpcHRpb246ICc3LWRheSBjbGltYiB0byBVaHVydSBQZWFrLiBDZXJ0aWZpZWQgZ3VpZGVzIGFuZCBmdWxsIGdlYXIgaW5jbHVkZWQuJywgCiAgICBwcmljZUxhYmVsOiAnJDEsNDUwJywgcHJpY2VWYWx1ZTogMTQ1MCwgY3VycmVuY3k6ICdVU0QnLCB0eXBlOiAnc2FmYXJpJywgCiAgICBpbWFnZTogJ2h0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjEzMDYxNDQ1NTEwLWUyOTZiZmVkYjczZT9xPTgwJywgCiAgICBrZXl3b3JkczogWydraWxpbWFuamFybicsICdtb3VudGFpbicsICdjbGltYicsICd0cmVrJywgJ2tpbGknXSwgCiAgICBhc3NldHM6IFsnQ2FtcGluZyBHZWFyJywgJ094eWdlbiBLaXRzJywgJ0V4cGVydCBQb3J0ZXJzJywgJ0xpZ2h0IEFpcmNyYWZ0IENoYXJ0ZXInXSAKICB9LCAKICB7IAogICAgaWQ6ICdzZXJlbmEtMDAxJywgCiAgICBjYXRlZ29yeTogJ0hvdGVsICYgUmVzb3J0JywgCiAgICB0aXRsZTogJ1NlcmVuYSBIb3RlbCAmIFJlc29ydCAtIEx1eHVyeSBCZWFjaCBTdGF5JywgCiAgICB2ZW5kb3I6ICdTZXJlbmEgSG90ZWxzJywgCiAgICB2ZW5kb3rDb250YWN0OiAnKzI1NCA3MDAgNTU1IDY2NicsIAogICAgdmVuZG9yVXJsOiAnaHR0cHM6Ly93d3cuc2VyZW5haG90ZWxzLmNvbS9tb21iYXNhJywgCiAgICBsb2NhdGlvbjogJ0RpYW5pIEJlYWNoLCBNb21iYXNhJywgCiAgICBkZXNjcmlwdGlvbjogJzUtc3RhciBiZWFjaCByZXNvcnQgd2l0aCBwcml2YXRlIHJlZWYgYWNjZXNzIGFuZCBzcGEuJywgCiAgICBwcmljZUxhYmVsOiAnJDE4MC9uaWdodCcsIHByaWNlVmFsdWU6IDE4MCwgY3VycmVuY3k6ICdVU0QnLCB0eXBlOiAnc2FmYXJpJywgCiAgICBpbWFnZTogJ2h0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjQ2NjY4MDcyNTA3LWIyMjE1Yjg3M2M3MD9xPTgwJywgCiAgICBrZXl3b3JkczogWydzZXJlbmEnLCAnaG90ZWwnLCAncmVzb3J0JywgJ2JlYWNoJywgJ21vbWJhc2EnXSwgCiAgICBhc3NldHM6IFsnT2NlYW4gVmlldyBTdWl0ZXMnLCAnU3BhICYgV2VsbG5lc3MnLCAnUHJpdmF0ZSBCZWFjaCddIAogIH0sIAogIHsgCiAgICBpZDogJ3NhZmFyaS1wYXJrLTAwMScsIAogICAgY2F0ZWdvcnk6ICdIb3RlbCAmIFJlc29ydCcsIAogICAgdGl0bGU6ICdTYWZhcmkgUGFyayBIb3RlbCAtIENpdHkgUmVzb3J0JywgCiAgICB2ZW5kb3I6ICdTYWZhcmkgUGFyaycsIAogICAgdmVuZG9yQ29udGFjdDogJysyNTQgNzAwIDc3NyA4ODgnLCAKICAgIHZlbmRvclVybDogJ2h0dHBzOi8vd3d3LnNhZmFyaXBhcmstaG90ZWwuY29tJywgCiAgICBsb2NhdGlvbjogJ1RoaWthIFJvYWQsIE5haXJvYmknLCAKICAgIGRlc2NyaXB0aW9uOiAnTHVzaCBnYXJkZW5zLCBjdWx0dXJhbCBkaW5uZXIgc2hvd3MsIGFuZCBwcmVtaXVtIGNpdHkgc3RheS4nLCAKICAgIHByaWNlTGFiZWw6ICckMTUwL25pZ2h0JywgcHJpY2VWYWx1ZTogMTUwLCBjdXJyZW5jeTogJ1VTRCcsIHR5cGU6ICdzYWZhcmknLCAKICAgIGltYWdlOiAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1NjQxMDExNjA1MzEtNDgzOGU4YTVmNGU3P3E9ODAnLCAKICAgIGtleW9yZHM6IFsnaG90ZWwnLCAncmVzb3J0JywgJ3NhZmFyaSBwYXJrJywgJ25haXJvYmknXSwgCiAgICBhc3NldHM6IFsnQ29uZmVyZW5jZSBIYWxscycsICdUaGVtZWQgUmVzdGF1cmFudHMnLCAnTGFyZ2UgUG9vbCddIAogIH0sIAogIHsgCiAgICBpZDogJ2FpcmNyYWZ0LTAwMScsIAogICAgY2F0ZWdvcnk6ICdMaWdodCBBaXJjcmFmdCBDaGFydGVyJywgCiAgICB0aXRsZTogJ0Nlc3NuYSAyMDggQ2FyYXZhbiAtIFByaXZhdGUgU2FmYXJpIENoYXJ0ZXInLCAKICAgIHZlbmRvcjogJ1NhZmFyaWxpbmsgQXZpYXRpb24nLCAKICAgIHZlbmRvckNvbnRhY3Q6ICsrMjU0IDczMCA4ODggMDAwJywgCiAgICB2ZW5kb3JVcmw6ICdodHRwczovL3d3dy5mbHlzYWZhcmlsaW5rLmNvbScsIAogICAgbG9jYXRpb246ICdXaWxzb24gQWlycG9ydCwgTmFpcm9iaScsIAogICAgZGVzY3JpcHRpb246ICdQcml2YXRlIGNoYXJ0ZXIgdG8gTWFyYSwgQW1ib3NlbGksIGFuZCBTYW1idXJ1LiBGYXN0LCBzYWZlLCBhbmQgZXhjbHVzaXZlLicsIAogICAgcHJpY2VMYWJlbHogJyQ4NTAvaHInLCBwcmljZVZhbHVlOiA4NTAsIGN1cnJlbmN5OiAnVVNEJywgdHlwZTogJ3NhZmFyaScsIAogICAgaW1hZ2U6ICdodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTU0MDk2MjM1MTUwNC0wMzA5OWUwYTc1NGI/cT04MCcsIAogICAga2V5d29yZHM6IFsnYWlyY3JhZnQnLCAnY2hhcnRlcicsICdwbGFuZScsICdzYWZhcmlsaW5rJywgJ3dpbHNvbiddLCAKICAgIGFzc2V0czogWydMaWdodCBBaXJjcmFmdCcsICdQcml2YXRlIFBpbG90JywgJ1ZJUCBMb3VuZ2UnXSAKICB9LCAKICB7IAogICAgaWQ6ICdjYXJhdmFuLTAwMScsIAogICAgY2F0ZWdvcnk6ICdDYXIgJiBDYXJhdmFuIEhpcmUnLCAKICAgIHRpdGxlOiAnVG95b3RhIExhbmQgQ3J1aXNlciAtIDR4NCBTYWZhcmkgRWRpdGlvbicsIAogICAgdmVuZG9yOiAnQWZyaWNhbiBTcGljZSBDYXIgSGlyZScsIAogICAgdmVuZG9yQ29udGFjdDogJysyNTQgNzU4IDM3OCA3MjknLCAKICAgIHZlbmRvclVybDogJ2h0dHBzOi8vd3d3LmFmcmljYW5zcGljZS1zYWZhcmlzLmNvbS9jYXItaGlyZS8nLCAKICAgIGxvY2F0aW9uOiAnTmFpcm9iaSAvIEpLSUEnLCAKICAgIGRlc2NyaXB0aW9uOiAnRnVsbC10aW1lIDRXRCB3aXRoIHBvcC11cCByb29mIGFuZCBmcmlkZ2UuIElkZWFsIGZvciBzZWxmLWRyaXZlIG9yIGd1aWRlZCBzYWZhcmlzLicsIAogICAgcHJpY2VMYWJlbDogJyQxNTAvZGF5JywgcHJpY2VWYWx1ZTogMTUwLCBjdXJyZW5jeTogJ1VTRCcsIHR5cGU6ICdzYWZhcmknLCAKICAgIGltYWdlOiAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE3MDk0MDI2MDY2ODItNDAwMTMzZDkyYWIyP3E9ODAnLCAKICAgIGtleW9yZHM6IFsnY2FyJywgJ2hpcmUnLCAncmVudGFsJywgJzR4NCcsICdqZWVwJywgJ2NhcmF2YW4nXSwgCiAgICBhc3NldHM6IFsnNHg0IFZlaGljbGUnLCAnQ2FtcGluZyBHZWFyJywgJ0ZyaWRnZS9JbnZlcnRlciddIAogIH0sIAogIHsgCiAgICBpZDogJ3Nnci0wMDEnLCAKICAgIGNhdGVnb3J5OiAnVHJhaW4gKFNHUiknLCAKICAgIHRpdGxlOiAnU0dSIFRyYWluIC0gTmFpcm9iaSB0byBNb21iYXNhJywgCiAgICB2ZW5kb3I6ICdNYWRhcmFrYSBFeHByZXNzJywgCiAgICB2ZW5kb3JDb250YWN0OiAnaW5mb0BrcmMuY28ua2UnLCAKICAgIHZlbmRvclVybDogJ2h0dHBzOi8vbWV0aWNrZXRzLmtyYy5jby5rZScsIAogICAgbG9jYXRpb246ICdOYWlyb2JpIHRvIE1vbWJhc2EnLCAKICAgIGRlc2NyaXB0aW9uOiAnRmFzdCB0cmFpbiBzZXJ2aWNlIGJldHdlZW4gY2FwaXRhbCBhbmQgY29hc3QuJywgCiAgICBwcmljZUxhYmVsOiAnS0VTIDEsNTAwJywgcHJpY2VWYWx1ZTogMTUwMCwgY3VycmVuY3k6ICdLRVMnLCB0eXBlOiAnbG9jYWwnLCAKICAgIGltYWdlOiAnaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1MTYwMjY2NzIzMjItYmM1MmQ2MWE1NWQ1P3E9ODAnLCAKICAgIGtleW9yZHM6IFsnc2dyJywgJ3RyYWluJywgJ25haXJvYmknLCAnbW9tYmFzYSddLCAKICAgIGFzc2V0czogWydFY29ub215IENvYWNoZXMnLCAnRmlyc3QgQ2xhc3MgQ29hY2hlcyddIAogIH0gCl0KCmxldCBwb29sCmZ1bmN0aW9uIGdldFBvb2woKSB7CiAgaWYgKCFwb29sKSB7CiAgICBjb25zdCBjcyA9IChwcm9jZXNzLmVudi5EQVRBQkFTRV9VUkwgfHwgcHJvY2Vzcy5lbnYuTkVPTl9EQl9VUkwgfHwgJycpLnJlcGxhY2UoLyY/Y2hhbm5lbF9iaW5kaW5nPXJlcXVpcmUvZ2ksICcnKQogICAgaWYgKGNzKSB7CiAgICAgIHBvb2wgPSBuZXcgUG9vbCh7IGNvbm5lY3Rpb25TdHJpbmc6IGNzLCBzc2w6IHsgcmVqZWN0VW5hdXRob3JpemVkOiBmYWxzZSB9LCBtYXg6IDIsIGlkbGVUaW1lb3V0TWlsbGlzOiAxMDAwMCB9KQogICAgfQogIH0KICByZXR1cm4gcG9vbAp9CgpmdW5jdGlvbiBtYXRjaGVzUXVlcnkoaXRlbSwgcXVlcnkpIHsKICBpZiAoIXF1ZXJ5KSByZXR1cm4gdHJ1ZQogIGNvbnN0IHMgPSBxdWVyeS50b0xvd2VyQ2FzZSgpLnRyaW0oKQogIGNvbnN0IHdvcmRzID0gcy5zcGxpdCgvW1xzlC9dKy8pCiAgY29uc3QgaGF5c3RhY2sgPSBbaXRlbS50aXRsZSwgaXRlbS52ZW5kb3IsIGl0ZW0ubG9jYXRpb24sIGl0ZW0uY2F0ZWdvcnksIGl0ZW0uZGVzY3JpcHRpb24sIC4uLihpdGVtLmtleXdvcmRzIHx8IFtdKV0uam9pbihuJyAnKS50b0xvd2VyQ2FzZSgpCiAgcmV0dXJuIHdvcmRzLmV2ZXJ5KHcgPT4gaGF5c3RhY2suaW5jbHVkZXModykpCn0KCmFzeW5jIGZ1bmN0aW9uIGhhbmRsZVJvdXRlKHJlcXVlc3QsIHsgcGFyYW1zIH0pIHsKICBjb25zdCB7IHBhdGggPSBbXSB9ID0gYXdhaXQgcGFyYW1zCiAgY29uc3Qgcm91dGUgPSAnLycgKyBwYXRoLmpvaW4oJy8nKQogIGNvbnN0IG1ldGhvZCA9IHJlcXVlc3QubWV0aG9kCiAgY29uc3QgdXJsID0gbmV3IFVSTChyZXF1ZXN0LnVybCkKCiAgdHJ5IHsKICAgIGNvbnN0IHAgPSBnZXRQb29sKCkKCiAgICBpZiAocGF0aFswXSA9PT0gJ291dCcgJiYgcGF0aFsxXSkgewogICAgICBjb25zdCBpZCA9IHBhdGhbMV0KICAgICAgbGV0IHRhcmdldCA9IFNUQVRJQ19EQVRBQkFTRS5maW5kKGl0ID0+IGl0LmlkID09PSBpZCkKICAgICAgaWYgKCF0YXJnZXQgJiYgcCkgewogICAgICAgIHRyeSB7CiAgICAgICAgICBjb25zdCBkYlJlcyA9IGF3YWl0IHAucXVlcnkoJ1NFTEVDVCAqIEZST00gbGlzdGluZ3MgV0hFUkUgaWQgPSAkMScsIFtpZF0pCiAgICAgICAgICBpZiAoZGJSZXMucm93c1swXSkgewogICAgICAgICAgICB0YXJnZXQgPSBkYlJlcy5yb3dzWzBdCiAgICAgICAgICAgIHRhcmdldC52ZW5kb3JVcmwgPSB0YXJnZXQudmVuZG9yX3VybAogICAgICAgICAgfQogICAgICAgIH0gY2F0Y2ggKGUpIHt9CiAgICAgIH0KICAgICAgaWYgKHRhcmdldCkgewogICAgICAgIGlmIChwKSB7CiAgICAgICAgICB0cnkgewogICAgICAgICAgICBhd2FpdCBwLnF1ZXJ5KAogICAgICAgICAgICAgICdJTlNFUlQgSU5UTyBsZWFkcyAoaWQsIGxpc3RpbmdfaWQsIGxpc3RpbmdfdGl0bGUsIHZlbmRvciwgY3JlYXRlZF9hdCkgVkFMVUVTICgkMSwgJDIsICQzLCAkNCwgbm93KCkpJywKICAgICAgICAgICAgICBbdXVpZHY0KCksIHRhcmdldC5pZCwgdGFyZ2V0LnRpdGxlLCB0YXJnZXQudmVuZG9yXQogICAgICAgICAgICApCiAgICAgICAgICB9IGNhdGNoIChlKSB7fQogICAgICAgIH0KICAgICAgICAKICAgICAgICAvLyBCdWlsZCBXaGF0c0FwcCBUcmFja2luZyBMaW5rCiAgICAgICAgY29uc3Qgd2FNc2cgPSBlbmNvZGVVUklDb21wb25lbnQoYEhlbGxvIE9TQVJFLCBJIGZvdW5kIGEgbGlzdGluZyBvbiB5b3VyIHBsYXRmb3JtIGFuZCBJIHdhbnQgdG8gYm9vazogJHt0YXJnZXQudGl0bGV9IGJ5ICR7dGFyZ2V0LnZlbmRvcn0uIChSZWY6ICR7dGFyZ2V0LmlkfSlgKTsKICAgICAgICBjb25zdCB3YVVybCA9IGBodHRwczovL3dhLm1lLzI1NDc1ODM3ODcyOT90ZXh0PSR7d2FNc2d9YDsKICAgICAgICByZXR1cm4gTmV4dFJlc3BvbnNlLnJlZGlyZWN0KHdhVXJsKQogICAgICB9CiAgICB9CgogICAgaWYgKHJvdXRlID09PSAnL2xpc3RpbmdzJykgewogICAgICBjb25zdCB0eXBlID0gdXJsLnNlYXJjaFBhcmFtcy5nZXQoJ3R5cGUnKQogICAgICBjb25zdCBzZWFyY2ggPSB1cmwuc2VhcmNoUGFyYW1zLmdldCgncScpCiAgICAgIGxldCBpdGVtcyA9IFtdCiAgICAgIGlmIChwKSB7CiAgICAgICAgdHJ5IHsKICAgICAgICAgIGNvbnN0IHJvd3MgPSAoYXdhaXQgcC5xdWVyeSgnU0VMRUNUICogRlJPTSBsaXN0aW5ncyBPUkRFUiBCWSBjcmVhdGVkX2F0IERFU0MnKSkucm93cwogICAgICAgICAgaXRlbXMgPSByb3dzLm1hcChyID0+ICh7IAogICAgICAgICAgICAuLi5yLCAKICAgICAgICAgICAgcHJpY2VWYWx1ZTogTnVtYmVyKHIucHJpY2VfdmFsdWUpLCAKICAgICAgICAgICAgaW5jbHVkZXM6IHIuaW5jbHVkZXMgfHwgW10sIAogICAgICAgICAgICBrZXl3b3Jkczogci5rZXl3b3JkcyB||IFtdLAogICAgICAgICAgICB2ZW5kb3JVcmw6IHIudmVuZG9yX3VybCwgCiAgICAgICAgICAgIHZlbmRvckNvbnRhY3Q6IHIudmVuZG9yX2NvbnRhY3QsIAogICAgICAgICAgICBhc3NldHM6IHIuYXNzZXRzIHx8IFtdIAogICAgICAgICAgfSkpCiAgICAgICAgfSBjYXRjaCAoZSkgIHt9CiAgICAgIH0KICAgICAgaWYgKGl0ZW1zLmxlbmd0aCA9PT0gMCkgaXRlbXMgPSBTVEFUSUNfREFUQUJBU0UKICAgICAgaWYgKHR5cGUgJiYgdHlwZSAhPT0gJ0FsbCcpIGl0ZW1zID0gaXRlbXMuZmlsdGVyKGl0ID0+IGl0LnR5cGUgPT09IHR5cGUpCiAgICAgIGlmIChzZWFyY2gpIGl0ZW1zID0gaXRlbXMuZmlsdGVyKGl0ID0+IG1hdGNoZXNRdWVyeShpdCwgc2VhcmNoKSkKICAgICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKGl0ZW1zLCB7IGhlYWRlcnM6IHsgJ0FjY2Vzcy1Db250cm9sLUFsbG93LU9yaWdpbic6ICcqJyB9IH0pCiAgICB9CgogICAgaWYgKHJvdXRlID09PSAnL2xlYWRzJyAmJiBtZXRob2QgPT09ICdQT1NUJykgewogICAgICBjb25zdCBib2R5ID0gYXdhaXQgcmVxdWVzdC5qc29uKCkKICAgICAgaWYgKHApIHsKICAgICAgICB0cnkgewogICAgICAgICAgYXdhaXQgcC5xdWVyeSgKICAgICAgICAgICAgJ0lOU0VSVCBJTlRPIGxlYWRzIChpZCwgbGlzdGluZ19pZCwgbGlzdGluZ190aXRsZSwgdmVuZG9yLCBjcmVhdGVkX2F0KSBWQUxVRVMgKCQxLCAkMiwgJDMsICQ0LCBub3coKSknLAogICAgICAgICAgICBbdXVpZHY0KCksIGJvZHkubGlzdGluZ0lkLCBib2R5Lmxpc3RpbmdUaXRsZSB||ICdDbGljaycsIGJvZHkudmVuZG9yIHx8ICdVbmtub3duJ10KICAgICAgICAgICkKICAgICAgICB9IGNhdGNoIChlKSB7fQogICAgICB9CiAgICAgIHJldHVybiBOZXh0UmVzcG9uc2UuanNvbih7IHN1Y2Nlc3M6IHRydWUgfSkKICAgIH0KCiAgICBpZiAocm91dGUgPT09ICcvJykgewogICAgICByZXR1cm4gTmV4dFJlc3BvbnNlLmpzb24oeyBtZXNzYWdlOiAnT1NBUkUgQVBJIEFjdGl2ZScgfSkKICAgIH0KCiAgICByZXR1cm4gTmV4dFJlc3BvbnNlLmpzb24oeyBlcnJvcjogJ05vdCBmb3VuZCcgfSwgeyBzdGF0dXM6IDQwNCB9KQogIH0gY2F0Y2ggKGVycikgewogICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKHsgZXJyb3I6ICdJbnRlcm5hbCBFcnJvcicgfSwgeyBzdGF0dXM6IDUwMCB9KQogIH0KfQoKZXhwb3J0IGNvbnN0IEdFVCA9IGhhbmRsZVJvdXRlCmV4cG9ydCBjb25zdCBQT1NUID0gaGFuZGxlUm91dGUKZXhwb3J0IGNvbnN0IE9QVElPTlMgPSBhc3luYyAoKSA9PiBOZXh0UmVzcG9uc2UuanNvbih7fSwgeyBoZWFkZXJzOiB7ICdBY2Nlc3MtQ29udHJvbC1BbGxvdy1PcmlnaW4nOiAnKicsICdBY2Nlc3MtQ29udHJvbC1BbGxvdy1NZXRob2RzJzogJ0dFVCwgUE9TVCwgT1BUSU9OUycgfSB9KQo=
+import { v4 as uuidv4 } from 'uuid'
+import { NextResponse } from 'next/server'
+import pg from 'pg'
+
+const { Pool } = pg
+
+const STATIC_DATABASE = [
+  { 
+    id: 'mara-001', 
+    category: 'Safari Package', 
+    title: 'Masai Mara 3-Day Migration Safari', 
+    vendor: 'Mara Safari Lodges Ltd', 
+    vendorContact: ++254 700 111 222', 
+    vendorUrl: 'https://www.masaimara.com/', 
+    location: 'Masai Mara National Reserve', 
+    description: 'Experience the Big Five and the Great Migration. Includes game drives and luxury tented stay.', 
+    priceLabel: '$350', priceValue: 350, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1519659528534-7fd733a832a0?q=80', 
+    keywords: ['mara', 'safari', 'migration', 'masai'], 
+    assets: ['4x4 Land Cruiser', 'Luxury Tents', 'Professional Guides') 
+  }, 
+  { 
+    id: 'kili-001', 
+    category: 'Kilimanjaro Climb', 
+    title: 'Mount Kilimanjaro Treks - Machame Route', 
+    vendor: 'Summit Africa Treks', 
+    vendorContact: '+255 700 333 444', 
+    vendorUrl: 'https://www.mountkilimanjaroguide.com/', 
+    location: 'Mount Kilimanjaro, Tanzania', 
+    description: '7-day climb to Uhuru Peak. Certified guides and full gear included.', 
+    priceLabel: '$1,450', priceValue: 1450, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1613061445510-e296bfedb73e?q=80', 
+    keywords: ['kilimanjarn', 'mountain', 'climb', 'trek', 'kili'], 
+    assets: ['Camping Gear', 'Oxygen Kits', 'Expert Porters', 'Light Aircraft Charter'] 
+  }, 
+  { 
+    id: 'serena-001', 
+    category: 'Hotel & Resort', 
+    title: 'Serena Hotel & Resort - Luxury Beach Stay', 
+    vendor: 'Serena Hotels', 
+    vendozÃontact: '+254 700 555 666', 
+    vendorUrl: 'https://www.serenahotels.com/mombasa', 
+    location: 'Diani Beach, Mombasa', 
+    description: '5-star beach resort with private reef access and spa.', 
+    priceLabel: '$180/night', priceValue: 180, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1646668072507-b2215b873c70?q=80', 
+    keywords: ['serena', 'hotel', 'resort', 'beach', 'mombasa'], 
+    assets: ['Ocean View Suites', 'Spa & Wellness', 'Private Beach'] 
+  }, 
+  { 
+    id: 'safari-park-001', 
+    category: 'Hotel & Resort', 
+    title: 'Safari Park Hotel - City Resort', 
+    vendor: 'Safari Park', 
+    vendorContact: '+254 700 777 888', 
+    vendorUrl: 'https://www.safaripark-hotel.com', 
+    location: 'Thika Road, Nairobi', 
+    description: 'Lush gardens, cultural dinner shows, and premium city stay.', 
+    priceLabel: '$150/night', priceValue: 150, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1564101160531-4838e8a5f4e7?q=80', 
+    keyords: ['hotel', 'resort', 'safari park', 'nairobi'], 
+    assets: ['Conference Halls', 'Themed Restaurants', 'Large Pool'] 
+  }, 
+  { 
+    id: 'aircraft-001', 
+    category: 'Light Aircraft Charter', 
+    title: 'Cessna 208 Caravan - Private Safari Charter', 
+    vendor: 'Safarilink Aviation', 
+    vendorContact: ++254 730 888 000', 
+    vendorUrl: 'https://www.flysafarilink.com', 
+    location: 'Wilson Airport, Nairobi', 
+    description: 'Private charter to Mara, Amboseli, and Samburu. Fast, safe, and exclusive.', 
+    priceLabelz '$850/hr', priceValue: 850, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80', 
+    keywords: ['aircraft', 'charter', 'plane', 'safarilink', 'wilson'], 
+    assets: ['Light Aircraft', 'Private Pilot', 'VIP Lounge'] 
+  }, 
+  { 
+    id: 'caravan-001', 
+    category: 'Car & Caravan Hire', 
+    title: 'Toyota Land Cruiser - 4x4 Safari Edition', 
+    vendor: 'African Spice Car Hire', 
+    vendorContact: '+254 758 378 729', 
+    vendorUrl: 'https://www.africanspice-safaris.com/car-hire/', 
+    location: 'Nairobi / JKIA', 
+    description: 'Full-time 4WD with pop-up roof and fridge. Ideal for self-drive or guided safaris.', 
+    priceLabel: '$150/day', priceValue: 150, currency: 'USD', type: 'safari', 
+    image: 'https://images.unsplash.com/photo-1709402606682-400133d92ab2?q=80', 
+    keyords: ['car', 'hire', 'rental', '4x4', 'jeep', 'caravan'], 
+    assets: ['4x4 Vehicle', 'Camping Gear', 'Fridge/Inverter'] 
+  }, 
+  { 
+    id: 'sgr-001', 
+    category: 'Train (SGR)', 
+    title: 'SGR Train - Nairobi to Mombasa', 
+    vendor: 'Madaraka Express', 
+    vendorContact: 'info@krc.co.ke', 
+    vendorUrl: 'https://metickets.krc.co.ke', 
+    location: 'Nairobi to Mombasa', 
+    description: 'Fast train service between capital and coast.', 
+    priceLabel: 'KES 1,500', priceValue: 1500, currency: 'KES', type: 'local', 
+    image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80', 
+    keyords: ['sgr', 'train', 'nairobi', 'mombasa'], 
+    assets: ['Economy Coaches', 'First Class Coaches'] 
+  } 
+]
+
+let pool
+function getPool() {
+  if (!pool) {
+    const cs = (process.env.DATABASE_URL || process.env.NEON_DB_URL || '').replace(/&?channel_binding=require/gi, '')
+    if (cs) {
+      pool = new Pool({ connectionString: cs, ssl: { rejectUnauthorized: false }, max: 2, idleTimeoutMillis: 10000 })
+    }
+  }
+  return pool
+}
+
+function matchesQuery(item, query) {
+  if (!query) return true
+  const s = query.toLowerCase().trim()
+  const words = s.split(/[\s”/]+/)
+  const haystack = [item.title, item.vendor, item.location, item.category, item.description, ...(item.keywords || [])].join(n' ').toLowerCase()
+  return words.every(w => haystack.includes(w))
+}
+
+async function handleRoute(request, { params }) {
+  const { path = [] } = await params
+  const route = '/' + path.join('/')
+  const method = request.method
+  const url = new URL(request.url)
+
+  try {
+    const p = getPool()
+
+    if (path[0] === 'out' && path[1]) {
+      const id = path[1]
+      let target = STATIC_DATABASE.find(it => it.id === id)
+      if (!target && p) {
+        try {
+          const dbRes = await p.query('SELECT * FROM listings WHERE id = $1', [id])
+          if (dbRes.rows[0]) {
+            target = dbRes.rows[0]
+            target.vendorUrl = target.vendor_url
+          }
+        } catch (e) {}
+      }
+      if (target) {
+        if (p) {
+          try {
+            await p.query(
+              'INSERT INTO leads (id, listing_id, listing_title, vendor, created_at) VALUES ($1, $2, $3, $4, now())',
+              [uuidv4(), target.id, target.title, target.vendor]
+            )
+          } catch (e) {}
+        }
+        
+        // Build WhatsApp Tracking Link
+        const waMsg = encodeURIComponent(`Hello OSARE, I found a listing on your platform and I want to book: ${target.title} by ${target.vendor}. (Ref: ${target.id})`);
+        const waUrl = `https://wa.me/254758378729?text=${waMsg}`;
+        return NextResponse.redirect(waUrl)
+      }
+    }
+
+    if (route === '/listings') {
+      const type = url.searchParams.get('type')
+      const search = url.searchParams.get('q')
+      let items = []
+      if (p) {
+        try {
+          const rows = (await p.query('SELECT * FROM listings ORDER BY created_at DESC')).rows
+          items = rows.map(r => ({ 
+            ...r, 
+            priceValue: Number(r.price_value), 
+            includes: r.includes || [], 
+            keywords: r.keywords H×Kˆ™[™Ü•\›ˆ‹™[™Ü—Ý\›ˆ™[™ÜÛÛXÝˆ‹™[™Ü—ØÛÛXÝˆ\ÜÙ]Îˆ‹˜\ÜÙ]È×HˆJJBˆHØ]Ú
+JHßBˆBˆYˆ
+][\Ë›[™ÝOOH
+H][\ÈHÕUP×ÑUPTÑBˆYˆ
+\H	‰ˆ\HOOH	Ð[	ÊH][\ÈH][\Ë™š[\Š]Oˆ]\HOOH\JBˆYˆ
+ÙX\˜Ú
+H][\ÈH][\Ë™š[\Š]OˆX]Ú\Ô]Y\žJ]ÙX\˜Ú
+JBˆ™]\›ˆ™^™\ÜÛœÙKšœÛÛŠ][\ËÈXY\œÎˆÈ	ÐXØÙ\ÜËPÛÛ›ÛP[ÝËSÜšYÚ[‰Îˆ	Ê‰ÈHJBˆB‚ˆYˆ
+›Ý]HOOH	ËÛXYÉÈ	‰ˆY]ÙOOH	ÔÔÕ	ÊHÂˆÛÛœÝ›ÙHH]ØZ]™\]Y\ÝšœÛÛŠ
+BˆYˆ
+
+HÂˆžHÂˆ]ØZ]œ]Y\žJˆ	ÒS”ÑT•S•ÈXYÈ
+Y\Ý[™×ÚY\Ý[™×Ý]K™[™Ü‹Ü™X]YØ]
+HSQTÈ
+	K	‹	Ë	›ÝÊ
+JIËˆÝ]ZY
+
+K›ÙK›\Ý[™ÒY›ÙK›\Ý[™Õ]Ht6Æ–6²rÂ&öG’çfVæF÷"ÇÂuVæ¶æ÷vâuÐ¢¢Ò6F6‚†R’·Ð¢Ð¢&WGW&âæW‡E&W7öç6Ræ§6öâ‡²7V66W73¢G'VRÒ¢Ð ¢–b‡&÷WFRÓÓÒròr’°¢&WGW&âæW‡E&W7öç6Ræ§6öâ‡²ÖW76vS¢tõ4$R’7F—fRrÒ¢Ð ¢&WGW&âæW‡E&W7öç6Ræ§6öâ‡²W'&÷#¢tæ÷Bf÷VæBrÒÂ²7FGW3¢CBÒ¢Ò6F6‚†W'"’°¢&WGW&âæW‡E&W7öç6Ræ§6öâ‡²W'&÷#¢t–çFW&æÂW'&÷"rÒÂ²7FGW3¢SÒ¢Ð§Ð ¦W‡÷'B6öç7BtUBÒ†æFÆU&÷WFP¦W‡÷'B6öç7Bõ5BÒ†æFÆU&÷WFP¦W‡÷'B6öç7BõD”ôå2Ò7–æ2‚’ÓâæW‡E&W7öç6Ræ§6öâ‡·ÒÂ²†VFW'3¢²t66W72Ô6öçG&öÂÔÆÆ÷rÔ÷&–v–âs¢r¢rÂt66W72Ô6öçG&öÂÔÆÆ÷rÔÖWF†öG2s¢ttUBÂõ5BÂõD”ôå2rÒÒ
