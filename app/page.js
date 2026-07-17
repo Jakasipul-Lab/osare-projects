@@ -36,6 +36,15 @@ const NAV = [
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
 
+const QUICK_DISCOVERY = [
+  { label: 'Masai Mara', query: 'Mara' },
+  { label: 'Kilimanjaro', query: 'Kilimanjaro' },
+  { label: 'SGR Train', query: 'Train' },
+  { label: 'Luxury Hotels', query: 'Hotel' },
+  { label: '4x4 Hire', query: 'Car' },
+  { label: 'Air Charters', query: 'Aircraft' }
+]
+
 function getCatIcon(cat) {
   if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
   if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
@@ -147,11 +156,12 @@ function TierExplorer({ type }) {
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (customQ) => {
     setLoading(true)
     try {
+      const searchQ = typeof customQ === 'string' ? customQ : q
       const params = new URLSearchParams({ type })
-      if (q) params.set('q', q)
+      if (searchQ) params.set('q', searchQ)
       if (cat && cat !== 'All') params.set('category', cat)
       const res = await fetch('/api/listings?' + params.toString())
       const data = await res.json()
@@ -218,10 +228,22 @@ function TierExplorer({ type }) {
                 {cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
               </SelectContent>
             </Select>
-            <Button onClick={load} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: accentColor }}>
-              <Search className="h-4 w-4" /> Search
+            <Button onClick={load} className="h-12 gap-2 px-6 text-white shadow-xl hover:brightness-110 transition-all active:scale-95" style={{ backgroundColor: accentColor }}>
+              <Search className="h-4 w-4" /> Search OSARE
             </Button>
           </CardContent>
+          <div className="px-4 pb-4 flex flex-wrap gap-2 items-center">
+            <span className="text-[10px] uppercase font-bold text-slate-400 mr-2">Quick Discovery:</span>
+            {QUICK_DISCOVERY.map((chip, idx) => (
+              <button
+                key={idx}
+                onClick={() => { setQ(chip.query); load(chip.query); }}
+                className="text-[11px] px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-orange-50 hover:text-orange-600 border border-slate-200 transition-colors"
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
         </Card>
       </div>
 
@@ -261,7 +283,7 @@ function HomeView({ go }) {
             OSARE - East Africa<br className="hidden md:block" /> Safari Routes & Transit Hub
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-white/90">
-            Everything a tourist or local needs at their fingertips. Compare safaris, Kilimanjaro climbs, hotels, car & aircraft hire - and Regional transit - then book direct.
+            Everything a tourist or local needs at their fingertips. Compare safaris, Kilimanjaro climbs, hotels, car & aircraft hire - and regional transit - then book direct.
           </p>
           <div className="mt-8 w-full max-w-2xl">
             <div className="mb-3 flex justify-center gap-3">
@@ -279,7 +301,18 @@ function HomeView({ go }) {
                   className="h-12 border-0 pl-10 text-base text-slate-900 focus-visible:ring-0"
                 />
               </div>
-              <Button onClick={() => go(tier, q)} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: tier === 'safari' ? '#f97316' : '#1e3a8a' }}>Search <ArrowRight className="h-4 w-4" /></Button>
+              <Button onClick={() => go(tier, q)} className="h-12 gap-2 px-6 text-white shadow-lg active:scale-95 transition-transform" style={{ backgroundColor: tier === 'safari' ? '#f97316' : '#1e3a8a' }}>Search OSARE <ArrowRight className="h-4 w-4" /></Button>
+            </div>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+               {QUICK_DISCOVERY.map((chip, idx) => (
+                 <button
+                   key={idx}
+                   onClick={() => go(chip.query.toLowerCase() === 'train' ? 'local' : 'safari', chip.query)}
+                   className="text-[12px] px-3 py-1 rounded-full bg-white/10 text-white/90 border border-white/20 hover:bg-white/20 transition-colors"
+                 >
+                   {chip.label}
+                 </button>
+               ))}
             </div>
           </div>
         </div>
