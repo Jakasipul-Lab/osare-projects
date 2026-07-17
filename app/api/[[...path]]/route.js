@@ -4,6 +4,8 @@ import pg from 'pg'
 
 const { Pool } = pg
 
+const COMMISSION_RATE = 0.05
+
 const STATIC_DATABASE = [
   { 
     id: 'mara-001', 
@@ -133,35 +135,6 @@ async function handleRoute(request, { params }) {
   try {
     const p = getPool()
 
-    if (path[0] === 'out' && path[1]) {
-      const id = path[1]
-      let target = STATIC_DATABASE.find(it => it.id === id)
-      if (!target && p) {
-        try {
-          const dbRes = await p.query('SELECT * FROM listings WHERE id = $1', [id])
-          if (dbRes.rows[0]) {
-            target = dbRes.rows[0]
-            target.vendorUrl = target.vendor_url
-          }
-        } catch (e) {}
-      }
-      if (target) {
-        if (p) {
-          try {
-            await p.query(
-              'INSERT INTO leads (id, listing_id, listing_title, vendor, created_at) VALUES ($1, $2, $3, $4, now())',
-              [uuidv4(), target.id, target.title, target.vendor]
-            )
-          } catch (e) {}
-        }
-        
-        // Build WhatsApp Tracking Link
-        const waMsg = encodeURIComponent(`Hello OSARE, I found a listing on your platform and I want to book: ${target.title} by ${target.vendor}. (Ref: ${target.id})`);
-        const waUrl = `https://wa.me/254758378729?text=${waMsg}`;
-        return NextResponse.redirect(waUrl)
-      }
-    }
-
     if (route === '/listings') {
       const type = url.searchParams.get('type')
       const search = url.searchParams.get('q')
@@ -188,19 +161,50 @@ async function handleRoute(request, { params }) {
 
     if (route === '/leads' && method === 'POST') {
       const body = await request.json()
+      const listingId = body.listingId
+      
+      let target = STATIC_DATABASE.find(it => it.id === listingId)
+      if (!target && p) {
+        try {
+          const dbRes = await p.query('SELECT * FROM listings WHERE id = $1', [listingId])
+          if (dbRes.rows[0]) {
+            target = dbRes.rows[0]
+            target.vendorContact = target.vendor_contact
+          }
+        } catch (e) {}
+      }
+
       if (p) {
         try {
           await p.query(
-            'INSERT INTO leads (id, listing_id, listing_title, vendor, created_at) VALUES ($1, $2, $3, $4, now())',
-            [uuidv4(), body.listingId, body.listingTitle || 'Click', body.vendor || 'Unknown']
+            'INSERT INTO leads (id, listing_id, listing_title, vendor, commission_rate, created_at) VALUES ($1, $2, $3, $4, $5, now())',
+            [uuidv4(), body.listingId, body.listingTitle || 'Click', body.vendor || 'Unknown', COMMISSION_RATE]
           )
         } catch (e) {}
       }
-      return NextResponse.json({ success: true })
+
+      // Generate WhatsApp URL for Vendor
+      const vendorPhone = (target?.vendorContact || '254758378729').replace(/[^0-9]/g, '')
+      const waMsg = encodeURIComponent(`Hello, I found your listing "${body.listingTitle}" on EA SafariRoutes/OSARE and I would like to inquire about booking.`);
+      const whatsappUrl = `https://wa.me/${vendorPhone}?text=${waMsg}`
+
+      return NextResponse.json({ success: true, whatsappUrl })
+    }
+
+    if (route === '/stats') {
+      let stats = { totalListings: STATIC_DATABASE.length, totalLeads: 0, estRevenueUSD: 0, safariCount: STATIC_DATABASE.filter(i=>i.type==='safari').length, localCount: STATIC_DATABASE.filter(i=>i.type==='local').length }
+      if (p) {
+        try {
+          const lRes = await p.query('SELECT count(*) as count FROM leads')
+          stats.totalLeads = parseInt(lRes.rows[0].count)
+          stats.estRevenueUSD = (stats.totalLeads * 10).toFixed(2)
+        } catch (e) {}
+      }
+      return NextResponse.json(stats)
     }
 
     if (route === '/') {
-      return NextResponse.json({ message: 'OSARE API Active' })
+      return NextResponse.json({ message: 'OSARE API Active', version: '2.1' })
     }
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
