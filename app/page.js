@@ -461,7 +461,7 @@ export default function Page() {
       <Toaster position="top-center" />
       <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <button onClick={() => setView('home')} className="flex items-center gap-2">
+          <button onClick="{() => setView('home')}" className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1e3a8a]/10 to-[#f97316]/10 text-[#1e3a8a]"><Compass className="h-6 w-6" /></div>
             <span className="text-xl font-black tracking-tighter">OSARE</span>
           </button>
@@ -471,7 +471,7 @@ export default function Page() {
                 onClick={() => { setView(n.key); setMobile(false) }} key={n.key} className="text-sm font-bold transition-colors" style={{ color: view === n.key ? '#f97316' : '#64748b' }}>{n.label}</button>))}
             <Button onClick={() => go('safari')} size="sm" className="bg-[#1e3a8a] text-white">Discovery</Button>
           </div>
-          <button className="md:hidden" onClick={() => setMobile(!mobile)}>{mobile ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
+          <button className="md:hidden" onClick="{() => setMobile(!mobile)}">{mobile ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
         </div>
       </nav>
       {view === 'home' && <HomeView go={go} />}
