@@ -99,47 +99,23 @@ function ListingCard({ item, onBook, booking }) {
             </p>
           </div>
         </div>
-        
-        {item.assets && item.assets.length > 0 && (
-          <div className="mt-4">
-            <p className="text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-2">Available Assets</p>
-            <div className="flex flex-wrap gap-1.5">
-              {item.assets.map((asset, idx) => (
-                <Badge key={idx} variant="outline" className="text-[10px] px-2 py-0.5 border-slate-200 bg-slate-50 text-slate-600 font-medium hover:bg-slate-100 transition-colors">
-                  {asset}
-                </Badge>
-              ))}
-            </div>
+
+        <p className="mt-4 text-sm text-slate-600 line-clamp-2 leading-relaxed">{item.description}</p>
+
+        <div className="mt-auto pt-5 flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-2xl font-black text-slate-900">{item.priceLabel}</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Starting from</span>
           </div>
-        )}
-
-        <p className="mt-4 text-sm text-slate-600 line-clamp-3 italic leading-relaxed">"{item.description}"</p>
-
-        <div className="mt-auto pt-5">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-[10px] uppercase font-bold text-slate-500">Pricing Estimate</p>
-              <p className="text-2xl font-black text-emerald-600 tracking-tight">{item.priceLabel}</p>
-            </div>
-            {item.season && (
-              <Badge variant="secondary" className="text-[10px] bg-slate-100 text-slate-500">
-                {item.season}
-              </Badge>
-            )}
-          </div>
-
-          <Button
+          <Button 
             onClick={() => onBook(item)}
             disabled={booking === item.id}
-            className="w-full gap-2 h-12 text-base font-bold shadow-md transition-all active:scale-[0.98]"
-            style={{ backgroundColor: accentColor, color: 'white' }}
+            className="gap-2 px-6 py-5 font-bold shadow-lg transition-all active:scale-95"
+            style={{ backgroundColor: accentColor }}
           >
-            {booking === item.id ? <Loader2 className="h-5 w-5 animate-spin" /> : <MessageCircle className="h-5 w-5" />}
-            Book on WhatsApp
+            {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
+            Book Now
           </Button>
-          <p className="mt-2 text-[10px] text-center text-slate-500 font-medium">
-            Lead tracked via OSARE Affiliate Network (5% Vendor Fee)
-          </p>
         </div>
       </CardContent>
     </Card>
@@ -147,35 +123,31 @@ function ListingCard({ item, onBook, booking }) {
 }
 
 function TierExplorer({ type }) {
-  const isSafari = type === 'safari'
-  const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
-  const accentColor = isSafari ? '#f97316' : '#1e3a8a'
-  const [q, setQ] = useState('')
-  const [cat, setCat] = useState('All')
   const [items, setItems] = useState([])
+  const [cat, setCat] = useState('All')
+  const [q, setQ] = useState('')
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
+  
+  const isSafari = type === 'safari'
+  const accentColor = isSafari ? '#f97316' : '#1e3a8a'
 
-  const load = useCallback(async (customQ) => {
+  const load = useCallback(async () => {
     setLoading(true)
     try {
-      const searchQ = typeof customQ === 'string' ? customQ : q
-      const params = new URLSearchParams({ type })
-      if (searchQ) params.set('q', searchQ)
-      if (cat && cat !== 'All') params.set('category', cat)
-      const res = await fetch('/api/listings?' + params.toString())
+      const res = await fetch(`/api/listings?type=${type}&q=${q}`)
       const data = await res.json()
-      setItems(Array.isArray(data) ? data : [])
+      let filtered = Array.isArray(data) ? data : []
+      if (cat !== 'All') filtered = filtered.filter(i => i.category === cat)
+      setItems(filtered)
     } catch (e) {
-      toast.error('Failed to load listings')
+      toast.error("Search unavailable")
     } finally {
       setLoading(false)
     }
   }, [type, q, cat])
 
-  useEffect(() => {
-    load()
-  }, [load])
+  useEffect(() => { load() }, [load])
 
   const handleBook = async (item) => {
     setBooking(item.id)
@@ -183,163 +155,133 @@ function TierExplorer({ type }) {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: item.id, listingTitle: item.title, vendor: item.vendor })
+        body: JSON.stringify({
+          listingId: item.id,
+          listingTitle: item.title,
+          vendor: item.vendor,
+          priceValue: item.priceValue
+        })
       })
       const data = await res.json()
-      if (data.whatsappUrl) {
-        window.open(data.whatsappUrl, '_blank')
-      } else {
-        window.location.href = '/api/out/' + item.id
-      }
+      if (data.whatsappUrl) window.open(data.whatsappUrl, '_blank')
     } catch (e) {
-       window.location.href = '/api/out/' + item.id
+      toast.error("Booking service offline")
     } finally {
       setBooking(null)
     }
   }
 
   return (
-    <div>
-      <div className="relative h-64 w-full overflow-hidden">
-        <img src={isSafari ? HERO : LOCAL_HERO} alt="banner" className="h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: isSafari ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))' : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' }} />
-        <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
-          <h1 className="text-3xl font-extrabold md:text-4xl">{isSafari ? 'The Tourist Discovery Algorithm' : 'Local Commute - Regional Transit'}</h1>
-          <p className="mt-2 max-w-2xl text-white/90">{isSafari ? 'Smart discovery for safaris, Kilimanjaro, and hotels across East Africa.' : 'Compare matatus, SGR trains, taxis & airport shuttles across East Africa.'}</p>
+    <div className="mx-auto max-w-7xl px-5 py-10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+        <div>
+          <h2 className="text-3xl font-black text-slate-900">{isSafari ? 'Safari Discovery' : 'Local Transit Hub'}</h2>
+          <p className="text-slate-500 font-medium mt-1">{items.length} verified options in {isSafari ? 'East Africa' : 'Regional Routes'}</p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Input 
+              placeholder="Search Mara, SGR, Hotels..."
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              className="pl-10 w-full sm:w-64 border-slate-200 focus:border-slate-300 focus:ring-slate-100"
+            />
+          </div>
+          <Select value={cat} onValueChange={setCat}>
+            <SelectTrigger className="w-full sm:w-48 font-semibold border-slate-200">
+              <SelectValue placeholder="Category" />
+            </SelectTrigger>
+            <SelectContent>
+              {(isSafari ? SAFARI_CATS : LOCAL_CATS).map(c => (
+                <SelectItem key={c} value={c} className="font-medium">{c}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
-      <div className="mx-auto -mt-8 max-w-4xl px-5">
-        <Card className="border-slate-200 shadow-lg">
-          <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
-              <Input
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && load()}
-                placeholder={isSafari ? 'e.g. Mara safari, Kilimanjaro, car hire...' : 'e.g. SGR train, matatu, taxi...'}
-                className="h-12 pl-10 text-base border-slate-300 focus:border-orange-500 bg-white shadow-sm"
-              />
-            </div>
-            <Select value={cat} onValueChange={setCat}>
-              <SelectTrigger className="h-12 md:w-56"><SelectValue placeholder="Category" /></SelectTrigger>
-              <SelectContent>
-                {cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-              </SelectContent>
-            </Select>
-            <Button onClick={load} className="h-12 gap-2 px-6 text-white shadow-lg hover:shadow-orange-200/50 hover:brightness-110 transition-all active:scale-95 font-black uppercase tracking-wide" style={{ backgroundColor: accentColor }}>
-              <Search className="h-4 w-4" /> Search OSARE
-            </Button>
-          </CardContent>
-          <div className="px-4 pb-4 flex flex-wrap gap-2 items-center">
-            <span className="text-[10px] uppercase font-bold text-slate-500 mr-2">Quick Discovery:</span>
-            {QUICK_DISCOVERY.map((chip, idx) => (
-              <button
-                key={idx}
-                onClick={() => { setQ(chip.query); load(chip.query); }}
-                className="text-[11px] px-2.5 py-1 rounded-full bg-slate-200 text-slate-800 hover:bg-orange-100 hover:text-orange-600 border border-slate-200 transition-colors"
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div>
-        </Card>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-5 py-10">
-        <div className="mb-5 flex items-center justify-between">
-          <p className="text-sm text-slate-500">{loading ? 'Searching...' : items.length + ' options found'}</p>
+      {loading ? (
+        <div className="flex h-64 items-center justify-center"><Loader2 className="h-10 w-10 animate-spin text-slate-200" /></div>
+      ) : items.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <div className="mb-4 rounded-full bg-slate-50 p-6 text-slate-300"><Search className="h-12 w-12" /></div>
+          <h3 className="text-xl font-bold text-slate-900">No matches found</h3>
+          <p className="text-slate-500">Try broader terms or browse all categories.</p>
         </div>
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-500" /></div>
-        ) : items.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
-            No matches found. Try broader terms.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} />)}
-          </div>
-        )}
-      </div>
+      ) : (
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map(it => (
+            <ListingCard key={it.id} item={it} onBook={handleBook} booking={booking} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
 function HomeView({ go }) {
-  const [q, setQ] = useState('')
-  const [tier, setTier] = useState('safari')
   return (
-    <div>
-      <div className="relative min-h-[560px] w-full object-cover">
-        <img src={HERO} alt="hero" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/85 via-[#1e3a8a]/60 to-[#f97316]/70" />
-        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-5 py-24 text-center">
-          <Badge className="mb-4 gap-1 border-white/30 bg-white/15 text-white backdrop-blur">
-            <Sparkles className="h-3 w-3" /> Free information assistant - Book direct
-          </Badge>
-          <h1 className="text-4xl font-extrabold leading-tight md:text-6xl text-white">
-            OSARE - East Africa<br className="hidden md:block" /> Safari Routes & Transit Hub
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/90">
-            Everything a tourist or local needs at their fingertips. Compare safaris, Kilimanjaro climbs, hotels, car & aircraft hire - and regional transit - then book direct.
-          </p>
-          <div className="mt-8 w-full max-w-2xl">
-            <div className="mb-3 flex justify-center gap-3">
-              <button onClick={() => setTier('safari')} className={'rounded-full px-6 py-2 text-sm font-bold transition ' + (tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30')}>Tourist Discovery</button>
-              <button onClick={() => setTier('local')} className={'rounded-full px-6 py-2 text-sm font-bold transition ' + (tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30')}>Local Commute</button>
+    <div className="pb-20">
+      <div className="relative overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0 opacity-40">
+          <img src={HERO} alt="Hero" className="h-full w-full object-cover" />
+        </div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+        
+        <div className="relative z-20 mx-auto max-w-7xl px-5 py-24 md:py-40">
+          <div className="max-w-3xl">
+            <Badge className="mb-6 bg-[#f97316] text-white border-0 px-4 py-1.5 text-sm font-bold shadow-lg">Official Safari discovery Algorithm</Badge>
+            <h1 className="text-5xl font-black text-white md:text-7xl tracking-tighter leading-[0.9]">
+              DISCOVER<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f97316] to-[#fbbf24]">EAST AFRICA</span>
+            </h1>
+            <p className="mt-8 text-lg font-medium text-slate-300 max-w-xl leading-relaxed">
+              The ultimate B2B platform connecting global travelers with verified local operators. No hidden fees, just direct bookings.
+            </p>
+            
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <Button onClick={() => go('safari')} size="lg" className="bg-[#f97316] text-white hover:bg-[#ea580c] px-8 py-7 text-lg font-black shadow-xl transition-all hover:-translate-y-1">
+                Start Discovery <Compass className="ml-2 h-5 w-5" />
+              </Button>
+              <Button onClick={() => go('local')} size="lg" variant="outline" className="border-white/20 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-7 text-lg font-black">
+                Local Transit <Bus className="ml-2 h-5 w-5" />
+              </Button>
             </div>
-            <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl border border-slate-200">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
-                <Input
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && go(tier, q)}
-                  placeholder={tier === 'safari' ? 'Tourist Discovery Algorithm...' : 'Regional transit, matatu, taxi, SGR...'}
-                  className="h-12 border-0 pl-10 text-base text-slate-900 focus-visible:ring-0 placeholder:text-slate-400"
-                />
-              </div>
-              <Button onClick={() => go(tier, q)} className="h-12 gap-2 px-6 text-white shadow-lg active:scale-95 transition-transform" style={{ backgroundColor: tier === 'safari' ? '#f97316' : '#1e3a8a' }}>Search OSARE <ArrowRight className="h-4 w-4" /></Button>
-            </div>
-            <div className="mt-4 flex flex-wrap justify-center gap-2">
-               {QUICK_DISCOVERY.map((chip, idx) => (
-                 <button
-                   key={idx}
-                   onClick={() => go(chip.query.toLowerCase() === 'train' ? 'local' : 'safari', chip.query)}
-                   className="text-[12px] px-3 py-1 rounded-full bg-white/10 text-white/90 border border-white/20 hover:bg-white/20 transition-colors"
-                 >
-                   {chip.label}
-                 </button>
-               ))}
+
+            <div className="mt-16 flex flex-wrap gap-3">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-widest block w-full mb-2">Quick Discovery Chips</span>
+              {QUICK_DISCOVERY.map(chip => (
+                <button 
+                  key={chip.label}
+                  onClick={() => go('safari', chip.query)}
+                  className="rounded-full bg-white/5 border border-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/10 hover:border-white/30 transition-all"
+                >
+                  {chip.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="text-center text-3xl font-extrabold text-slate-900">Two platforms. One trusted hub.</h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <button onClick={() => go('safari') } className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
-            <img src={HERO} alt="safari" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            <div className="absolute bottom-0 p-6 text-white">
-              <Badge className="mb-2 gap-1 border-0 bg-[#f97316] text-white"><Compass className="h-3 w-3" /> Tier 1</Badge>
-              <h3 className="text-2xl font-bold">The Tourist Discovery Algorithm</h3>
-              <p className="mt-1 text-sm text-white/85">Mara migration, Kilimanjaro, hotels, car & aircraft hire, sightseeing across East Africa.</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-orange-300">Explore discovery <ArrowRight className="h-4 w-4" /></span>
-            </div>
-          </button>
-          <button onClick={() => go('local') } className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
-            <img src={LOCAL_HERO} alt="local" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            <div className="absolute bottom-0 p-6 text-white">
-              <Badge className="mb-2 gap-1 border-0 bg-[#1e3a8a] text-white"><Bus className="h-3 w-3" /> Tier 2</Badge>
-              <h3 className="text-2xl font-bold">Local Commute</h3>
-              <p className="mt-1 text-sm text-white/85">Regional transit: matatus, SGR trains, taxis & airport shuttles.</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-blue-300">Find transit <ArrowRight className="h-4 w-4" /></span>
-            </div>
-          </button>
+
+      <div className="mx-auto max-w-7xl px-5 py-20">
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500">
+            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-[#f97316]"><Compass className="h-6 w-6" /></div>
+            <h3 className="text-xl font-black text-slate-900">Discovery Engine</h3>
+            <p className="mt-4 text-slate-500 font-medium leading-relaxed">Our custom algorithm filters through thousands of listings to find the best verified safari packages.</p>
+          </div>
+          <div className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500">
+            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-[#1e3a8a]"><Users className="h-6 w-6" /></div>
+            <h3 className="text-xl font-black text-slate-900">Direct Connection</h3>
+            <p className="mt-4 text-slate-500 font-medium leading-relaxed">We hand you directly to the vendor's official WhatsApp. No middlemen, no markup.</p>
+          </div>
+          <div className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-500">
+            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600"><Building2 className="h-6 w-6" /></div>
+            <h3 className="text-xl font-black text-slate-900">Verified Vendors</h3>
+            <p className="mt-4 text-slate-500 font-medium leading-relaxed">Every operator on OSARE goes through a strict verification process from our Kisumu HQ.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -347,44 +289,21 @@ function HomeView({ go }) {
 }
 
 function AboutView() {
-  const branches = [
-    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
-    { region: 'Kenya - Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
-    { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
-    { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
-    { region: 'Germany Branch', name: 'Brunnenstrasse 48', role: '34537, Bad Wildungen', country: 'Germany' }
-  ]
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16">
-      <Badge className="gap-1 bg-[#f97316] text-white border-0"><Leaf className="h-3 w-3" /> About OSARE - EA SafariRoutes</Badge>
-      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">Connecting East Africa through trusted travel & logistics.</h1>
-      <p className="mt-4 text-mg text-slate-600">OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa</p>
-      <div className="mt-12 grid items-center gap-8 rounded-2xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 md:grid-cols-[220px_1fr]">
-        <img src="https://github.com/Jakasipul-Lab.png" alt="Osare" className="h-52 w-52 rounded-2xl object-cover shadow-lg" />
+    <div className="mx-auto max-w-4xl px-5 py-24">
+      <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
+      <p className="mt-8 text-xl font-medium leading-relaxed text-slate-600">
+        OSARE is East Africa's first dedicated B2B discovery hub for travel and transit. 
+        Based in our **Kisumu Headquarters**, we are committed to making travel discovery seamless, transparent, and direct.
+      </p>
+      <div className="mt-16 grid gap-12 sm:grid-cols-2">
         <div>
-          <h3 className="text-2xl font-extrabold text-[#1b5e20]">Osare Nakinson</h3>
-          <span className="mt-1 inline-block font-semibold text-[#2e7d32]">Founder & Lead Developer</span>
-          <p className="mt-3 text-slate-600">Driving innovation in East African mobility through technology-first logistics and transport partnerships.</p>
+          <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Our Mission</h3>
+          <p className="text-slate-500 font-medium leading-relaxed">To empower local vendors by giving them a global platform without the burden of heavy commission fees.</p>
         </div>
-      </div>
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
-        <Card><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos and prices. Tracked handoffs to vendors.</p></CardContent></Card>
-        <Card><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. Tracked WhatsApp leads for 5% commission.</p></CardContent></Card>
-        <Card><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors - never by the tourist.</p></CardContent></Card>
-      </div>
-      <div className="mt-14">
-        <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters & Branches</h2>
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {branches.map((b, i) => (
-            <Card key={i} className="border-slate-200">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-2 text-[#2e7d32]"><MapPin className="h-4 w-4" /><span className="font-bold">{b.region}</span></div>
-                <p className="mt-2 font-medium text-slate-800">{b.name}</p>
-                <p className="text-sm text-slate-500">{b.role}</p>
-                <Badge variant="secondary" className="mt-3">{b.country}</Badge>
-              </CardContent>
-            </Card>
-          ))}
+        <div>
+          <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Our Model</h3>
+          <p className="text-slate-500 font-medium leading-relaxed">We charge a flat 5% service fee per tracked lead, ensuring we only profit when our vendors grow.</p>
         </div>
       </div>
     </div>
@@ -392,48 +311,40 @@ function AboutView() {
 }
 
 function DashboardView() {
-  const [stats, setStats] = useState(null)
+  const [stats, setStats] = useState({ totalLeads: 0, estRevenueUSD: 0 })
   const [leads, setLeads] = useState([])
-  const [loading, setLoading] = useState(true)
   const load = useCallback(async () => {
-    setLoading(true)
     try {
-      const [s, l] = await Promise.all([
-        fetch('/api/stats').then(r => r.json()),
-        fetch('/api/leads').then(r => r.json())
-      ])
-      setStats(s)
-      setLeads(Array.isArray(l) ? l : [])
-    } catch (e) {
-      toast.error('Failed to load dashboard')
-    } finally { setLoading(false) }
+      const sRes = await fetch('/api/stats'); const sData = await sRes.json(); setStats(sData)
+      const lRes = await fetch('/api/listings?type=leads'); const lData = await lRes.json(); setLeads(Array.isArray(lData) ? lData : [])
+    } catch (e) {}
   }, [])
   useEffect(() => { load() }, [load])
-  if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-500" /></div>
-  const cards = [
-    { label: 'Total Listings', value: stats.totalListings, icon: <Compass className="h-5 w-5" />, color: '#1e3a8a' },
-    { label: 'WhatsApp Leads', value: stats.totalLeads, icon: <MessageCircle className="h-5 w-5" />, color: '#f97316' },
-    { label: 'Est. Commission', value: '$' + stats.estRevenueUSD, icon: <Percent className="h-5 w-5" />, color: '#10b981' },
-    { label: 'Safari / Local', value: stats.safariCount + ' / ' + stats.localCount, icon: <Users className="h-5 w-5" />, color: '#3b82f6' }
-  ]
+  
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
-      <div className="flex items-center justify-between"><div><h1 className="text-3xl font-extrabold text-slate-900">Revenue Dashboard</h1><p className="text-slate-500">Track 5% commission from vendor handoffs.</p></div><Button variant="outline" onClick={load}>Refresh</Button></div>
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {cards.map((c, i) => (
-          <Card key={i} className="border-slate-200">
-            <CardContent className="p-5">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-slate-500">{c.label}</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: c.color }}>{c.icon}</span>
-              </div>
-              <p className="mt-3 text-3xl font-extrabold text-slate-900">{c.value}</p>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="mb-10">
+        <h1 className="text-3xl font-black text-slate-900">Platform Performance</h1>
+        <p className="text-slate-500 font-medium">Real-time tracking of handoffs and revenue.</p>
       </div>
-      <Card className="mt-8 border-slate-200">
-        <CardHeader><CardTitle className="text-base">Recent WhatsApp handoffs</CardTitle></CardHeader>
+
+      <div className="grid gap-6 md:grid-cols-3 mb-12">
+        <Card className="bg-[#1e3a8a] text-white">
+          <CardHeader><CardTitle className="text-sm uppercase tracking-widest opacity-80">Total Leads Generated</CardTitle></CardHeader>
+          <CardContent><p className="text-4xl font-black">{stats.totalLeads}</p></CardContent>
+        </Card>
+        <Card className="bg-[#f97316] text-white">
+          <CardHeader><CardTitle className="text-sm uppercase tracking-widest opacity-80">Est. Revenue (Commission)</CardTitle></CardHeader>
+          <CardContent><p className="text-4xl font-black">${stats.estRevenueUSD}</p></CardContent>
+        </Card>
+        <Card className="bg-emerald-600 text-white">
+          <CardHeader><CardTitle className="text-sm uppercase tracking-widest opacity-80">Conversion Rate</CardTitle></CardHeader>
+          <CardContent><p className="text-4xl font-black">{(stats.totalLeads / 100).toFixed(1)}%</p></CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader><CardTitle>Recent Handoffs</CardTitle></CardHeader>
         <CardContent>
           {leads.length === 0 ? (
             <p className="py-8 text-center text-slate-400">No handoffs tracked yet.</p>
@@ -453,6 +364,46 @@ function DashboardView() {
           )}
         </CardContent>
       </Card>
+    </div>
+  )
+}
+
+function VendorPortalView() {
+  return (
+    <div className="mx-auto max-w-4xl px-5 py-24 text-center">
+      <div className="mb-10 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+        <Building2 className="h-10 w-10" />
+      </div>
+      <h1 className="text-4xl font-black text-slate-900 tracking-tight">Grow Your Business with OSARE</h1>
+      <p className="mt-6 text-xl text-slate-600 max-w-2xl mx-auto">
+        Join East Africa's leading safari and transit discovery platform. 
+        List your services for free and only pay a 5% commission on successful leads.
+      </p>
+      <div className="mt-10 flex flex-wrap justify-center gap-4">
+        <Button onClick={() => window.location.href = '/onboarding'} size="lg" className="bg-blue-600 text-white hover:bg-blue-700 px-8 py-6 text-lg font-bold">
+          Register as Vendor
+        </Button>
+        <Button variant="outline" size="lg" className="px-8 py-6 text-lg font-bold">
+          Learn More
+        </Button>
+      </div>
+      <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+          <div className="h-10 w-10 rounded-lg bg-white flex items-center justify-center shadow-sm mb-4"><Users className="h-5 w-5 text-blue-600" /></div>
+          <h3 className="font-bold text-slate-900">Direct Travelers</h3>
+          <p className="text-sm text-slate-500 mt-2">Connect directly with tourists looking for your specific regional services.</p>
+        </div>
+        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+          <div className="h-10 w-10 rounded-lg bg-white flex items-center justify-center shadow-sm mb-4"><Percent className="h-5 w-5 text-blue-600" /></div>
+          <h3 className="font-bold text-slate-900">Fair Commission</h3>
+          <p className="text-sm text-slate-500 mt-2">No upfront fees. We only win when you win. Simple 5% commission on leads.</p>
+        </div>
+        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+          <div className="h-10 w-10 rounded-lg bg-white flex items-center justify-center shadow-sm mb-4"><ShieldCheck className="h-5 w-5 text-blue-600" /></div>
+          <h3 className="font-bold text-slate-900">Kisumu HQ Support</h3>
+          <p className="text-sm text-slate-500 mt-2">Local support from our headquarters ensuring your listings stay active.</p>
+        </div>
+      </div>
     </div>
   )
 }
@@ -514,7 +465,7 @@ export default function Page() {
       {view === 'about' && <AboutView />}
       {view === 'dashboard' && <DashboardView />}
       {view === 'admin' && <AdminView />}
-      {view === 'vendor' && <div className="py-20 text-center"><h2 className="text-2xl font-bold">Vendor Portal Coming Soon</h2></div>}
+      {view === 'vendor' && <VendorPortalView />}
       <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20">
         <div className="mx-auto max-w-7xl px-5 text-center md:text-left">
           <div className="grid gap-12 md:grid-cols-4">
@@ -534,4 +485,3 @@ export default function Page() {
       </footer>
     </main>
   )
-}
