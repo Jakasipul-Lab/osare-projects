@@ -6,38 +6,157 @@ const COMMISSION_RATE = 0.05;
 
 const STATIC_DATABASE = [
   {
-    "id": "habari-001",
+    "id": "c907fa7a-8493-447e-98a3-f7e78fd5e4bd",
     "category": "Kilimanjaro Climb",
-    "title": "Habari Adventure - Kilimanjaro Climbs",
+    "title": "Habari Adventure",
     "vendor": "Habari Adventure",
     "vendorContact": "+255754044692",
     "vendorUrl": "https://habariadventure.com",
     "location": "Moshi",
-    "description": "Expert Kilimanjaro climbs and safari experiences from Moshi.",
-    "priceLabel": "$2,200",
-    "priceValue": 2200,
+    "description": "Expert Kilimanjaro climbs and safari experiences.",
+    "priceLabel": "$300",
+    "priceValue": 300,
     "currency": "USD",
     "type": "safari",
-    "image": "https://images.unsplash.com/photo-1589553460732-588140292BB9?q=80",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80",
     "keywords": ["moshi", "kilimanjaro"],
-    "assets": ["Verified", "Direct Contact"]
+    "assets": ["Verified"]
   },
   {
-    "id": "altezza-001",
+    "id": "be2f0bec-de21-43ad-867b-252a91dc3cec",
+    "category": "Safari Package",
+    "title": "Rojo Expedition Ltd",
+    "vendor": "Rojo Expedition Ltd",
+    "vendorContact": "+255689451736",
+    "vendorUrl": "",
+    "location": "Arusha",
+    "description": "Professional safari expeditions across Tanzania.",
+    "priceLabel": "$450",
+    "priceValue": 450,
+    "currency": "USD",
+    "type": "safari",
+    "image": "https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80",
+    "keywords": ["arusha", "safari"],
+    "assets": ["Verified"]
+  },
+  {
+    "id": "cdd93e50-a59a-47dd-bf66-a90dcb464ffc",
+    "category": "Safari Package",
+    "title": "Vijo Safaris Ltd",
+    "vendor": "Vijo Safaris Ltd",
+    "vendorContact": "+255784745725",
+    "vendorUrl": "",
+    "location": "Arusha",
+    "description": "Boutique safari experiences tailored to your needs.",
+    "priceLabel": "$500",
+    "priceValue": 500,
+    "currency": "USD",
+    "type": "safari",
+    "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80",
+    "keywords": ["arusha", "safari"],
+    "assets": ["Verified"]
+  },
+  {
+    "id": "28ad3912-eb98-4b92-9f7c-654ad41d1ab2",
     "category": "Kilimanjaro Climb",
-    "title": "Altezza Travel - Mountain Treks",
+    "title": "Altezza Travel",
     "vendor": "Altezza Travel",
     "vendorContact": "+255768123456",
     "vendorUrl": "https://altezza.travel",
     "location": "Moshi",
-    "description": "Premium Kilimanjaro climbs and luxury safari tours.",
+    "description": "Premium Kilimanjaro treks and luxury safari tours.",
     "priceLabel": "$2,500",
     "priceValue": 2500,
     "currency": "USD",
     "type": "safari",
     "image": "https://images.unsplash.com/photo-1613061445510-e296bfedb73e?q=80",
-    "keywords": ["moshi", "luxury"],
-    "assets": ["Verified", "Direct Contact"]
+    "keywords": ["moshi", "kilimanjaro"],
+    "assets": ["Verified"]
+  },
+  {
+    "id": "d2efae5e-34be-4bbd-ac40-bcc600831906",
+    "category": "Hotel & Resort",
+    "title": "Serena Hotels",
+    "vendor": "Serena Hotels",
+    "vendorContact": "+255222112416",
+    "vendorUrl": "https://serenahotels.com",
+    "location": "Nationwide",
+    "description": "Luxury lodges and hotels across East Africa.",
+    "priceLabel": "$250/night",
+    "priceValue": 250,
+    "currency": "USD",
+    "type": "safari",
+    "image": "https://images.unsplash.com/photo-1564101160531-4838e8a5f4e7?q=80",
+    "keywords": ["nationwide", "lodge"],
+    "assets": ["Verified"]
+  },
+  {
+    "id": "95e87f59-4717-4a71-9914-f29d31d2163a",
+    "category": "Airlines & Charters",
+    "title": "Precision Air",
+    "vendor": "Precision Air",
+    "vendorContact": "+255222191000",
+    "vendorUrl": "https://precisionairtz.com",
+    "location": "Dar es Salaam",
+    "description": "Leading domestic airline in Tanzania.",
+    "priceLabel": "$120",
+    "priceValue": 120,
+    "currency": "USD",
+    "type": "local",
+    "image": "https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80",
+    "keywords": ["dar", "flights"],
+    "assets": ["Verified"]
+  },
+  {
+    "id": "051b0212-2ae8-4b2c-aee6-7827f2aed88b",
+    "category": "Airlines & Charters",
+    "title": "Coastal Aviation",
+    "vendor": "Coastal Aviation",
+    "vendorContact": "+255222600646",
+    "vendorUrl": "https://coastal.co.tz",
+    "location": "Dar es Salaam",
+    "description": "Safari charters and scheduled flights to parks.",
+    "priceLabel": "$350",
+    "priceValue": 350,
+    "currency": "USD",
+    "type": "local",
+    "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80",
+    "keywords": ["dar", "safari"],
+    "assets": ["Verified"]
+  },
+  {
+    "id": "6ab9fdec-3214-49cd-9ce9-27325b9eef31",
+    "category": "Tourism",
+    "title": "Zanzibar Unique Tours",
+    "vendor": "Zanzibar Unique Tours",
+    "vendorContact": "+255242234567",
+    "vendorUrl": "",
+    "location": "Stone Town",
+    "description": "Unique historical and cultural tours in Zanzibar.",
+    "priceLabel": "$80",
+    "priceValue": 80,
+    "currency": "USD",
+    "type": "safari",
+    "image": "https://images.unsplash.com/photo-1519659528534-7fd733a832a0?q=80",
+    "keywords": ["zanzibar", "tours"],
+    "assets": ["Verified"]
+  },
+  {
+    "id": "b9adf9e6-60c7-47fd-88e9-8b6cade3e662",
+    "category": "Coastal Activity",
+    "title": "Safari Blue Ltd",
+    "vendor": "Safari Blue Ltd",
+    "vendorContact": "+255777123456",
+    "vendorUrl": "https://safariblue.net",
+    "location": "Fumba, Zanzibar",
+    "description": "Marine excursions and traditional dhow trips.",
+    "priceLabel": "$150",
+    "priceValue": 150,
+    "currency": "USD",
+    "type": "safari",
+    "image": "https://images.unsplash.com/photo-1646668072507-b2215b873c70?q=80",
+    "keywords": ["zanzibar", "marine"],
+    "assets": ["Verified"]
   },
   {
     "id": "sgr-001",
@@ -48,60 +167,16 @@ const STATIC_DATABASE = [
     "vendorUrl": "https://metickets.krc.co.ke",
     "location": "Nairobi to Mombasa",
     "boardingPoint": "Syokimau (Nairobi) / Miritini (Mombasa)",
-    "description": "Daily fast train service with fixed prices and scheduled departures.",
+    "description": "Fast daily train service with fixed pricing.",
     "priceLabel": "KES 1,500",
     "priceValue": 1500,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80",
-    "keywords": ["sgr", "train", "nairobi", "mombasa"],
-    "assets": ["Fixed Price", "Official Service"]
-  },
-  {
-    "id": "easy-001",
-    "category": "Matatu / Shuttle",
-    "title": "EasyCoach Intercity",
-    "vendor": "EasyCoach Ltd",
-    "vendorContact": "0738 200 301",
-    "vendorUrl": "https://www.easycoach.co.ke",
-    "location": "Nairobi / Kisumu / Busia",
-    "boardingPoint": "Haile Selassie Ave (Nairobi) / Kisumu Office",
-    "description": "Premium scheduled bus service. Safe and reliable intercity travel.",
-    "priceLabel": "KES 1,400",
-    "priceValue": 1400,
-    "currency": "KES",
-    "type": "local",
-    "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80",
-    "keywords": ["bus", "easycoach", "kisumu"],
-    "assets": ["Scheduled", "No Hassle"]
-  },
-  {
-    "id": "modern-001",
-    "category": "Matatu / Shuttle",
-    "title": "Modern Coast Regional",
-    "vendor": "Modern Coast",
-    "vendorContact": "0709 916 000",
-    "vendorUrl": "https://www.moderncoast.co.ke",
-    "location": "Nairobi / Mombasa / Malindi",
-    "boardingPoint": "River Road (Nairobi) / Mombasa Office",
-    "description": "Luxury travel across the region with air-conditioned buses.",
-    "priceLabel": "KES 1,600",
-    "priceValue": 1600,
-    "currency": "KES",
-    "type": "local",
-    "image": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80",
-    "keywords": ["bus", "modern coast", "mombasa"],
-    "assets": ["Luxury", "AC"]
+    "keywords": ["sgr", "train"],
+    "assets": ["Official"]
   }
 ];
-
-function matchesQuery(item, queryStr) {
-  if (!queryStr) return true;
-  const s = queryStr.toLowerCase().trim();
-  const words = s.split(/[\s/]+/);
-  const haystack = [item.title, item.vendor, item.location, item.category, item.description, ...(item.keywords || [])].join(' ').toLowerCase();
-  return words.every(w => haystack.includes(w));
-}
 
 async function handleRoute(request, { params }) {
   const { path = [] } = await params;
@@ -114,35 +189,26 @@ async function handleRoute(request, { params }) {
       const type = url.searchParams.get('type');
       const search = url.searchParams.get('q');
       let items = [];
-      
       try {
         const dbRes = await query('SELECT * FROM vendors WHERE is_active = true ORDER BY created_at DESC');
         if (dbRes && dbRes.rows.length > 0) {
           items = dbRes.rows.map(r => ({
-            id: r.id,
-            category: r.category,
-            title: r.title,
-            vendor: r.name,
-            vendorContact: r.phone,
-            vendorUrl: r.url,
-            location: r.location,
-            boardingPoint: r.boarding_point,
-            description: r.description,
-            priceLabel: r.price_label,
-            priceValue: Number(r.price_value),
-            currency: r.currency,
-            type: r.type,
-            image: r.image,
-            keywords: r.keywords || [],
-            assets: r.assets || []
+            id: r.id, category: r.category, title: r.title, vendor: r.name,
+            vendorContact: r.phone, vendorUrl: r.url, location: r.location,
+            boardingPoint: r.boarding_point, description: r.description,
+            priceLabel: r.price_label, priceValue: Number(r.price_value),
+            currency: r.currency, type: r.type, image: r.image,
+            keywords: r.keywords || [], assets: r.assets || []
           }));
         }
       } catch (e) {}
 
       if (items.length === 0) items = STATIC_DATABASE;
       if (type && type !== 'All') items = items.filter(it => it.type === type);
-      if (search) items = items.filter(it => matchesQuery(it, search));
-      
+      if (search) {
+         const s = search.toLowerCase();
+         items = items.filter(it => it.title.toLowerCase().includes(s) || it.location.toLowerCase().includes(s));
+      }
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } });
     }
 
@@ -151,14 +217,12 @@ async function handleRoute(request, { params }) {
       const { listingId, listingTitle, vendor, priceValue } = body;
       const commission = (Number(priceValue) || 0) * COMMISSION_RATE;
       const leadId = uuidv4();
-
       try {
         await query(
           'INSERT INTO leads (id, vendor_id, traveler_name, traveler_phone, price_quoted, commission_amount, status, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, now())',
           [leadId, listingId, body.travelerName || 'Anonymous', body.travelerPhone || 'N/A', priceValue, commission, 'handoff']
         );
       } catch (e) {}
-
       let vendorPhone = '254758378729';
       try {
         const vRes = await query('SELECT phone FROM vendors WHERE id = $1', [listingId]);
@@ -168,29 +232,9 @@ async function handleRoute(request, { params }) {
            if (staticV) vendorPhone = staticV.vendorContact;
         }
       } catch (e) {}
-
       const cleanPhone = vendorPhone.replace(/[^0-9]/g, '');
       const waMsg = encodeURIComponent(`Hello, I found your listing "${listingTitle}" on EA SafariRoutes/OSARE and I would like to book.`);
-      
-      return NextResponse.json({ 
-        success: true, 
-        whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}` 
-      });
-    }
-
-    if (route === '/onboarding' && method === 'POST') {
-      const v = await request.json();
-      const id = uuidv4();
-      try {
-        await query(
-          `INSERT INTO vendors (id, name, category, title, phone, url, location, description, price_label, price_value, currency, type, image, keywords, assets, is_active) 
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, true)`,
-          [id, v.name, v.category, v.title, v.phone, v.url, v.location, v.description, v.priceLabel, v.priceValue, v.currency || 'USD', v.type || 'safari', v.image, v.keywords || [], v.assets || []]
-        );
-        return NextResponse.json({ success: true, vendorId: id });
-      } catch (e) {
-        return NextResponse.json({ error: e.message }, { status: 500 });
-      }
+      return NextResponse.json({ success: true, whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}` });
     }
 
     if (route === '/team') {
@@ -198,46 +242,11 @@ async function handleRoute(request, { params }) {
         try {
           const res = await query('SELECT id, name, role, bio, image, email, phone FROM team_members ORDER BY created_at ASC');
           return NextResponse.json(res?.rows || []);
-        } catch (e) { return NextResponse.json([], { status: 500 }); }
-      }
-      if (method === 'POST') {
-        const data = await request.json();
-        const { id, name, role, bio, image, email, phone, password } = data;
-        if (id) {
-           try {
-             const check = await query('SELECT password FROM team_members WHERE id = $1', [id]);
-             if (!check.rows[0] || (password && check.rows[0].password !== password)) {
-               return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-             }
-             await query('UPDATE team_members SET name=$1, role=$2, bio=$3, image=$4, email=$5, phone=$6 WHERE id=$7', [name, role, bio, image, email, phone, id]);
-             return NextResponse.json({ success: true });
-           } catch (e) { return NextResponse.json({ error: e.message }, { status: 500 }); }
-        } else {
-           const newId = uuidv4();
-           try {
-             await query('INSERT INTO team_members (id, name, role, bio, image, email, phone, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [newId, name, role, bio, image, email, phone, password || 'osare2026']);
-             return NextResponse.json({ success: true, id: newId });
-           } catch (e) { return NextResponse.json({ error: e.message }, { status: 500 }); }
-        }
+        } catch (e) { return NextResponse.json([]); }
       }
     }
 
-    if (route === '/stats') {
-       let stats = { totalLeads: 0, estRevenueUSD: 0 };
-       try {
-         const lRes = await query('SELECT count(*) as count FROM leads');
-         if (lRes) stats.totalLeads = parseInt(lRes.rows[0].count);
-         stats.estRevenueUSD = (stats.totalLeads * 15).toFixed(2);
-       } catch (e) {}
-       return NextResponse.json(stats);
-    }
-
-    if (route === '/seed') {
-       return NextResponse.json({ success: true, message: 'API Ready' });
-    }
-
-    if (route === '/') return NextResponse.json({ message: 'OSARE B2B API Active', version: '3.4' });
-
+    if (route === '/') return NextResponse.json({ message: 'OSARE B2B API Active', version: '3.5' });
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   } catch (err) {
     return NextResponse.json({ error: 'Internal Error' }, { status: 500 });
