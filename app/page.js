@@ -21,7 +21,6 @@ import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
 
 const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
-const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 
 const NAV = [
   { key: 'home', label: 'Home' },
@@ -35,15 +34,6 @@ const NAV = [
 
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
-
-const QUICK_DISCOVERY = [
-  { label: 'Masai Mara', query: 'Mara' },
-  { label: 'Kilimanjaro', query: 'Kilimanjaro' },
-  { label: 'SGR Train', query: 'Train' },
-  { label: 'Luxury Hotels', query: 'Hotel' },
-  { label: '4x4 Hire', query: 'Car' },
-  { label: 'Air Charters', query: 'Aircraft' }
-]
 
 function getCatIcon(cat) {
   if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
@@ -62,6 +52,20 @@ function ListingCard({ item, onBook, booking }) {
   const isSafari = item.type === 'safari'
   const accentColor = isSafari ? '#f97316' : '#1e3a8a'
   
+  const handleAction = () => {
+    if (isSafari) {
+      onBook(item)
+    } else {
+      if (item.vendorUrl) {
+        window.open(item.vendorUrl, '_blank')
+      } else {
+        toast.info(`Contact ${item.vendor} at ${item.vendorContact} to book.`, {
+          description: "Free informational listing on OSARE."
+        })
+      }
+    }
+  }
+
   return (
     <Card className="overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col bg-white">
       <div className="relative h-52 w-full overflow-hidden">
@@ -73,7 +77,7 @@ function ListingCard({ item, onBook, booking }) {
       <CardContent className="flex flex-1 flex-col p-5">
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold flex items-center gap-1" style={{ color: accentColor }}>
-          <ShieldCheck className="h-3.5 w-3.5" /> Verified Vendor: {item.vendor}
+          <ShieldCheck className="h-3.5 w-3.5" /> {isSafari ? 'Verified Vendor' : 'Transit Operator'}: {item.vendor}
         </p>
 
         <div className="mt-3 grid grid-cols-2 gap-2 border-y border-slate-50 py-3">
@@ -84,7 +88,7 @@ function ListingCard({ item, onBook, booking }) {
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-500">Primary Hub</p>
+            <p className="text-[10px] uppercase font-bold text-slate-500">Hub / Routes</p>
             <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium line-clamp-1">
                <MapPin className="h-3 w-3" /> {item.location}
             </p>
@@ -96,16 +100,16 @@ function ListingCard({ item, onBook, booking }) {
         <div className="mt-auto pt-5 flex items-center justify-between">
           <div className="flex flex-col">
             <span className="text-2xl font-black text-slate-900">{item.priceLabel}</span>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Starting from</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{isSafari ? 'Starting from' : 'Estimated Price'}</span>
           </div>
           <Button 
-            onClick={() => onBook(item)}
+            onClick={handleAction}
             disabled={booking === item.id}
             className="gap-2 px-6 py-5 font-bold shadow-lg"
             style={{ backgroundColor: accentColor }}
           >
-            {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-            Book Now
+            {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSafari ? <MessageCircle className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />)}
+            {isSafari ? 'Book Now' : 'Where to Book'}
           </Button>
         </div>
       </CardContent>
@@ -128,11 +132,8 @@ function TierExplorer({ type }) {
       let filtered = Array.isArray(data) ? data : []
       if (cat !== 'All') filtered = filtered.filter(i => i.category === cat)
       setItems(filtered)
-    } catch (e) {
-      toast.error("Search unavailable")
-    } finally {
-      setLoading(false)
-    }
+    } catch (e) { toast.error("Search unavailable") }
+    finally { setLoading(false) }
   }, [type, q, cat])
 
   useEffect(() => { load() }, [load])
@@ -143,20 +144,12 @@ function TierExplorer({ type }) {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          listingId: item.id,
-          listingTitle: item.title,
-          vendor: item.vendor,
-          priceValue: item.priceValue
-        })
+        body: JSON.stringify({ listingId: item.id, listingTitle: item.title, vendor: item.vendor, priceValue: item.priceValue })
       })
       const data = await res.json()
       if (data.whatsappUrl) window.open(data.whatsappUrl, '_blank')
-    } catch (e) {
-      toast.error("Booking service offline")
-    } finally {
-      setBooking(null)
-    }
+    } catch (e) { toast.error("Booking service offline") }
+    finally { setBooking(null) }
   }
 
   return (
@@ -164,13 +157,13 @@ function TierExplorer({ type }) {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div>
           <h2 className="text-3xl font-black text-slate-900">{type === 'safari' ? 'Safari Discovery' : 'Local Transit Hub'}</h2>
-          <p className="text-slate-500 font-medium mt-1">{items.length} options found.</p>
+          <p className="text-slate-500 font-medium mt-1">{items.length} options found in East Africa.</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <Input 
-              placeholder="Search..."
+              placeholder="Search Routes..."
               value={q}
               onChange={(e) => setQ(e.target.value)}
               className="pl-10 w-full sm:w-64"
@@ -401,7 +394,7 @@ function VendorPortalView() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-24 text-center">
       <Building2 className="h-10 w-10 text-blue-600 mx-auto mb-10" />
-      <h1 className="text-4xl font-black">Grow with OSARE</h1>
+      <h1 className="text-4xl font-black text-slate-900">Grow with OSARE</h1>
       <p className="mt-6 text-xl text-slate-600">Join East Africa's leading discovery platform. 5% commission on leads.</p>
       <div className="mt-10 flex justify-center gap-4">
         <Button onClick={() => window.location.href = '/onboarding'} size="lg" className="bg-blue-600 text-white font-bold">Register as Vendor</Button>

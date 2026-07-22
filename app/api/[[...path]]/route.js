@@ -57,21 +57,38 @@ const STATIC_DATABASE = [
     "assets": ["Economy Coaches", "First Class Coaches"]
   },
   {
-    "id": "matatu-001",
+    "id": "easy-001",
     "category": "Matatu / Shuttle",
-    "title": "North Rift Shuttle - Nairobi to Eldoret",
-    "vendor": "North Rift Shuttle",
-    "vendorContact": "+254 700 000 000",
-    "vendorUrl": "",
-    "location": "Nairobi / Eldoret",
-    "description": "Reliable shuttle service connecting Nairobi and Eldoret.",
-    "priceLabel": "KES 1,200",
-    "priceValue": 1200,
+    "title": "EasyCoach - Intercity Bus Service",
+    "vendor": "EasyCoach Ltd",
+    "vendorContact": "+254 738 200 301",
+    "vendorUrl": "https://www.easycoach.co.ke",
+    "location": "Nairobi / Kisumu / Western",
+    "description": "Premium bus service with scheduled departures across Kenya.",
+    "priceLabel": "KES 1,400",
+    "priceValue": 1400,
     "currency": "KES",
     "type": "local",
-    "image": "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?q=80",
-    "keywords": ["matatu", "shuttle", "eldoret"],
-    "assets": ["WiFi", "Air Conditioning"]
+    "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80",
+    "keywords": ["bus", "easycoach", "kisumu", "western"],
+    "assets": ["Scheduled", "Fixed Price"]
+  },
+  {
+    "id": "modern-001",
+    "category": "Matatu / Shuttle",
+    "title": "Modern Coast - Coastal & Regional",
+    "vendor": "Modern Coast",
+    "vendorContact": "+254 709 916 000",
+    "vendorUrl": "https://www.moderncoast.co.ke",
+    "location": "Nairobi / Mombasa / Kampala",
+    "description": "Luxury bus travel connecting East African cities.",
+    "priceLabel": "KES 1,600",
+    "priceValue": 1600,
+    "currency": "KES",
+    "type": "local",
+    "image": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80",
+    "keywords": ["bus", "modern coast", "mombasa", "kampala"],
+    "assets": ["Luxury", "AirCon"]
   }
 ];
 
@@ -215,7 +232,7 @@ async function handleRoute(request, { params }) {
        return NextResponse.json({ success: true, message: 'API Ready' });
     }
 
-    if (route === '/') return NextResponse.json({ message: 'OSARE B2B API Active', version: '3.2' });
+    if (route === '/') return NextResponse.json({ message: 'OSARE B2B API Active', version: '3.3' });
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   } catch (err) {
