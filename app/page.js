@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import {
   Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
   Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
-  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag, ExternalLink, Globe
+  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag, ExternalLink, Globe, UserCog
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -288,15 +288,122 @@ function HomeView({ go }) {
   )
 }
 
-function AboutView() {
+function TeamMemberCard({ member, onEdit }) {
   return (
-    <div className="mx-auto max-w-4xl px-5 py-24">
-      <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
-      <p className="mt-8 text-xl font-medium leading-relaxed text-slate-600">
-        OSARE is East Africa's first dedicated B2B discovery hub for travel and transit. 
-        Based in our **Kisumu Headquarters**, we are committed to making travel discovery seamless, transparent, and direct.
-      </p>
-      <div className="mt-16 grid gap-12 sm:grid-cols-2">
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+      <CardContent className="p-6">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="h-16 w-16 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden">
+            {member.image ? <img src={member.image} alt={member.name} className="h-full w-full object-cover" /> : <Users className="h-8 w-8 text-slate-400" />}
+          </div>
+          <div>
+            <h4 className="font-bold text-slate-900">{member.name}</h4>
+            <p className="text-sm text-blue-600 font-medium">{member.role}</p>
+          </div>
+        </div>
+        <p className="text-sm text-slate-500 line-clamp-3 mb-4">{member.bio || 'Team member at OSARE Kisumu Headquarters.'}</p>
+        <Button variant="ghost" size="sm" className="w-full gap-2 text-slate-400 hover:text-blue-600" onClick={() => onEdit(member)}>
+          <UserCog className="h-4 w-4" /> Edit Profile
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+
+function TeamEditModal({ member, onClose, onSave }) {
+  const [form, setForm] = useState(member || { name: '', role: '', bio: '', image: '', email: '', phone: '', password: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await fetch('/api/team', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+      if (res.ok) {
+        onSave();
+        onClose();
+      } else {
+        const d = await res.json();
+        alert(d.error || 'Failed to save');
+      }
+    } catch (e) { alert('Error saving'); }
+    finally { setLoading(false); }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+      <Card className="w-full max-w-lg">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Edit Team Profile</CardTitle>
+          <Button variant="ghost" size="icon" onClick={onClose}><X /></Button>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="grid gap-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2"><Label>Full Name</Label><Input required value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
+              <div className="space-y-2"><Label>Role</Label><Input required value={form.role} onChange={e => setForm({...form, role: e.target.value})} /></div>
+            </div>
+            <div className="space-y-2"><Label>Bio</Label><Textarea value={form.bio} onChange={e => setForm({...form, bio: e.target.value})} /></div>
+            <div className="space-y-2"><Label>Image URL</Label><Input value={form.image} onChange={e => setForm({...form, image: e.target.value})} /></div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2"><Label>Email</Label><Input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} /></div>
+              <div className="space-y-2"><Label>Phone</Label><Input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} /></div>
+            </div>
+            <div className="space-y-2"><Label>Access Password</Label><Input type="password" placeholder="Required to save changes" required value={form.password} onChange={e => setForm({...form, password: e.target.value})} /></div>
+            <Button type="submit" className="w-full" disabled={loading}>{loading ? 'Saving...' : 'Update Profile'}</Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+function AboutView() {
+  const [team, setTeam] = useState([]);
+  const [editing, setEditing] = useState(null);
+  
+  const load = useCallback(async () => {
+    try {
+      const res = await fetch('/api/team');
+      const data = await res.json();
+      setTeam(data);
+    } catch (e) {}
+  }, []);
+
+  useEffect(() => { load() }, [load]);
+
+  return (
+    <div className="mx-auto max-w-6xl px-5 py-24">
+      <div className="max-w-4xl">
+        <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
+        <p className="mt-8 text-xl font-medium leading-relaxed text-slate-600">
+          OSARE is East Africa's first dedicated B2B discovery hub for travel and transit. 
+          Based in our **Kisumu Headquarters**, we are committed to making travel discovery seamless, transparent, and direct.
+        </p>
+      </div>
+
+      <div className="mt-20">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-black text-slate-900">Our Team</h2>
+          <Button variant="outline" size="sm" onClick={() => setEditing({})}>+ Add Member</Button>
+        </div>
+        
+        {team.length === 0 ? (
+          <p className="text-slate-400">No team members listed yet.</p>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {team.map(m => (
+              <TeamMemberCard key={m.id} member={m} onEdit={setEditing} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="mt-24 grid gap-12 sm:grid-cols-2">
         <div>
           <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Our Mission</h3>
           <p className="text-slate-500 font-medium leading-relaxed">To empower local vendors by giving them a global platform without the burden of heavy commission fees.</p>
@@ -306,6 +413,14 @@ function AboutView() {
           <p className="text-slate-500 font-medium leading-relaxed">We charge a flat 5% service fee per tracked lead, ensuring we only profit when our vendors grow.</p>
         </div>
       </div>
+
+      {editing && (
+        <TeamEditModal 
+          member={editing.id ? editing : null} 
+          onClose={() => setEditing(null)} 
+          onSave={load} 
+        />
+      )}
     </div>
   )
 }
