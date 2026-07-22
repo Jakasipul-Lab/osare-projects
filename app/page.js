@@ -59,8 +59,8 @@ function ListingCard({ item, onBook, booking }) {
       if (item.vendorUrl) {
         window.open(item.vendorUrl, '_blank')
       } else {
-        toast.info(`Contact ${item.vendor} at ${item.vendorContact} to book.`, {
-          description: "Free informational listing on OSARE."
+        toast.info(`Contact ${item.vendor} to book.`, {
+          description: "Free informational service by OSARE."
         })
       }
     }
@@ -73,24 +73,29 @@ function ListingCard({ item, onBook, booking }) {
         <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow font-bold" style={{ backgroundColor: accentColor }}>
           {getCatIcon(item.category)} {item.category}
         </Badge>
+        {!isSafari && (
+          <Badge className="absolute right-3 top-3 bg-emerald-100 text-emerald-700 border-0 font-black">
+            FREE INFO
+          </Badge>
+        )}
       </div>
       <CardContent className="flex flex-1 flex-col p-5">
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold flex items-center gap-1" style={{ color: accentColor }}>
-          <ShieldCheck className="h-3.5 w-3.5" /> {isSafari ? 'Verified Vendor' : 'Transit Operator'}: {item.vendor}
+          <ShieldCheck className="h-3.5 w-3.5" /> {isSafari ? 'Verified Vendor' : 'Operator'}: {item.vendor}
         </p>
 
         <div className="mt-3 grid grid-cols-2 gap-2 border-y border-slate-50 py-3">
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-500">Contact</p>
+            <p className="text-[10px] uppercase font-bold text-slate-400">Official Contact</p>
             <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
                <Phone className="h-3 w-3" /> {item.vendorContact || 'Official Line'}
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-500">Hub / Routes</p>
+            <p className="text-[10px] uppercase font-bold text-slate-400">{isSafari ? 'Primary Hub' : 'Boarding At'}</p>
             <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium line-clamp-1">
-               <MapPin className="h-3 w-3" /> {item.location}
+               <MapPin className="h-3 w-3" /> {item.boardingPoint || item.location}
             </p>
           </div>
         </div>
@@ -100,7 +105,7 @@ function ListingCard({ item, onBook, booking }) {
         <div className="mt-auto pt-5 flex items-center justify-between">
           <div className="flex flex-col">
             <span className="text-2xl font-black text-slate-900">{item.priceLabel}</span>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{isSafari ? 'Starting from' : 'Estimated Price'}</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{isSafari ? 'Starting from' : 'Official Rate'}</span>
           </div>
           <Button 
             onClick={handleAction}
@@ -109,7 +114,7 @@ function ListingCard({ item, onBook, booking }) {
             style={{ backgroundColor: accentColor }}
           >
             {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSafari ? <MessageCircle className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />)}
-            {isSafari ? 'Book Now' : 'Where to Book'}
+            {isSafari ? 'Book Now' : 'Check Site'}
           </Button>
         </div>
       </CardContent>
@@ -157,7 +162,7 @@ function TierExplorer({ type }) {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div>
           <h2 className="text-3xl font-black text-slate-900">{type === 'safari' ? 'Safari Discovery' : 'Local Transit Hub'}</h2>
-          <p className="text-slate-500 font-medium mt-1">{items.length} options found in East Africa.</p>
+          <p className="text-slate-500 font-medium mt-1">{items.length} verified options found in East Africa.</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative">
@@ -205,13 +210,13 @@ function HomeView({ go }) {
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
         
         <div className="relative z-20 mx-auto max-w-7xl px-5 py-24 md:py-40">
-          <Badge className="mb-6 bg-[#f97316] text-white border-0">Official Safari discovery Algorithm</Badge>
+          <Badge className="mb-6 bg-[#f97316] text-white border-0 px-4 py-1.5 text-sm font-bold shadow-lg">Official Safari discovery Algorithm</Badge>
           <h1 className="text-5xl font-black text-white md:text-7xl tracking-tighter">
             DISCOVER<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f97316] to-[#fbbf24]">EAST AFRICA</span>
           </h1>
           <p className="mt-8 text-lg font-medium text-slate-300 max-w-xl leading-relaxed">
-            The ultimate B2B platform connecting global travelers with verified local operators. No hidden fees, just direct bookings.
+            The ultimate B2B platform connecting global travelers with verified local operators. Direct, transparent, and fair.
           </p>
           
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -293,7 +298,7 @@ function TeamEditModal({ member, onClose, onSave }) {
               <div className="space-y-2"><Label>Email</Label><Input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} /></div>
               <div className="space-y-2"><Label>Phone</Label><Input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} /></div>
             </div>
-            <div className="space-y-2"><Label>Access Password</Label><Input type="password" placeholder="Required to save changes" required value={form.password} onChange={e => setForm({...form, password: e.target.value})} /></div>
+            <div className="space-y-2"><Label>Access Password</Label><Input type="password" required value={form.password} onChange={e => setForm({...form, password: e.target.value})} /></div>
             <Button type="submit" className="w-full" disabled={loading}>{loading ? 'Saving...' : 'Update Profile'}</Button>
           </form>
         </CardContent>
@@ -381,7 +386,7 @@ function DashboardView() {
   useEffect(() => { fetch('/api/stats').then(r => r.json()).then(setStats) }, []);
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
-      <h1 className="text-3xl font-black">Performance</h1>
+      <h1 className="text-3xl font-black text-slate-900">Performance</h1>
       <div className="grid gap-6 md:grid-cols-3 mt-10">
         <Card className="bg-[#1e3a8a] text-white"><CardHeader><CardTitle>Total Leads</CardTitle></CardHeader><CardContent><p className="text-4xl font-black">{stats.totalLeads}</p></CardContent></Card>
         <Card className="bg-[#f97316] text-white"><CardHeader><CardTitle>Est. Revenue</CardTitle></CardHeader><CardContent><p className="text-4xl font-black">${stats.estRevenueUSD}</p></CardContent></Card>

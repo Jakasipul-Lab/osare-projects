@@ -42,53 +42,56 @@ const STATIC_DATABASE = [
   {
     "id": "sgr-001",
     "category": "Train (SGR)",
-    "title": "SGR Train - Nairobi to Mombasa",
-    "vendor": "Madaraka Express",
-    "vendorContact": "info@krc.co.ke",
+    "title": "SGR Madaraka Express",
+    "vendor": "Kenya Railways",
+    "vendorContact": "0709 907 000",
     "vendorUrl": "https://metickets.krc.co.ke",
     "location": "Nairobi to Mombasa",
-    "description": "Fast train service between capital and coast.",
+    "boardingPoint": "Syokimau (Nairobi) / Miritini (Mombasa)",
+    "description": "Daily fast train service with fixed prices and scheduled departures.",
     "priceLabel": "KES 1,500",
     "priceValue": 1500,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80",
     "keywords": ["sgr", "train", "nairobi", "mombasa"],
-    "assets": ["Economy Coaches", "First Class Coaches"]
+    "assets": ["Fixed Price", "Official Service"]
   },
   {
     "id": "easy-001",
     "category": "Matatu / Shuttle",
-    "title": "EasyCoach - Intercity Bus Service",
+    "title": "EasyCoach Intercity",
     "vendor": "EasyCoach Ltd",
-    "vendorContact": "+254 738 200 301",
+    "vendorContact": "0738 200 301",
     "vendorUrl": "https://www.easycoach.co.ke",
-    "location": "Nairobi / Kisumu / Western",
-    "description": "Premium bus service with scheduled departures across Kenya.",
+    "location": "Nairobi / Kisumu / Busia",
+    "boardingPoint": "Haile Selassie Ave (Nairobi) / Kisumu Office",
+    "description": "Premium scheduled bus service. Safe and reliable intercity travel.",
     "priceLabel": "KES 1,400",
     "priceValue": 1400,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80",
-    "keywords": ["bus", "easycoach", "kisumu", "western"],
-    "assets": ["Scheduled", "Fixed Price"]
+    "keywords": ["bus", "easycoach", "kisumu"],
+    "assets": ["Scheduled", "No Hassle"]
   },
   {
     "id": "modern-001",
     "category": "Matatu / Shuttle",
-    "title": "Modern Coast - Coastal & Regional",
+    "title": "Modern Coast Regional",
     "vendor": "Modern Coast",
-    "vendorContact": "+254 709 916 000",
+    "vendorContact": "0709 916 000",
     "vendorUrl": "https://www.moderncoast.co.ke",
-    "location": "Nairobi / Mombasa / Kampala",
-    "description": "Luxury bus travel connecting East African cities.",
+    "location": "Nairobi / Mombasa / Malindi",
+    "boardingPoint": "River Road (Nairobi) / Mombasa Office",
+    "description": "Luxury travel across the region with air-conditioned buses.",
     "priceLabel": "KES 1,600",
     "priceValue": 1600,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80",
-    "keywords": ["bus", "modern coast", "mombasa", "kampala"],
-    "assets": ["Luxury", "AirCon"]
+    "keywords": ["bus", "modern coast", "mombasa"],
+    "assets": ["Luxury", "AC"]
   }
 ];
 
@@ -123,6 +126,7 @@ async function handleRoute(request, { params }) {
             vendorContact: r.phone,
             vendorUrl: r.url,
             location: r.location,
+            boardingPoint: r.boarding_point,
             description: r.description,
             priceLabel: r.price_label,
             priceValue: Number(r.price_value),
@@ -232,7 +236,7 @@ async function handleRoute(request, { params }) {
        return NextResponse.json({ success: true, message: 'API Ready' });
     }
 
-    if (route === '/') return NextResponse.json({ message: 'OSARE B2B API Active', version: '3.3' });
+    if (route === '/') return NextResponse.json({ message: 'OSARE B2B API Active', version: '3.4' });
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   } catch (err) {
