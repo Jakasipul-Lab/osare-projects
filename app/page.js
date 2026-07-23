@@ -144,25 +144,25 @@ function ListingCard({ item, onBook, booking }) {
   )
 }
 
-function TierExplorer({ type }) {
+function TierExplorer({ type, q = "" }) {
   const [items, setItems] = useState([])
   const [filtered, setFiltered] = useState([])
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
   const [activeCat, setActiveCat] = useState('All')
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(q)
 
   const cats = type === 'safari' ? SAFARI_CATS : LOCAL_CATS
 
   const load = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetch(`/api/listings?type=${type}`)
+      const res = await fetch(`/api/listings?type=${type}${q ? `&q=${encodeURIComponent(q)}` : ''}`)
       const data = await res.json()
       setItems(Array.isArray(data) ? data : [])
     } catch (e) { toast.error("Search unavailable") }
     finally { setLoading(false) }
-  }, [type])
+  }, [type, q])
 
   useEffect(() => { load() }, [load])
 
@@ -295,7 +295,7 @@ function HomeView({ go }) {
             {QUICK_DISCOVERY.map(q => (
               <button
                 key={q.label}
-                onClick={() => go('safari')}
+                onClick={() => go('safari', q.query)}
                 className="bg-white/10 hover:bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full backdrop-blur-sm transition-all"
               >
                 {q.label}
@@ -308,15 +308,25 @@ function HomeView({ go }) {
       {/* Value Cards */}
       <div className="mx-auto max-w-7xl px-5 py-16">
         <div className="grid gap-6 sm:grid-cols-3">
-          {VALUE_CARDS.map((vc, i) => (
-            <Card key={i} className="border-slate-100 hover:shadow-md transition-shadow">
-              <CardContent className="p-6 flex flex-col gap-3">
-                <div>{vc.icon}</div>
-                <h3 className="text-lg font-black text-slate-900">{vc.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{vc.desc}</p>
-              </CardContent>
-            </Card>
-          ))}
+          {VALUE_CARDS.map((vc, i) => {
+            const handleCardClick = () => {
+              if (vc.title === 'Free Local Info') go('local')
+              else go('safari')
+            }
+            return (
+              <Card
+                key={i}
+                onClick={handleCardClick}
+                className="border-slate-100 hover:shadow-lg transition-all cursor-pointer active:scale-[0.98]"
+              >
+                <CardContent className="p-6 flex flex-col gap-3">
+                  <div>{vc.icon}</div>
+                  <h3 className="text-lg font-black text-slate-900">{vc.title}</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">{vc.desc}</p>
+                </CardContent>
+              </Card>
+            )
+          })}
         </div>
       </div>
     </div>
@@ -388,7 +398,7 @@ function AboutView() {
 export default function Page() {
   const [view, setView] = useState('home');
   const [params, setParams] = useState({ type: 'safari' });
-  const go = (type) => { setParams({ type }); setView('explorer'); window.scrollTo(0, 0) };
+  const go = (type, q = "") => { setParams({ type, q }); setView(type); window.scrollTo(0, 0) };
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <Toaster position="top-center" />
@@ -403,8 +413,8 @@ export default function Page() {
       </nav>
       {view === 'home' && <HomeView go={go} />}
       {view === 'explorer' && <TierExplorer type={params.type} />}
-      {view === 'safari' && <TierExplorer type="safari" />}
-      {view === 'local' && <TierExplorer type="local" />}
+      {view === 'safari' && <TierExplorer type="safari" q={params.q} />}
+      {view === 'local' && <TierExplorer type="local" q={params.q} />}
       {view === 'about' && <AboutView />}
       <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20">
         <div className="mx-auto max-w-7xl px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
