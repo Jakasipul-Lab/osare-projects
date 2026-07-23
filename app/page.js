@@ -27,6 +27,18 @@ const NAV = [
   { key: 'about', label: 'About OSARE' }
 ]
 
+const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
+const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
+
+const QUICK_DISCOVERY = [
+  { label: 'Masai Mara', query: 'Mara' },
+  { label: 'Kilimanjaro', query: 'Kilimanjaro' },
+  { label: 'SGR Train', query: 'Train' },
+  { label: 'Luxury Hotels', query: 'Hotel' },
+  { label: '4x4 Hire', query: 'Car' },
+  { label: 'Air Charters', query: 'Aircraft' }
+]
+
 function getCatIcon(cat) {
   if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
   if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
@@ -43,13 +55,21 @@ function getCatIcon(cat) {
 function ListingCard({ item, onBook, booking }) {
   const isSafari = item.type === 'safari'
   const accentColor = isSafari ? '#f97316' : '#1e3a8a'
+  
   const handleAction = () => {
-    if (isSafari) { onBook(item); } 
-    else {
-      if (item.vendorUrl) { window.open(item.vendorUrl, '_blank'); } 
-      else { toast.info(`Contact ${item.vendor} to book.`, { description: "Free informational listing." }); }
+    if (isSafari) {
+      onBook(item)
+    } else {
+      if (item.vendorUrl) {
+        window.open(item.vendorUrl, '_blank')
+      } else {
+        toast.info(`Contact ${item.vendor} at ${item.vendorContact} to book.`, {
+          description: "This is a free informational service."
+        })
+      }
     }
   }
+
   return (
     <Card className="overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col bg-white">
       <div className="relative h-52 w-full overflow-hidden">
@@ -57,30 +77,46 @@ function ListingCard({ item, onBook, booking }) {
         <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow font-bold" style={{ backgroundColor: accentColor }}>
           {getCatIcon(item.category)} {item.category}
         </Badge>
-        {!isSafari && <Badge className="absolute right-3 top-3 bg-emerald-100 text-emerald-700 border-0 font-black">FREE INFO</Badge>}
+        {!isSafari && (
+          <Badge className="absolute right-3 top-3 bg-emerald-100 text-emerald-700 border-0 font-bold">
+            Free Info
+          </Badge>
+        )}
       </div>
       <CardContent className="flex flex-1 flex-col p-5">
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold flex items-center gap-1" style={{ color: accentColor }}>
-          <ShieldCheck className="h-3.5 w-3.5" /> {isSafari ? 'Verified Vendor' : 'Operator'}: {item.vendor}
+          <ShieldCheck className="h-3.5 w-3.5" /> {isSafari ? 'Verified Vendor' : 'Transit Operator'}: {item.vendor}
         </p>
+
         <div className="mt-3 grid grid-cols-2 gap-2 border-y border-slate-50 py-3">
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-400">Contact</p>
-            <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium"><Phone className="h-3 w-3" /> {item.vendorContact || 'Official Line'}</p>
+            <p className="text-[10px] uppercase font-bold text-slate-500">Contact</p>
+            <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+               <Phone className="h-3 w-3" /> {item.vendorContact || 'Check Official Site'}
+            </p>
           </div>
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-400">{isSafari ? 'Primary Hub' : 'Boarding At'}</p>
-            <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium line-clamp-1"><MapPin className="h-3 w-3" /> {item.boardingPoint || item.location}</p>
+            <p className="text-[10px] uppercase font-bold text-slate-500">{isSafari ? 'Primary Hub' : 'Boarding At'}</p>
+            <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium line-clamp-1">
+               <MapPin className="h-3 w-3" /> {item.boardingPoint || item.location}
+            </p>
           </div>
         </div>
+
         <p className="mt-4 text-sm text-slate-600 line-clamp-2 leading-relaxed">{item.description}</p>
+
         <div className="mt-auto pt-5 flex items-center justify-between">
           <div className="flex flex-col">
             <span className="text-2xl font-black text-slate-900">{item.priceLabel}</span>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{isSafari ? 'Starting from' : 'Official Rate'}</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{isSafari ? 'Starting from' : 'Official Price'}</span>
           </div>
-          <Button onClick={handleAction} disabled={booking === item.id} className="gap-2 px-6 py-5 font-bold shadow-lg" style={{ backgroundColor: accentColor }}>
+          <Button 
+            onClick={handleAction}
+            disabled={booking === item.id}
+            className="gap-2 px-6 py-5 font-bold shadow-lg transition-all active:scale-95"
+            style={{ backgroundColor: accentColor }}
+          >
             {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSafari ? <MessageCircle className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />)}
             {isSafari ? 'Book Now' : 'Check Site'}
           </Button>
@@ -94,6 +130,7 @@ function TierExplorer({ type }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
+  
   const load = useCallback(async () => {
     setLoading(true)
     try {
@@ -103,7 +140,9 @@ function TierExplorer({ type }) {
     } catch (e) { toast.error("Search unavailable") }
     finally { setLoading(false) }
   }, [type])
+
   useEffect(() => { load() }, [load])
+
   const handleBook = async (item) => {
     setBooking(item.id)
     try {
@@ -117,12 +156,17 @@ function TierExplorer({ type }) {
     } catch (e) { toast.error("Booking service offline") }
     finally { setBooking(null) }
   }
+
   return (
     <div className="mx-auto max-w-7xl px-5 py-10">
       <h2 className="text-3xl font-black text-slate-900 mb-12">{type === 'safari' ? 'Safari Discovery' : 'Local Transit Hub'}</h2>
-      {loading ? <div className="flex h-64 items-center justify-center"><Loader2 className="h-10 w-10 animate-spin" /></div> : (
+      {loading ? (
+        <div className="flex h-64 items-center justify-center"><Loader2 className="h-10 w-10 animate-spin text-slate-200" /></div>
+      ) : (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(it => (<ListingCard key={it.id} item={it} onBook={handleBook} booking={booking} />))}
+          {items.map(it => (
+            <ListingCard key={it.id} item={it} onBook={handleBook} booking={booking} />
+          ))}
         </div>
       )}
     </div>
@@ -133,14 +177,26 @@ function HomeView({ go }) {
   return (
     <div className="pb-20">
       <div className="relative overflow-hidden bg-slate-900">
-        <div className="absolute inset-0 z-0 opacity-40"><img src={HERO} alt="Hero" className="h-full w-full object-cover" /></div>
+        <div className="absolute inset-0 z-0 opacity-40">
+          <img src={HERO} alt="Hero" className="h-full w-full object-cover" />
+        </div>
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+        
         <div className="relative z-20 mx-auto max-w-7xl px-5 py-24 md:py-40 text-white">
-          <h1 className="text-5xl font-black md:text-7xl tracking-tighter">DISCOVER EAST AFRICA</h1>
-          <p className="mt-8 text-lg font-medium text-slate-300 max-w-xl">Ultimate B2B platform connecting global travelers with verified local operators.</p>
+          <h1 className="text-5xl font-black md:text-7xl tracking-tighter">
+            DISCOVER EAST AFRICA
+          </h1>
+          <p className="mt-8 text-lg font-medium text-slate-300 max-w-xl leading-relaxed">
+            Ultimate B2B platform connecting global travelers with verified local operators.
+          </p>
+          
           <div className="mt-10 flex gap-4">
-            <Button onClick={() => go('safari')} size="lg" className="bg-[#f97316] hover:bg-[#ea580c] px-8 py-7 text-lg font-black">Start Discovery</Button>
-            <Button onClick={() => go('local')} size="lg" variant="outline" className="border-white/20 hover:bg-white/10 px-8 py-7 text-lg font-black">Local Transit</Button>
+            <Button onClick={() => go('safari')} size="lg" className="bg-[#f97316] hover:bg-[#ea580c] px-8 py-7 text-lg font-black">
+              Start Discovery
+            </Button>
+            <Button onClick={() => go('local')} size="lg" variant="outline" className="border-white/20 hover:bg-white/10 px-8 py-7 text-lg font-black">
+              Local Transit
+            </Button>
           </div>
         </div>
       </div>
@@ -149,6 +205,13 @@ function HomeView({ go }) {
 }
 
 function AboutView() {
+  const branches = [
+    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
+    { region: 'Kenya - Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
+    { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
+    { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
+    { region: 'Germany Branch', name: 'Brunnenstrasse 48', role: '34537, Bad Wildungen', country: 'Germany' }
+  ]
   return (
     <div className="mx-auto max-w-6xl px-5 py-24">
       <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
@@ -160,7 +223,7 @@ function AboutView() {
       {/* RESTORED FOUNDER & HQ PROFILE */}
       <div className="mt-20 p-8 rounded-3xl bg-blue-50 border border-blue-100 flex flex-col md:flex-row gap-8 items-center">
         <div className="h-32 w-32 rounded-2xl bg-white shadow-lg flex-shrink-0 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80" alt="Osare Nakinson" className="h-full w-full object-cover" />
+          <img src="https://github.com/Jakasipul-Lab.png" alt="Osare Nakinson" className="h-full w-full object-cover" />
         </div>
         <div>
           <Badge className="bg-blue-600 mb-2 text-white border-0">Founder & CEO</Badge>
@@ -173,9 +236,30 @@ function AboutView() {
         </div>
       </div>
 
+      <div className="mt-24">
+        <h2 className="text-2xl font-black text-slate-900">Regional Branches</h2>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {branches.map((b, i) => (
+            <Card key={i} className="border-slate-200">
+              <CardContent className="p-5">
+                <p className="text-xs font-bold text-blue-600 uppercase mb-1">{b.region}</p>
+                <h4 className="font-bold">{b.name}</h4>
+                <p className="text-sm text-slate-500">{b.role}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
       <div className="mt-24 grid gap-12 sm:grid-cols-2 border-t border-slate-100 pt-16">
-        <div><h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Our Mission</h3><p className="text-slate-500 font-medium leading-relaxed">Empower local vendors with a global platform and fair commission fees.</p></div>
-        <div><h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Contact Info</h3><p className="text-slate-500 font-medium">Kisumu Headquarters, Kenya<br/>+254 758 378 729</p></div>
+        <div>
+          <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Our Mission</h3>
+          <p className="text-slate-500 font-medium leading-relaxed">Empower local vendors with a global platform and fair commission fees.</p>
+        </div>
+        <div>
+          <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Contact Info</h3>
+          <p className="text-slate-500 font-medium">Kisumu Headquarters, Kenya<br/>+254 758 378 729</p>
+        </div>
       </div>
     </div>
   )
@@ -192,7 +276,7 @@ export default function Page() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           <button onClick={() => setView('home')} className="flex items-center gap-2"><Compass className="h-6 w-6 text-[#1e3a8a]" /><span className="text-xl font-black">OSARE</span></button>
           <div className="hidden md:flex gap-8 items-center">
-            {NAV.map((n) => (<button onClick={() => setView(n.key)} key={n.key} className="text-sm font-bold">{n.label}</button>))}
+            {NAV.map((n) => (<button onClick={() => setView(n.key)} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</button>))}
             <Button onClick={() => go('safari')} className="bg-[#1e3a8a] text-white font-bold">Discovery</Button>
           </div>
         </div>
