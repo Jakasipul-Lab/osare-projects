@@ -214,7 +214,7 @@ function TierExplorer({ type }) {
         <Input
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder={type === 'safari' ? 'Search destinations, operators\u2026' : 'Search routes, services\u2026'}
+          placeholder={type === 'safari' ? 'Search destinations, operators…' : 'Search routes, services…'}
           className="pl-9 bg-slate-50 border-slate-200"
         />
       </div>
@@ -325,7 +325,7 @@ function HomeView({ go }) {
 
 function AboutView() {
   const branches = [
-    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
+    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', address: 'Kisumu City, Kenya', country: 'Kenya' },
     { region: 'Kenya - Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
     { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
     { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
@@ -347,8 +347,6 @@ function AboutView() {
         <div>
           <Badge className="bg-blue-600 mb-2 text-white border-0">Founder & CEO</Badge>
           <h2 className="text-2xl font-black text-slate-900">Osare Nakinson</h2>
-          <p className="mt-1 text-blue-600 font-bold">Mrs Jacqueline Susan Nakinson</p>
-          <p className="text-sm text-blue-500 font-medium">Officer-in-Charge</p>
           <p className="mt-4 text-slate-600 font-medium leading-relaxed">
             Leading OSARE from our **Kisumu Headquarters**, we are committed to direct, transparent travel discovery across East Africa.
           </p>
@@ -364,6 +362,7 @@ function AboutView() {
                 <p className="text-xs font-bold text-blue-600 uppercase mb-1">{b.region}</p>
                 <h4 className="font-bold">{b.name}</h4>
                 <p className="text-sm text-slate-500">{b.role}</p>
+                {b.address && <p className="text-xs text-slate-400 mt-0.5">{b.address}</p>}
               </CardContent>
             </Card>
           ))}
