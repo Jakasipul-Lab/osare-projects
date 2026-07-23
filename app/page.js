@@ -39,6 +39,24 @@ const QUICK_DISCOVERY = [
   { label: 'Air Charters', query: 'Aircraft' }
 ]
 
+const VALUE_CARDS = [
+  {
+    icon: <TrendingUp className="h-7 w-7 text-[#f97316]" />,
+    title: 'Discovery Engine',
+    desc: 'Search 39+ verified tour operators and transit providers across East Africa in one place.'
+  },
+  {
+    icon: <ShieldCheck className="h-7 w-7 text-[#1e3a8a]" />,
+    title: 'Verified Vendors',
+    desc: 'Every listing is manually verified. Book direct with confidence — no hidden middlemen.'
+  },
+  {
+    icon: <Leaf className="h-7 w-7 text-emerald-500" />,
+    title: 'Free Local Info',
+    desc: 'Local commuter routes, boarding points and official prices — free forever, no booking needed.'
+  }
+]
+
 function getCatIcon(cat) {
   if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
   if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
@@ -128,9 +146,14 @@ function ListingCard({ item, onBook, booking }) {
 
 function TierExplorer({ type }) {
   const [items, setItems] = useState([])
+  const [filtered, setFiltered] = useState([])
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
-  
+  const [activeCat, setActiveCat] = useState('All')
+  const [search, setSearch] = useState('')
+
+  const cats = type === 'safari' ? SAFARI_CATS : LOCAL_CATS
+
   const load = useCallback(async () => {
     setLoading(true)
     try {
@@ -142,6 +165,20 @@ function TierExplorer({ type }) {
   }, [type])
 
   useEffect(() => { load() }, [load])
+
+  useEffect(() => {
+    let f = items
+    if (activeCat !== 'All') f = f.filter(it => it.category === activeCat)
+    if (search) {
+      const s = search.toLowerCase()
+      f = f.filter(it =>
+        it.title.toLowerCase().includes(s) ||
+        (it.location || '').toLowerCase().includes(s) ||
+        (it.description || '').toLowerCase().includes(s)
+      )
+    }
+    setFiltered(f)
+  }, [items, activeCat, search])
 
   const handleBook = async (item) => {
     setBooking(item.id)
@@ -159,12 +196,65 @@ function TierExplorer({ type }) {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-10">
-      <h2 className="text-3xl font-black text-slate-900 mb-12">{type === 'safari' ? 'Safari Discovery' : 'Local Transit Hub'}</h2>
+      <div className="mb-8">
+        <h2 className="text-3xl font-black text-slate-900">
+          {type === 'safari' ? 'Safari Discovery' : 'Local Transit Hub'}
+        </h2>
+        {type === 'local' && (
+          <p className="mt-2 text-sm font-bold text-emerald-600 flex items-center gap-1.5">
+            <Leaf className="h-4 w-4" />
+            Free informational service — find routes, prices and where to board. No booking or payment required.
+          </p>
+        )}
+      </div>
+
+      {/* Search bar */}
+      <div className="relative mb-5">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+        <Input
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder={type === 'safari' ? 'Search destinations, operators\u2026' : 'Search routes, services\u2026'}
+          className="pl-9 bg-slate-50 border-slate-200"
+        />
+      </div>
+
+      {/* Category filter pills */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {cats.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCat(cat)}
+            className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-bold transition-all border ${
+              activeCat === cat
+                ? (type === 'safari'
+                    ? 'bg-[#f97316] text-white border-[#f97316]'
+                    : 'bg-[#1e3a8a] text-white border-[#1e3a8a]')
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+            }`}
+          >
+            {cat !== 'All' && getCatIcon(cat)} {cat}
+          </button>
+        ))}
+      </div>
+
       {loading ? (
-        <div className="flex h-64 items-center justify-center"><Loader2 className="h-10 w-10 animate-spin text-slate-200" /></div>
+        <div className="flex h-64 items-center justify-center">
+          <Loader2 className="h-10 w-10 animate-spin text-slate-200" />
+        </div>
+      ) : filtered.length === 0 ? (
+        <div className="py-20 text-center">
+          <p className="text-slate-400 text-lg">No results found.</p>
+          <button
+            onClick={() => { setActiveCat('All'); setSearch('') }}
+            className="mt-4 text-sm font-bold text-blue-600 hover:underline"
+          >
+            Clear filters
+          </button>
+        </div>
       ) : (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(it => (
+          {filtered.map(it => (
             <ListingCard key={it.id} item={it} onBook={handleBook} booking={booking} />
           ))}
         </div>
@@ -176,6 +266,7 @@ function TierExplorer({ type }) {
 function HomeView({ go }) {
   return (
     <div className="pb-20">
+      {/* Hero */}
       <div className="relative overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0 opacity-40">
           <img src={HERO} alt="Hero" className="h-full w-full object-cover" />
@@ -190,7 +281,7 @@ function HomeView({ go }) {
             Ultimate B2B platform connecting global travelers with verified local operators.
           </p>
           
-          <div className="mt-10 flex gap-4">
+          <div className="mt-10 flex flex-wrap gap-4">
             <Button onClick={() => go('safari')} size="lg" className="bg-[#f97316] hover:bg-[#ea580c] px-8 py-7 text-lg font-black">
               Start Discovery
             </Button>
@@ -198,6 +289,34 @@ function HomeView({ go }) {
               Local Transit
             </Button>
           </div>
+
+          {/* Quick Discovery chips */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {QUICK_DISCOVERY.map(q => (
+              <button
+                key={q.label}
+                onClick={() => go('safari')}
+                className="bg-white/10 hover:bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full backdrop-blur-sm transition-all"
+              >
+                {q.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Value Cards */}
+      <div className="mx-auto max-w-7xl px-5 py-16">
+        <div className="grid gap-6 sm:grid-cols-3">
+          {VALUE_CARDS.map((vc, i) => (
+            <Card key={i} className="border-slate-100 hover:shadow-md transition-shadow">
+              <CardContent className="p-6 flex flex-col gap-3">
+                <div>{vc.icon}</div>
+                <h3 className="text-lg font-black text-slate-900">{vc.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{vc.desc}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </div>
@@ -286,8 +405,14 @@ export default function Page() {
       {view === 'safari' && <TierExplorer type="safari" />}
       {view === 'local' && <TierExplorer type="local" />}
       {view === 'about' && <AboutView />}
-      <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20 text-center">
-        <p className="text-xs text-slate-400">Copyright 2026 OSARE - easafariroutes.com. Built by nakinson osare.</p>
+      <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20">
+        <div className="mx-auto max-w-7xl px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-400">Copyright 2026 OSARE - easafariroutes.com. Built by nakinson osare.</p>
+          <div className="flex gap-6">
+            <a href="/vendor-portal" className="text-xs font-bold text-slate-500 hover:text-[#1e3a8a] transition-colors">Vendor Portal</a>
+            <a href="/admin" className="text-xs font-bold text-slate-500 hover:text-[#1e3a8a] transition-colors">Admin</a>
+          </div>
+        </div>
       </footer>
     </main>
   )
