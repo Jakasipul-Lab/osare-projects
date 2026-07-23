@@ -154,6 +154,9 @@ function TierExplorer({ type, q = "" }) {
 
   const cats = type === 'safari' ? SAFARI_CATS : LOCAL_CATS
 
+  // Sync local search state when the q prop changes (e.g. chip click from HomeView)
+  useEffect(() => { setSearch(q) }, [q])
+
   const load = useCallback(async () => {
     setLoading(true)
     try {

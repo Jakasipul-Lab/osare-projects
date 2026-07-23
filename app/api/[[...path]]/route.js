@@ -21,13 +21,8 @@ const STATIC_DATABASE = [
     "currency": "USD",
     "type": "safari",
     "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80",
-    "keywords": [
-      "moshi",
-      "kilimanjaro"
-    ],
-    "assets": [
-      "Verified"
-    ]
+    "keywords": ["moshi", "kilimanjaro"],
+    "assets": ["Verified"]
   },
   {
     "id": "be2f0bec-de21-43ad-867b-252a91dc3cec",
@@ -43,13 +38,8 @@ const STATIC_DATABASE = [
     "currency": "USD",
     "type": "safari",
     "image": "https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80",
-    "keywords": [
-      "arusha",
-      "safari"
-    ],
-    "assets": [
-      "Verified"
-    ]
+    "keywords": ["arusha", "safari"],
+    "assets": ["Verified"]
   },
   {
     "id": "cdd93e50-a59a-47dd-bf66-a90dcb464ffc",
@@ -65,13 +55,8 @@ const STATIC_DATABASE = [
     "currency": "USD",
     "type": "safari",
     "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80",
-    "keywords": [
-      "arusha",
-      "safari"
-    ],
-    "assets": [
-      "Verified"
-    ]
+    "keywords": ["arusha", "safari"],
+    "assets": ["Verified"]
   },
   {
     "id": "altezza-001",
@@ -87,13 +72,8 @@ const STATIC_DATABASE = [
     "currency": "USD",
     "type": "safari",
     "image": "https://images.unsplash.com/photo-1613061445510-e296bfedb73e?q=80",
-    "keywords": [
-      "moshi",
-      "kilimanjaro"
-    ],
-    "assets": [
-      "Verified"
-    ]
+    "keywords": ["moshi", "kilimanjaro"],
+    "assets": ["Verified"]
   },
   {
     "id": "serena-001",
@@ -109,13 +89,8 @@ const STATIC_DATABASE = [
     "currency": "USD",
     "type": "safari",
     "image": "https://images.unsplash.com/photo-1564101160531-4838e8a5f4e7?q=80",
-    "keywords": [
-      "nationwide",
-      "lodge"
-    ],
-    "assets": [
-      "Verified"
-    ]
+    "keywords": ["nationwide", "lodge"],
+    "assets": ["Verified"]
   },
   {
     "id": "sgr-001",
@@ -126,21 +101,55 @@ const STATIC_DATABASE = [
     "vendorUrl": "https://metickets.krc.co.ke",
     "location": "Nairobi to Mombasa",
     "boardingPoint": "Syokimau (Nairobi) / Miritini (Mombasa)",
-    "description": "Fast daily train service with fixed pricing.",
+    "description": "Fast daily train service with fixed pricing. Book at metickets.krc.co.ke or any Kenya Railways station.",
     "priceLabel": "KES 1,500",
     "priceValue": 1500,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80",
-    "keywords": [
-      "sgr",
-      "train"
-    ],
-    "assets": [
-      "Official"
-    ]
+    "keywords": ["sgr", "train", "nairobi", "mombasa", "madaraka", "kenya railways"],
+    "assets": ["Official"]
+  },
+  {
+    "id": "easycoach-001",
+    "category": "Matatu / Shuttle",
+    "title": "EasyCoach",
+    "vendor": "EasyCoach Kenya",
+    "vendorContact": "+254 703 071 071",
+    "vendorUrl": "https://easycoach.co.ke",
+    "location": "Nairobi to Kisumu / Eldoret / Nakuru",
+    "boardingPoint": "Nairobi CBD — Mfangano Street",
+    "description": "Comfortable intercity coach services across Kenya. Book online or at any EasyCoach terminal.",
+    "priceLabel": "KES 700",
+    "priceValue": 700,
+    "currency": "KES",
+    "type": "local",
+    "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80",
+    "keywords": ["easycoach", "easy coach", "bus", "kisumu", "eldoret", "nakuru", "nairobi"],
+    "assets": ["Official"]
+  },
+  {
+    "id": "moderncoast-001",
+    "category": "Matatu / Shuttle",
+    "title": "Modern Coast Express",
+    "vendor": "Modern Coast",
+    "vendorContact": "+254 711 072 072",
+    "vendorUrl": "https://moderncoast.com",
+    "location": "Nairobi to Mombasa / Malindi / Lamu",
+    "boardingPoint": "Nairobi — Accra Road Terminal",
+    "description": "Premium bus services on the Nairobi–Coast corridor. Overnight and daytime trips available.",
+    "priceLabel": "KES 1,200",
+    "priceValue": 1200,
+    "currency": "KES",
+    "type": "local",
+    "image": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80",
+    "keywords": ["modern coast", "moderncoast", "bus", "mombasa", "malindi", "lamu", "nairobi", "coast"],
+    "assets": ["Official"]
   }
 ]
+
+// Static local transit IDs that must always be present in local listings
+const STATIC_LOCAL_IDS = ['sgr-001', 'easycoach-001', 'moderncoast-001']
 
 async function handleRoute(request, { params }) {
   const { path = [] } = await params
@@ -152,12 +161,21 @@ async function handleRoute(request, { params }) {
     if (route === '/listings') {
       const type = url.searchParams.get('type')
       const search = url.searchParams.get('q')
-      let items = []
-      
+
+      // Build a lookup map for static items so DB versions can replace them by ID
+      const staticById = Object.fromEntries(STATIC_DATABASE.map(i => [i.id, i]))
+
+      // Always start with all static items as the base
+      let items = [...STATIC_DATABASE]
+
       try {
-        const dbRes = await query('SELECT * FROM vendors WHERE is_active = true ORDER BY created_at DESC')
+        // Include vendors that are explicitly active OR have no is_active value set (NULL).
+        // Only vendors explicitly set to is_active = false are excluded.
+        const dbRes = await query(
+          'SELECT * FROM vendors WHERE is_active IS NOT false ORDER BY created_at DESC'
+        )
         if (dbRes && dbRes.rows.length > 0) {
-          items = dbRes.rows.map(r => ({
+          const dbItems = dbRes.rows.map(r => ({
             id: r.id,
             category: r.category,
             title: r.title,
@@ -175,16 +193,37 @@ async function handleRoute(request, { params }) {
             keywords: r.keywords || [],
             assets: r.assets || []
           }))
+          // Merge: DB items replace static items with the same ID; new DB items are appended
+          for (const dbItem of dbItems) {
+            const idx = items.findIndex(i => i.id === dbItem.id)
+            if (idx !== -1) {
+              items[idx] = dbItem
+            } else {
+              items.push(dbItem)
+            }
+          }
         }
       } catch (e) {}
 
-      if (items.length === 0) items = STATIC_DATABASE
-      if (type && type !== 'All') items = items.filter(it => it.type === type)
-      if (search) {
-         const s = search.toLowerCase()
-         items = items.filter(it => it.title.toLowerCase().includes(s) || it.location.toLowerCase().includes(s))
+      // Guarantee static local transit entries are always present regardless of DB state
+      for (const sid of STATIC_LOCAL_IDS) {
+        if (!items.find(i => i.id === sid) && staticById[sid]) {
+          items.push(staticById[sid])
+        }
       }
-      
+
+      if (type && type !== 'All') items = items.filter(it => it.type === type)
+
+      if (search) {
+        const s = search.toLowerCase()
+        items = items.filter(it =>
+          (it.title || '').toLowerCase().includes(s) ||
+          (it.location || '').toLowerCase().includes(s) ||
+          (it.description || '').toLowerCase().includes(s) ||
+          (Array.isArray(it.keywords) ? it.keywords : []).some(k => k.toLowerCase().includes(s))
+        )
+      }
+
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
     }
 
