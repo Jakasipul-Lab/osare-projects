@@ -22,9 +22,9 @@ const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=
 
 const NAV = [
   { key: 'home', label: 'Home' },
-  { key: 'safari', label: 'Safari Discovery' },
-  { key: 'local', label: 'Local Transit' },
-  { key: 'about', label: 'About OSARE' }
+  { key: 'safari', label: 'Safari' },
+  { key: 'local', label: 'Local' },
+  { key: 'about', label: 'About' }
 ]
 
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
@@ -325,18 +325,20 @@ function HomeView({ go }) {
 
 function AboutView() {
   const branches = [
-    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', address: 'Kisumu City, Kenya', country: 'Kenya' },
+    { region: 'Kisumu Headquarters', name: 'Mss Jacqueline Susan Nakinson', role: 'Officer-in-Charge', address: 'Kisumu City, Kenya', country: 'Kenya' },
     { region: 'Kenya - Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
     { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
     { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
-    { region: 'Germany Branch', name: 'Brunnenstrasse 48', role: '34537, Bad Wildungen', country: 'Germany' }
+    { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' }
   ]
   return (
     <div className="mx-auto max-w-6xl px-5 py-24">
       <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
       <p className="mt-8 text-xl font-medium leading-relaxed text-slate-600">
-        OSARE is East Africa's first dedicated B2B discovery hub for travel and transit. 
-        Based in our **Kisumu Headquarters**, we are committed to making travel discovery seamless, transparent, and direct.
+        OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa.
+      </p>
+      <p className="mt-4 text-xl font-medium leading-relaxed text-slate-600">
+        The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration.
       </p>
 
       {/* RESTORED FOUNDER & HQ PROFILE */}
@@ -345,10 +347,10 @@ function AboutView() {
           <img src="https://github.com/Jakasipul-Lab.png" alt="Osare Nakinson" className="h-full w-full object-cover" />
         </div>
         <div>
-          <Badge className="bg-blue-600 mb-2 text-white border-0">Founder & CEO</Badge>
+          <Badge className="bg-blue-600 mb-2 text-white border-0">Founder & Lead Developer</Badge>
           <h2 className="text-2xl font-black text-slate-900">Osare Nakinson</h2>
           <p className="mt-4 text-slate-600 font-medium leading-relaxed">
-            Leading OSARE from our **Kisumu Headquarters**, we are committed to direct, transparent travel discovery across East Africa.
+            Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
           </p>
         </div>
       </div>
