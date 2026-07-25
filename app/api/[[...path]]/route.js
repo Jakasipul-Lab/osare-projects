@@ -118,7 +118,7 @@ const STATIC_DATABASE = [
     "vendorContact": "+254 703 071 071",
     "vendorUrl": "https://easycoach.co.ke",
     "location": "Nairobi to Kisumu / Eldoret / Nakuru",
-    "boardingPoint": "Nairobi CBD — Mfangano Street",
+    "boardingPoint": "Nairobi CBD \u2014 Mfangano Street",
     "description": "Comfortable intercity coach services across Kenya. Book online or at any EasyCoach terminal.",
     "priceLabel": "KES 700",
     "priceValue": 700,
@@ -136,8 +136,8 @@ const STATIC_DATABASE = [
     "vendorContact": "+254 711 072 072",
     "vendorUrl": "https://moderncoast.com",
     "location": "Nairobi to Mombasa / Malindi / Lamu",
-    "boardingPoint": "Nairobi — Accra Road Terminal",
-    "description": "Premium bus services on the Nairobi–Coast corridor. Overnight and daytime trips available.",
+    "boardingPoint": "Nairobi \u2014 Accra Road Terminal",
+    "description": "Premium bus services on the Nairobi\u2013Coast corridor. Overnight and daytime trips available.",
     "priceLabel": "KES 1,200",
     "priceValue": 1200,
     "currency": "KES",
@@ -267,6 +267,69 @@ async function handleRoute(request, { params }) {
           return NextResponse.json(res?.rows || [])
         } catch (e) { return NextResponse.json([]) }
       }
+    }
+
+    if (route === '/ads' && method === 'POST') {
+      const body = await request.json()
+      const { business_name, title, image_url, link, duration } = body
+
+      if (!business_name || !title || !duration) {
+        return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+      }
+
+      try {
+        await query(`CREATE TABLE IF NOT EXISTS ads (
+          id UUID PRIMARY KEY,
+          business_name TEXT,
+          title TEXT,
+          image_url TEXT,
+          link TEXT,
+          duration TEXT,
+          status TEXT DEFAULT 'pending',
+          created_at TIMESTAMP DEFAULT NOW()
+        )`)
+
+        const adId = uuidv4()
+        await query(
+          'INSERT INTO ads (id, business_name, title, image_url, link, duration) VALUES ($1, $2, $3, $4, $5, $6)',
+          [adId, business_name, title, image_url || '', link || '', duration]
+        )
+
+        return NextResponse.json({ success: true, id: adId })
+      } catch (e) {
+        return NextResponse.json({ error: 'Database error' }, { status: 500 })
+      }
+    }
+
+    if (route === '/vendors' && method === 'GET') {
+      let items = [...STATIC_DATABASE]
+
+      try {
+        const dbRes = await query(
+          'SELECT * FROM vendors WHERE is_active IS NOT false ORDER BY created_at DESC'
+        )
+        if (dbRes && dbRes.rows.length > 0) {
+          const dbItems = dbRes.rows.map(r => ({
+            id: r.id,
+            category: r.category,
+            title: r.title,
+            vendor: r.name,
+            vendorContact: r.phone,
+            vendorUrl: r.url,
+            location: r.location,
+            description: r.description,
+            type: r.type,
+            image: r.image
+          }))
+          for (const dbItem of dbItems) {
+            const idx = items.findIndex(i => i.id === dbItem.id)
+            if (idx !== -1) items[idx] = dbItem
+            else items.push(dbItem)
+          }
+        }
+      } catch (e) {}
+
+      return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
     }
 
     if (route === '/') return NextResponse.json({ message: 'OSARE B2B API Active', version: '3.5' })
