@@ -24,6 +24,8 @@ const NAV = [
   { key: 'home', label: 'Home' },
   { key: 'safari', label: 'Safari' },
   { key: 'local', label: 'Local' },
+  { key: 'vendors', label: 'Vendors', href: '/vendors' },
+  { key: 'advertise', label: 'Advertise', href: '/advertise' },
   { key: 'about', label: 'About' }
 ]
 
@@ -48,12 +50,12 @@ const VALUE_CARDS = [
   {
     icon: <ShieldCheck className="h-7 w-7 text-[#1e3a8a]" />,
     title: 'Verified Vendors',
-    desc: 'Every listing is manually verified. Book direct with confidence — no hidden middlemen.'
+    desc: 'Every listing is manually verified. Book direct with confidence \u2014 no hidden middlemen.'
   },
   {
     icon: <Leaf className="h-7 w-7 text-emerald-500" />,
     title: 'Free Local Info',
-    desc: 'Local commuter routes, boarding points and official prices — free forever, no booking needed.'
+    desc: 'Local commuter routes, boarding points and official prices \u2014 free forever, no booking needed.'
   }
 ]
 
@@ -206,7 +208,7 @@ function TierExplorer({ type, q = "" }) {
         {type === 'local' && (
           <p className="mt-2 text-sm font-bold text-emerald-600 flex items-center gap-1.5">
             <Leaf className="h-4 w-4" />
-            Free informational service — find routes, prices and where to board. No booking or payment required.
+            Free informational service \u2014 find routes, prices and where to board. No booking or payment required.
           </p>
         )}
       </div>
@@ -217,7 +219,7 @@ function TierExplorer({ type, q = "" }) {
         <Input
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder={type === 'safari' ? 'Search destinations, operators…' : 'Search routes, services…'}
+          placeholder={type === 'safari' ? 'Search destinations, operators\u2026' : 'Search routes, services\u2026'}
           className="pl-9 bg-slate-50 border-slate-200"
         />
       </div>
@@ -332,6 +334,22 @@ function HomeView({ go }) {
           })}
         </div>
       </div>
+
+      {/* Advertise Here Banner */}
+      <div className="mx-auto max-w-7xl px-5 pb-8">
+        <div className="w-full rounded-2xl bg-gradient-to-r from-[#1e3a8a] to-[#f97316] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="text-white">
+            <h3 className="text-2xl md:text-3xl font-black">Want to feature your business?</h3>
+            <p className="mt-2 text-lg font-medium text-white/90">Advertise on OSARE and reach thousands of travelers.</p>
+          </div>
+          <a
+            href="/advertise"
+            className="inline-flex items-center gap-2 bg-white text-[#1e3a8a] font-black px-8 py-4 rounded-xl text-lg shadow-lg hover:bg-slate-100 transition-all active:scale-95 whitespace-nowrap"
+          >
+            <Sparkles className="h-5 w-5" /> Post Your Ad
+          </a>
+        </div>
+      </div>
     </div>
   )
 }
@@ -342,7 +360,7 @@ function AboutView() {
     { region: 'Kenya - Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
     { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
     { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
-    { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' }
+    { region: 'Germany Branch', name: 'Brunnenstra\u00dfe 48', role: '34537, Bad Wildungen', country: 'Germany' }
   ]
   return (
     <div className="mx-auto max-w-6xl px-5 py-24">
@@ -409,7 +427,11 @@ export default function Page() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           <button onClick={() => setView('home')} className="flex items-center gap-2"><Compass className="h-6 w-6 text-[#1e3a8a]" /><span className="text-xl font-black">OSARE</span></button>
           <div className="hidden md:flex gap-8 items-center">
-            {NAV.map((n) => (<button onClick={() => setView(n.key)} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</button>))}
+            {NAV.map((n) => (
+              n.href
+                ? <a href={n.href} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</a>
+                : <button onClick={() => setView(n.key)} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</button>
+            ))}
             <Button onClick={() => go('safari')} className="bg-[#1e3a8a] text-white font-bold">Discovery</Button>
           </div>
         </div>
