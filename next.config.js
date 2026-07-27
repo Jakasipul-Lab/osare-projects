@@ -1,19 +1,21 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
   images: {
     unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'avatars.githubusercontent.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
+      // Optional wildcard catch-all if you accept images from anywhere:
+      // { protocol: 'https', hostname: '**' },
     ],
   },
-  // Renamed from experimental.serverComponentsExternalPackages in Next 15
   serverExternalPackages: ['mongodb'],
   webpack(config, { dev }) {
     if (dev) {
-      // Reduce CPU/memory from file watching
       config.watchOptions = {
-        poll: 2000, // check every 2 seconds
-        aggregateTimeout: 300, // wait before rebuilding
+        poll: 2000,
+        aggregateTimeout: 300,
         ignored: ['**/node_modules'],
       };
     }
