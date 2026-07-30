@@ -41,7 +41,7 @@ export default function OnboardingPage() {
             <Input placeholder="Location" required onChange={e => setForm({...form, location: e.target.value})} />
             <Input placeholder="Service Title" required onChange={e => setForm({...form, title: e.target.value})} />
             <Textarea placeholder="Description" required onChange={e => setForm({...form, description: e.target.value})} />
-            <Input placeholder="Price Label ($350)" required onChange={e => setForm({...form, priceLabel: e.target.value})} />
+            <Input placeholder="Price Label ($50)" required onChange={e => setForm({...form, priceLabel: e.target.value})} />
             <Input type="number" placeholder="Price Value (for commission)" required onChange={e => setForm({...form, priceValue: e.target.value})} />
             <Input placeholder="Image URL" required onChange={e => setForm({...form, image: e.target.value})} />
             <Button type="submit" className="w-full bg-blue-600">Submit & Join Platform</Button>
