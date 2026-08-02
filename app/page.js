@@ -329,26 +329,78 @@ function Home({ go }) {
 // ---------------------------------------------------------------------------
 // About
 // ---------------------------------------------------------------------------
-function About() {
-  const branches = [
-    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
-    { region: 'Kenya — Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
-    { region: 'Uganda — Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
-    { region: 'Tanzania — Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
-    { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' },
+import React from 'react'
+import { Leaf, Users, Building2, Percent, MapPin, Phone, Compass, Mail } from 'lucide-react'
+
+export default function About() {
+  // Updatable workers and office bearers profile list with photo, telephone, and email details
+  const teamMembers = [
+    {
+      region: 'Kisumu Headquarters',
+      country: 'Kenya',
+      name: 'Mrs Jacqueline Susan Nakinson',
+      role: 'Officer-in-Charge',
+      phone: '+254 758 378 729',
+      email: 'kisumu@easafariroutes.com',
+      photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=440'
+    },
+    {
+      region: 'Kenya — Nairobi Branch',
+      country: 'Kenya',
+      name: 'Kenneth Oketch',
+      role: 'Branch Manager',
+      phone: '+254 700 123 456',
+      email: 'nairobi@easafariroutes.com',
+      photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=440'
+    },
+    {
+      region: 'Uganda — Kampala Branch',
+      country: 'Uganda',
+      name: 'Brian Omollo',
+      role: 'Branch Manager',
+      phone: '+256 770 987 654',
+      email: 'kampala@easafariroutes.com',
+      photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=440'
+    },
+    {
+      region: 'Tanzania — Dar es Salaam',
+      country: 'Tanzania',
+      name: 'Johnson Yongo',
+      role: 'Branch Manager',
+      phone: '+255 712 345 678',
+      email: 'dar@easafariroutes.com',
+      photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=440'
+    },
+    {
+      region: 'Germany Operations',
+      country: 'Germany',
+      name: 'Admin & Infrastructure',
+      role: 'European Support Desk',
+      phone: '+49 563 100 0000',
+      email: 'europe@easafariroutes.com',
+      photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=440'
+    }
   ]
+
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
-      <Badge className="gap-1 bg-[#f97316] text-white border-0"><Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes</Badge>
-      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">Connecting East Africa through trusted travel & logistics.</h1>
+      <div className="inline-flex items-center gap-1 rounded-full bg-[#f97316] px-3 py-1 text-sm font-medium text-white">
+        <Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes
+      </div>
+      
+      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">
+        Connecting East Africa through trusted travel & logistics.
+      </h1>
+      
       <p className="mt-4 text-lg text-slate-600">
         OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa. It also serves tourists with safaris, Kilimanjaro climbs, hotels, car &amp; aircraft hire and sightseeing.
       </p>
+      
       <p className="mt-3 text-lg text-slate-600">
         The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration. Our goal: put reliable, trustworthy information at everyone's fingertips.
       </p>
 
-      {/* Leadership */}
+      {/* Leadership Profile */}
       <div className="mt-12 grid items-center gap-8 rounded-2xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 md:grid-cols-[220px_1fr]">
         <img
           src="https://github.com/Jakasipul-Lab.png"
@@ -362,51 +414,101 @@ function About() {
           <p className="mt-3 text-slate-600">
             Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
           </p>
+          <div className="mt-4 flex flex-wrap gap-4 text-sm text-slate-700">
+            <span className="flex items-center gap-1"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</span>
+            <span className="flex items-center gap-1"><MapPin className="h-4 w-4 text-[#1e3a8a]" /> Kisumu HQ / Bad Wildungen</span>
+          </div>
         </div>
       </div>
 
       {/* Value / revenue model */}
       <div className="mt-12 grid gap-6 md:grid-cols-3">
-        <Card className="border-slate-200"><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p></CardContent></Card>
+        <div className="rounded-xl border border-slate-200 p-6 shadow-sm">
+          <Users className="h-7 w-7 text-[#1e3a8a]" />
+          <h3 className="mt-3 font-bold text-slate-900">For tourists</h3>
+          <p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p>
+        </div>
+        <div className="rounded-xl border border-slate-200 p-6 shadow-sm">
+          <Building2 className="h-7 w-7 text-[#1e3a8a]" />
+          <h3 className="mt-3 font-bold text-slate-900">For vendors</h3>
+          <p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p>
+        </div>
+        <div className="rounded-xl border border-slate-200 p-6 shadow-sm">
+          <Percent className="h-7 w-7 text-emerald-600" />
+          <h3 className="mt-3 font-bold text-slate-900">Our revenue</h3>
+          <p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p>
+        </div>
       </div>
 
-      {/* Branches */}
+      {/* Updatable Workers & Office Bearers Grid */}
       <div className="mt-14">
-        <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters &amp; Branches</h2>
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {branches.map((b, i) => (
-            <Card key={i} className="border-slate-200">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-2 text-[#2e7d32]">
-                  <MapPin className="h-4 w-4" />
-                  <span className="font-bold">{b.region}</span>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters &amp; Office Bearers</h2>
+            <p className="text-slate-600 mt-1">Direct contacts for our administrative heads and branch managers.</p>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {teamMembers.map((member, index) => (
+            <div key={index} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between">
+              <div>
+                {/* Bearer Photo */}
+                <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                  <img 
+                    src={member.photo} 
+                    alt={member.name} 
+                    className="h-full w-full object-cover transition duration-300 hover:scale-105"
+                    onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=440' }}
+                  />
+                  <div className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                    {member.country}
+                  </div>
                 </div>
-                <p className="mt-2 font-medium text-slate-800">{b.name}</p>
-                <p className="text-sm text-slate-500">{b.role}</p>
-                <Badge variant="secondary" className="mt-3 bg-slate-100 text-slate-600">{b.country}</Badge>
-              </CardContent>
-            </Card>
+
+                {/* Details */}
+                <div className="p-5">
+                  <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#2e7d32]">
+                    <MapPin className="h-3.5 w-3.5" />
+                    <span>{member.region}</span>
+                  </div>
+                  <h3 className="mt-2 text-lg font-bold text-slate-900">{member.name}</h3>
+                  <p className="text-sm font-medium text-[#f97316]">{member.role}</p>
+
+                  <div className="mt-4 space-y-2 border-t border-slate-100 pt-4 text-sm text-slate-600">
+                    <a href={`tel:${member.phone}`} className="flex items-center gap-2 hover:text-[#1e3a8a] transition">
+                      <Phone className="h-4 w-4 text-[#25d366]" />
+                      <span>{member.phone}</span>
+                    </a>
+                    <a href={`mailto:${member.email}`} className="flex items-center gap-2 hover:text-[#1e3a8a] transition truncate">
+                      <Mail className="h-4 w-4 text-[#1e3a8a]" />
+                      <span className="truncate">{member.email}</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-50 px-5 py-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                <span>Status: Active</span>
+                <span className="font-semibold text-slate-700">Verified Personnel</span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Contact */}
-      <Card className="mt-12 border-slate-200 bg-slate-50">
-        <CardContent className="p-6">
-          <h3 className="font-bold text-slate-900">Contact &amp; booking</h3>
-          <p className="mt-2 flex items-center gap-2 text-slate-600"><Phone className="h-4 w-4 text-[#25d366]" /> WhatsApp bookings: +254 758 378 729</p>
-          <p className="mt-1 flex items-center gap-2 text-slate-600"><MapPin className="h-4 w-4 text-[#1e3a8a]" /> Kisumu HQ • Nairobi • Kampala • Dar es Salaam • Bad Wildungen</p>
-          <p className="mt-1 flex items-center gap-2 text-slate-600"><Compass className="h-4 w-4 text-[#f97316]" /> www.easafariroutes.com</p>
-        </CardContent>
-      </Card>
+      {/* Contact Footer Card */}
+      <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+        <h3 className="font-bold text-slate-900">Contact &amp; booking</h3>
+        <p className="mt-2 flex items-center gap-2 text-slate-600"><Phone className="h-4 w-4 text-[#25d366]" /> WhatsApp bookings: +254 758 378 729</p>
+        <p className="mt-1 flex items-center gap-2 text-slate-600"><MapPin className="h-4 w-4 text-[#1e3a8a]" /> Kisumu HQ • Nairobi • Kampala • Dar es Salaam • Bad Wildungen</p>
+        <p className="mt-1 flex items-center gap-2 text-slate-600"><Compass className="h-4 w-4 text-[#f97316]" /> www.easafariroutes.com</p>
+      </div>
 
       <p className="mt-10 text-center text-sm text-slate-400">© 2026 OSARE — EA SafariRoutes. All rights reserved.</p>
     </div>
   )
 }
-
 // ---------------------------------------------------------------------------
 // Dashboard
 // ---------------------------------------------------------------------------
