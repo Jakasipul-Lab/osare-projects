@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -43,7 +42,7 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-=======
+
 const nextConfig = {
   output: 'standalone',
   images: {
@@ -86,4 +85,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
->>>>>>> Stashed changes
