@@ -331,50 +331,104 @@ function Home({ go }) {
 // ---------------------------------------------------------------------------
 function About() {
   const branches = [
-    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
-    { region: 'Kenya — Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
-    { region: 'Uganda — Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
-    { region: 'Tanzania — Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
-    { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' },
+    {
+      region: 'Kisumu Headquarters',
+      name: 'Head Office',
+      role: 'Central operations and leadership',
+      country: 'Kenya',
+    },
+    {
+      region: 'Kenya — Nairobi',
+      name: 'Branch Office',
+      role: 'Travel and transit coordination',
+      country: 'Kenya',
+    },
+    {
+      region: 'Uganda — Kampala',
+      name: 'Branch Office',
+      role: 'Local support and partner coordination',
+      country: 'Uganda',
+    },
+    {
+      region: 'Tanzania — Dar es Salaam',
+      name: 'Branch Office',
+      role: 'Regional travel support and operations',
+      country: 'Tanzania',
+    },
   ]
+
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
-      <Badge className="gap-1 bg-[#f97316] text-white border-0"><Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes</Badge>
-      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">Connecting East Africa through trusted travel & logistics.</h1>
+      <Badge className="gap-1 bg-[#f97316] text-white border-0">
+        <Leaf className="h-3 w-3" /> About EA SafariRoutes
+      </Badge>
+
+      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">
+        Connecting East Africa through trusted travel and logistics.
+      </h1>
+
       <p className="mt-4 text-lg text-slate-600">
-        OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa. It also serves tourists with safaris, Kilimanjaro climbs, hotels, car &amp; aircraft hire and sightseeing.
-      </p>
-      <p className="mt-3 text-lg text-slate-600">
-        The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration. Our goal: put reliable, trustworthy information at everyone's fingertips.
+        EA SafariRoutes is a regional travel and logistics platform that connects users to safari operators,
+        local transit services, and branch contacts across East Africa. Our goal is to make travel information
+        clear, reliable, and easy to access.
       </p>
 
-      {/* Leadership */}
+      <p className="mt-3 text-lg text-slate-600">
+        We help visitors and partners compare travel options, manage profiles, and find trusted services from
+        Kisumu, Kenya to Uganda and Tanzania.
+      </p>
+
       <div className="mt-12 grid items-center gap-8 rounded-2xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 md:grid-cols-[220px_1fr]">
         <img
-          src="https://github.com/Jakasipul-Lab.png"
-          alt="Osare Nakinson"
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=440"
+          alt="Founder"
           className="h-52 w-52 rounded-2xl object-cover shadow-lg"
-          onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=440' }}
         />
         <div>
           <h3 className="text-2xl font-extrabold text-[#1b5e20]">Osare Nakinson</h3>
-          <span className="mt-1 inline-block font-semibold text-[#2e7d32]">Founder &amp; Lead Developer</span>
+          <span className="mt-1 inline-block font-semibold text-[#2e7d32]">
+            Founder & Lead Developer
+          </span>
           <p className="mt-3 text-slate-600">
             Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
           </p>
         </div>
       </div>
 
-      {/* Value / revenue model */}
       <div className="mt-12 grid gap-6 md:grid-cols-3">
-        <Card className="border-slate-200"><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p></CardContent></Card>
+        <Card className="border-slate-200">
+          <CardContent className="p-6">
+            <Users className="h-7 w-7 text-[#1e3a8a]" />
+            <h3 className="mt-3 font-bold">For tourists</h3>
+            <p className="mt-1 text-sm text-slate-500">
+              Compare options with photos, prices, and trusted operator details.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-slate-200">
+          <CardContent className="p-6">
+            <Building2 className="h-7 w-7 text-[#1e3a8a]" />
+            <h3 className="mt-3 font-bold">For vendors</h3>
+            <p className="mt-1 text-sm text-slate-500">
+              Reach travellers directly and manage your listings from your portal.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-slate-200">
+          <CardContent className="p-6">
+            <Percent className="h-7 w-7 text-emerald-600" />
+            <h3 className="mt-3 font-bold">Our model</h3>
+            <p className="mt-1 text-sm text-slate-500">
+              Transparent commission structure designed to support providers and travelers.
+            </p>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Branches */}
       <div className="mt-14">
-        <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters &amp; Branches</h2>
+        <h2 className="text-2xl font-extrabold text-slate-900">Regional headquarters and branches</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {branches.map((b, i) => (
             <Card key={i} className="border-slate-200">
@@ -385,28 +439,28 @@ function About() {
                 </div>
                 <p className="mt-2 font-medium text-slate-800">{b.name}</p>
                 <p className="text-sm text-slate-500">{b.role}</p>
-                <Badge variant="secondary" className="mt-3 bg-slate-100 text-slate-600">{b.country}</Badge>
+                <Badge variant="secondary" className="mt-3 bg-slate-100 text-slate-600">
+                  {b.country}
+                </Badge>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
 
-      {/* Contact */}
-      <Card className="mt-12 border-slate-200 bg-slate-50">
-        <CardContent className="p-6">
-          <h3 className="font-bold text-slate-900">Contact &amp; booking</h3>
-          <p className="mt-2 flex items-center gap-2 text-slate-600"><Phone className="h-4 w-4 text-[#25d366]" /> WhatsApp bookings: +254 758 378 729</p>
-          <p className="mt-1 flex items-center gap-2 text-slate-600"><MapPin className="h-4 w-4 text-[#1e3a8a]" /> Kisumu HQ • Nairobi • Kampala • Dar es Salaam • Bad Wildungen</p>
-          <p className="mt-1 flex items-center gap-2 text-slate-600"><Compass className="h-4 w-4 text-[#f97316]" /> www.easafariroutes.com</p>
-        </CardContent>
-      </Card>
+      <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <h3 className="font-bold text-slate-900">Contact and booking</h3>
+        <p className="mt-2 text-slate-600">WhatsApp bookings: +254 758 378 729</p>
+        <p className="mt-1 text-slate-600">Head office: Kisumu, Kenya</p>
+        <p className="mt-1 text-slate-600">Website: easafariroutes.com</p>
+      </div>
 
-      <p className="mt-10 text-center text-sm text-slate-400">© 2026 OSARE — EA SafariRoutes. All rights reserved.</p>
+      <p className="mt-10 text-center text-sm text-slate-400">
+        © 2026 EA SafariRoutes. All rights reserved.
+      </p>
     </div>
   )
 }
-
 
 export default About// ---------------------------------------------------------------------------
 // Dashboard
