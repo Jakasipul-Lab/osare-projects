@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 import {
@@ -1456,4 +1455,3 @@ function App() {
   )
 }
 export default App
->>>>>>> Stashed 1
