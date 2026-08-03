@@ -931,9 +931,9 @@ function EmptyChart() {
 // Admin
 // ---------------------------------------------------------------------------
 const EMPTY_FORM = {
-  type: 'safari', category: 'Safari Package', title: ', vendor: ', vendorOffice: ',
-  location: ', mapLink: ', description: ', includes: ', priceValue: ', currency: 'USD',
-  priceLabel: ', offPeakValue: ', offPeakLabel: ', season: ', image: ', keywords: '
+  type: 'safari', category: 'Safari Package', title: '', vendor: '', vendorOffice: '',
+  location: '', mapLink: '', description: '', includes: '', priceValue: '', currency: 'USD',
+  priceLabel: '', offPeakValue: '', offPeakLabel: '', season: '', image: '', keywords: ''
 }
 function Admin() {
   const [listings, setListings] = useState([])
@@ -1088,8 +1088,7 @@ function Admin() {
       </div>
     </div>
   )
-}
-function Field({ label, v, on, ph }) {
+}function Field({ label, v, on, ph }) {
   return (
     <div>
       <Label className="text-xs">{label}</Label>
