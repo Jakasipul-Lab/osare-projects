@@ -1,1 +1,1462 @@
-J3VzZSBjbGllbnQnDQoNCmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUsIHVzZUNhbGxiYWNrIH0gZnJvbSAncmVhY3QnDQppbXBvcnQgew0KICBTZWFyY2gsIE1hcFBpbiwgTWVudSwgWCwgQ29tcGFzcywgQnVzLCBQbGFuZSwgQ2FyLCBIb3RlbCwgTW91bnRhaW4sDQogIEJpbm9jdWxhcnMsIEJ1aWxkaW5nMiwgUGhvbmUsIFNoaWVsZENoZWNrLCBUcmVuZGluZ1VwLCBQZXJjZW50LCBVc2VycywNCiAgTGVhZiwgU3BhcmtsZXMsIEFycm93UmlnaHQsIFRyYXNoMiwgUGx1cywgTG9hZGVyMiwgTWVzc2FnZUNpcmNsZSwgVGFnDQpNYWlsIH0gZnJvbSAnbHVjaWRlLXJlYWN0Jw0KaW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL2J1dHRvbicNCmltcG9ydCB7IElucHV0IH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL2lucHV0Jw0KaW1wb3J0IHsgVGV4dGFyZWEgfSBmcm9tICdAL2NvbXBvbmVudHMvdWkvdGV4dGFyZWEnDQppbXBvcnQgeyBMYWJlbCB9IGZyb20gJ0AvY29tcG9uZW50cy91aS9sYWJlbCcNCmltcG9ydCB7IENhcmQsIENhcmRDb250ZW50LCBDYXJkSGVhZGVyLCBDYXJkVGl0bGUgfSBmcm9tICdAL2NvbXBvbmVudHMvdWkvY2FyZCcNCmltcG9ydCB7IEJhZGdlIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL2JhZGdlJw0KaW1wb3J0IHsNCiAgU2VsZWN0LCBTZWxlY3RDb250ZW50LCBTZWxlY3RJdGVtLCBTZWxlY3RUcmlnZ2VyLCBTZWxlY3RWYWx1ZQ0KfSBmcm9tICdAL2NvbXBvbmVudHMvdWkvc2VsZWN0Jw0KaW1wb3J0IHsgVGFibGUsIFRhYmxlQm9keSwgVGFibGVDZWxsLCBUYWJsZUhlYWQsIFRhYmxlSGVhZGVyLCBUYWJsZVJvdyB9IGZyb20gJ0AvY29tcG9uZW50cy91aS90YWJsZScNCmltcG9ydCB7IFRhYnMsIFRhYmxlQ29udGVudCwgVGFic0xpc3QsIFRhYnNUcmlnZ2VyIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL3RhYnMnDQppbXBvcnQgeyBUb2FzdGVyIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpL3Nvbm5lcicNCmltcG9ydCB7IHRvYXN0IH0gZnJvbSAnc29ubmVyJw0KaW1wb3J0IHsNCiAgQmFyQ2hhcnQsIEJhciwgUGllQ2hhcnQsIFBpZSwgQ2VsbCwgWEF4aXMsIFlBeGlzLCBUb29sdGlwLCBSZXNwb25zaXZlQ29udGFpbmVyDQp9IGZyb20gJ3JlY2hhcnRzJw0KDQpjb25zdCBIRVJPID0gJ2h0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE2MDI2NjcyMzIyLWJjNTJkNjFhNTVkNT9jcm9wPWVudHJvcHkmY3M9c3JnYiZmbT1qcGcmaXhpZD1NM3c0TmpBMU9UVjhNSHd4ZkhObFlYSmphSHcwZkh4QlpuSnBZMkZ1SlRJd2MyRm1ZWEpwZkdWdWZEQjhmSHg4TVRjNE16TTRNakEyTm53dyZpeGxpYj1yYi00LjEuMCZxPTg1Jw0KY29uc3QgTE9DQUxfSEVSTyA9ICdodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTc3MDI4MzU1Mzg4NS1iYWQxZDZmN2FjZDc/Y3JvcD1lbnRyb3B5JmNzPXNyZ2ImZm09anBnJml4aWQ9TTN3M05UWTJOelI4TUh3eGZITmxZWEpqYUh3eGZHeHRZWFJoZEhVbE1qQmlkWFg4Wlc1OE1IeDhmSHd4Tnpnek16Z3lNREM0ZkRBJml4bGliPXJiLTQuMS4wJnE9ODUnDQoNCmNvbnN0IE5BViA9IFsNCiAgeyBrZXk6ICdob21lJywgbGFiZWw6ICdIb21lJyB9LA0KICB7IGtleTogJ3NhZmFyaScsIGxhYmVsOiAnU2FmYXJpJyB9LA0KICB7IGtleTogJ2xvY2FsJywgbGFiZWw6ICdMb2NhbCBUcmFuc2l0JyB9LA0KICB7IGtleTogJ2Fib3V0JywgbGFiZWw6ICdBYm91dCcgfSwNCiAgeyBrZXk6ICdkYXNoYm9hcmQnLCBsYWJlbDogJ0Rhc2hib2FyZCcgfSwNCiAgeyBrZXk6ICd2ZW5kb3InLCBsYWJlbDogJ1ZlbmRvciBQb3J0YWwnIH0sDQogIHsga2V5OiAnYWRtaW4nLCBsYWJlbDogJ0FkbWluJyB9LA0KXQ0KDQpjb25zdCBTQUZBUklfQ0FUUyA9IFsnQWxsJywgJ1NhZmFyaSBQYWNrYWdlJywgJ0tpbGltYW5qYXJvIENsaW1iJywgJ0hvdGVsICYgUmVzb3J0JywgJ0NhciAmIENhcmF2YW4gSGlyZScsICdMaWdodCBBaXJjcmFmdCBDaGFydGVyJywgJ1NpZ2h0c2VlaW5nJ10NCmNvbnN0IExPQ0FMX0NBVFMgPSBbJ0FsbCcsICdNYXRhdHUgLyBTaHV0dGxlJywgJ1RyYWluIChTR1IpJywgJ1RheGkgLyBDYXIgSGlyZScsICdBaXJwb3J0IFRyYW5zZmVyJ10NCmNvbnN0IENIQVJUX0NPTE9SUyA9IFsnI2Y5NzMxNicsICcjMWUzYThhJywgJyMzYjgyZjYnLCAnIzEwYjk4MScsICcjZWFiMzA4JywgJyM4YjVjZjYnLCAnI2VmNDQ0NCddDQoNCmNvbnN0IGNhdEljb24gPSAoY2F0KSA9PiB7DQogIGlmICgva2lsaW1hbmphcm8vaS50ZXN0KGNhdCkpIHJldHVybiA8TW91bnRhaW4gY2xhc3NOYW1lPSJoLTQgdy00IiAvPg0KICBpZiAoL2hvdGVsfHJlc29ydC9pLnRlc3QoY2F0KSkgcmV0dXJuIDxIb3RlbCBjbGFzc05hbWU9ImgtNCB3LTQiIC8+DQogIGlmICgvY2FyfGNhcmF2YW4vaS50ZXN0KGNhdCkpIHJldHVybiA8Q2FyIGNsYXNzTmFtZT0iaC00IHctNCIgLz4NCiAgaWYgKC9haXJjcmFmdC9pLnRlc3QoY2F0KSkgcmV0dXJuIDxQbGFuZSBjbGFzc05hbWU9ImgtNCB3LTQiIC8+DQogIGlmICgvc2lnaHRzZWVpbmcvaS50ZXN0KGNhdCkpIHJldHVybiA8Qmlub2N1bGFycyBjbGFzc05hbWU9ImgtNCB3LTQiIC8+DQogIGlmICgvcmFpbHxidXN8c2dyL2kudGVzdChjYXQpKSByZXR1cm4gPEJ1cyBjbGFzc05hbWU9ImgtNCB3LTQiIC8+DQogIHJldHVybiA8Q29tcGFzcyBjbGFzc05hbWU9ImgtNCB3LTQiIC8+DQp9DQoNCmZ1bmN0aW9uIExpc3RpbmdDYXJkKHsgaXRlbSwgb25Cb29rLCBib29raW5nIH0pIHsNCiAgY29uc3QgaXNTYWZhcmkgPSBpdGVtLnR5cGUgPT09ICdzYWZhcmknDQogIGNvbnN0IGFjY2VudENvbG9yID0gaXNTYWZhcmkgPyAnI2Y5NzMxNicgOiAnIzFlM2E4YScNCiAgDQogIGNvbnN0IGhhbmRsZUFjdGlvbiA9ICgpID0+IHsNCiAgICBpZiAoaXNTYWZhcmkpIHsNCiAgICAgIG9uQm9vayhpdGVtKQ0KICAgIH0gZWxzZSB7DQogICAgICBpZiAoaXRlbS52ZW5kb3JVcmwpIHsNCiAgICAgICAgd2luZG93Lm9wZW4oaXRlbS52ZW5kb3JVcmwsICdfYmxhbmsnKQ0KICAgICAgfSBlbHNlIHsNCiAgICAgICAgdG9hc3QuaW5mbyhgQ29udGFjdCAke2l0ZW0udmVuZG9yfSBhdCAke2l0ZW0udmVuZG9yQ29udGFjdH0gdG8gYm9vay5gLCB7DQogICAgICAgICAgZGVzY3JpcHRpb246ICJUaGlzIGlzIGEgZnJlZSBpbmZvcm1hdGlvbmFsIHNlcnZpY2UuIg0KICAgICAgICB9KQ0KICAgICAgfQ0KICAgIH0NCiAgfQ0KDQogIHJldHVybiAoDQogICAgPENhcmQgY2xhc3NOYW1lPSJvdmVyZmxvdy1oaWRkZW4gYm9yZGVyLXNsYXRlLTIwMCBob3ZlcjpzaGFkb3cteGwgdHJhbnNpdGlvbi1zaGFkb3cgZHVyYXRpb24tMzAwIGZsZXggZmxleC1jb2wgYmctd2hpdGUiPg0KICAgICAgPGRpdiBjbGFzc05hbWU9InJlbGF0aXZlIGgtNTIgdy1mdWxsIG92ZXJmbG93LWhpZGRlbiI+DQogICAgICAgIDxpbWcgc3JjPXtpdGVtLmltYWdlfSBhbHQ9e2l0ZW0udGl0bGV9IGNsYXNzTmFtZT0iaC1mdWxsIHctZnVsbCBvYmplY3QtY292ZXIgdHJhbnNpdGlvbi10cmFuc2Zvcm0gZHVyYXRpb24tNTAwIGhvdmVyOnNjYWxlLTEwNSIgLz4NCiAgICAgICAgPEJhZGdlIGNsYXNzTmFtZT0iYWJzb2x1dGUgbGVmdC0zIHRvcC0zIGdhcC0xIGJvcmRlci0wIHRleHQtd2hpdGUgc2hhZG93IGZvbnQtYm9sZCIgc3R5bGU9e3sgYmFja2dyb3VuZENvbG9yOiBhY2NlbnRDb2xvciB9fT4NCiAgICAgICAgICB7Y2F0SWNvbihpdGVtLmNhdGVnb3J5KX0ge2l0ZW0uY2F0ZWdvcnl9DQogICAgICAgIDwvQmFkZ2U+DQogICAgICAgIHshaXNTYWZhcmkgJiYgKGl0ZW0uYXNzZXRzIHx8IFtdKS5pbmNsdWRlcygnVmVyaWZpZWQnKSAmJiAoDQogICAgICAgICAgPEJhZGdlIGNsYXNzTmFtZT0iYWJzb2x1dGUgcmlnaHQtMyB0b3AtMyBiZy1lbWVyYWxkLTUwMCB0ZXh0LXdoaXRlIGJvcmRlci0wIGZvbnQtYm9sZCBzaGFkb3ctc20iPg0KICAgICAgICAgICAgVkVSSUZJRUQNCiAgICAgICAgICA8L0JhZGdlPg0KICAgICAgICApfQ0KICAgICAgPC9kaXY+DQogICAgICA8Q2FyZENvbnRlbnQgY2xhc3NOYW1lPSJmbGV4IGZsZXgtMSBmbGV4LWNvbCBwLTUiPg0KICAgICAgICA8aDMgY2xhc3NOYW1lPSJ0ZXh0LWxnIGZvbnQtYm9sZCB0ZXh0LXNsYXRlLTkwMCBsZWFkaW5nLXNudWciPntpdGVtLnRpdGxlfTwvaDM+DQogICAgICAgIDxwIGNsYXNzTmFtZT0ibXQtMSB0ZXh0LXNtIGZvbnQtc2VtaWJvbGQgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEiIHN0eWxlPnt7IGNvbG9yOiBhY2NlbnRDb2xvciB9fT4NCiAgICAgICAgICA8U2hpZWxkQ2hlY2sgY2xhc3NOYW1lPSJoLTMuNSB3LTMuNSIgLz4ge2lzU2FmYXJpID8gJ1ZlcmlmaWVkIFZlbmRvcicgOiAnVHJhbnNpdCBPcGVyYXRvcicfOiB7aXRlbS52ZW5kb3J9DQogICAgICAgIDwvcD4NCg0KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtMyBncmlkIGdyaWQtY29scy0yIGdhcC0yIGJvcmRlci15IGJvcmRlci1zbGF0ZS01MCBweS0zIj4NCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ic3BhY2UteS0xIj4NCiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1bMTBweF0gdXBwZXJjYXNlIGZvbnQtYm9sZCB0ZXh0LXNsYXRlLTQwMCI+T2ZmaWNpYWwgQ29udGFjdDwvcD4NCiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSB0ZXh0LXhzIHRleHQtc2xhdGUtNjAwIGZvbnQtbWVkaXVtIj4NCiAgICAgICAgICAgICAgIDxQaG9uZSBjbGFzc05hbWU9ImgtMyB3LTMiIC8+IHtpdGVtLnZlbmRvckNvbnRhY3QgfHwgJ0NoZWNrIE9mZmljaWFsIFNpdGUnfQ0KICAgICAgICAgICAgPC9wPg0KICAgICAgICAgIDwvZGl2Pg0KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJzcGFjZS15LTEiPg0KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LVsxMHB4XSB1cHBlcmNhc2UgZm9udC1ib2xkIHRleHQtc2xhdGUtNDAwIj57aXNTYWZhcmkgPyAnUHJpbWFyeSBIdWInIDogJ0JvYXJkaW5nIEF0J308L3A+DQogICAgICAgICAgICA8cCBjbGFzc05hbWU9ImZsZXggaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC14cyB0ZXh0LXNsYXRlLTYwMCBmb3J0LW1lZGl1bSBsaW5lLWNsYW1wLTEiPg0KICAgICAgICAgICAgICAgPE1hcFBpbiBjbGFzc05hbWU9ImgtMyB3LTMiIC8+IHtpdGVtLmJvYXJkaW5nUG9pbnQgfHwgaXRlbS5sb2NhdGlvbn0NCiAgICAgICAgICAgIDwvcD4NCiAgICAgICAgICA8L2Rpdj4NCiAgICAgICAgPC9kaXY+DQoNCiAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC00IHRleHQtc20gdGV4dC1zbGF0ZS02MDAgbGluZS1jbGFtcC0yIGxlYWRpbmctcmVsYXhlZCI+e2l0ZW0uZGVzY3JpcHRpb259PC9wPg0KDQogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC1hdXRvIHB0LTUgZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIj4NCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBmbGV4LWNvbCI+DQogICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9InRleHQtMnhsIGZvbnQtYmxhY2sgdGV4dC1zbGF0ZS05MDAiPntpdGVtLnByaWNlTGFiZWx9PC9zcGFuPg0KICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJ0ZXh0LVsxMHB4XSBmb250LWJvbGQgdGV4dC1zbGF0ZS00MDAgdXBwZXJjYXNlIHRyYWNraW5nLXdpZGVzdCI+e2lzU2FmYXJpID8gJ1N0YXJ0aW5nIGZyb20nIDogJ09mZmljaWFsIFJhdGUnfTwvc3Bhbj4NCiAgICAgICAgICA8L2Rpdj4NCiAgICAgICAgICA8QnV0dG9uIA0KICAgICAgICAgICAgb25DbGljaz17aGFuZGxlQWN0aW9ufQ0KICAgICAgICAgICAgZGlzYWJsZWQ9e2Jvb2tpbmcgPT09IGl0ZW0uaWR9DQogICAgICAgICAgICBjbGFzc05hbWU9ImdhcC0yIHB4LTYgcHktNSBmb250LWJvbGQgc2hhZG93LWxnIHRyYW5zaXRpb24tYWxsIGFjdGl2ZTpzY2FsZS05NSINCiAgICAgICAgICAgIHN0eWxlPnt7IGJhY2tncm91bmRDb2xvcjogYWNjZW50Q29sb3IsIGNvbG9yOiAnI2ZmZicgfX0+DQogICAgICAgICAgICB7Ym9va2luZyA9PT0gaXRlbS5pZCA/IDxMb2FkZXIyIGNsYXNzTmFtZT0iaC00IHctNCBhbmltYXRlLXNwaW4iIC8+IDogKGlzU2FmYXJpID8gPE1lc3NhZ2VDaXJjbGUgY2xhc3NOYW1lPSJoLTQgdy00IiAvPiA6IDxFeHRlcm5hbExpbmsgY2xhc3NOYW1lPSJoLTQgdy00IiAvPil9DQogICAgICAgICAgICB7aXNTYWZhcmkgPyAnQm9vayBOb3cnIDogJ0NoZWNrIFNpdGUnfQ0KICAgICAgICAgIDwvQnV0dG9uPg0KICAgICAgICA8L2Rpdj4NCiAgICAgIDwvQ2FyZENvbnRlbnQ+DQogICAgPC9DYXJkPg0KICApDQp9DQoNCmZ1bmN0aW9uIFRpZXJFeHBsb3Jlcih7IHR5cGUsIHEgPSAiIiB9KSB7DQogIGNvbnN0IFtpdGVtcywgc2V0SXRlbXNdID0gdXNlU3RhdGUoW10pDQogIGNvbnN0IFtmaWx0ZXJlZCwgc2V0RmlsdGVyZWRdID0gdXNlU3RhdGUoW10pDQogIGNvbnN0IFtsb2FkaW5nLCBzZXRMb2FkaW5nXSA9IHVzZVN0YXRlKHRydWUpDQogIGNvbnN0IFtib29raW5nLCBzZXRCb29raW5nXSA9IHVzZVN0YXRlKG51bGwpDQogIGNvbnN0IFthY3RpdmVDYXQsIHNldEFjdGl2ZUNhdF0gPSB1c2VTdGF0ZSgnQWxsJw0KICApDQogIGNvbnN0IFtzZWFyY2gsIHNldFNlYXJjaF0gPSB1c2VTdGF0ZShxKQ0KDQogIGNvbnN0IGNhdHMgPSB0eXBlID09PSAnc2FmYXJpJyA/IFNBRkFSSV9DQVRTIDogTE9DQUxfQ0FUUw0KDQogIGNvbnN0IGxvYWQgPSB1c2VDYWxsYmFjayhhc3luYyAoKSA9PiB7DQogICAgc2V0TG9hZGluZyh0cnVlKQ0KICAgIHRyeSB7DQogICAgICBjb25zdCByZXMgPSBhd2FpdCBmZXRjaChgL2FwaS9saXN0aW5ncz90eXBlPSR7dHlwZX0ke3EgPyBgJnE9JHtlbmNvZGVVUklDb21wb25lbnQocSl9YCA6ICcnfWApDQogICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzLmpzb24oKQ0KICAgICAgc2V0SXRlbXMoQXJyYXkuaXNBcnJheShkYXRhKSA/IGRhdGEgOiBbXSkNCiAgICB9IGNhdGNoIChlKSB7IHRvYXN0LmVycm9yKCJTZWFyY2ggdW5hdmFpbGFibGUiKSB9DQogICAgZmluYWxseSB7IHNldExvYWRpbmcoZmFsc2UpIH0NCiAgfSwgW3R5cGUsIHFdKQ0KDQogIHVzZUVmZmVjdCgoKSA9PiB7IGxvYWQoKSB9LCBbbG9hZF0pDQoNCiAgLy8gUmUtc3luYyBzZWFyY2ggc3RhdGUgaWYgcSBwcm9wIGNoYW5nZXMgKGUuZy4gZnJvbSBRVUlDS19ESVNDT1ZFUlkgY2hpcHMpDQogIHVzZUVmZmVjdCgoKSA9PiB7IHNldFNlYXJjaChxKSB9LCBbbV0pDQoNCiAgIHVzZUVmZmVjdCgoKSA9PiB7DQogICAgbGV0IGYgPSBpdGVtcw0KICAgIGlmIChhY3RpdmVDYXQgIT09ICdBbGwnKSBmID0gZi5maWx0ZXIoaXQgPT4gaXQuY2F0ZWdvcnkgPT09IGFjdGl2ZUNhdCkNCiAgICBpZiAoc2VhcmNoKSB7DQogICAgICBjb25zdCBzID0gc2VhcmNoLnRvTG93ZXJDYXNlKCkNCiAgICAgIGYgPSBmLmZpbHRlcihpdCA9Pg0KICAgICAgICAoaXQudGl0bGUgfHwgJycpLnRvTG93ZXJDYXNlKCkuaW5jbHVkZXMocykgfHwNCiAgICAgICAgKGl0LmxvY2F0aW9uIHx8ICcnKS50b0xvd2VyQ2FzZSgpLmluY2x1ZGVzKHMpIHx8DQogICAgICAgIChpdC5kZXNjcmlwdGlvbiB8fCAnJykudG9Mb3dlckNhc2UoKSmluY2x1ZGVzKHMpDQogICAgICApDQogICAgfQ0KICAgIHNldEZpbHRlcmVkKGYpDQogIH0sIFtpdGVtcywgYWN0aXZlQ2F0LCBzZWFyY2hdKQ0KDQogIGNvbnN0IGhhbmRsZUJvb2sgPSBhc3luYyAoaXRlbSkgPT4gew0KICAgIHNldEJvb2tpbmcoaXRlbS5pZCkNCiAgICB0cnkgew0KICAgICAgY29uc3QgcmVzID0gYXdhaXQgZmV0Y2goJy9hcGkvbGVhZHMnLCB7DQogICAgICAgIG1ldGhvZDogJ1BPU1QnLA0KICAgICAgICBoZWFkZXJzOiB7ICdDb250ZW50LVR5cGUnOiAnYXBwbGljYXRpb24vanNvbicgfSwNCiAgICAgICAgYm9keTogSlNPTi5zdHJpbmdpZnkoeyBsaXN0aW5nSWQ6IGl0ZW0uaWQsIGxpc3RpbmdUaXRsZTogaXRlbS50aXRsZSwgdmVuZG9yOiBpdGVtLnZlbmRvciwgcHJpY2VWYWx1ZTogaXRlbS5wcmljZVZhbHVlIH0pDQogICAgICB9KQ0KICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlcy5qc29uKCkNCiAgICAgIGlmIChkYXRhLndoYXRzYXBwVXJsKSB3aW5kb3cub3BlbihkYXRhLndoYXRzYXBwVXJsLCAnX2JsYW5rJykNCiAgICB9IGNhdGNoIChlKSB7IHRvYXN0LmVycm9yKCJCb29raW5nIHNlcnZpY2Ugb2ZmbGluZSIpIH0NCiAgICBmaW5hbGx5IHsgc2V0Qm9va2luZyhudWxsKSB9DQogIH0NCg0KICByZXR1cm4gKA0KICAgIDxkaXYgY2xhc3NOYW1lPSJteC1hdXRvIG1heC13LTd4bCBweC01IHB5LTEwIj4NCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtYi04Ij4NCiAgICAgICAgPGgyIGNsYXNzTmFtZT0idGV4dC0zeGwgZm9udC1ibGFjayB0ZXh0LXNsYXRlLTkwMCI+DQogICAgICAgICAge3R5cGUgPT09ICdzYWZhcmknID8gJ1NhZmFyaSBEaXNjb3ZlcnknIDogJ0xvY2FsIFRyYW5zaXRIdWInfQ0KICAgICAgICA8L2gyPg0KICAgICAgICB7dHlwZSA9PT0gJ2xvY2FsJyAmJiAoDQogICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC0yIHRleHQtc20gZm9udC1ib2xkIHRleHQtZW1lcmFsZC02MDAgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSI+DQogICAgICAgICAgICA8TGVhZiBjbGFzc05hbWU9ImgtNCB3LTQiIC8+DQogICAgICAgICAgICBGcmVlIGluZm9ybWF0aW9uYWwgc2VydmljZSDigJQgZmluZCByb3V0ZXMsIHByaWNlcyBhbmQgd2hlcmUgdG8gYm9hcmQuIE5vIGJvb2tpbmcgb3IgcGF5bWVudCByZXF1aXJlZC4NCiAgICAgICAgICA8L3A+DQogICAgICAgICl9DQogICAgICA8L2Rpdj4NCg0KICAgICAgey8qIFNlYXJjaCBiYXIgKi99DQogICAgICA8ZGl2IGNsYXNzTmFtZT0icmVsYXRpdmUgbWItNSI+DQogICAgICAgIDxTZWFyY2ggY2xhc3NOYW1lPSJhYnNvbHV0ZSBsZWZ0LTMgdG9wLTEvMiAtdHJhbnNsYXRlLXktMTIvMiBoLTQgdy00IHRleHQtc2xhdGUtNDAwIiAvPg0KICAgICAgICA8SW5wdXQNCiAgICAgICAgICB2YWx1ZT17c2VhcmNofQ0KICAgICAgICAgIG9uQ2hhbmdlPXtlID0+IHNldFNlYXJjaChlLnRhcmdldC52YWx1ZSl9DQogICAgICAgICAgcGxhY2Vob2xkZXI9e3R5cGUgPT09ICdzYWZhcmknID8gJ1NlYXJjaCBkZXN0aW5hdGlvbnMsIG9wZXJhdG9ycyDigKYnIDogJ1NlYXJjaCByb3V0ZXMsIHNlcnZpY2VzIOKAmid9DQogICAgICAgICAgY2xhc3NOYW1lPSJwbC05IGJnLXNsYXRlLTUwIGJvcmRlci1zbGF0ZS0yMDAiDQogICAgICAgIC8+DQogICAgICA8L2Rpdj4NCg0KICAgICAgey8qIENhdGVnb3J5IGZpbHRlciBwaWxscyAqL30NCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGZsZXgtd3JhcCBnYXAtMiBtYi04Ij4NCiAgICAgICAge2NhdHMubWFwKGNhdCA9PiAoDQogICAgICAgICAgPGJ1dHRvbg0KICAgICAgICAgICAga2V5PXtjYXR9DQogICAgICAgICAgICBvblN1Ym1pdD17KCkgPT4gc2V0QWN0aXZlQ2F0KGNhdCl9DQogICAgICAgICAgICBjbGFzc05hbWU9e2AgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTEuNSByb3VuZGVkLWZ1bGwgcHgtNCBweS0xLjUgdGV4dC1zbSBmb250LWJvbGQgdHJhbnNpdGlvbi1hbGwgYm9yZGVyICR7DQogICAgICAgICAgICAgIGFjdGl2ZUNhdCA9PT0gY2F0DQogICAgICAgICAgICAgICAgPyAodHlwZSA9PT0gJ3NhZmFyaScNCiAgICAgICAgICAgICAgICAgICAgPyAnYmctWyNmOTczMTZdIHRleHQtd2hpdGUgYm9yZGVyLVsjZjk3MzE2XScNCiAgICAgICAgICAgICAgICAgICAgOiAnYmctWyMxZTNhOGFdIHRleHQtd2hpdGUgYm9yZGVyLVsjMWUzYThhXScpDQogICAgICAgICAgICAgICAgOiAnYmctd2hpdGUgdGV4dC1zbGF0ZS02MDAgYm9yZGVyLXNsYXRlLTIwMCBob3Zlcjpib3JkZXItc2xhdGUtNDAwJw0KICAgICAgICAgICAgfWB9DQogICAgICAgICAgPg0KICAgICAgICAgICAge2NhdCAhPT0gJ0FsbCcgJiYgY2F0SWNvbihjYXQpfSB7Y2F0fQ0KICAgICAgICAgIDwvYnV0dG9uPg0KICAgICAgICApKX0NCiAgICAgIDwvZGl2Pg0KDQogICAgICB7bG9hZGluZyA/IChNCiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImZsZXggaC02NCBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIiPg0KICAgICAgICAgIDxMb2FkZXIyIGNsYXNzTmFtZT0iaC0xMCB3LTEwIGFuaW1hdGUtc3BpbiB0ZXh0LXNsYXRlLTIwMCIgLz4NCiAgICAgICAgPC9kaXY+DQogICAgICApIDogZmlsdGVyZWQubGVuZ3RoID09PSAwID8gKA0KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icHktMjAgdGV4dC1jZW50ZXIiPg0KICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbGF0ZS00MDAgdGV4dC1sZyI+Tm8gcmVzdWx0cyBmb3VuZC48L3A+DQogICAgICAgICAgPGJ1dHRvbiANCiAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHsgc2V0U2VhcmNoKCcnKTsgc2V0QWN0aXZlQ2F0KCdBbGwnKTsgfX0NCiAgICAgICAgICAgIGNsYXNzTmFtZT0ibXQtNCB0ZXh0LVsjMWUzYThhXSBmb250LWJvbGQgaG92ZXI6dW5kZXJsaW5lIg0KICAgICAgICAgID4NCiAgICAgICAgICAgIENsZWFyIGZpbHRlcnMNCiAgICAgICAgICA8L2J1dHRvbj4NCiAgICAgICAgPC9kaXY+DQogICAgICApIDogKA0KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZ3JpZCBnYXAtOCBzbTpncmlkLWNvbHMtMiBsZzpncmlkLWNvbHMtMyI+DQogICAgICAgICAge2ZpbHRlcmVkLm1hcChpdCA9PiAoDQogICAgICAgICAgICA8TGlzdGluZ0NhcmQga2V5PXtpdC5pZH0gaXRlbT17aXR9IG9uQm9vaz17aGFuZGxlQm9va30gYm9va2luZz17Ym9va2luZ30gLz4NCiAgICAgICAgICApKX0NCiAgICAgICAgPC9kaXY+DQogICAgICApfQ0KICAgIDwvZGl2Pg0KICApDQp9DQoNCmZ1bmN0aW9uIEhvbWVWaWV3KHsgZ28gfSkgew0KICByZXR1cm4gKA0KICAgIDxkaXYgY2xhc3NOYW1lPSJwYi0yMCI+DQogICAgICB7LyogSGVybyAqL30NCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJyZWxhdGl2ZSBvdmVyZmxvdy1oaWRkZW4gYmctc2xhdGUtOTAwIj4NCiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImFic29sdXRlIGluc2V0LTAgei0wIG9wYWNpdHktNDAiPg0KICAgICAgICAgIDxpbWcgc3JjPXtIRVJPfSBhbHQ9Imhlcm8iIGNsYXNzTmFtZT0iYWJzb2x1dGUgaW5zZXQtMCBoLWZ1bGwgdy1mdWxsIG9iamVjdC1jb3ZlciIgLz4NCiAgICAgICAgPC9kaXY+DQogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJhYnNvbHV0ZSBpbnNldC0wIHotMTAgYmctZ3JhZGllbnQtdG8tdCBmcm9tLXNsYXRlLTkwMCB2aWEtc2xhdGUtOTAwLzQwIHRvLXRyYW5zcGFyZW50Ij48L2Rpdj4NCiAgICAgICAgDQogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJyZWxhdGl2ZSB6LTIwIG14LWF1dG8gbWF4LXctN3hsIHB4LTUgcHktMjQgbWQ6cHktNDAgdGV4dC13aGl0ZSI+DQogICAgICAgICAgPGgxIGNsYXNzTmFtZT0idGV4dC01eGwgZm9udC1ibGFjayBtZDp0ZXh0LTd4bCB0cmFja2luZy10aWdodGVyIj4NCiAgICAgICAgICAgIERJU0NPVkVSIEVBU1QgQUZSSUNBDQogICAgICAgICAgPC9oMT4NCiAgICAgICAgICA8cCBjbGFzc05hbWU9Im10LTggdGV4dC1sZyBmb250LW1lZGl1bSB0ZXh0LXNsYXRlLTMwMCBtYXgtdy14bCBsZWFkaW5nLXJlbGF4ZWQiPg0KICAgICAgICAgICAgVWx0aW1hdGUgQjJCIHBsYXRmb3JtIGNvbm5lY3RpbmcgZ2xvYmFsIHRyYXZlbGVycyB3aXRoIHZlcmlmaWVkIGxvY2FsIG9wZXJhdG9ycy4NCiAgICAgICAgICA8L3A+DQogICAgICAgICAgDQogICAgICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTEwIGZsZXggZmxleC13cmFwIGdhcC00Ij4NCiAgICAgICAgICAgIDxCdXR0b24gb25DbGljaz17KCkgPT4gZ28oJ3NhZmFyaScpfSBzaXplPSJsZyIgY2xhc3NOYW1lPSJiZy1bI2Y5NzMxNl0gaG92ZXI6YmctWyNlYTU4MGNdIHB4LTggcHktNyB0ZXh0LWxnIGZvbnQtYmxhY2sgZHVyYXRpb24tMzAwIHRyYW5zaXRpb24tYWxsIGhvdmVyOi10cmFuc2xhdGUtWS0xIj4NCiAgICAgICAgICAgICAgU3RhcnQgRGlzY292ZXJ5DQogICAgICAgICAgICA8L0J1dHRvbj4NCiAgICAgICAgICAgIDxCdXR0b24gb25DbGljaz17KCkgPT4gZ28oJ2xvY2FsJyl9IHNpemU9ImxnIiB2YXJpYW50PSJvdXRsaW5lIiBjbGFzc05hbWU9ImJvcmRlci13aGl0ZS8yMCBob3ZlcjpiZy13aGl0ZS8xMCBweC04IHB5LTcgdGV4dC1sZyBmb250LWJsYWNrIj4NCiAgICAgICAgICAgICAgTG9jYWwgVHJhbnNpdA0KICAgICAgICAgICAgPC9CdXR0b24+DQogICAgICAgICAgPC9kaXY+DQoNCiAgICAgICAgICB7LyogUXVpY2sgRGlzY292ZXJ5IGNoaXBzICovfQ0KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC04IGZsZXggZmxleC13cmFwIGdhcC0yIj4NCiAgICAgICAgICAgIHtRVUlDS19ESVNDT1ZFUlkubWFwKHEgPT4gKA0KICAgICAgICAgICAgICA8YnV0dG9uDQogICAgICAgICAgICAgICAga2V5PXtxLmxhYmVsfQ0KICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IGdvKCdzYWZhcicscS5xdWVyeSl9DQogICAgICAgICAgICAgICAgY2xhc3NOYW1lPSJiZy13aGl0ZS8xMCBob3ZlcjpiZy13aGl0ZS8yMCB0ZXh0LXdoaXRlIHRleHQtc20gZm9udC1ib2xkIHB4LTQgcHktMiByb3VuZGVkLWZ1bGwgYmFja2Ryb3AtYmx1ci1zbSB0cmFuc2l0aW9uLWFsbCINCiAgICAgICAgICAgICAgPg0KICAgICAgICAgICAgICAgIHtxbGFiZWx9DQogICAgICAgICAgICAgIDwvYnV0dG9uPg0KICAgICAgICAgICAgKSl9DQogICAgICAgICAgPC9kaXY+DQogICAgICAgIDwvZGl2Pg0KICAgICAgPC9kaXY+DQoNCiAgICAgIHsvKiBWYWx1ZSBDYXJkcyAqL30NCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJteC1hdXRvIG1heC13LTd4bCBweC01IHB5LTE2Ij4NCiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImdyaWQgZ2FwLTYgc206Z3JpZC1jb2xzLTMiPg0KICAgICAgICAgIHtWQUxVRV9DQVJEUy5tYXAoKHZjLCBpKSA9PiAoDQogICAgICAgICAgICA8Q2FyZCBrZXk9e2l9IGNsYXNzTmFtZT0iYm9yZGVyLXNsYXRlLTEwMCBob3ZlcjpzaGFkb3ctbWQgdHJhbnNpdGlvbi1zaGFkb3cgY3Vyc29yLXBvaW50ZXIgYWN0aXZlOnNjYWxlLVswLjk4XSIgb25DbGljaz17KCkgPT4gZ28oaSA9PT0gMiA/ICdsb2NhbCcgOiAnc2FmYXJpJyl9Pg0KICAgICAgICAgICAgPENhcmRDb250ZW50IGNsYXNzTmFtZT0icC02IGZsZXggZmxleC1jb2wgZ2FwLTMiPg0KICAgICAgICAgICAgICA8ZGl2Pnt2Yy5pY29ufTwvZGl2Pg0KICAgICAgICAgICAgICA8aDMgY2xhc3NOYW1lPSJ0ZXh0LWxnIGZvbnQtYmxhY2sgdGV4dC1zbGF0ZS05MDAiPnt2Yy50aXRsZX08L2gzPg0KICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc20gdGV4dC1zbGF0ZS01MDAgbGVhZGluZy1yZWxheGVkIj57dmMuZGVzY308L3A+DQogICAgICAgICAgICA8L0NhcmRDb250ZW50Pg0KICAgICAgICAgICAgPC9DYXJkPg0KICAgICAgICAgICkp fQ0KICAgICAgICA8L2Rpdj4NCiAgICAgIDwvZGl2Pg0KDQogICAgICB7LyogQURWRVJUSVNFIEhFUkUgQkFOTkVSICovfQ0KICAgICAgPGRpdiBjbGFzc05hbWU9Im14LWF1dG8gbWF4LXctN3hsIHB4LTUgbWItMjAiPg0KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icmVsYXRpdmUgcm91bmRlZC0zeGwgb3ZlcmZsb3ctaGlkZGVuIGJnLWdyYWRpZW50LXRvLXIgZnJvbS1bIzFlM2E4YV0gdG8tWyMzYjgyZjZdIHAtemwtMjAgbWQ6cC0xNiB0ZXh0LXdoaXRlIj4NCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0icmVsYXRpdmUgei0xMCBtYXgtdy0yeGwiPg0KICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT0idGV4dC0zeGwgZm9udC1ibGFjayBtYi00Ij5XYW50IHRvIGZlYXR1cmUgeW91ciBidXNpbmVzcz88L2gyPg0KICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LWdyYXktMjAwIG1iLTggdGV4dC1sZyI+DQogICAgICAgICAgICAgIEFkdmVydGlzZSBvbiBPU0FSRSBhbmQgcmVhY2ggdGhvdXNhbmRzIG9mIHRyYXZlbGVycyBsb29raW5nIGZvciBzYWZhcmkgYW5kIHRyYW5zaXQgc2VydmljZXMuDQogICAgICAgICAgICA8L3A+DQogICAgICAgICAgICA8QnV0dG9uIG9uQ2xpY2s9eygpID0+IHNldFZpZXcoJ2FkdmVydGlzZScpfSBzaXplPSJsZyIgY2xhc3NOYW1lPSJiZy1bI2Y5NzMxNl0gaG92ZXI6YmctWyNlYTU4MGNdIHRleHQtYmxhY2sgZm9udC1ibGFjayBweC04Ij4NCiAgICAgICAgICAgICAgUG9zdCBZb3VyIEFkDQogICAgICAgICAgICA8L0J1dHRvbj4NCiAgICAgICAgICA8L2Rpdj4NCiAgICAgICAgICA8TWVnYXBob25lIGNsYXNzTmFtZT0iYWJzb2x1dGUgcmlnaHQtOCBib3R0b20tOCBoLTMyIHctMzIgdGV4dC13aGl0ZS8xMCAtcm90YXRlLTEyIGhpZGRlbiBtZDpibG9jayIgLz4NCiAgICAgICAgPC9kaXY+DQogICAgICA8L2Rpdj4NCiAgICA8L2Rpdj4NCiAgKQ0KfQ0KDQpmdW5jdGlvbiBBYm91dFZpZXcoKSB7DQogIGNvbnN0IGJyYW5jaGVzID0gWw0KICAgIHsgcmVnaW9uOiAnS2lzdW11IEhlYWRxdWFydGVycycsIG5hbWU6ICdNc3MgSmFjcXVlbGluZSBTdXNhbiBOYWtpbnNvbicsIHJvbGU6ICdPZmZpY2VyLWluLUNoYXJnZScsIGFkZHJlc3M6ICdLaXN1bXUgQ2l0eSwgS2VueWEnLCBjb3VudHJ5OiAnS2VueWEnIH0sDQogICAgeyByZWdpb246ICdLZW55YSAtIE5haXJvYmknLCBuYW1lOiAnS2VubmV0aCBPa2V0Y2gnLCByb2xlOiAnQnJhbmNoIE1hbmFnZXInLCBjb3VudHJ5OiAnS2VueWEnIH0sDQogICAgeyByZWdpb246ICdVZ2FuZGEgLSBLYW1wYWxhJywgbmFtZTogJ0JyaWFuIE9tb2xsbycsIHJvbGU6ICdCcmFuY2ggTWFuYWdlcicsIGNvdW50cnk6ICdVZ2FuZGEnIH0sDQogICAgeyByZWdpb246ICdUYW56YW5pYSAtIERhciBlcyBTYWxhYW0nLCBuYW1lOiAnSm9obnNvbiBZb25nbycsIHJvbGU6ICdCcmFuY2ggTWFuYWdlcicsIGNvdW50cnk6ICdUYW56YW5pYScgfSwNCiAgICB7IHJlZ2lvbjogJ0dlcm1hbnkgQnJhbmNoJywgbmFtZTogJ0JydW5uZW5zdHJhw59lIDQ4Jywgcm9sZTogJzM0NTM3LCBCYWQgV2lsZHVuZ2VuJywgY291bnRyeTogJ0dlcm1hbnknIH0NCiAgXQ0KICByZXR1cm4gKA0KICAgIDxkaXYgY2xhc3NOYW1lPSJteC1hdXRvIG1heC13LTZ4bCBweC01IHB5LTI0Ij4NCiAgICAgIDxoMSBjbGFzc05hbWU9InRleHQtNHhsIGZvbnQtYmxhY2sgdGV4dC1zbGF0ZS05MDAgdHJhY2tpbmctdGlnaHQiPkFib3V0IE9TQVJFPC9oMT4NCiAgICAgIDxwIGNsYXNzTmFtZT0ibXQtOCB0ZXh0LXhsIGZvbnQtbWVkaXVtIGxlYWRpbmctcmVsYXhlZCB0ZXh0LXNsYXRlLTYwMCI+DQogICAgICAgIE9TQVJFIGlzIGEgcmVnaW9uYWwgdHJhdmVsIGFjY2VzcyBhbmQgbG9naXN0aWNzIHBsYXRmb3JtIGRlc2lnbmVkIHRvIGNvbm5lY3QgdXNlcnMgdG8gcmFpbHdheSwgYnVzLCBhbmQgcHJpdmF0ZSB0cmFuc3BvcnQgc3lzdGVtcyBhY3Jvc3MgRWFzdCBBZnJpY2EuDQogICAgICA8L3A+DQogICAgICA8cCBjbGFzc05hbWU9Im10LTMgdGV4dC14bCBmb250LW1lZGl1bSBsZWFkaW5nLXJlbGF4ZWQgdGV4dC1zbGF0ZS02MDAiPg0KICAgICAgICBUaGUgcGxhdGZvcm0gYWN0cyBhcyBhIHN0cnVjdHVyZWQgcm91dGluZyBnYXRld2F5LCBhbGxvd2luZyB1c2VycyB0byBhY2Nlc3MgZXhpc3RpbmcgdHJhbnNwb3J0IHN5c3RlbXMgdGhyb3VnaCBhIHVuaWZpZWQgZW50cnkgcG9pbnQgd2hpbGUgZW5hYmxpbmcgdHJhY2tpbmcsIGFuYWx5c2lzLCBhbmQgc2NhbGFibGUgYnVzaW5lc3MgaW50ZWdyYXRpb24uDQogICAgICA8L3A+DQoNCiAgICAgIHsvKiBSRVNUT1JFRCBGT1VOREVSICYgSFEgUFJPRklMRSAqL30NCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0yMCBwLTggcm91bmRlZC0zeGwgYmctYmx1ZS01MCBib3JkZXIgYm9yZGVyLWJsdWUtMTAwIGZsZXggZmxleC1jb2wgbWQ6ZmxleC1yb3cgZ2FwLTggaXRlbXMtY2VudGVyIj4NCiAgICAgICAgPGRpdiBjbGFzc05hbWU9ImgtMzIgdy0zMiByb3VuZGVkLTJ4bCBiZy13aGl0ZSBzaGFkb3ctbGcgZmxleC1zaHJpbmstMCBvdmVyZmxvdy1oaWRkZW4iPg0KICAgICAgICAgIDxpbWcgc3JjPSJodHRwczovL2dpdGh1Yi5jb20vSmFrYXNpcHVsLUxhYi5wbmciIGFsdD0iT3NhcmUgTmFraW5zb24iIGNsYXNzTmFtZT0iaC1mdWxsIHctZnVsbCBvYmplY3QtY292ZXIiIC8+DQogICAgICAgIDwvZGl2Pg0KICAgICAgICA8ZGl2Pg0KICAgICAgICAgIDxCYWRnZSBjbGFzc05hbWU9ImJnLWJsdWUtNjAwIG1iLTIgdGV4dC13aGl0ZSBib3JkZXItMCI+Rm91bmRlciAmIExlYWQgRGV2ZWxvcGVyPC9CYWRnZT4NCiAgICAgICAgICA8aDIgY2xhc3NOYW1lPSJ0ZXh0LTJ4bCBmb250LWJsYWNrIHRleHQtc2xhdGUtOTAwIj5Pc2FyZSBOYWtpbnNvbjwvaDI+DQogICAgICAgICAgPHAgY2xhc3NOYW1lPSJtdC00IHRleHQtc2xhdGUtNjAwIGZvbnQtbWVkaXVtIGxlYWRpbmctcmVsYXhlZCI+DQogICAgICAgICAgICBEcml2aW5nIGlubm92YXRpb24gaW4gRWFzdCBBZnJpY2FuIG1vYmlsaXR5IHRocm91Z2ggdGVjaG5vbG9neS1maXJzdCBsb2dpc3RpY3MgYW5kIHN0cmF0ZWdpYyB0cmFuc3BvcnQgcGFydG5lcnNoaXBzLg0KICAgICAgICAgIDwvcD4NCiAgICAgICAgPC9kaXY+DQogICAgICA8L2Rpdj4NCg0KICAgICAgPGRpdiBjbGFzc05hbWU9Im10LTI0Ij4NCiAgICAgICAgPGgyIGNsYXNzTmFtZT0idGV4dC0yeGwgZm9udC1ibGFjayB0ZXh0LXNsYXRlLTkwMCI+UmVnaW9uYWwgQnJhbmNoZXM8L2gyPg0KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibXQtOCBncmlkIGdhcC01IHNtOmdyaWQtY29scy0yIGxnOmdyaWQtY29scy0zIj4NCiAgICAgICAgICB7YnJhbmNoZXMubWFwKChiLCBpKSA9PiAoDQogICAgICAgICAgICA8Q2FyZCBrZXk9e2l9IGNsYXNzTmFtZT0iYm9yZGVyLXNsYXRlLTIwMCI+DQogICAgICAgICAgICAgIDxDYXJkQ29udGVudCBjbGFzc05hbWU9InAtNSI+DQogICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhzIGZvbnQtYm9sZCB0ZXh0LWJsdWUtNjAwIHVwcGVyY2FzZSBtYi0xIj57Yi5yZWdpb259PC9wPg0KICAgICAgICAgICAgICAgIDxoNCBjbGFzc05hbWU9ImZvbnQtYm9sZCI+e2IubmFtZX08L2g0Pg0KICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbSB0ZXh0LXNsYXRlLTUwMCI+e2Iucm9sZX08L3A+DQogICAgICAgICAgICAgICAge2IuYWRkcmVzcyAmJiA8cCBjbGFzc05hbWU9InRleHQteHMgdGV4dC1zbGF0ZS00MDAgbXQtMC41Ij57Yi5hZGRyZXNzfTwvcD59DQogICAgICAgICAgICAgIDwvQ2FyZENvbnRlbnQ+DQogICAgICAgICAgICA8L0NhcmQ+DQogICAgICAgICAgKSl9DQogICAgICAgIDwvZGl2Pg0KICAgICAgPC9kaXY+DQoNCiAgICAgIDxkaXYgY2xhc3NOYW1lPSJtdC0yNCBncmlkIGdhcC0xMiBzbTpncmlkLWNvbHMtMiBib3JkZXItdCBib3JkZXItc2xhdGUtMTAwIHB0LTE2Ij4NCiAgICAgICAgPGRpdiA+DQogICAgICAgICAgPGgzIGNsYXNzTmFtZT0idGV4dC1sZyBmb250LWJsYWNrIHRleHQtc2xhdGUtOTAwIHVwcGVyY2FzZSB0cmFja2luZy13aWRlc3QgbWItNCI+T3VyIE1pc3Npb248L2gzPg0KICAgICAgICAgIDxwIGNsYXNzTmFtZT0idGV4dC1zbGF0ZS01MDAgZm9udC1tZWRpdW0gbGVhZGluZy1yZWxheGVkIj5FbXBvd2VyIGxvY2FsIHZlbmRvcnMgd2l0aCBhIGdsb2JhbCBwbGF0Zm9ybSBhbmQgZmFpciBjb21taXNzaW9uIGZlZXMuPC9wPg0KICAgICAgICA8L2Rpdj4NCiAgICAgICAgPGRpdiA+DQogICAgICAgICAgPGgzIGNsYXNzTmFtZT0idGV4dC1sZyBmb250LWJsYWNrIHRleHQtc2xhdGUtOTAwIHVwcGVyY2FzZSB0cmFja2luZy13aWRlc3QgbWItNCI+Q29udGFjdCBJbmZvPC9oMz4NCiAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQtc2xhdGUtNTAwIGZvbnQtbWVkaXVtIj5LaXN1bXUgSGVhZHF1YXJ0ZXJzLCBLZW55YTxici8+KzI1NCA3NTggMzc4IDcyOTwvcD4NCiAgICAgICAgPC9kaXY+DQogICAgICA8L2Rpdj4NCiAgICA8L2Rpdj4NCiAgKQ0KfQ0KDQpleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBQYWdlKCkgew0KICBjb25zdCBbdmlldywgc2V0Vmlld10gPSB1c2VTdGF0ZSgnaG9tZScpOw0KICBjb25zdCBbcGFyYW1zLCBzZXRQYXJhbXNdID0gdXNlU3RhdGUoeyB0eXBlOiAnc2FmYXJpJywgcTogJycgfSk7DQogIGNvbnN0IGdvID0gKHR5cGUsIHEgPSAiIikgPT4geyBzZXRQYXJhbXMoeyB0eXBlLCBxIH0pOyBzZXRWaWV3KHR5cGUpOyB3aW5kb3cuc2Nyb2xsVG8oMCwgMCkgfTsNCiAgcmV0dXJuIChNA0KICAgIDxtYWluIGNsYXNzTmFtZT0ibWluLWgtc2NyZWVuIGJnLXdoaXRlIHRleHQtc2xhdGUtOTAwIj4NCiAgICAgIDxUb2FzdGVyIHBvc2l0aW9uPSJ0b3AtY2VudGVyIiAvPg0KICAgICAgPG5hdiBjbGFzc05hbWU9InN0aWNreSB0b3AtMCB6LTUwIGJvcmRlci1iIGJvcmRlci1zbGF0ZS0yMDAgYmctd2hpdGUvODAgYmFja2Ryb3AtYmx1ci1tZCI+DQogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJteC1hdXRvIGZsZXggbWF4LXctN3hsIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gcHgtNSBweS00Ij4NCiAgICAgICAgICA8YnV0dG9uIG9uQ2xpY2s9eygpID0+IHNldFZpZXcoJ2hvbWUnKX0gY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiI+PENvbXBhc3MgY2xhc3NOYW1lPSJoLTYgdy02IHRleHQtWyMxZTNhOGFdIiAvPjxzcGFuIGNsYXNzTmFtZT0idGV4dC14bCBmb250LWJsYWNrIj5PU0FSRTwvc3Bhbj48L2J1dHRvbj4NCiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iaGlkZGVuIG1kOmZsZXggZ2FwLTggaXRlbXMtY2VudGVyIj4NCiAgICAgICAgICAgIHtOQVYubWFwKChuKSA9PiAoPGJ1dHRvbiBvblDbGljaz17KCkgPT4gc2V0VmlldyhuLmtleSl9IGtleT17bi5rZXl9IGNsYXNzTmFtZT0idGV4dC1zbSBmb250LWJvbGQgdHJhbnNpdGlvbi1jb2xvcnMgaG92ZXI6dGV4dC1bI2Y5NzMxNl0iPntuLmxhYmVsfTwvYnV0dG9uPikpfQ0KICAgICAgICAgICAgPEJ1dHRvbiBvblDbGljaz17KCkgPT4gZ28oJ3NhZmFyaScpfSBjbGFzc05hbWU9ImJnLVsjMWUzYThhXSB0ZXh0LXdoaXRlIGZvbnQtYm9sZCI+RGlzY292ZXJ5PC9CdXR0b24+DQogICAgICAgICAgPC9kaXY+DQogICAgICAgIDwvZGl2Pg0KICAgICAgPC5hdmI+DQogICAgICB7dmlldyA9PT0gJ2hvbWUnICYmIDxIb21lVmlldyBnbyA9IHtnb30gLz59DQogICAgICB7dmlldyA9PT0gJ3NhZmFyaScgJiYgPFRpZXJFeHBsb3JlciB0eXBlPSdzYWZhcmknIHE9e3BhcmFtcy5xfSAvPn0NCiAgICAgIHt2aWV3ID09PSAnbG9jYWwnICYmIDxUaWVyRXhwbG9yZXIgdHlwZT0nbG9jYWwnIHE9e3BhcmFtcy5xfSAvPn0NCiAgICAgIHt2aWV3ID09PSAnYWJvdXQnICYmIDxBYm91dFZpZXcgLz59DQogICAgICA8Zm9vdGVyIGNsYXNzTmFtZT0iYm9yZGVyLXQgYm9yZGVyLXNsYXRlLTIwMCBiZy1zbGF0ZS01MCBweS0xNiBtdC0yMCI+DQogICAgICAgIDxkaXYgY2xhc3NOYW1lPSJteC1hdXRvIG1heC13LTd4bCBweC01IGZsZXggZmxleC1jb2wgc206ZmxleC1yb3cgaXRlbXMtY2VudGVyIGp1c3RpZnktYmV0d2VlbiBnYXAtNCI+DQogICAgICAgICAgPHAgY2xhc3NOYW1lPSJ0ZXh0LXhzIHRleHQtc2xhdGUtNDAwIj5Db3B5cmlnaHQgMjAyNiBPU0FSRSAtIGVhc2FmYXJpcm91dGVzLmNvbS4gQnVpbHQgYnkgbmFraW5zb24gb3NhcmUuPC9wPg0KICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGdhcC02Ij4NCiAgICAgICAgICAgIDxhIGhyZWY9IiMiIG9uQ2xpY2s9eygpID0+IHNldFZpZXcoJ3ZlbmRvcicpfSBjbGFzc05hbWU9InRleHQteHMgZm9udC1ib2xkIHRleHQtc2xhdGUtNTAwIGhvdmVyOnRleHQtWyMxZTNhOGFdIHRyYW5zaXRpb24tY29sb3JzIj5WZW5kb3IgUG9ydGFsPC9hPg0KICAgICAgICAgICAgPGEgaHJlZj0iIyIgb25DbGljaz17KCkgPT4gc2V0VmlldygnYWRtaW4nKX0gY2xhc3NOYW1lPSJ0ZXh0LXhzIGZvbnQtYm9sZCB0ZXh0LXNsYXRlLTUwMCBob3Zlcjp0ZXh0LVsjMWUzYThhXSB0cmFuc2l0aW9uLWNvbG9ycyI+QWRtaW48L2E+DQogICAgICAgICAgPC9kaXY+DQogICAgICAgIDwvZGl2Pg0KICAgICAgPC9mb290ZXI+DQogICAgPC9tYWluPg0KICApDQp9DQo=
+App/page.js orininal
+
+<<<<<<< Updated upstream
+'use client'
+import { useEffect, useState, useCallback } from 'react'
+import {
+  Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
+  Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
+  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag, ExternalLink, Globe, UserCog
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select'
+import { Toaster } from '@/components/ui/sonner'
+import { toast } from 'sonner'
+const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
+const NAV = [
+  { key: 'home', label: 'Home' },
+  { key: 'safari', label: 'Safari' },
+  { key: 'local', label: 'Local' },
+  { key: 'vendors', label: 'Vendors', href: '/vendors' },
+  { key: 'advertise', label: 'Advertise', href: '/advertise' },
+  { key: 'about', label: 'About' }
+]
+const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
+const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
+const QUICK_DISCOVERY = [
+  { label: 'Masai Mara', query: 'Mara' },
+  { label: 'Kilimanjaro', query: 'Kilimanjaro' },
+  { label: 'SGR Train', query: 'Train' },
+  { label: 'Luxury Hotels', query: 'Hotel' },
+  { label: '4x4 Hire', query: 'Car' },
+  { label: 'Air Charters', query: 'Aircraft' }
+]
+const VALUE_CARDS = [
+  {
+    icon: <TrendingUp className="h-7 w-7 text-[#f97316]" />,
+    title: 'Discovery Engine',
+    desc: 'Search 39+ verified tour operators and transit providers across East Africa in one place.'
+  },
+  {
+    icon: <ShieldCheck className="h-7 w-7 text-[#1e3a8a]" />,
+    title: 'Verified Vendors',
+    desc: 'Every listing is manually verified. Book direct with confidence \u2014 no hidden middlemen.'
+  },
+  {
+    icon: <Leaf className="h-7 w-7 text-emerald-500" />,
+    title: 'Free Local Info',
+    desc: 'Local commuter routes, boarding points and official prices \u2014 free forever, no booking needed.'
+  }
+]
+function getCatIcon(cat) {
+  if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
+  if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
+  if (/car|caravan/i.test(cat)) return <Car className="h-4 w-4" />
+  if (/aircraft/i.test(cat)) return <Plane className="h-4 w-4" />
+  if (/sightseeing/i.test(cat)) return <Binoculars className="h-4 w-4" />
+  if (/train/i.test(cat)) return <Bus className="h-4 w-4" />
+  if (/taxi/i.test(cat)) return <Car className="h-4 w-4" />
+  if (/matatu|shuttle/i.test(cat)) return <Bus className="h-4 w-4" />
+  if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />
+  return <Compass className="h-4 w-4" />
+}
+function ListingCard({ item, onBook, booking }) {
+  const isSafari = item.type === 'safari'
+  const accentColor = isSafari ? '#f97316' : '#1e3a8a'
+  
+  const handleAction = () => {
+    if (isSafari) {
+      onBook(item)
+    } else {
+      if (item.vendorUrl) {
+        window.open(item.vendorUrl, '_blank')
+      } else {
+        toast.info(`Contact ${item.vendor} at ${item.vendorContact} to book.`, {
+          description: "This is a free informational service."
+        })
+      }
+    }
+  }
+  return (
+    <Card className="overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col bg-white">
+      <div className="relative h-52 w-full overflow-hidden">
+        <img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+        <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow font-bold" style={{ backgroundColor: accentColor }}>
+          {getCatIcon(item.category)} {item.category}
+        </Badge>
+        {!isSafari && (
+          <Badge className="absolute right-3 top-3 bg-emerald-100 text-emerald-700 border-0 font-bold">
+            Free Info
+          </Badge>
+        )}
+      </div>
+      <CardContent className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
+        <p className="mt-1 text-sm font-semibold flex items-center gap-1" style={{ color: accentColor }}>
+          <ShieldCheck className="h-3.5 w-3.5" /> {isSafari ? 'Verified Vendor' : 'Transit Operator'}: {item.vendor}
+        </p>
+        <div className="mt-3 grid grid-cols-2 gap-2 border-y border-slate-50 py-3">
+          <div className="space-y-1">
+            <p className="text-[10px] uppercase font-bold text-slate-500">Contact</p>
+            <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+               <Phone className="h-3 w-3" /> {item.vendorContact || 'Check Official Site'}
+            </p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-[10px] uppercase font-bold text-slate-500">{isSafari ? 'Primary Hub' : 'Boarding At'}</p>
+            <p className="flex items-center gap-1.5 text-xs text-slate-600 font-medium line-clamp-1">
+               <MapPin className="h-3 w-3" /> {item.boardingPoint || item.location}
+            </p>
+          </div>
+        </div>
+        <p className="mt-4 text-sm text-slate-600 line-clamp-2 leading-relaxed">{item.description}</p>
+        <div className="mt-auto pt-5 flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-2xl font-black text-slate-900">{item.priceLabel}</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{isSafari ? 'Starting from' : 'Official Price'}</span>
+          </div>
+          <Button 
+            onClick={handleAction}
+            disabled={booking === item.id}
+            className="gap-2 px-6 py-5 font-bold shadow-lg transition-all active:scale-95"
+            style={{ backgroundColor: accentColor }}
+          >
+            {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSafari ? <MessageCircle className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />)}
+            {isSafari ? 'Book Now' : 'Check Site'}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+function TierExplorer({ type, q = "" }) {
+  const [items, setItems] = useState([])
+  const [filtered, setFiltered] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [booking, setBooking] = useState(null)
+  const [activeCat, setActiveCat] = useState('All')
+  const [search, setSearch] = useState(q)
+  const cats = type === 'safari' ? SAFARI_CATS : LOCAL_CATS
+  // Sync local search state when the q prop changes (e.g. chip click from HomeView)
+  useEffect(() => { setSearch(q) }, [q])
+  const load = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await fetch(`/api/listings?type=${type}${q ? `&q=${encodeURIComponent(q)}` : '}`)
+      const data = await res.json()
+      setItems(Array.isArray(data) ? data : [])
+    } catch (e) { toast.error("Search unavailable") }
+    finally { setLoading(false) }
+  }, [type, q])
+  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    let f = items
+    if (activeCat !== 'All') f = f.filter(it => it.category === activeCat)
+    if (search) {
+      const s = search.toLowerCase()
+      f = f.filter(it =>
+        it.title.toLowerCase().includes(s) ||
+        (it.location || ').toLowerCase().includes(s) ||
+        (it.description || ').toLowerCase().includes(s)
+      )
+    }
+    setFiltered(f)
+  }, [items, activeCat, search])
+  const handleBook = async (item) => {
+    setBooking(item.id)
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listingId: item.id, listingTitle: item.title, vendor: item.vendor, priceValue: item.priceValue })
+      })
+      const data = await res.json()
+      if (data.whatsappUrl) window.open(data.whatsappUrl, '_blank')
+    } catch (e) { toast.error("Booking service offline") }
+    finally { setBooking(null) }
+  }
+  return (
+    <div className="mx-auto max-w-7xl px-5 py-10">
+      <div className="mb-8">
+        <h2 className="text-3xl font-black text-slate-900">
+          {type === 'safari' ? 'Safari Discovery' : 'Local Transit Hub'}
+        </h2>
+        {type === 'local' && (
+          <p className="mt-2 text-sm font-bold text-emerald-600 flex items-center gap-1.5">
+            <Leaf className="h-4 w-4" />
+            Free informational service \u2014 find routes, prices and where to board. No booking or payment required.
+          </p>
+        )}
+      </div>
+      {/* Search bar */}
+      <div className="relative mb-5">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+        <Input
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder={type === 'safari' ? 'Search destinations, operators\u2026' : 'Search routes, services\u2026'}
+          className="pl-9 bg-slate-50 border-slate-200"
+        />
+      </div>
+      {/* Category filter pills */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {cats.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCat(cat)}
+            className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-bold transition-all border ${
+              activeCat === cat
+                ? (type === 'safari'
+                    ? 'bg-[#f97316] text-white border-[#f97316]'
+                    : 'bg-[#1e3a8a] text-white border-[#1e3a8a]')
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+            }`}
+          >
+            {cat !== 'All' && getCatIcon(cat)} {cat}
+          </button>
+        ))}
+      </div>
+      {loading ? (
+        <div className="flex h-64 items-center justify-center">
+          <Loader2 className="h-10 w-10 animate-spin text-slate-200" />
+        </div>
+      ) : filtered.length === 0 ? (
+        <div className="py-20 text-center">
+          <p className="text-slate-400 text-lg">No results found.</p>
+          <button
+            onClick={() => { setActiveCat('All'); setSearch(') }}
+            className="mt-4 text-sm font-bold text-blue-600 hover:underline"
+          >
+            Clear filters
+          </button>
+        </div>
+      ) : (
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map(it => (
+            <ListingCard key={it.id} item={it} onBook={handleBook} booking={booking} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+function HomeView({ go }) {
+  return (
+    <div className="pb-20">
+      {/* Hero */}
+      <div className="relative overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0 opacity-40">
+          <img src={HERO} alt="Hero" className="h-full w-full object-cover" />
+        </div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+        
+        <div className="relative z-20 mx-auto max-w-7xl px-5 py-24 md:py-40 text-white">
+          <h1 className="text-5xl font-black md:text-7xl tracking-tighter">
+            DISCOVER EAST AFRICA
+          </h1>
+          <p className="mt-8 text-lg font-medium text-slate-300 max-w-xl leading-relaxed">
+            Ultimate B2B platform connecting global travelers with verified local operators.
+          </p>
+          
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Button onClick={() => go('safari')} size="lg" className="bg-[#f97316] hover:bg-[#ea580c] px-8 py-7 text-lg font-black">
+              Start Discovery
+            </Button>
+            <Button onClick={() => go('local')} size="lg" variant="outline" className="border-white/20 hover:bg-white/10 px-8 py-7 text-lg font-black">
+              Local Transit
+            </Button>
+          </div>
+          {/* Quick Discovery chips */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {QUICK_DISCOVERY.map(q => (
+              <button
+                key={q.label}
+                onClick={() => go('safari', q.query)}
+                className="bg-white/10 hover:bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full backdrop-blur-sm transition-all"
+              >
+                {q.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* Value Cards */}
+      <div className="mx-auto max-w-7xl px-5 py-16">
+        <div className="grid gap-6 sm:grid-cols-3">
+          {VALUE_CARDS.map((vc, i) => {
+            const handleCardClick = () => {
+              if (vc.title === 'Free Local Info') go('local')
+              else go('safari')
+            }
+            return (
+              <Card
+                key={i}
+                onClick={handleCardClick}
+                className="border-slate-100 hover:shadow-lg transition-all cursor-pointer active:scale-[0.98]"
+              >
+                <CardContent className="p-6 flex flex-col gap-3">
+                  <div>{vc.icon}</div>
+                  <h3 className="text-lg font-black text-slate-900">{vc.title}</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">{vc.desc}</p>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
+      </div>
+      {/* Advertise Here Banner */}
+      <div className="mx-auto max-w-7xl px-5 pb-8">
+        <div className="w-full rounded-2xl bg-gradient-to-r from-[#1e3a8a] to-[#f97316] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="text-white">
+            <h3 className="text-2xl md:text-3xl font-black">Want to feature your business?</h3>
+            <p className="mt-2 text-lg font-medium text-white/90">Advertise on OSARE and reach thousands of travelers.</p>
+          </div>
+          <a
+            href="/advertise"
+            className="inline-flex items-center gap-2 bg-white text-[#1e3a8a] font-black px-8 py-4 rounded-xl text-lg shadow-lg hover:bg-slate-100 transition-all active:scale-95 whitespace-nowrap"
+          >
+            <Sparkles className="h-5 w-5" /> Post Your Ad
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+function AboutView() {
+  const branches = [
+    { region: 'Kisumu Headquarters', name: 'Mss Jacqueline Susan Nakinson', role: 'Officer-in-Charge', address: 'Kisumu City, Kenya', country: 'Kenya' },
+    { region: 'Kenya - Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
+    { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
+    { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
+    { region: 'Germany Branch', name: 'Brunnenstra\u00dfe 48', role: '34537, Bad Wildungen', country: 'Germany' }
+  ]
+  return (
+    <div className="mx-auto max-w-6xl px-5 py-24">
+      <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
+      <p className="mt-8 text-xl font-medium leading-relaxed text-slate-600">
+        OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa.
+      </p>
+      <p className="mt-4 text-xl font-medium leading-relaxed text-slate-600">
+        The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration.
+      </p>
+      {/* RESTORED FOUNDER & HQ PROFILE */}
+      <div className="mt-20 p-8 rounded-3xl bg-blue-50 border border-blue-100 flex flex-col md:flex-row gap-8 items-center">
+        <div className="h-32 w-32 rounded-2xl bg-white shadow-lg flex-shrink-0 overflow-hidden">
+          <img src="https://github.com/Jakasipul-Lab.png" alt="Osare Nakinson" className="h-full w-full object-cover" />
+        </div>
+        <div>
+          <Badge className="bg-blue-600 mb-2 text-white border-0">Founder & Lead Developer</Badge>
+          <h2 className="text-2xl font-black text-slate-900">Osare Nakinson</h2>
+          <p className="mt-4 text-slate-600 font-medium leading-relaxed">
+            Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
+          </p>
+        </div>
+      </div>
+      <div className="mt-24">
+        <h2 className="text-2xl font-black text-slate-900">Regional Branches</h2>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {branches.map((b, i) => (
+            <Card key={i} className="border-slate-200">
+              <CardContent className="p-5">
+                <p className="text-xs font-bold text-blue-600 uppercase mb-1">{b.region}</p>
+                <h4 className="font-bold">{b.name}</h4>
+                <p className="text-sm text-slate-500">{b.role}</p>
+                {b.address && <p className="text-xs text-slate-400 mt-0.5">{b.address}</p>}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+      <div className="mt-24 grid gap-12 sm:grid-cols-2 border-t border-slate-100 pt-16">
+        <div>
+          <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Our Mission</h3>
+          <p className="text-slate-500 font-medium leading-relaxed">Empower local vendors with a global platform and fair commission fees.</p>
+        </div>
+        <div>
+          <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mb-4">Contact Info</h3>
+          <p className="text-slate-500 font-medium">Kisumu Headquarters, Kenya<br/>+254 758 378 729</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+export default function Page() {
+  const [view, setView] = useState('home');
+  const [params, setParams] = useState({ type: 'safari' });
+  const go = (type, q = "") => { setParams({ type, q }); setView(type); window.scrollTo(0, 0) };
+  return (
+    <main className="min-h-screen bg-white text-slate-900">
+      <Toaster position="top-center" />
+      <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <button onClick={() => setView('home')} className="flex items-center gap-2"><Compass className="h-6 w-6 text-[#1e3a8a]" /><span className="text-xl font-black">OSARE</span></button>
+          <div className="hidden md:flex gap-8 items-center">
+            {NAV.map((n) => (
+              n.href
+                ? <a href={n.href} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</a>
+                : <button onClick={() => setView(n.key)} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</button>
+            ))}
+            <Button onClick={() => go('safari')} className="bg-[#1e3a8a] text-white font-bold">Discovery</Button>
+          </div>
+        </div>
+      </nav>
+      {view === 'home' && <HomeView go={go} />}
+      {view === 'explorer' && <TierExplorer type={params.type} />}
+      {view === 'safari' && <TierExplorer type="safari" q={params.q} />}
+      {view === 'local' && <TierExplorer type="local" q={params.q} />}
+      {view === 'about' && <AboutView />}
+      <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20">
+        <div className="mx-auto max-w-7xl px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-400">Copyright 2026 OSARE - easafariroutes.com. Built by nakinson osare.</p>
+          <div className="flex gap-6">
+            <a href="/vendor-portal" className="text-xs font-bold text-slate-500 hover:text-[#1e3a8a] transition-colors">Vendor Portal</a>
+            <a href="/admin" className="text-xs font-bold text-slate-500 hover:text-[#1e3a8a] transition-colors">Admin</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  )
+}
+=======
+'use client'
+import { useEffect, useState, useCallback } from 'react'
+import {
+  Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
+  Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
+  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Toaster } from '@/components/ui/sonner'
+import { toast } from 'sonner'
+import {
+  BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
+} from 'recharts'
+const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
+const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
+const NAV = [
+  { key: 'home', label: 'Home' },
+  { key: 'safari', label: 'Safari' },
+  { key: 'local', label: 'Local Transit' },
+  { key: 'about', label: 'About' },
+  { key: 'dashboard', label: 'Dashboard' },
+  { key: 'vendor', label: 'Vendor Portal' },
+  { key: 'admin', label: 'Admin' },
+]
+const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
+const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
+const CHART_COLORS = ['#f97316', '#1e3a8a', '#3b82f6', '#10b981', '#eab308', '#8b5cf6', '#ef4444']
+const catIcon = (cat) => {
+  if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
+  if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
+  if (/car|caravan/i.test(cat)) return <Car className="h-4 w-4" />
+  if (/aircraft/i.test(cat)) return <Plane className="h-4 w-4" />
+  if (/sightseeing/i.test(cat)) return <Binoculars className="h-4 w-4" />
+  if (/train/i.test(cat)) return <Bus className="h-4 w-4" />
+  if (/taxi/i.test(cat)) return <Car className="h-4 w-4" />
+  if (/matatu|shuttle/i.test(cat)) return <Bus className="h-4 w-4" />
+  if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />
+  return <Compass className="h-4 w-4" />
+}
+// ---------------------------------------------------------------------------
+// Listing card
+// ---------------------------------------------------------------------------
+function ListingCard({ item, onBook, booking }) {
+  const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
+  return (
+    <Card className="overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col">
+      <div className="relative h-52 w-full overflow-hidden">
+        <img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+        <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow" style={{ backgroundColor: accent }}>
+          {catIcon(item.category)} {item.category}
+        </Badge>
+        {item.offPeakLabel ? (
+          <Badge className="absolute right-3 top-3 gap-1 bg-emerald-600 text-white border-0 shadow">
+            <Tag className="h-3 w-3" /> Off-peak {item.offPeakLabel}
+          </Badge>
+        ) : null}
+      </div>
+      <CardContent className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
+        <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
+        <a href={item.mapLink} target="_blank" rel="noopener noreferrer" className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700">
+          <MapPin className="h-3 w-3" /> {item.location}
+        </a>
+        <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
+        {item.includes?.length ? (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {item.includes.slice(0, 4).map((inc, i) => (
+              <span key={i} className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">{inc}</span>
+            ))}
+          </div>
+        ) : null}
+        <div className="mt-4 flex items-end justify-between border-t border-slate-100 pt-3">
+          <div>
+            <p className="text-2xl font-extrabold text-emerald-600">{item.priceLabel}</p>
+            {item.season ? <p className="text-[11px] text-slate-400">{item.season}</p> : null}
+          </div>
+          <p className="flex items-center gap-1 text-[11px] text-slate-400"><Building2 className="h-3 w-3" /> {item.vendorOffice}</p>
+        </div>
+        <Button
+          onClick={() => onBook(item)}
+          disabled={booking === item.id}
+          className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
+        >
+          {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
+          Book via WhatsApp
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+// ---------------------------------------------------------------------------
+// Search + results section (shared by Safari & Local)
+// ---------------------------------------------------------------------------
+function TierExplorer({ type }) {
+  const isSafari = type === 'safari'
+  const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
+  const accent = isSafari ? '#f97316' : '#1e3a8a'
+  const [q, setQ] = useState(')
+  const [cat, setCat] = useState('All')
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [booking, setBooking] = useState(null)
+  const load = useCallback(async () => {
+    setLoading(true)
+    try {
+      const params = new URLSearchParams({ type })
+      if (q) params.set('q', q)
+      if (cat && cat !== 'All') params.set('category', cat)
+      const res = await fetch(`/api/listings?${params.toString()}`)
+      const data = await res.json()
+      setItems(Array.isArray(data) ? data : [])
+    } catch (e) {
+      toast.error('Failed to load listings')
+    } finally {
+      setLoading(false)
+    }
+  }, [type, q, cat])
+  useEffect(() => { load() }, [cat]) // eslint-disable-line
+  useEffect(() => { load() }, []) // eslint-disable-line
+  const handleBook = async (item) => {
+    setBooking(item.id)
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listingId: item.id })
+      })
+      const data = await res.json()
+      toast.success('Opening WhatsApp to complete your booking...')
+      window.open(data.whatsappUrl, '_blank')
+    } catch (e) {
+      toast.error('Could not start booking')
+    } finally {
+      setBooking(null)
+    }
+  }
+  return (
+    <div>
+      {/* Banner */}
+      <div className="relative h-64 w-full overflow-hidden">
+        <img src={isSafari ? HERO : LOCAL_HERO} alt="banner" className="h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: isSafari ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))' : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' }} />
+        <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
+          <h1 className="text-3xl font-extrabold md:text-4xl">{isSafari ? 'Tourist Assistance — East Africa' : 'Local Commute — Nairobi & Beyond'}</h1>
+          <p className="mt-2 max-w-2xl text-white/90">{isSafari ? 'Safaris, Kilimanjaro climbs, hotels, car & aircraft hire — compare and book instantly.' : 'Compare matatus, SGR trains, taxis & airport shuttles across Nairobi CBD and its environs.'}</p>
+        </div>
+      </div>
+      {/* Search bar */}
+      <div className="mx-auto -mt-8 max-w-4xl px-5">
+        <Card className="border-slate-200 shadow-lg">
+          <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+              <Input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && load()}
+                placeholder={isSafari ? 'e.g. Mara safari, Kilimanjaro, car hire, Zanzibar...' : 'e.g. SGR train, matatu, taxi, airport...'}
+                className="h-12 pl-10 text-base"
+              />
+            </div>
+            <Select value={cat} onValueChange={setCat}>
+              <SelectTrigger className="h-12 md:w-56"><SelectValue placeholder="Category" /></SelectTrigger>
+              <SelectContent>
+                {cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Button onClick={load} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: accent }}>
+              <Search className="h-4 w-4" /> Search
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+      {/* Results */}
+      <div className="mx-auto max-w-7xl px-5 py-10">
+        <div className="mb-5 flex items-center justify-between">
+          <p className="text-sm text-slate-500">{loading ? 'Searching…' : `${items.length} option${items.length === 1 ? ' : 's'} found`}</p>
+        </div>
+        {loading ? (
+          <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+        ) : items.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
+            No matches found. Try broader terms like {isSafari ? '"safari", "beach", "hotel"' : '"train", "taxi", "matatu"'}.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} />)}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+// ---------------------------------------------------------------------------
+// Home
+// ---------------------------------------------------------------------------
+function Home({ go }) {
+  const [q, setQ] = useState(')
+  const [tier, setTier] = useState('safari')
+  const search = () => {
+    go(tier, q)
+  }
+  return (
+    <div>
+      {/* Hero */}
+      <div className="relative min-h-[560px] w-full overflow-hidden">
+        <img src={HERO} alt="hero" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/85 via-[#1e3a8a]/60 to-[#f97316]/70" />
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-5 py-24 text-center text-white">
+          <Badge className="mb-4 gap-1 border-white/30 bg-white/15 text-white backdrop-blur">
+            <Sparkles className="h-3 w-3" /> Free information assistant • Book direct
+          </Badge>
+          <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
+            OSARE — East Africa<br className="hidden md:block" /> Safari Routes & Transit
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg text-white/90">
+            Everything a tourist or local needs at their fingertips. Compare safaris, Kilimanjaro climbs, hotels, car & aircraft hire — and Nairobi transit — then book direct. What you see is what you get.
+          </p>
+          {/* Tier toggle + search */}
+          <div className="mt-8 w-full max-w-2xl">
+            <div className="mb-3 flex justify-center gap-3">
+              <button onClick={() => setTier('safari')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}>Tourist Assistance</button>
+              <button onClick={() => setTier('local')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30'}`}>Local Commute</button>
+            </div>
+            <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <Input
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && search()}
+                  placeholder={tier === 'safari' ? 'Mara migration, Kilimanjaro, Zanzibar, car hire…' : 'Nairobi to Mombasa, matatu, taxi, SGR…'}
+                  className="h-12 border-0 pl-10 text-base text-slate-900 focus-visible:ring-0"
+                />
+              </div>
+              <Button onClick={search} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: tier === 'safari' ? '#f97316' : '#1e3a8a' }}>
+                Search <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Two tiers */}
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="text-center text-3xl font-extrabold text-slate-900">Two platforms. One trusted hub.</h2>
+        <p className="mt-2 text-center text-slate-500">Choose your journey.</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <button onClick={() => go('safari')} className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
+            <img src={HERO} alt="safari" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute bottom-0 p-6 text-white">
+              <Badge className="mb-2 gap-1 border-0 bg-[#f97316] text-white"><Compass className="h-3 w-3" /> Tier 1</Badge>
+              <h3 className="text-2xl font-bold">Safari & Tourism</h3>
+              <p className="mt-1 text-sm text-white/85">Mara migration, Kilimanjaro, hotels, car & aircraft hire, sightseeing.</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-orange-300">Explore safaris <ArrowRight className="h-4 w-4" /></span>
+            </div>
+          </button>
+          <button onClick={() => go('local')} className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
+            <img src={LOCAL_HERO} alt="local" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute bottom-0 p-6 text-white">
+              <Badge className="mb-2 gap-1 border-0 bg-[#1e3a8a] text-white"><Bus className="h-3 w-3" /> Tier 2</Badge>
+              <h3 className="text-2xl font-bold">Local Commute</h3>
+              <p className="mt-1 text-sm text-white/85">Nairobi CBD transit: matatus, SGR trains, taxis & airport shuttles.</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-blue-300">Find transit <ArrowRight className="h-4 w-4" /></span>
+            </div>
+          </button>
+        </div>
+      </div>
+      {/* Value props */}
+      <div className="bg-slate-50 py-16">
+        <div className="mx-auto max-w-6xl px-5">
+          <h2 className="text-center text-3xl font-extrabold text-slate-900">Why OSARE</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-4">
+            {[
+              { icon: <ShieldCheck className="h-6 w-6" />, t: 'Trusted vendors', d: 'Verified operators with office & location shown.' },
+              { icon: <Percent className="h-6 w-6" />, t: 'Free for tourists', d: 'You pay nothing extra. Vendors pay us 5%, not you.' },
+              { icon: <TrendingUp className="h-6 w-6" />, t: 'Off-peak prices', d: 'Low-season deals surfaced automatically.' },
+              { icon: <MessageCircle className="h-6 w-6" />, t: 'Book on WhatsApp', d: 'One tap to reach the vendor and confirm.' },
+            ].map((f, i) => (
+              <Card key={i} className="border-slate-200">
+                <CardContent className="p-6">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f97316]/10 text-[#f97316]">{f.icon}</div>
+                  <h3 className="mt-4 font-bold text-slate-900">{f.t}</h3>
+                  <p className="mt-1 text-sm text-slate-500">{f.d}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+// ---------------------------------------------------------------------------
+// About
+// ---------------------------------------------------------------------------
+function About() {
+  const branches = [
+    { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
+    { region: 'Kenya — Nairobi', name: 'Kenneth Oketch', role: 'Branch Manager', country: 'Kenya' },
+    { region: 'Uganda — Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
+    { region: 'Tanzania — Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
+    { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' },
+  ]
+  return (
+    <div className="mx-auto max-w-5xl px-5 py-16">
+      <Badge className="gap-1 bg-[#f97316] text-white border-0"><Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes</Badge>
+      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">Connecting East Africa through trusted travel & logistics.</h1>
+      <p className="mt-4 text-lg text-slate-600">
+        OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa. It also serves tourists with safaris, Kilimanjaro climbs, hotels, car &amp; aircraft hire and sightseeing.
+      </p>
+      <p className="mt-3 text-lg text-slate-600">
+        The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration. Our goal: put reliable, trustworthy information at everyone's fingertips.
+      </p>
+      {/* Leadership */}
+      <div className="mt-12 grid items-center gap-8 rounded-2xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 md:grid-cols-[220px_1fr]">
+        <img
+          src="https://github.com/Jakasipul-Lab.png"
+          alt="Osare Nakinson"
+          className="h-52 w-52 rounded-2xl object-cover shadow-lg"
+          onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=440' }}
+        />
+        <div>
+          <h3 className="text-2xl font-extrabold text-[#1b5e20]">Osare Nakinson</h3>
+          <span className="mt-1 inline-block font-semibold text-[#2e7d32]">Founder &amp; Lead Developer</span>
+          <p className="mt-3 text-slate-600">
+            Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
+          </p>
+        </div>
+      </div>
+      {/* Value / revenue model */}
+      <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <Card className="border-slate-200"><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p></CardContent></Card>
+        <Card className="border-slate-200"><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p></CardContent></Card>
+        <Card className="border-slate-200"><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p></CardContent></Card>
+      </div>
+      {/* Branches */}
+      <div className="mt-14">
+        <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters &amp; Branches</h2>
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {branches.map((b, i) => (
+            <Card key={i} className="border-slate-200">
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 text-[#2e7d32]">
+                  <MapPin className="h-4 w-4" />
+                  <span className="font-bold">{b.region}</span>
+                </div>
+                <p className="mt-2 font-medium text-slate-800">{b.name}</p>
+                <p className="text-sm text-slate-500">{b.role}</p>
+                <Badge variant="secondary" className="mt-3 bg-slate-100 text-slate-600">{b.country}</Badge>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+      {/* Contact */}
+      <Card className="mt-12 border-slate-200 bg-slate-50">
+        <CardContent className="p-6">
+          <h3 className="font-bold text-slate-900">Contact &amp; booking</h3>
+          <p className="mt-2 flex items-center gap-2 text-slate-600"><Phone className="h-4 w-4 text-[#25d366]" /> WhatsApp bookings: +254 758 378 729</p>
+          <p className="mt-1 flex items-center gap-2 text-slate-600"><MapPin className="h-4 w-4 text-[#1e3a8a]" /> Kisumu HQ • Nairobi • Kampala • Dar es Salaam • Bad Wildungen</p>
+          <p className="mt-1 flex items-center gap-2 text-slate-600"><Compass className="h-4 w-4 text-[#f97316]" /> www.easafariroutes.com</p>
+        </CardContent>
+      </Card>
+      <p className="mt-10 text-center text-sm text-slate-400">© 2026 OSARE — EA SafariRoutes. All rights reserved.</p>
+    </div>
+  )
+}
+// ---------------------------------------------------------------------------
+// Dashboard
+// ---------------------------------------------------------------------------
+function Dashboard() {
+  const [stats, setStats] = useState(null)
+  const [leads, setLeads] = useState([])
+  const [loading, setLoading] = useState(true)
+  const load = async () => {
+    setLoading(true)
+    try {
+      const [s, l] = await Promise.all([
+        fetch('/api/stats').then((r) => r.json()),
+        fetch('/api/leads').then((r) => r.json()),
+      ])
+      setStats(s)
+      setLeads(Array.isArray(l) ? l : [])
+    } catch (e) {
+      toast.error('Failed to load dashboard')
+    } finally {
+      setLoading(false)
+    }
+  }
+  useEffect(() => { load() }, [])
+  if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+  const cards = [
+    { label: 'Total Listings', value: stats.totalListings, icon: <Compass className="h-5 w-5" />, color: '#1e3a8a' },
+    { label: 'Booking Leads', value: stats.totalLeads, icon: <MessageCircle className="h-5 w-5" />, color: '#f97316' },
+    { label: 'Est. Commission (5%)', value: `$${stats.estRevenueUSD}`, icon: <Percent className="h-5 w-5" />, color: '#10b981' },
+    { label: 'Safari / Local', value: `${stats.safariCount} / ${stats.localCount}`, icon: <Users className="h-5 w-5" />, color: '#3b82f6' },
+  ]
+  return (
+    <div className="mx-auto max-w-6xl px-5 py-12">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900">Vendor Revenue Dashboard</h1>
+          <p className="text-slate-500">Track booking leads and estimated 5% commission revenue.</p>
+        </div>
+        <Button variant="outline" onClick={load}>Refresh</Button>
+      </div>
+      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {cards.map((c, i) => (
+          <Card key={i} className="border-slate-200">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-500">{c.label}</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: c.color }}>{c.icon}</span>
+              </div>
+              <p className="mt-3 text-3xl font-extrabold text-slate-900">{c.value}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        <Card className="border-slate-200">
+          <CardHeader><CardTitle className="text-base">Leads by category</CardTitle></CardHeader>
+          <CardContent className="h-72">
+            {stats.leadsByCategory?.length ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={stats.leadsByCategory}>
+                  <XAxis dataKey="name" tick={{ fontSize: 11 }} interval={0} angle={-15} textAnchor="end" height={60} />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                    {stats.leadsByCategory.map((e, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            ) : <EmptyChart />}
+          </CardContent>
+        </Card>
+        <Card className="border-slate-200">
+          <CardHeader><CardTitle className="text-base">Safari vs Local leads</CardTitle></CardHeader>
+          <CardContent className="h-72">
+            {stats.totalLeads ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={[{ name: 'Safari', value: stats.leadsByType.safari }, { name: 'Local', value: stats.leadsByType.local }]}
+                    dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} label
+                  >
+                    <Cell fill="#f97316" />
+                    <Cell fill="#1e3a8a" />
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : <EmptyChart />}
+          </CardContent>
+        </Card>
+      </div>
+      <Card className="mt-8 border-slate-200">
+        <CardHeader><CardTitle className="text-base">Recent booking leads</CardTitle></CardHeader>
+        <CardContent>
+          {leads.length === 0 ? (
+            <p className="py-8 text-center text-slate-400">No booking leads yet. Book a listing to see it here.</p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Listing</TableHead>
+                  <TableHead>Vendor</TableHead>
+                  <TableHead>Price</TableHead>
+                  <TableHead className="text-right">Est. 5%</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {leads.slice(0, 15).map((l) => (
+                  <TableRow key={l.id}>
+                    <TableCell className="font-medium">{l.listingTitle}</TableCell>
+                    <TableCell className="text-slate-500">{l.vendor}</TableCell>
+                    <TableCell>{l.priceLabel}</TableCell>
+                    <TableCell className="text-right font-semibold text-emerald-600">{l.currency === 'KES' ? `KES ${Math.round(l.priceValue * 0.05)}` : `$${l.commission}`}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+function EmptyChart() {
+  return <div className="flex h-full items-center justify-center text-sm text-slate-400">No lead data yet</div>
+}
+// ---------------------------------------------------------------------------
+// Admin
+// ---------------------------------------------------------------------------
+const EMPTY_FORM = {
+  type: 'safari', category: 'Safari Package', title: ', vendor: ', vendorOffice: ',
+  location: ', mapLink: ', description: ', includes: ', priceValue: ', currency: 'USD',
+  priceLabel: ', offPeakValue: ', offPeakLabel: ', season: ', image: ', keywords: '
+}
+function Admin() {
+  const [listings, setListings] = useState([])
+  const [form, setForm] = useState(EMPTY_FORM)
+  const [saving, setSaving] = useState(false)
+  const [seeding, setSeeding] = useState(false)
+  const load = async () => {
+    const data = await fetch('/api/listings').then((r) => r.json())
+    setListings(Array.isArray(data) ? data : [])
+  }
+  useEffect(() => { load() }, [])
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
+  const submit = async () => {
+    if (!form.title) { toast.error('Title is required'); return }
+    setSaving(true)
+    try {
+      await fetch('/api/listings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      })
+      toast.success('Listing added')
+      setForm(EMPTY_FORM)
+      load()
+    } catch (e) { toast.error('Failed to add listing') }
+    finally { setSaving(false) }
+  }
+  const remove = async (id) => {
+    await fetch(`/api/listings/${id}`, { method: 'DELETE' })
+    toast.success('Listing removed')
+    load()
+  }
+  const seed = async () => {
+    setSeeding(true)
+    try {
+      const res = await fetch('/api/seed', { method: 'POST' })
+      const data = await res.json()
+      toast.success(`Seeded ${data.inserted} sample listings`)
+      load()
+    } catch (e) { toast.error('Seed failed') }
+    finally { setSeeding(false) }
+  }
+  const cats = form.type === 'safari' ? SAFARI_CATS.filter((c) => c !== 'All') : LOCAL_CATS.filter((c) => c !== 'All')
+  return (
+    <div className="mx-auto max-w-6xl px-5 py-12">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900">Admin — Manage Listings</h1>
+          <p className="text-slate-500">Add vendor listings for the Safari or Local tiers.</p>
+        </div>
+        <Button variant="outline" onClick={seed} disabled={seeding} className="gap-2">
+          {seeding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} Reset & load sample data
+        </Button>
+      </div>
+      <div className="mt-8 grid gap-8 lg:grid-cols-5">
+        {/* Form */}
+        <Card className="border-slate-200 lg:col-span-2">
+          <CardHeader><CardTitle className="text-base">Add a listing</CardTitle></CardHeader>
+          <CardContent className="space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label className="text-xs">Tier</Label>
+                <Select value={form.type} onValueChange={(v) => { set('type', v); set('category', (v === 'safari' ? SAFARI_CATS : LOCAL_CATS)[1]) }}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="safari">Safari / Tourism</SelectItem>
+                    <SelectItem value="local">Local Transit</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label className="text-xs">Category</Label>
+                <Select value={form.category} onValueChange={(v) => set('category', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>{cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+            </div>
+            <Field label="Title" v={form.title} on={(v) => set('title', v)} />
+            <Field label="Vendor" v={form.vendor} on={(v) => set('vendor', v)} />
+            <Field label="Vendor office" v={form.vendorOffice} on={(v) => set('vendorOffice', v)} />
+            <Field label="Location" v={form.location} on={(v) => set('location', v)} />
+            <Field label="Map link" v={form.mapLink} on={(v) => set('mapLink', v)} />
+            <div>
+              <Label className="text-xs">Description</Label>
+              <Textarea value={form.description} onChange={(e) => set('description', e.target.value)} rows={3} />
+            </div>
+            <Field label="Includes (comma separated)" v={form.includes} on={(v) => set('includes', v)} />
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Price value (number)" v={form.priceValue} on={(v) => set('priceValue', v)} />
+              <div>
+                <Label className="text-xs">Currency</Label>
+                <Select value={form.currency} onValueChange={(v) => set('currency', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="USD">USD ($)</SelectItem>
+                    <SelectItem value="KES">KES</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Price label" v={form.priceLabel} on={(v) => set('priceLabel', v)} ph="$350" />
+              <Field label="Off-peak label" v={form.offPeakLabel} on={(v) => set('offPeakLabel', v)} ph="$280" />
+            </div>
+            <Field label="Season note" v={form.season} on={(v) => set('season', v)} ph="Low season: Apr-Jun" />
+            <Field label="Image URL" v={form.image} on={(v) => set('image', v)} />
+            <Field label="Keywords (comma separated)" v={form.keywords} on={(v) => set('keywords', v)} />
+            <Button onClick={submit} disabled={saving} className="w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
+              {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />} Add listing
+            </Button>
+          </CardContent>
+        </Card>
+        {/* Table */}
+        <Card className="border-slate-200 lg:col-span-3">
+          <CardHeader><CardTitle className="text-base">All listings ({listings.length})</CardTitle></CardHeader>
+          <CardContent>
+            <div className="max-h-[640px] overflow-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Tier</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {listings.map((l) => (
+                    <TableRow key={l.id}>
+                      <TableCell>
+                        <p className="font-medium">{l.title}</p>
+                        <p className="text-xs text-slate-400">{l.vendor}</p>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge>
+                      </TableCell>
+                      <TableCell className="text-sm">{l.priceLabel}</TableCell>
+                      <TableCell className="text-right">
+                        <Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {listings.length === 0 && <p className="py-10 text-center text-slate-400">No listings yet. Click "Reset & load sample data".</p>}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
+function Field({ label, v, on, ph }) {
+  return (
+    <div>
+      <Label className="text-xs">{label}</Label>
+      <Input value={v} onChange={(e) => on(e.target.value)} placeholder={ph} />
+    </div>
+  )
+}
+// ---------------------------------------------------------------------------
+// Vendor Portal (login / register + self-service listings & revenue)
+// ---------------------------------------------------------------------------
+function VendorAuth({ onAuth }) {
+  const [mode, setMode] = useState('login')
+  const [f, setF] = useState({ name: ', company: ', email: ', phone: ', password: ' })
+  const [loading, setLoading] = useState(false)
+  const set = (k, v) => setF((s) => ({ ...s, [k]: v }))
+  const submit = async () => {
+    if (!f.email || !f.password) { toast.error('Email and password are required'); return }
+    setLoading(true)
+    try {
+      const res = await fetch(`/api/auth/${mode === 'login' ? 'login' : 'register'}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(f)
+      })
+      const data = await res.json()
+      if (!res.ok) { toast.error(data.error || 'Failed'); return }
+      toast.success(mode === 'login' ? 'Welcome back!' : 'Account created!')
+      onAuth(data.token, data.vendor)
+    } catch (e) { toast.error('Something went wrong') }
+    finally { setLoading(false) }
+  }
+  return (
+    <div className="mx-auto max-w-md px-5 py-16">
+      <div className="mb-6 text-center">
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-white"><Building2 className="h-7 w-7" /></span>
+        <h1 className="mt-4 text-2xl font-extrabold text-slate-900">Vendor Portal</h1>
+        <p className="text-sm text-slate-500">List your services and track your bookings. We only charge 5% on bookings.</p>
+      </div>
+      <Card className="border-slate-200">
+        <CardContent className="p-6">
+          <Tabs value={mode} onValueChange={setMode}>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="login">Login</TabsTrigger>
+              <TabsTrigger value="register">Register</TabsTrigger>
+            </TabsList>
+            <TabsContent value="login" className="mt-4 space-y-3">
+              <Field label="Email" v={f.email} on={(v) => set('email', v)} ph="you@company.com" />
+              <div>
+                <Label className="text-xs">Password</Label>
+                <Input type="password" value={f.password} onChange={(e) => set('password', e.target.value)} />
+              </div>
+            </TabsContent>
+            <TabsContent value="register" className="mt-4 space-y-3">
+              <Field label="Your name" v={f.name} on={(v) => set('name', v)} />
+              <Field label="Company / operator name" v={f.company} on={(v) => set('company', v)} />
+              <Field label="Email" v={f.email} on={(v) => set('email', v)} ph="you@company.com" />
+              <Field label="Phone (WhatsApp)" v={f.phone} on={(v) => set('phone', v)} ph="2547..." />
+              <div>
+                <Label className="text-xs">Password</Label>
+                <Input type="password" value={f.password} onChange={(e) => set('password', e.target.value)} />
+              </div>
+            </TabsContent>
+            <Button onClick={submit} disabled={loading} className="mt-4 w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              {mode === 'login' ? 'Login' : 'Create vendor account'}
+            </Button>
+          </Tabs>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+function VendorPortal({ token, vendor, onAuth, onLogout }) {
+  const [listings, setListings] = useState([])
+  const [stats, setStats] = useState(null)
+  const [form, setForm] = useState(EMPTY_FORM)
+  const [saving, setSaving] = useState(false)
+  const authHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+  const load = useCallback(async () => {
+    if (!token) return
+    try {
+      const [l, s] = await Promise.all([
+        fetch('/api/my-listings', { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
+        fetch('/api/my-stats', { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
+      ])
+      setListings(Array.isArray(l) ? l : [])
+      setStats(s && !s.error ? s : null)
+    } catch (e) { /* ignore */ }
+  }, [token])
+  useEffect(() => { if (vendor) load() }, [vendor, load])
+  if (!vendor) return <VendorAuth onAuth={onAuth} />
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
+  const cats = form.type === 'safari' ? SAFARI_CATS.filter((c) => c !== 'All') : LOCAL_CATS.filter((c) => c !== 'All')
+  const submit = async () => {
+    if (!form.title) { toast.error('Title is required'); return }
+    setSaving(true)
+    try {
+      const res = await fetch('/api/listings', { method: 'POST', headers: authHeaders, body: JSON.stringify(form) })
+      if (!res.ok) { toast.error('Failed to add listing'); return }
+      toast.success('Listing published')
+      setForm(EMPTY_FORM)
+      load()
+    } catch (e) { toast.error('Failed to add listing') }
+    finally { setSaving(false) }
+  }
+  const remove = async (id) => {
+    await fetch(`/api/listings/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+    toast.success('Listing removed')
+    load()
+  }
+  return (
+    <div className="mx-auto max-w-6xl px-5 py-12">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900">Welcome, {vendor.company || vendor.name || vendor.email}</h1>
+          <p className="text-slate-500">Manage your listings and track booking leads.</p>
+        </div>
+        <Button variant="outline" onClick={onLogout}>Log out</Button>
+      </div>
+      {/* Stat cards */}
+      <div className="mt-8 grid gap-5 sm:grid-cols-3">
+        <StatCard label="My Listings" value={stats?.listings ?? listings.length} icon={<Compass className="h-5 w-5" />} color="#1e3a8a" />
+        <StatCard label="Booking Leads" value={stats?.leads ?? 0} icon={<MessageCircle className="h-5 w-5" />} color="#f97316" />
+        <StatCard label="Commission Owed (5%)" value={`$${stats?.commissionOwedUSD ?? 0}`} icon={<Percent className="h-5 w-5" />} color="#10b981" />
+      </div>
+      <Tabs defaultValue="listings" className="mt-8">
+        <TabsList>
+          <TabsTrigger value="listings">My Listings</TabsTrigger>
+          <TabsTrigger value="add">Add Listing</TabsTrigger>
+          <TabsTrigger value="leads">My Leads</TabsTrigger>
+        </TabsList>
+        <TabsContent value="listings" className="mt-5">
+          <Card className="border-slate-200">
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow><TableHead>Title</TableHead><TableHead>Tier</TableHead><TableHead>Price</TableHead><TableHead></TableHead></TableRow>
+                </TableHeader>
+                <TableBody>
+                  {listings.map((l) => (
+                    <TableRow key={l.id}>
+                      <TableCell className="font-medium">{l.title}</TableCell>
+                      <TableCell><Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge></TableCell>
+                      <TableCell>{l.priceLabel}</TableCell>
+                      <TableCell className="text-right"><Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700"><Trash2 className="h-4 w-4" /></Button></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {listings.length === 0 && <p className="py-10 text-center text-slate-400">No listings yet. Use the "Add Listing" tab.</p>}
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="add" className="mt-5">
+          <Card className="border-slate-200">
+            <CardContent className="grid gap-3 p-6 md:grid-cols-2">
+              <div>
+                <Label className="text-xs">Tier</Label>
+                <Select value={form.type} onValueChange={(v) => { set('type', v); set('category', (v === 'safari' ? SAFARI_CATS : LOCAL_CATS)[1]) }}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="safari">Safari / Tourism</SelectItem><SelectItem value="local">Local Transit</SelectItem></SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label className="text-xs">Category</Label>
+                <Select value={form.category} onValueChange={(v) => set('category', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>{cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+              <Field label="Title" v={form.title} on={(v) => set('title', v)} />
+              <Field label="Location" v={form.location} on={(v) => set('location', v)} />
+              <Field label="Map link" v={form.mapLink} on={(v) => set('mapLink', v)} />
+              <Field label="Vendor office" v={form.vendorOffice} on={(v) => set('vendorOffice', v)} />
+              <div className="md:col-span-2">
+                <Label className="text-xs">Description</Label>
+                <Textarea value={form.description} onChange={(e) => set('description', e.target.value)} rows={3} />
+              </div>
+              <Field label="Includes (comma separated)" v={form.includes} on={(v) => set('includes', v)} />
+              <Field label="Keywords (comma separated)" v={form.keywords} on={(v) => set('keywords', v)} />
+              <Field label="Price value (number)" v={form.priceValue} on={(v) => set('priceValue', v)} />
+              <div>
+                <Label className="text-xs">Currency</Label>
+                <Select value={form.currency} onValueChange={(v) => set('currency', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent><SelectItem value="USD">USD ($)</SelectItem><SelectItem value="KES">KES</SelectItem></SelectContent>
+                </Select>
+              </div>
+              <Field label="Price label" v={form.priceLabel} on={(v) => set('priceLabel', v)} ph="$350" />
+              <Field label="Off-peak label" v={form.offPeakLabel} on={(v) => set('offPeakLabel', v)} ph="$280" />
+              <Field label="Season note" v={form.season} on={(v) => set('season', v)} />
+              <Field label="Image URL" v={form.image} on={(v) => set('image', v)} />
+              <div className="md:col-span-2">
+                <Button onClick={submit} disabled={saving} className="w-full gap-2 bg-[#f97316] text-white hover:bg-[#ea6c0f]">
+                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />} Publish listing
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="leads" className="mt-5">
+          <Card className="border-slate-200">
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow><TableHead>Listing</TableHead><TableHead>Price</TableHead><TableHead className="text-right">Est. 5%</TableHead></TableRow>
+                </TableHeader>
+                <TableBody>
+                  {(stats?.recentLeads || []).map((l) => (
+                    <TableRow key={l.id}>
+                      <TableCell className="font-medium">{l.listingTitle}</TableCell>
+                      <TableCell>{l.priceLabel}</TableCell>
+                      <TableCell className="text-right font-semibold text-emerald-600">{l.currency === 'KES' ? `KES ${Math.round(l.priceValue * 0.05)}` : `$${l.commission}`}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {(!stats?.recentLeads || stats.recentLeads.length === 0) && <p className="py-10 text-center text-slate-400">No booking leads yet.</p>}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}
+function StatCard({ label, value, icon, color }) {
+  return (
+    <Card className="border-slate-200">
+      <CardContent className="p-5">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-slate-500">{label}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: color }}>{icon}</span>
+        </div>
+        <p className="mt-3 text-3xl font-extrabold text-slate-900">{value}</p>
+      </CardContent>
+    </Card>
+  )
+}
+// ---------------------------------------------------------------------------
+// Root App
+// ---------------------------------------------------------------------------
+function App() {
+  const [view, setView] = useState('home')
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [pendingQuery, setPendingQuery] = useState(')
+  const [token, setToken] = useState(null)
+  const [vendor, setVendor] = useState(null)
+  // Seed on first load if empty
+  useEffect(() => {
+    fetch('/api/listings').then((r) => r.json()).then((data) => {
+      if (!Array.isArray(data) || data.length === 0) {
+        fetch('/api/seed', { method: 'POST' })
+      }
+    }).catch(() => {})
+  }, [])
+  // Restore vendor session
+  useEffect(() => {
+    const t = typeof window !== 'undefined' ? localStorage.getItem('osare_token') : null
+    if (t) {
+      setToken(t)
+      fetch('/api/auth/me', { headers: { Authorization: `Bearer ${t}` } })
+        .then((r) => r.ok ? r.json() : null)
+        .then((d) => { if (d?.vendor) setVendor(d.vendor); else { localStorage.removeItem('osare_token'); setToken(null) } })
+        .catch(() => {})
+    }
+  }, [])
+  const onAuth = (t, v) => {
+    setToken(t); setVendor(v)
+    if (typeof window !== 'undefined') localStorage.setItem('osare_token', t)
+  }
+  const onLogout = () => {
+    setToken(null); setVendor(null)
+    if (typeof window !== 'undefined') localStorage.removeItem('osare_token')
+    toast.success('Logged out')
+  }
+  const go = (v, query = ') => {
+    setPendingQuery(query)
+    setView(v)
+    setMobileOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  return (
+    <div className="min-h-screen bg-white">
+      <Toaster position="top-center" richColors />
+      {/* Nav */}
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
+          <button onClick={() => go('home')} className="flex items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-white"><Compass className="h-5 w-5" /></span>
+            <span className="text-xl font-extrabold tracking-tight text-slate-900">OSARE</span>
+          </button>
+          <nav className="hidden items-center gap-1 md:flex">
+            {NAV.map((n) => (
+              <button
+                key={n.key}
+                onClick={() => go(n.key)}
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition ${view === n.key ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
+              >
+                {n.label}
+              </button>
+            ))}
+          </nav>
+          <div className="hidden md:block">
+            <Button onClick={() => go('safari')} className="gap-2 bg-[#f97316] text-white hover:bg-[#ea6c0f]">
+              Explore <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+          <button className="md:hidden" onClick={() => setMobileOpen((o) => !o)}>
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+        {mobileOpen && (
+          <div className="border-t border-slate-200 bg-white md:hidden">
+            {NAV.map((n) => (
+              <button key={n.key} onClick={() => go(n.key)} className={`block w-full px-5 py-3 text-left text-sm font-medium ${view === n.key ? 'bg-slate-100 text-slate-900' : 'text-slate-600'}`}>
+                {n.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
+      {/* Views */}
+      {view === 'home' && <Home go={go} />}
+      {view === 'safari' && <TierExplorer type="safari" key={'safari' + pendingQuery} />}
+      {view === 'local' && <TierExplorer type="local" key={'local' + pendingQuery} />}
+      {view === 'about' && <About />}
+      {view === 'dashboard' && <Dashboard />}
+      {view === 'vendor' && <VendorPortal token={token} vendor={vendor} onAuth={onAuth} onLogout={onLogout} />}
+      {view === 'admin' && <Admin />}
+      {/* Footer */}
+      <footer className="border-t border-slate-200 bg-slate-900 py-10 text-slate-300">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-white"><Compass className="h-4 w-4" /></span>
+              <span className="text-lg font-extrabold text-white">OSARE</span>
+            </div>
+            <p className="mt-3 text-sm text-slate-400">East Africa Safari Routes & Transit Hub. Free information for tourists & locals.</p>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white">Platform</h4>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li><button onClick={() => go('safari')} className="hover:text-white">Safari & Tourism</button></li>
+              <li><button onClick={() => go('local')} className="hover:text-white">Local Commute</button></li>
+              <li><button onClick={() => go('about')} className="hover:text-white">About</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white">Vendors</h4>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li><button onClick={() => go('admin')} className="hover:text-white">Add a listing</button></li>
+              <li><button onClick={() => go('dashboard')} className="hover:text-white">Revenue dashboard</button></li>
+              <li className="text-slate-400">Only 5% on bookings</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white">Contact</h4>
+            <ul className="mt-3 space-y-2 text-sm text-slate-400">
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
+              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Nairobi CBD, Kenya</li>
+            </ul>
+          </div>
+        </div>
+        <p className="mt-8 text-center text-xs text-slate-500">© 2025 OSARE — easafariroutes.com. All rights reserved.</p>
+      </footer>
+    </div>
+  )
+}
+export default App
+>>>>>>> Stashed 1
