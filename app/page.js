@@ -146,7 +146,7 @@ function TierExplorer({ type, q = "" }) {
   const load = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetch(`/api/listings?type=${type}${q ? `&q=${encodeURIComponent(q)}` : '}`)
+      const res = await fetch(`/api/listings?type=${type}${q ? `&q=${encodeURIComponent(q)}` : ''}`)
       const data = await res.json()
       setItems(Array.isArray(data) ? data : [])
     } catch (e) { toast.error("Search unavailable") }
