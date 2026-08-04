@@ -422,7 +422,7 @@ export default function Page() {
     </main>
   )
 }
-=======
+
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 import {
@@ -530,7 +530,7 @@ function TierExplorer({ type }) {
   const isSafari = type === 'safari'
   const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
   const accent = isSafari ? '#f97316' : '#1e3a8a'
-  const [q, setQ] = useState(')
+  const [q, setQ] = useState('')
   const [cat, setCat] = useState('All')
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
@@ -630,7 +630,7 @@ function TierExplorer({ type }) {
 // Home
 // ---------------------------------------------------------------------------
 function Home({ go }) {
-  const [q, setQ] = useState(')
+  const [q, setQ] = useState('')
   const [tier, setTier] = useState('safari')
   const search = () => {
     go(tier, q)
