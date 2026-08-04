@@ -373,8 +373,6 @@ function AboutView() {
     </div>
   )
 }
-  )
-}
           </>
       <div className="mt-24">
         <h2 className="text-2xl font-black text-slate-900">Regional Branches</h2>
