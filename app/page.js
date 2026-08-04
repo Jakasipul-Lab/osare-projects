@@ -1362,7 +1362,7 @@ function App() {
     if (typeof window !== 'undefined') localStorage.removeItem('osare_token')
     toast.success('Logged out')
   }
-  const go = (v, query = ') => {
+  const go = (v, query = '') => {
     setPendingQuery(query)
     setView(v)
     setMobileOpen(false)
