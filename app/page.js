@@ -336,8 +336,8 @@ function AboutView() {
     { region: 'Germany Branch', name: 'Brunnenstra\u00dfe 48', role: '34537, Bad Wildungen', country: 'Germany' }
     
 // ... whatever array was right above it ...
-]
 
+]
 function AboutView() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-24">
