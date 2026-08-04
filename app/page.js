@@ -1327,7 +1327,7 @@ function StatCard({ label, value, icon, color }) {
 // ---------------------------------------------------------------------------
 // Root App
 // ---------------------------------------------------------------------------
-function App() {
+export default function Page() {
   const [view, setView] = useState('home')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [pendingQuery, setPendingQuery] = useState('')
@@ -1454,6 +1454,4 @@ function App() {
     </div>
   )
 }
-export default function Page() {
-  return <App />
-}
+
