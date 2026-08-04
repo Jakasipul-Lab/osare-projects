@@ -334,7 +334,7 @@ function AboutView() {
     { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
     { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
     { region: 'Germany Branch', name: 'Brunnenstra\u00dfe 48', role: '34537, Bad Wildungen', country: 'Germany' }
-  ]
+    
   return (
     <div className="mx-auto max-w-6xl px-5 py-24">
       <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
