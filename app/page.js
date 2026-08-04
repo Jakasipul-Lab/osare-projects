@@ -335,6 +335,7 @@ function AboutView() {
     { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
     { region: 'Germany Branch', name: 'Brunnenstra\u00dfe 48', role: '34537, Bad Wildungen', country: 'Germany' }
     
+ function AboutView() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-24">
       <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
@@ -344,6 +345,9 @@ function AboutView() {
       <p className="mt-4 text-xl font-medium leading-relaxed text-slate-600">
         The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration.
       </p>
+    </div>
+  )
+}
       {/* RESTORED FOUNDER & HQ PROFILE */}
       <div className="mt-20 p-8 rounded-3xl bg-blue-50 border border-blue-100 flex flex-col md:flex-row gap-8 items-center">
         <div className="h-32 w-32 rounded-2xl bg-white shadow-lg flex-shrink-0 overflow-hidden">
