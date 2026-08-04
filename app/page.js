@@ -334,25 +334,13 @@ function AboutView() {
     { region: 'Uganda - Kampala', name: 'Brian Omollo', role: 'Branch Manager', country: 'Uganda' },
     { region: 'Tanzania - Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
     { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' },
+  ];
 
-return (
-  <main>
-    {/* all your page content */}
-
-    <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20">
-      <div className="mx-auto max-w-7xl px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-slate-400">
-          Copyright 2026 OSARE - easafariroutes.com. Built by Nakinson
-          Osare.
-        </p>
-
-        <div className="flex gap-6">
-          {/* footer links */}
-        </div>
-      </div>
-    </footer>
-  </main>
-);
+  return (
+    <main>
+      {/* content */}
+    </main>
+  );
 }
 
 // ----------------------------------------------------------------------
