@@ -337,34 +337,42 @@ function AboutView() {
     
 // ... whatever array was right above it ...
 
-]
-function AboutView() {
+
+  function AboutView() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-24">
-      <h1 className="text-4xl font-black text-slate-900 tracking-tight">About OSARE</h1>
-      <p className="mt-8 text-xl font-medium leading-relaxed text-slate-600">
-        OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa.
-      </p>
-      <p className="mt-4 text-xl font-medium leading-relaxed text-slate-600">
-        The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration.
-      </p>
+      {/* Your top content */}
+      
+      {/* FOUNDER & HQ PROFILE */}
+      <div className="mt-20 p-8 rounded-3xl bg-blue-50 border border-blue-100 flex flex-col md:flex-row gap-8 items-center">
+        <div className="h-32 w-32 rounded-2xl bg-white shadow-lg flex-shrink-0 overflow-hidden">
+          <img src="https://github.com/Jakasipul-Lab.png" alt="Osare Nakinson" className="h-full w-full object-cover" />
+        </div>
+        <div>
+          <Badge className="bg-blue-600 mb-2 text-white border-0">Founder & Lead Developer</Badge>
+          <h2 className="text-2xl font-black text-slate-900">Osare Nakinson</h2>
+          <p className="mt-4 text-slate-600 font-medium leading-relaxed">
+            Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
+          </p>
+        </div>
+      </div>
+
+      {/* REGIONAL BRANCHES */}
+      <div className="mt-24">
+        <h2 className="text-2xl font-black text-slate-900">Regional Branches</h2>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {branches.map((b, i) => (
+            <div key={i} className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
+              <h3 className="font-bold text-slate-900">{b.name}</h3>
+              <p className="text-sm text-slate-500">{b.location}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   )
 }
-   {/* RESTORED FOUNDER & HQ PROFILE */}
-          <>
-            <div className="mt-20 p-8 rounded-3xl bg-blue-50 border border-blue-100 flex flex-col md:flex-row gap-8 items-center">
-              <div className="h-32 w-32 rounded-2xl bg-white shadow-lg flex-shrink-0 overflow-hidden">
-                <img src="https://github.com/Jakasipul-Lab.png" alt="Osare Nakinson" className="h-full w-full object-cover" />
-              </div>
-              <div>
-                <Badge className="bg-blue-600 mb-2 text-white border-0">Founder & Lead Developer</Badge>
-                <h2 className="text-2xl font-black text-slate-900">Osare Nakinson</h2>
-                <p className="mt-4 text-slate-600 font-medium leading-relaxed">
-                  Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
-                </p>
-              </div>
-            </div>
           </>
       <div className="mt-24">
         <h2 className="text-2xl font-black text-slate-900">Regional Branches</h2>
