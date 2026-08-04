@@ -1331,7 +1331,7 @@ function StatCard({ label, value, icon, color }) {
 function App() {
   const [view, setView] = useState('home')
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [pendingQuery, setPendingQuery] = useState(')
+  const [pendingQuery, setPendingQuery] = useState('')
   const [token, setToken] = useState(null)
   const [vendor, setVendor] = useState(null)
   // Seed on first load if empty
