@@ -368,7 +368,6 @@ function AboutView() {
           <p className="mt-4 text-slate-600 font-medium leading-relaxed">
             Driving innovation in East African mobility through technology-first logistics and strategic transport partnerships.
           </p>
-        </div>
       </div>
     </div>
   
