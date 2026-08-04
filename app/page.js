@@ -450,13 +450,12 @@ const HERO =
 
 const LOCAL_HERO =
   "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85";
+
+const NAV = [
   { key: 'home', label: 'Home' },
   { key: 'safari', label: 'Safari' },
   { key: 'local', label: 'Local Transit' },
   { key: 'about', label: 'About' },
-  { key: 'dashboard', label: 'Dashboard' },
-  { key: 'vendor', label: 'Vendor Portal' },
-  { key: 'admin', label: 'Admin' },
 ]
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
