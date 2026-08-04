@@ -609,7 +609,7 @@ function TierExplorer({ type }) {
       {/* Results */}
       <div className="mx-auto max-w-7xl px-5 py-10">
         <div className="mb-5 flex items-center justify-between">
-          <p className="text-sm text-slate-500">{loading ? 'Searching…' : `${items.length} option${items.length === 1 ? ' : 's'} found`}</p>
+          <p className="text-sm text-slate-500">{loading ? 'Searching…' : `${items.length} option${items.length === 1 ? '' : 's'} found`}</p>
         </div>
         {loading ? (
           <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
