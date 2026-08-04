@@ -627,7 +627,7 @@ function TierExplorer({ type }) {
 // ---------------------------------------------------------------------------
 // Home
 // ---------------------------------------------------------------------------
-function Home({ go }) {
+export default function Home({ go }) {
   const [q, setQ] = useState('')
   const [tier, setTier] = useState('safari')
   const search = () => {
@@ -1456,4 +1456,4 @@ function StatCard({ label, value, icon, color }) {
   return <App />
 }
 
-export default App;
+
