@@ -422,11 +422,26 @@ function AboutView() {
   )
 }
 
+'use client'
+
+// 1. ALL IMPORTS AT THE VERY TOP
 import { useEffect, useState, useCallback } from 'react'
-import {
-  Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
-  Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
-  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag
+import { ... } from 'lucide-react'
+// (and any other imports)
+
+// 2. YOUR COMPONENTS AND LOGIC IN THE MIDDLE
+function App() {
+  const [view, setView] = useState('home');
+  // ... rest of your code, hooks, components, and return statement ...
+  return (
+    <main>
+      {/* ... */}
+    </main>
+  )
+}
+
+// 3. EXPORT AT THE VERY BOTTOM
+export default App
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
