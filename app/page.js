@@ -431,11 +431,7 @@ function AboutView() {
             <a href="/admin" className="text-xs font-bold text-slate-500 hover:text-[#1e3a8a] transition-colors">Admin</a>
           </div>
         </div>
-      </footer>
-    </main>
-}
-
-export default App
+     
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
