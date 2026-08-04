@@ -423,7 +423,6 @@ export default function Page() {
   )
 }
 
-'use client'
 import { useEffect, useState, useCallback } from 'react'
 import {
   Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
