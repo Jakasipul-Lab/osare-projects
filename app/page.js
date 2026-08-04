@@ -1454,4 +1454,6 @@ function App() {
     </div>
   )
 }
-export default App
+export default function Page() {
+  return <App />
+}
