@@ -159,10 +159,11 @@ function TierExplorer({ type, q = "" }) {
     if (search) {
       const s = search.toLowerCase()
       f = f.filter(it =>
+        
         it.title.toLowerCase().includes(s) ||
-        (it.location || ').toLowerCase().includes(s) ||
-        (it.description || ').toLowerCase().includes(s)
-      )
+(it.location || '').toLowerCase().includes(s) ||
+(it.description || '').toLowerCase().includes(s)
+)
     }
     setFiltered(f)
   }, [items, activeCat, search])
