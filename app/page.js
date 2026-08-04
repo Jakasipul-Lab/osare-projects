@@ -434,9 +434,7 @@ function AboutView() {
       </footer>
     </main>
   );
-}
 
-// 3. EXPORT AT THE VERY BOTTOM
 export default App
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
