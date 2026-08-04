@@ -450,7 +450,6 @@ const HERO =
 
 const LOCAL_HERO =
   "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85";
-
 const NAV = [
   { key: 'home', label: 'Home' },
   { key: 'safari', label: 'Safari' },
