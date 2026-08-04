@@ -433,7 +433,7 @@ function AboutView() {
         </div>
       </footer>
     </main>
-  );
+}
 
 export default App
 } from 'lucide-react'
