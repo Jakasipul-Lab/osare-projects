@@ -1101,7 +1101,7 @@ function Admin() {
 // ---------------------------------------------------------------------------
 function VendorAuth({ onAuth }) {
   const [mode, setMode] = useState('login')
-  const [f, setF] = useState({ name: ', company: ', email: ', phone: ', password: ' })
+  const [f, setF] = useState({ name: '', company: '', email: '', phone: '', password: '' })
   const [loading, setLoading] = useState(false)
   const set = (k, v) => setF((s) => ({ ...s, [k]: v }))
   const submit = async () => {
