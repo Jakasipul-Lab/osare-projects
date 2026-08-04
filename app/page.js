@@ -385,7 +385,6 @@ function AboutView() {
     </div>
   )
 }
-export default function Page() {
   const [view, setView] = useState('home');
   const [params, setParams] = useState({ type: 'safari' });
   const go = (type, q = "") => { setParams({ type, q }); setView(type); window.scrollTo(0, 0) };
@@ -1327,7 +1326,6 @@ function StatCard({ label, value, icon, color }) {
 // ---------------------------------------------------------------------------
 // Root App
 // ---------------------------------------------------------------------------
-export default function Page() {
   const [view, setView] = useState('home')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [pendingQuery, setPendingQuery] = useState('')
@@ -1455,6 +1453,7 @@ export default function Page() {
   )
 }
 
-export default function Page() {
   return <App />
 }
+
+export default App;
