@@ -795,16 +795,22 @@ function About() {
     { region: 'Tanzania — Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
     { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' },
   ]
+  
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
-      <Badge className="gap-1 bg-[#f97316] text-white border-0"><Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes</Badge>
-      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">Connecting East Africa through trusted travel & logistics.</h1>
+      <Badge className="gap-1 bg-[#f97316] text-white border-0">
+        <Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes
+      </Badge>
+      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">
+        Connecting East Africa through trusted travel &amp; logistics.
+      </h1>
       <p className="mt-4 text-lg text-slate-600">
         OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa. It also serves tourists with safaris, Kilimanjaro climbs, hotels, car &amp; aircraft hire and sightseeing.
       </p>
       <p className="mt-3 text-lg text-slate-600">
         The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration. Our goal: put reliable, trustworthy information at everyone's fingertips.
       </p>
+      
       {/* Leadership */}
       <div className="mt-12 grid items-center gap-8 rounded-2xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 md:grid-cols-[220px_1fr]">
         <img
@@ -821,12 +827,32 @@ function About() {
           </p>
         </div>
       </div>
+      
       {/* Value / revenue model */}
       <div className="mt-12 grid gap-6 md:grid-cols-3">
-        <Card className="border-slate-200"><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p></CardContent></Card>
-        <Card className="border-slate-200"><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p></CardContent></Card>
+        <Card className="border-slate-200">
+          <CardContent className="p-6">
+            <Users className="h-7 w-7 text-[#1e3a8a]" />
+            <h3 className="mt-3 font-bold">For tourists</h3>
+            <p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p>
+          </CardContent>
+        </Card>
+        <Card className="border-slate-200">
+          <CardContent className="p-6">
+            <Building2 className="h-7 w-7 text-[#1e3a8a]" />
+            <h3 className="mt-3 font-bold">For vendors</h3>
+            <p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p>
+          </CardContent>
+        </Card>
+        <Card className="border-slate-200">
+          <CardContent className="p-6">
+            <Percent className="h-7 w-7 text-emerald-600" />
+            <h3 className="mt-3 font-bold">Our revenue</h3>
+            <p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p>
+          </CardContent>
+        </Card>
       </div>
+      
       {/* Branches */}
       <div className="mt-14">
         <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters &amp; Branches</h2>
@@ -846,6 +872,7 @@ function About() {
           ))}
         </div>
       </div>
+      
       {/* Contact */}
       <Card className="mt-12 border-slate-200 bg-slate-50">
         <CardContent className="p-6">
