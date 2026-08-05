@@ -1950,8 +1950,3 @@ function StatCard({ label, value, icon, color }) {
     </div>
   )
 }
-
-  return <App />
-}
-
-
