@@ -1,3 +1,88 @@
+// ---------------------------------------------------------------------------
+// FILE 1: app/layout.js
+// Add the AdSense script to your root layout so it loads on every page.
+// Replace ca-pub-XXXXXXXXXXXXXXXX with YOUR publisher ID once Google approves you
+// (you'll find it in your AdSense account under Account > Settings).
+// ---------------------------------------------------------------------------
+//
+// Inside the <head> of your existing layout.js, add:
+//
+// <script
+//   async
+//   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+//   crossOrigin="anonymous"
+// />
+//
+// If your layout.js uses next/script instead, use:
+//
+// import Script from 'next/script'
+// <Script
+//   async
+//   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+//   crossOrigin="anonymous"
+//   strategy="afterInteractive"
+// />
+
+// ---------------------------------------------------------------------------
+// FILE 2: components/AdSlot.jsx
+// A reusable ad component. Drop <AdSlot slot="1234567890" /> anywhere you
+// want an ad to appear (e.g. between listing rows, in the sidebar, at the
+// bottom of the About page). Until you're approved, this renders nothing
+// visible, so it's safe to add now.
+// ---------------------------------------------------------------------------
+
+'use client'
+import { useEffect, useRef } from 'react'
+
+export default function AdSlot({ slot, format = 'auto', style }) {
+  const ref = useRef(null)
+  const pushed = useRef(false)
+
+  useEffect(() => {
+    if (pushed.current) return
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({})
+      pushed.current = true
+    } catch (e) {
+      // AdSense script not loaded yet (e.g. before approval) — safe to ignore
+    }
+  }, [])
+
+  return (
+    <ins
+      ref={ref}
+      className="adsbygoogle"
+      style={style || { display: 'block' }}
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+      data-ad-slot={slot}
+      data-ad-format={format}
+      data-full-width-responsive="true"
+    />
+  )
+}
+
+// ---------------------------------------------------------------------------
+// EXAMPLE USAGE — inside TierExplorer's results grid in app/page.js,
+// to show an ad every 6 listings (a common, non-intrusive pattern):
+// ---------------------------------------------------------------------------
+//
+// import AdSlot from '@/components/AdSlot'
+//
+// <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+//   {items.map((item, i) => (
+//     <>
+//       <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} />
+//       {(i + 1) % 6 === 0 && (
+//         <div key={`ad-${i}`} className="sm:col-span-2 lg:col-span-3">
+//           <AdSlot slot="1234567890" />
+//         </div>
+//       )}
+//     </>
+//   ))}
+// </div>
+//
+// You get real ad slot IDs from your AdSense dashboard after approval,
+// under Ads > By ad unit > create a "Display ad" unit for each placement.
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 import {
