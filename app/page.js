@@ -432,7 +432,19 @@ function AboutView() {
           </div>
         </div>
 
-export default App;
+// ==========================================
+// 1. TOP OF FILE: IMPORTS
+// ==========================================
+import React from 'react'
+import { 
+  Mountain, 
+  Hotel, 
+  Car, 
+  Plane, 
+  Binoculars, 
+  Bus, 
+  Compass 
+} from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -445,20 +457,27 @@ import { toast } from 'sonner'
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from 'recharts'
+
+// ==========================================
+// 2. CONSTANTS & HELPERS
+// ==========================================
 const HERO =
   "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&q=85";
 
 const LOCAL_HERO =
   "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85";
+
 const NAV = [
   { key: 'home', label: 'Home' },
   { key: 'safari', label: 'Safari' },
   { key: 'local', label: 'Local Transit' },
   { key: 'about', label: 'About' },
 ];
+
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
 const CHART_COLORS = ['#f97316', '#1e3a8a', '#3b82f6', '#10b981', '#eab308', '#8b5cf6', '#ef4444']
+
 const catIcon = (cat) => {
   if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
   if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
@@ -471,6 +490,22 @@ const catIcon = (cat) => {
   if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />
   return <Compass className="h-4 w-4" />
 }
+
+// ==========================================
+// 3. MAIN APP COMPONENT
+// ==========================================
+function App() {
+  return (
+    <div>
+      {/* Your UI code sits inside here */}
+    </div>
+  )
+}
+
+// ==========================================
+// 4. BOTTOM OF FILE: EXPORT STATEMENT
+// ==========================================
+export default App;
 // ---------------------------------------------------------------------------
 // Listing card
 // ---------------------------------------------------------------------------
