@@ -672,12 +672,14 @@ function TierExplorer({ type }) {
 // ---------------------------------------------------------------------------
 // Home
 // ---------------------------------------------------------------------------
-export default function Home({ go }) {
+function Home({ go }) {
   const [q, setQ] = useState('')
   const [tier, setTier] = useState('safari')
+
   const search = () => {
     go(tier, q)
   }
+
   return (
     <div>
       {/* Hero */}
@@ -697,8 +699,18 @@ export default function Home({ go }) {
           {/* Tier toggle + search */}
           <div className="mt-8 w-full max-w-2xl">
             <div className="mb-3 flex justify-center gap-3">
-              <button onClick={() => setTier('safari')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}>Tourist Assistance</button>
-              <button onClick={() => setTier('local')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30'}`}>Local Commute</button>
+              <button 
+                onClick={() => setTier('safari')} 
+                className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+              >
+                Tourist Assistance
+              </button>
+              <button 
+                onClick={() => setTier('local')} 
+                className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30'}`}
+              >
+                Local Commute
+              </button>
             </div>
             <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl">
               <div className="relative flex-1">
@@ -718,6 +730,7 @@ export default function Home({ go }) {
           </div>
         </div>
       </div>
+
       {/* Two tiers */}
       <div className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="text-center text-3xl font-extrabold text-slate-900">Two platforms. One trusted hub.</h2>
@@ -745,6 +758,7 @@ export default function Home({ go }) {
           </button>
         </div>
       </div>
+
       {/* Value props */}
       <div className="bg-slate-50 py-16">
         <div className="mx-auto max-w-6xl px-5">
