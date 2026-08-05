@@ -432,48 +432,18 @@ function AboutView() {
           </div>
         </div>
 
-// ==========================================
-// 1. TOP OF FILE: IMPORTS
-// ==========================================
+// Imports at very top
 import React, { useState, useEffect, useCallback } from 'react'
-import {
-  Mountain,
-  Hotel,
-  Car,
-  Plane,
-  Binoculars,
-  Bus,
-  Compass,
-  Building2,
-  Loader2,
-  MessageCircle,
-  Percent,
-  Trash2,
-  Plus,
-  ArrowRight,
-  Menu,
-  X,
-  Phone,
-  MapPin,
-  Search
-} from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Toaster } from '@/components/ui/sonner'
-import { toast } from 'sonner'
-import {
-  BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
-} from 'recharts'
+import { Mountain } from 'lucide-react'
 
+// component code
+export default function Page() {
+  return (
+    <div>
+      Content
+    </div>
+  )
+}
 // ==========================================
 // 2. CONSTANTS & HELPERS
 // ==========================================
