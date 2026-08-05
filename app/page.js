@@ -893,6 +893,7 @@ function Dashboard() {
   const [stats, setStats] = useState(null)
   const [leads, setLeads] = useState([])
   const [loading, setLoading] = useState(true)
+
   const load = async () => {
     setLoading(true)
     try {
@@ -908,14 +909,24 @@ function Dashboard() {
       setLoading(false)
     }
   }
+
   useEffect(() => { load() }, [])
-  if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+
+  if (loading || !stats) {
+    return (
+      <div className="flex justify-center py-24">
+        <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+      </div>
+    )
+  }
+
   const cards = [
-    { label: 'Total Listings', value: stats.totalListings, icon: <Compass className="h-5 w-5" />, color: '#1e3a8a' },
-    { label: 'Booking Leads', value: stats.totalLeads, icon: <MessageCircle className="h-5 w-5" />, color: '#f97316' },
-    { label: 'Est. Commission (5%)', value: `$${stats.estRevenueUSD}`, icon: <Percent className="h-5 w-5" />, color: '#10b981' },
-    { label: 'Safari / Local', value: `${stats.safariCount} / ${stats.localCount}`, icon: <Users className="h-5 w-5" />, color: '#3b82f6' },
+    { label: 'Total Listings', value: stats?.totalListings ?? 0, icon: <Compass className="h-5 w-5" />, color: '#1e3a8a' },
+    { label: 'Booking Leads', value: stats?.totalLeads ?? 0, icon: <MessageCircle className="h-5 w-5" />, color: '#f97316' },
+    { label: 'Est. Commission (5%)', value: `$${stats?.estRevenueUSD ?? 0}`, icon: <Percent className="h-5 w-5" />, color: '#10b981' },
+    { label: 'Safari / Local', value: `${stats?.safariCount ?? 0} / ${stats?.localCount ?? 0}`, icon: <Users className="h-5 w-5" />, color: '#3b82f6' },
   ]
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
       <div className="flex items-center justify-between">
@@ -925,46 +936,61 @@ function Dashboard() {
         </div>
         <Button variant="outline" onClick={load}>Refresh</Button>
       </div>
+
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((c, i) => (
           <Card key={i} className="border-slate-200">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-slate-500">{c.label}</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: c.color }}>{c.icon}</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: c.color }}>
+                  {c.icon}
+                </span>
               </div>
               <p className="mt-3 text-3xl font-extrabold text-slate-900">{c.value}</p>
             </CardContent>
           </Card>
         ))}
       </div>
+
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <Card className="border-slate-200">
           <CardHeader><CardTitle className="text-base">Leads by category</CardTitle></CardHeader>
           <CardContent className="h-72">
-            {stats.leadsByCategory?.length ? (
+            {stats?.leadsByCategory?.length ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats.leadsByCategory}>
                   <XAxis dataKey="name" tick={{ fontSize: 11 }} interval={0} angle={-15} textAnchor="end" height={60} />
                   <YAxis allowDecimals={false} />
                   <Tooltip />
                   <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                    {stats.leadsByCategory.map((e, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
+                    {stats.leadsByCategory.map((e, i) => (
+                      <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                    ))}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
             ) : <EmptyChart />}
           </CardContent>
         </Card>
+
         <Card className="border-slate-200">
           <CardHeader><CardTitle className="text-base">Safari vs Local leads</CardTitle></CardHeader>
           <CardContent className="h-72">
-            {stats.totalLeads ? (
+            {stats?.leadsByType ? (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={[{ name: 'Safari', value: stats.leadsByType.safari }, { name: 'Local', value: stats.leadsByType.local }]}
-                    dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} label
+                    data={[
+                      { name: 'Safari', value: stats.leadsByType.safari || 0 },
+                      { name: 'Local', value: stats.leadsByType.local || 0 }
+                    ]}
+                    dataKey="value" 
+                    nameKey="name" 
+                    cx="50%" 
+                    cy="50%" 
+                    outerRadius={90} 
+                    label
                   >
                     <Cell fill="#f97316" />
                     <Cell fill="#1e3a8a" />
@@ -976,6 +1002,7 @@ function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
       <Card className="mt-8 border-slate-200">
         <CardHeader><CardTitle className="text-base">Recent booking leads</CardTitle></CardHeader>
         <CardContent>
@@ -997,7 +1024,9 @@ function Dashboard() {
                     <TableCell className="font-medium">{l.listingTitle}</TableCell>
                     <TableCell className="text-slate-500">{l.vendor}</TableCell>
                     <TableCell>{l.priceLabel}</TableCell>
-                    <TableCell className="text-right font-semibold text-emerald-600">{l.currency === 'KES' ? `KES ${Math.round(l.priceValue * 0.05)}` : `$${l.commission}`}</TableCell>
+                    <TableCell className="text-right font-semibold text-emerald-600">
+                      {l.currency === 'KES' ? `KES ${Math.round(l.priceValue * 0.05)}` : `$${l.commission}`}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -1008,6 +1037,7 @@ function Dashboard() {
     </div>
   )
 }
+
 function EmptyChart() {
   return <div className="flex h-full items-center justify-center text-sm text-slate-400">No lead data yet</div>
 }
