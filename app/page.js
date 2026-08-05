@@ -1042,55 +1042,114 @@ function EmptyChart() {
   return <div className="flex h-full items-center justify-center text-sm text-slate-400">No lead data yet</div>
 }
 // ---------------------------------------------------------------------------
-// Admin
+// Admin Component
 // ---------------------------------------------------------------------------
 const EMPTY_FORM = {
-  type: 'safari', category: 'Safari Package', title: '', vendor: '', vendorOffice: '',
-  location: '', mapLink: '', description: '', includes: '', priceValue: '', currency: 'USD',
-  priceLabel: '', offPeakValue: '', offPeakLabel: '', season: '', image: '', keywords: ''
+  type: 'safari',
+  category: 'Safari Package',
+  title: '',
+  vendor: '',
+  vendorOffice: '',
+  location: '',
+  mapLink: '',
+  description: '',
+  includes: '',
+  priceValue: '',
+  currency: 'USD',
+  priceLabel: '',
+  offPeakValue: '',
+  offPeakLabel: '',
+  season: '',
+  image: '',
+  keywords: ''
 }
+
 function Admin() {
   const [listings, setListings] = useState([])
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
   const [seeding, setSeeding] = useState(false)
+
   const load = async () => {
-    const data = await fetch('/api/listings').then((r) => r.json())
-    setListings(Array.isArray(data) ? data : [])
+    try {
+      const data = await fetch('/api/listings').then((r) => r.json())
+      setListings(Array.isArray(data) ? data : [])
+    } catch (e) {
+      toast.error('Failed to load listings')
+    }
   }
+
   useEffect(() => { load() }, [])
+
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
+
   const submit = async () => {
-    if (!form.title) { toast.error('Title is required'); return }
+    if (!form.title.trim()) {
+      toast.error('Title is required')
+      return
+    }
+
     setSaving(true)
     try {
-      await fetch('/api/listings', {
+      // Clean and sanitize payload before submitting
+      const payload = {
+        ...form,
+        priceValue: form.priceValue ? Number(form.priceValue) : 0,
+        offPeakValue: form.offPeakValue ? Number(form.offPeakValue) : 0,
+        includes: typeof form.includes === 'string' 
+          ? form.includes.split(',').map((s) => s.trim()).filter(Boolean)
+          : form.includes,
+        keywords: typeof form.keywords === 'string'
+          ? form.keywords.split(',').map((s) => s.trim()).filter(Boolean)
+          : form.keywords
+      }
+
+      const res = await fetch('/api/listings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify(payload)
       })
+
+      if (!res.ok) throw new Error('Request failed')
+
       toast.success('Listing added')
       setForm(EMPTY_FORM)
       load()
-    } catch (e) { toast.error('Failed to add listing') }
-    finally { setSaving(false) }
+    } catch (e) {
+      toast.error('Failed to add listing')
+    } finally {
+      setSaving(false)
+    }
   }
+
   const remove = async (id) => {
-    await fetch(`/api/listings/${id}`, { method: 'DELETE' })
-    toast.success('Listing removed')
-    load()
+    try {
+      const res = await fetch(`/api/listings/${id}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error('Delete failed')
+      toast.success('Listing removed')
+      load()
+    } catch (e) {
+      toast.error('Failed to remove listing')
+    }
   }
+
   const seed = async () => {
     setSeeding(true)
     try {
       const res = await fetch('/api/seed', { method: 'POST' })
       const data = await res.json()
-      toast.success(`Seeded ${data.inserted} sample listings`)
+      toast.success(`Seeded ${data.inserted ?? 0} sample listings`)
       load()
-    } catch (e) { toast.error('Seed failed') }
-    finally { setSeeding(false) }
+    } catch (e) {
+      toast.error('Seed failed')
+    } finally {
+      setSeeding(false)
+    }
   }
-  const cats = form.type === 'safari' ? SAFARI_CATS.filter((c) => c !== 'All') : LOCAL_CATS.filter((c) => c !== 'All')
+
+  const availableCategories = (form.type === 'safari' ? SAFARI_CATS : LOCAL_CATS)
+    ?.filter((c) => c !== 'All') || []
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1102,15 +1161,23 @@ function Admin() {
           {seeding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} Reset & load sample data
         </Button>
       </div>
+
       <div className="mt-8 grid gap-8 lg:grid-cols-5">
-        {/* Form */}
+        {/* Form Card */}
         <Card className="border-slate-200 lg:col-span-2">
           <CardHeader><CardTitle className="text-base">Add a listing</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Label className="text-xs">Tier</Label>
-                <Select value={form.type} onValueChange={(v) => { set('type', v); set('category', (v === 'safari' ? SAFARI_CATS : LOCAL_CATS)[1]) }}>
+                <Select 
+                  value={form.type} 
+                  onValueChange={(v) => { 
+                    const catList = (v === 'safari' ? SAFARI_CATS : LOCAL_CATS).filter((c) => c !== 'All')
+                    set('type', v)
+                    set('category', catList[0] || '')
+                  }}
+                >
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="safari">Safari / Tourism</SelectItem>
@@ -1122,20 +1189,32 @@ function Admin() {
                 <Label className="text-xs">Category</Label>
                 <Select value={form.category} onValueChange={(v) => set('category', v)}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>{cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                  <SelectContent>
+                    {availableCategories.map((c) => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
+                    ))}
+                  </SelectContent>
                 </Select>
               </div>
             </div>
+
             <Field label="Title" v={form.title} on={(v) => set('title', v)} />
             <Field label="Vendor" v={form.vendor} on={(v) => set('vendor', v)} />
             <Field label="Vendor office" v={form.vendorOffice} on={(v) => set('vendorOffice', v)} />
             <Field label="Location" v={form.location} on={(v) => set('location', v)} />
             <Field label="Map link" v={form.mapLink} on={(v) => set('mapLink', v)} />
+
             <div>
               <Label className="text-xs">Description</Label>
-              <Textarea value={form.description} onChange={(e) => set('description', e.target.value)} rows={3} />
+              <Textarea 
+                value={form.description} 
+                onChange={(e) => set('description', e.target.value)} 
+                rows={3} 
+              />
             </div>
+
             <Field label="Includes (comma separated)" v={form.includes} on={(v) => set('includes', v)} />
+
             <div className="grid grid-cols-2 gap-3">
               <Field label="Price value (number)" v={form.priceValue} on={(v) => set('priceValue', v)} />
               <div>
@@ -1149,19 +1228,27 @@ function Admin() {
                 </Select>
               </div>
             </div>
+
             <div className="grid grid-cols-2 gap-3">
               <Field label="Price label" v={form.priceLabel} on={(v) => set('priceLabel', v)} ph="$350" />
               <Field label="Off-peak label" v={form.offPeakLabel} on={(v) => set('offPeakLabel', v)} ph="$280" />
             </div>
+
             <Field label="Season note" v={form.season} on={(v) => set('season', v)} ph="Low season: Apr-Jun" />
             <Field label="Image URL" v={form.image} on={(v) => set('image', v)} />
             <Field label="Keywords (comma separated)" v={form.keywords} on={(v) => set('keywords', v)} />
-            <Button onClick={submit} disabled={saving} className="w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
+
+            <Button 
+              onClick={submit} 
+              disabled={saving} 
+              className="w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]"
+            >
               {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />} Add listing
             </Button>
           </CardContent>
         </Card>
-        {/* Table */}
+
+        {/* Listings Table Card */}
         <Card className="border-slate-200 lg:col-span-3">
           <CardHeader><CardTitle className="text-base">All listings ({listings.length})</CardTitle></CardHeader>
           <CardContent>
@@ -1172,7 +1259,7 @@ function Admin() {
                     <TableHead>Title</TableHead>
                     <TableHead>Tier</TableHead>
                     <TableHead>Price</TableHead>
-                    <TableHead></TableHead>
+                    <TableHead className="w-[50px]"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -1183,11 +1270,21 @@ function Admin() {
                         <p className="text-xs text-slate-400">{l.vendor}</p>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge>
+                        <Badge 
+                          variant="secondary" 
+                          className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}
+                        >
+                          {l.type}
+                        </Badge>
                       </TableCell>
                       <TableCell className="text-sm">{l.priceLabel}</TableCell>
                       <TableCell className="text-right">
-                        <Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700">
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          onClick={() => remove(l.id)} 
+                          className="text-red-500 hover:text-red-700"
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </TableCell>
@@ -1195,14 +1292,20 @@ function Admin() {
                   ))}
                 </TableBody>
               </Table>
-              {listings.length === 0 && <p className="py-10 text-center text-slate-400">No listings yet. Click "Reset & load sample data".</p>}
+              {listings.length === 0 && (
+                <p className="py-10 text-center text-slate-400">
+                  No listings yet. Click "Reset & load sample data".
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
   )
-}function Field({ label, v, on, ph }) {
+}
+
+function Field({ label, v, on, ph }) {
   return (
     <div>
       <Label className="text-xs">{label}</Label>
