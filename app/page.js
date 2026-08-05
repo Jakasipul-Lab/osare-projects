@@ -414,15 +414,89 @@ function AboutView() {
                 ? <a href={n.href} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</a>
                 : <button onClick={() => setView(n.key)} key={n.key} className="text-sm font-bold transition-colors hover:text-[#f97316]">{n.label}</button>
             ))}
-            <Button onClick={() => go('safari')} className="bg-[#1e3a8a] text-white font-bold">Discovery</Button>
+           import React, { useState, useEffect, useCallback } from 'react'
+import { Mountain, Hotel, Car, Plane, Binoculars, Bus, Compass } from 'lucide-react'
+
+// ==========================================
+// CONSTANTS & HELPERS
+// ==========================================
+const HERO =
+  "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&q=85";
+
+const LOCAL_HERO =
+  "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85";
+
+const NAV = [
+  { key: 'home', label: 'Home' },
+  { key: 'safari', label: 'Safari' },
+  { key: 'local', label: 'Local Transit' },
+  { key: 'about', label: 'About' },
+  { key: 'vendor', label: 'Vendor Portal' },
+];
+
+const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing'];
+const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer'];
+const CHART_COLORS = ['#f97316', '#1e3a8a', '#3b82f6', '#10b981', '#eab308', '#8b5cf6', '#ef4444'];
+
+const catIcon = (cat) => {
+  if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />;
+  if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />;
+  if (/car|caravan/i.test(cat)) return <Car className="h-4 w-4" />;
+  if (/aircraft/i.test(cat)) return <Plane className="h-4 w-4" />;
+  if (/sightseeing/i.test(cat)) return <Binoculars className="h-4 w-4" />;
+  if (/train/i.test(cat)) return <Bus className="h-4 w-4" />;
+  if (/taxi/i.test(cat)) return <Car className="h-4 w-4" />;
+  if (/matatu|shuttle/i.test(cat)) return <Bus className="h-4 w-4" />;
+  if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />;
+  return <Compass className="h-4 w-4" />;
+};
+
+// ---------------------------------------------------------------------------
+// Sub-Components Placeholders (Ensure these are defined in your file)
+// ---------------------------------------------------------------------------
+const HomeView = ({ go }) => <div className="p-8 text-center">Home View Content</div>;
+const TierExplorer = ({ type, q }) => <div className="p-8 text-center">Explorer View: {type}</div>;
+const AboutView = () => <div className="p-8 text-center">About View Content</div>;
+
+// ==========================================
+// MAIN PAGE COMPONENT
+// ==========================================
+export default function Page() {
+  const [view, setView] = useState('home');
+  const [params, setParams] = useState({ type: 'safari', q: '' });
+
+  const go = (targetView, newParams = {}) => {
+    setView(targetView);
+    setParams(prev => ({ ...prev, ...newParams }));
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
+      <div>
+        {/* Navigation Bar */}
+        <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
+          <div className="mx-auto max-w-7xl px-5 h-16 flex items-center justify-between">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => go('home')}>
+              <Mountain className="h-6 w-6 text-[#1e3a8a]" />
+              <span className="font-bold text-lg text-slate-900">OSARE Safaries</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <button onClick={() => go('safari')} className="bg-[#1e3a8a] text-white font-bold px-4 py-2 rounded-lg text-sm">
+                Discovery
+              </button>
+            </div>
           </div>
-        </div>
-      </nav>
-      {view === 'home' && <HomeView go={go} />}
-      {view === 'explorer' && <TierExplorer type={params.type} />}
-      {view === 'safari' && <TierExplorer type="safari" q={params.q} />}
-      {view === 'local' && <TierExplorer type="local" q={params.q} />}
-      {view === 'about' && <AboutView />}
+        </nav>
+
+        {/* Dynamic Views */}
+        {view === 'home' && <HomeView go={go} />}
+        {view === 'explorer' && <TierExplorer type={params.type} />}
+        {view === 'safari' && <TierExplorer type="safari" q={params.q} />}
+        {view === 'local' && <TierExplorer type="local" q={params.q} />}
+        {view === 'about' && <AboutView />}
+      </div>
+
+      {/* Footer */}
       <footer className="border-t border-slate-200 bg-slate-50 py-16 mt-20">
         <div className="mx-auto max-w-7xl px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-400">Copyright 2026 OSARE - easafariroutes.com. Built by nakinson osare.</p>
@@ -431,18 +505,9 @@ function AboutView() {
             <a href="/admin" className="text-xs font-bold text-slate-500 hover:text-[#1e3a8a] transition-colors">Admin</a>
           </div>
         </div>
-
-// Imports at very top
-import React, { useState, useEffect, useCallback } from 'react'
-import { Mountain } from 'lucide-react'
-
-// component code
-export default function Page() {
-  return (
-    <div>
-      Content
+      </footer>
     </div>
-  )
+  );
 }
 // ==========================================
 // 2. CONSTANTS & HELPERS
