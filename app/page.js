@@ -435,18 +435,34 @@ function AboutView() {
 // ==========================================
 // 1. TOP OF FILE: IMPORTS
 // ==========================================
-import React from 'react'
-import { 
-  Mountain, 
-  Hotel, 
-  Car, 
-  Plane, 
-  Binoculars, 
-  Bus, 
-  Compass 
+import React, { useState, useEffect, useCallback } from 'react'
+import {
+  Mountain,
+  Hotel,
+  Car,
+  Plane,
+  Binoculars,
+  Bus,
+  Compass,
+  Building2,
+  Loader2,
+  MessageCircle,
+  Percent,
+  Trash2,
+  Plus,
+  ArrowRight,
+  Menu,
+  X,
+  Phone,
+  MapPin,
+  Search
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select'
@@ -467,6 +483,13 @@ const HERO =
 const LOCAL_HERO =
   "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85";
 
+const NAV = [
+  { key: 'home', label: 'Home' },
+  { key: 'safari', label: 'Safari' },
+  { key: 'local', label: 'Local Transit' },
+  { key: 'about', label: 'About' },
+  { key: 'vendor', label: 'Vendor Portal' },
+];
 const NAV = [
   { key: 'home', label: 'Home' },
   { key: 'safari', label: 'Safari' },
