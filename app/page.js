@@ -541,19 +541,20 @@ function ListingCard({ item, onBook, booking }) {
       </CardContent>
     </Card>
   )
-}
-// ---------------------------------------------------------------------------
+}// ---------------------------------------------------------------------------
 // Search + results section (shared by Safari & Local)
 // ---------------------------------------------------------------------------
 function TierExplorer({ type }) {
   const isSafari = type === 'safari'
   const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
   const accent = isSafari ? '#f97316' : '#1e3a8a'
+  
   const [q, setQ] = useState('')
   const [cat, setCat] = useState('All')
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
+
   const load = useCallback(async () => {
     setLoading(true)
     try {
@@ -569,8 +570,11 @@ function TierExplorer({ type }) {
       setLoading(false)
     }
   }, [type, q, cat])
-  useEffect(() => { load() }, [cat]) // eslint-disable-line
-  useEffect(() => { load() }, []) // eslint-disable-line
+
+  useEffect(() => {
+    load()
+  }, [load])
+
   const handleBook = async (item) => {
     setBooking(item.id)
     try {
@@ -588,17 +592,32 @@ function TierExplorer({ type }) {
       setBooking(null)
     }
   }
+
   return (
     <div>
       {/* Banner */}
       <div className="relative h-64 w-full overflow-hidden">
         <img src={isSafari ? HERO : LOCAL_HERO} alt="banner" className="h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: isSafari ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))' : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' }} />
+        <div 
+          className="absolute inset-0" 
+          style={{ 
+            background: isSafari 
+              ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))' 
+              : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' 
+          }} 
+        />
         <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
-          <h1 className="text-3xl font-extrabold md:text-4xl">{isSafari ? 'Tourist Assistance — East Africa' : 'Local Commute — Nairobi & Beyond'}</h1>
-          <p className="mt-2 max-w-2xl text-white/90">{isSafari ? 'Safaris, Kilimanjaro climbs, hotels, car & aircraft hire — compare and book instantly.' : 'Compare matatus, SGR trains, taxis & airport shuttles across Nairobi CBD and its environs.'}</p>
+          <h1 className="text-3xl font-extrabold md:text-4xl">
+            {isSafari ? 'Tourist Assistance — East Africa' : 'Local Commute — Nairobi & Beyond'}
+          </h1>
+          <p className="mt-2 max-w-2xl text-white/90">
+            {isSafari 
+              ? 'Safaris, Kilimanjaro climbs, hotels, car & aircraft hire — compare and book instantly.' 
+              : 'Compare matatus, SGR trains, taxis & airport shuttles across Nairobi CBD and its environs.'}
+          </p>
         </div>
       </div>
+
       {/* Search bar */}
       <div className="mx-auto -mt-8 max-w-4xl px-5">
         <Card className="border-slate-200 shadow-lg">
@@ -625,13 +644,18 @@ function TierExplorer({ type }) {
           </CardContent>
         </Card>
       </div>
+
       {/* Results */}
       <div className="mx-auto max-w-7xl px-5 py-10">
         <div className="mb-5 flex items-center justify-between">
-          <p className="text-sm text-slate-500">{loading ? 'Searching…' : `${items.length} option${items.length === 1 ? '' : 's'} found`}</p>
+          <p className="text-sm text-slate-500">
+            {loading ? 'Searching…' : `${items.length} option${items.length === 1 ? '' : 's'} found`}
+          </p>
         </div>
         {loading ? (
-          <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+          <div className="flex justify-center py-20">
+            <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+          </div>
         ) : items.length === 0 ? (
           <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
             No matches found. Try broader terms like {isSafari ? '"safari", "beach", "hotel"' : '"train", "taxi", "matatu"'}.
