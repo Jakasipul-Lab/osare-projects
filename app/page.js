@@ -491,23 +491,8 @@ const catIcon = (cat) => {
   return <Compass className="h-4 w-4" />
 }
 
-// ==========================================
-// 3. MAIN APP COMPONENT
-// ==========================================
-function App() {
-  return (
-    <div>
-      {/* Your UI code sits inside here */}
-    </div>
-  )
-}
-
-// ==========================================
-// 4. BOTTOM OF FILE: EXPORT STATEMENT
-// ==========================================
-export default App;
 // ---------------------------------------------------------------------------
-// Listing card
+// Sub-Components
 // ---------------------------------------------------------------------------
 function ListingCard({ item, onBook, booking }) {
   const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
