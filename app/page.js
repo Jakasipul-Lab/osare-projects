@@ -417,10 +417,14 @@ function AboutView() {
            import React, { useState, useEffect, useCallback } from 'react'
 import { Mountain, Hotel, Car, Plane, Binoculars, Bus, Compass } from 'lucide-react'
 
-export default function Page() {
-  // --- Constants placed properly inside the function ---
-  const HERO = "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&q=85";
-  const LOCAL_HERO = "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85";
+// ==========================================
+// CONSTANTS & HELPERS
+// ==========================================
+const HERO =
+  "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&q=85";
+
+const LOCAL_HERO =
+  "https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85";
   
   return (
     <main>
