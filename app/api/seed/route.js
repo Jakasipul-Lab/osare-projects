@@ -1,3 +1,20 @@
+// pages/api/seed.js
+
+import { requireAdmin } from '../../lib/auth';
+
+export default async function handler(req, res) {
+  const auth = await requireAdmin(req);
+  if (auth.error) {
+    return res.status(auth.status).json({ error: auth.error });
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Only POST allowed' });
+  }
+
+  // seed-Logik hier
+  return res.status(200).json({ inserted: 0 });
+}
 import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
 import { query } from '@/lib/db'
