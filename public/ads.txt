@@ -1,2 +1,1 @@
-osare-projects/public/ads.txt
-osare-projects/public/favicon.ico
+google.com, pub-5760405093106435, DIRECT, f08c47fec0942fa0
