@@ -1,36 +1,3 @@
-// ---------------------------------------------------------------------------
-// FILE 1: app/layout.js
-// Add the AdSense script to your root layout so it loads on every page.
-// Replace ca-pub-XXXXXXXXXXXXXXXX with YOUR publisher ID once Google approves you
-// (you'll find it in your AdSense account under Account > Settings).
-// ---------------------------------------------------------------------------
-//
-// Inside the <head> of your existing layout.js, add:
-//
-// <script
-//   async
-//   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-//   crossOrigin="anonymous"
-// />
-//
-// If your layout.js uses next/script instead, use:
-//
-// import Script from 'next/script'
-// <Script
-//   async
-//   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-//   crossOrigin="anonymous"
-//   strategy="afterInteractive"
-// />
-
-// ---------------------------------------------------------------------------
-// FILE 2: components/AdSlot.jsx
-// A reusable ad component. Drop <AdSlot slot="1234567890" /> anywhere you
-// want an ad to appear (e.g. between listing rows, in the sidebar, at the
-// bottom of the About page). Until you're approved, this renders nothing
-// visible, so it's safe to add now.
-// ---------------------------------------------------------------------------
-
 'use client'
 import { useEffect, useRef } from 'react'
 
