@@ -1,0 +1,2 @@
+osare-projects/public/ads.txt
+osare-projects/public/favicon.ico
