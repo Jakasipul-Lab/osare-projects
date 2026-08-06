@@ -1,0 +1,60 @@
+// pages/api/listings/index.js
+
+import { requireAdmin, requireVendor } from '../../../lib/auth';
+import { db } from '../../../lib/db';
+
+export default async function handler(req, res) {
+  if (req.method === 'GET') {
+    // ✅ GET ist öffentlich — aber nur Live-Listings
+    const listings = await db.query(
+      'SELECT id, title, vendor, category, price FROM listings WHERE published = true'
+    );
+    return res.status(200).json(listings);
+  }
+
+  if (req.method === 'POST') {
+    // ❌ POST muss authentifiziert sein
+    const auth = await requireVendor(req);
+    if (auth.error) {
+      return res.status(auth.status).json({ error: auth.error });
+    }
+
+    // ❌ Vendor kann NICHT direkt posten (nur Admin oder genehmigt)
+    // For now: Nur Admins dürfen neue Listings anlegen
+    if (auth.role !== 'admin') {
+      return res.status(403).json({ error: 'Vendors cannot add listings yet' });
+    }
+
+    const { title, vendor, category, price, image } = req.body;
+
+    // ✅ Server validiert ALLES (nie dem Browser vertrauen)
+    if (!title || title.length < 3) {
+      return res.status(400).json({ error: 'Title too short' });
+    }
+    if (!vendor || vendor.length < 2) {
+      return res.status(400).json({ error: 'Vendor name required' });
+    }
+
+    // Später: Vendor-eigene Listings
+    const listing = await db.query(
+      'INSERT INTO listings (title, vendor, category, price, image, published) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [title, vendor, category, price, image, false] // false = Wartet auf Admin-Genehmigung
+    );
+
+    return res.status(201).json(listing);
+  }
+
+  if (req.method === 'DELETE') {
+    // ❌ DELETE darf NUR Admin
+    const auth = await requireAdmin(req);
+    if (auth.error) {
+      return res.status(auth.status).json({ error: auth.error });
+    }
+
+    const { id } = req.query;
+    await db.query('DELETE FROM listings WHERE id = $1', [id]);
+    return res.status(200).json({ success: true });
+  }
+
+  return res.status(405).json({ error: 'Method not allowed' });
+}
