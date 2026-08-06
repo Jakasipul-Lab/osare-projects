@@ -47,10 +47,7 @@ export default function AdSlot({ slot, format = 'auto', style }) {
 //     </>
 //   ))}
 // </div>
-//
-// You get real ad slot IDs from your AdSense dashboard after approval,
-// under Ads > By ad unit > create a "Display ad" unit for each placement.
-'use client'
+
 import { useEffect, useState, useCallback } from 'react'
 import {
   Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
