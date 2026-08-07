@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react'
 import {
   Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
   Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
-  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag, ExternalLink
+  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -14,36 +14,28 @@ import { Badge } from '@/components/ui/badge'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import {
-  Table, TableHeader, TableRow, TableHead, TableBody, TableCell
-} from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
 import {
-  ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Bar, Cell, PieChart, Pie
+  BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from 'recharts'
-
-// ==========================================
-// CONSTANTS & HELPERS
-// ==========================================
-const HERO =
-  'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&q=85'
-const LOCAL_HERO =
-  'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&q=85'
-
+import RecentLeads from '@/components/vendor/RecentLeads'
+const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
+const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 const NAV = [
   { key: 'home', label: 'Home' },
   { key: 'safari', label: 'Safari' },
   { key: 'local', label: 'Local Transit' },
-  { key: 'vendor', label: 'Vendor Portal' },
   { key: 'about', label: 'About' },
+  { key: 'dashboard', label: 'Dashboard' },
+  { key: 'vendor', label: 'Vendor Portal' },
+  { key: 'admin', label: 'Admin' },
 ]
-
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
 const CHART_COLORS = ['#f97316', '#1e3a8a', '#3b82f6', '#10b981', '#eab308', '#8b5cf6', '#ef4444']
-
 const catIcon = (cat) => {
   if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
   if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
@@ -56,10 +48,6 @@ const catIcon = (cat) => {
   if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />
   return <Compass className="h-4 w-4" />
 }
-
-// ---------------------------------------------------------------------------
-// ListingCard
-// ---------------------------------------------------------------------------
 function ListingCard({ item, onBook, booking }) {
   const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
   return (
@@ -108,21 +96,15 @@ function ListingCard({ item, onBook, booking }) {
     </Card>
   )
 }
-
-// ---------------------------------------------------------------------------
-// TierExplorer (search + results, shared by Safari & Local)
-// ---------------------------------------------------------------------------
 function TierExplorer({ type }) {
   const isSafari = type === 'safari'
   const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
   const accent = isSafari ? '#f97316' : '#1e3a8a'
-
   const [q, setQ] = useState('')
   const [cat, setCat] = useState('All')
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
-
   const load = useCallback(async () => {
     setLoading(true)
     try {
@@ -138,9 +120,8 @@ function TierExplorer({ type }) {
       setLoading(false)
     }
   }, [type, q, cat])
-
-  useEffect(() => { load() }, [load])
-
+  useEffect(() => { load() }, [cat]) // eslint-disable-line
+  useEffect(() => { load() }, []) // eslint-disable-line
   const handleBook = async (item) => {
     setBooking(item.id)
     try {
@@ -158,31 +139,16 @@ function TierExplorer({ type }) {
       setBooking(null)
     }
   }
-
   return (
     <div>
       <div className="relative h-64 w-full overflow-hidden">
         <img src={isSafari ? HERO : LOCAL_HERO} alt="banner" className="h-full w-full object-cover" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: isSafari
-              ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))'
-              : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))'
-          }}
-        />
+        <div className="absolute inset-0" style={{ background: isSafari ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))' : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' }} />
         <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
-          <h1 className="text-3xl font-extrabold md:text-4xl">
-            {isSafari ? 'Tourist Assistance — East Africa' : 'Local Commute — Nairobi & Beyond'}
-          </h1>
-          <p className="mt-2 max-w-2xl text-white/90">
-            {isSafari
-              ? 'Safaris, Kilimanjaro climbs, hotels, car & aircraft hire — compare and book instantly.'
-              : 'Compare matatus, SGR trains, taxis & airport shuttles across Nairobi CBD and its environs.'}
-          </p>
+          <h1 className="text-3xl font-extrabold md:text-4xl">{isSafari ? 'Tourist Assistance — East Africa' : 'Local Commute — Nairobi & Beyond'}</h1>
+          <p className="mt-2 max-w-2xl text-white/90">{isSafari ? 'Safaris, Kilimanjaro climbs, hotels, car & aircraft hire — compare and book instantly.' : 'Compare matatus, SGR trains, taxis & airport shuttles across Nairobi CBD and its environs.'}</p>
         </div>
       </div>
-
       <div className="mx-auto -mt-8 max-w-4xl px-5">
         <Card className="border-slate-200 shadow-lg">
           <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center">
@@ -208,17 +174,12 @@ function TierExplorer({ type }) {
           </CardContent>
         </Card>
       </div>
-
       <div className="mx-auto max-w-7xl px-5 py-10">
         <div className="mb-5 flex items-center justify-between">
-          <p className="text-sm text-slate-500">
-            {loading ? 'Searching…' : `${items.length} option${items.length === 1 ? '' : 's'} found`}
-          </p>
+          <p className="text-sm text-slate-500">{loading ? 'Searching…' : `${items.length} option${items.length === 1 ? '' : 's'} found`}</p>
         </div>
         {loading ? (
-          <div className="flex justify-center py-20">
-            <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
-          </div>
+          <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
         ) : items.length === 0 ? (
           <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
             No matches found. Try broader terms like {isSafari ? '"safari", "beach", "hotel"' : '"train", "taxi", "matatu"'}.
@@ -232,16 +193,12 @@ function TierExplorer({ type }) {
     </div>
   )
 }
-
-// ---------------------------------------------------------------------------
-// Home
-// ---------------------------------------------------------------------------
 function Home({ go }) {
   const [q, setQ] = useState('')
   const [tier, setTier] = useState('safari')
-
-  const search = () => { go(tier, q) }
-
+  const search = () => {
+    go(tier, q)
+  }
   return (
     <div>
       <div className="relative min-h-[560px] w-full overflow-hidden">
@@ -255,22 +212,12 @@ function Home({ go }) {
             OSARE — East Africa<br className="hidden md:block" /> Safari Routes & Transit
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-white/90">
-            Everything a tourist or local needs at their fingertips. Compare safaris, Kilimanjaro climbs, hotels, car & aircraft hire — and Nairobi transit — then book direct.
+            Everything a tourist or local needs at their fingertips. Compare safaris, Kilimanjaro climbs, hotels, car & aircraft hire — and Nairobi transit — then book direct. What you see is what you get.
           </p>
           <div className="mt-8 w-full max-w-2xl">
             <div className="mb-3 flex justify-center gap-3">
-              <button
-                onClick={() => setTier('safari')}
-                className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
-              >
-                Tourist Assistance
-              </button>
-              <button
-                onClick={() => setTier('local')}
-                className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30'}`}
-              >
-                Local Commute
-              </button>
+              <button onClick={() => setTier('safari')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}>Tourist Assistance</button>
+              <button onClick={() => setTier('local')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30'}`}>Local Commute</button>
             </div>
             <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl">
               <div className="relative flex-1">
@@ -290,7 +237,6 @@ function Home({ go }) {
           </div>
         </div>
       </div>
-
       <div className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="text-center text-3xl font-extrabold text-slate-900">Two platforms. One trusted hub.</h2>
         <p className="mt-2 text-center text-slate-500">Choose your journey.</p>
@@ -317,7 +263,6 @@ function Home({ go }) {
           </button>
         </div>
       </div>
-
       <div className="bg-slate-50 py-16">
         <div className="mx-auto max-w-6xl px-5">
           <h2 className="text-center text-3xl font-extrabold text-slate-900">Why OSARE</h2>
@@ -342,10 +287,6 @@ function Home({ go }) {
     </div>
   )
 }
-
-// ---------------------------------------------------------------------------
-// About
-// ---------------------------------------------------------------------------
 function About() {
   const branches = [
     { region: 'Kisumu Headquarters', name: 'Mrs Jacqueline Susan Nakinson', role: 'Officer-in-Charge', country: 'Kenya' },
@@ -354,22 +295,16 @@ function About() {
     { region: 'Tanzania — Dar es Salaam', name: 'Johnson Yongo', role: 'Branch Manager', country: 'Tanzania' },
     { region: 'Germany Branch', name: 'Brunnenstraße 48', role: '34537, Bad Wildungen', country: 'Germany' },
   ]
-
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
-      <Badge className="gap-1 bg-[#f97316] text-white border-0">
-        <Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes
-      </Badge>
-      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">
-        Connecting East Africa through trusted travel &amp; logistics.
-      </h1>
+      <Badge className="gap-1 bg-[#f97316] text-white border-0"><Leaf className="h-3 w-3" /> About OSARE — EA SafariRoutes</Badge>
+      <h1 className="mt-4 text-4xl font-extrabold text-slate-900">Connecting East Africa through trusted travel & logistics.</h1>
       <p className="mt-4 text-lg text-slate-600">
         OSARE is a regional travel access and logistics platform designed to connect users to railway, bus, and private transport systems across East Africa. It also serves tourists with safaris, Kilimanjaro climbs, hotels, car &amp; aircraft hire and sightseeing.
       </p>
       <p className="mt-3 text-lg text-slate-600">
-        The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration.
+        The platform acts as a structured routing gateway, allowing users to access existing transport systems through a unified entry point while enabling tracking, analysis, and scalable business integration. Our goal: put reliable, trustworthy information at everyone's fingertips.
       </p>
-
       <div className="mt-12 grid items-center gap-8 rounded-2xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 md:grid-cols-[220px_1fr]">
         <img
           src="https://github.com/Jakasipul-Lab.png"
@@ -385,31 +320,11 @@ function About() {
           </p>
         </div>
       </div>
-
       <div className="mt-12 grid gap-6 md:grid-cols-3">
-        <Card className="border-slate-200">
-          <CardContent className="p-6">
-            <Users className="h-7 w-7 text-[#1e3a8a]" />
-            <h3 className="mt-3 font-bold">For tourists</h3>
-            <p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p>
-          </CardContent>
-        </Card>
-        <Card className="border-slate-200">
-          <CardContent className="p-6">
-            <Building2 className="h-7 w-7 text-[#1e3a8a]" />
-            <h3 className="mt-3 font-bold">For vendors</h3>
-            <p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p>
-          </CardContent>
-        </Card>
-        <Card className="border-slate-200">
-          <CardContent className="p-6">
-            <Percent className="h-7 w-7 text-emerald-600" />
-            <h3 className="mt-3 font-bold">Our revenue</h3>
-            <p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p>
-          </CardContent>
-        </Card>
+        <Card className="border-slate-200"><CardContent className="p-6"><Users className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For tourists</h3><p className="mt-1 text-sm text-slate-500">Compare options with photos, prices and off-peak deals. Book direct via WhatsApp or online.</p></CardContent></Card>
+        <Card className="border-slate-200"><CardContent className="p-6"><Building2 className="h-7 w-7 text-[#1e3a8a]" /><h3 className="mt-3 font-bold">For vendors</h3><p className="mt-1 text-sm text-slate-500">Reach travellers directly. We charge a simple 5% on confirmed bookings.</p></CardContent></Card>
+        <Card className="border-slate-200"><CardContent className="p-6"><Percent className="h-7 w-7 text-emerald-600" /><h3 className="mt-3 font-bold">Our revenue</h3><p className="mt-1 text-sm text-slate-500">5% commission paid by vendors — never by the tourist. Fair and transparent.</p></CardContent></Card>
       </div>
-
       <div className="mt-14">
         <h2 className="text-2xl font-extrabold text-slate-900">Regional Headquarters &amp; Branches</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -428,7 +343,6 @@ function About() {
           ))}
         </div>
       </div>
-
       <Card className="mt-12 border-slate-200 bg-slate-50">
         <CardContent className="p-6">
           <h3 className="font-bold text-slate-900">Contact &amp; booking</h3>
@@ -441,19 +355,10 @@ function About() {
     </div>
   )
 }
-
-// ---------------------------------------------------------------------------
-// Dashboard
-// ---------------------------------------------------------------------------
-function EmptyChart() {
-  return <div className="flex h-full items-center justify-center text-sm text-slate-400">No lead data yet</div>
-}
-
 function Dashboard() {
   const [stats, setStats] = useState(null)
   const [leads, setLeads] = useState([])
   const [loading, setLoading] = useState(true)
-
   const load = async () => {
     setLoading(true)
     try {
@@ -469,24 +374,14 @@ function Dashboard() {
       setLoading(false)
     }
   }
-
   useEffect(() => { load() }, [])
-
-  if (loading || !stats) {
-    return (
-      <div className="flex justify-center py-24">
-        <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
-      </div>
-    )
-  }
-
+  if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
   const cards = [
-    { label: 'Total Listings', value: stats?.totalListings ?? 0, icon: <Compass className="h-5 w-5" />, color: '#1e3a8a' },
-    { label: 'Booking Leads', value: stats?.totalLeads ?? 0, icon: <MessageCircle className="h-5 w-5" />, color: '#f97316' },
-    { label: 'Est. Commission (5%)', value: `$${stats?.estRevenueUSD ?? 0}`, icon: <Percent className="h-5 w-5" />, color: '#10b981' },
-    { label: 'Safari / Local', value: `${stats?.safariCount ?? 0} / ${stats?.localCount ?? 0}`, icon: <Users className="h-5 w-5" />, color: '#3b82f6' },
+    { label: 'Total Listings', value: stats.totalListings, icon: <Compass className="h-5 w-5" />, color: '#1e3a8a' },
+    { label: 'Booking Leads', value: stats.totalLeads, icon: <MessageCircle className="h-5 w-5" />, color: '#f97316' },
+    { label: 'Est. Commission (5%)', value: `$${stats.estRevenueUSD}`, icon: <Percent className="h-5 w-5" />, color: '#10b981' },
+    { label: 'Safari / Local', value: `${stats.safariCount} / ${stats.localCount}`, icon: <Users className="h-5 w-5" />, color: '#3b82f6' },
   ]
-
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
       <div className="flex items-center justify-between">
@@ -496,61 +391,46 @@ function Dashboard() {
         </div>
         <Button variant="outline" onClick={load}>Refresh</Button>
       </div>
-
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((c, i) => (
           <Card key={i} className="border-slate-200">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-slate-500">{c.label}</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: c.color }}>
-                  {c.icon}
-                </span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: c.color }}>{c.icon}</span>
               </div>
               <p className="mt-3 text-3xl font-extrabold text-slate-900">{c.value}</p>
             </CardContent>
           </Card>
         ))}
       </div>
-
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <Card className="border-slate-200">
           <CardHeader><CardTitle className="text-base">Leads by category</CardTitle></CardHeader>
           <CardContent className="h-72">
-            {stats?.leadsByCategory?.length ? (
+            {stats.leadsByCategory?.length ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats.leadsByCategory}>
                   <XAxis dataKey="name" tick={{ fontSize: 11 }} interval={0} angle={-15} textAnchor="end" height={60} />
                   <YAxis allowDecimals={false} />
                   <Tooltip />
                   <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                    {stats.leadsByCategory.map((e, i) => (
-                      <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-                    ))}
+                    {stats.leadsByCategory.map((e, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
             ) : <EmptyChart />}
           </CardContent>
         </Card>
-
         <Card className="border-slate-200">
           <CardHeader><CardTitle className="text-base">Safari vs Local leads</CardTitle></CardHeader>
           <CardContent className="h-72">
-            {stats?.leadsByType ? (
+            {stats.totalLeads ? (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={[
-                      { name: 'Safari', value: stats.leadsByType.safari || 0 },
-                      { name: 'Local', value: stats.leadsByType.local || 0 }
-                    ]}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={90}
-                    label
+                    data={[{ name: 'Safari', value: stats.leadsByType.safari }, { name: 'Local', value: stats.leadsByType.local }]}
+                    dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} label
                   >
                     <Cell fill="#f97316" />
                     <Cell fill="#1e3a8a" />
@@ -562,158 +442,62 @@ function Dashboard() {
           </CardContent>
         </Card>
       </div>
-
-      <Card className="mt-8 border-slate-200">
-        <CardHeader><CardTitle className="text-base">Recent booking leads</CardTitle></CardHeader>
-        <CardContent>
-          {leads.length === 0 ? (
-            <p className="py-8 text-center text-slate-400">No booking leads yet. Book a listing to see it here.</p>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Listing</TableHead>
-                  <TableHead>Vendor</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead className="text-right">Est. 5%</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {leads.slice(0, 15).map((l) => (
-                  <TableRow key={l.id}>
-                    <TableCell className="font-medium">{l.listingTitle}</TableCell>
-                    <TableCell className="text-slate-500">{l.vendor}</TableCell>
-                    <TableCell>{l.priceLabel}</TableCell>
-                    <TableCell className="text-right font-semibold text-emerald-600">
-                      {l.currency === 'KES' ? `KES ${Math.round(l.priceValue * 0.05)}` : `$${l.commission}`}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
-        </CardContent>
-      </Card>
+      <div className="mt-8">
+        <RecentLeads leads={leads} showVendorColumn />
+      </div>
     </div>
   )
 }
-
-// ---------------------------------------------------------------------------
-// Shared form field
-// ---------------------------------------------------------------------------
-function Field({ label, v, on, ph }) {
-  return (
-    <div>
-      <Label className="text-xs">{label}</Label>
-      <Input value={v} onChange={(e) => on(e.target.value)} placeholder={ph} />
-    </div>
-  )
+function EmptyChart() {
+  return <div className="flex h-full items-center justify-center text-sm text-slate-400">No lead data yet</div>
 }
-
-// ---------------------------------------------------------------------------
-// Admin
-// ---------------------------------------------------------------------------
 const EMPTY_FORM = {
-  type: 'safari',
-  category: 'Safari Package',
-  title: '',
-  vendor: '',
-  vendorOffice: '',
-  location: '',
-  mapLink: '',
-  description: '',
-  includes: '',
-  priceValue: '',
-  currency: 'USD',
-  priceLabel: '',
-  offPeakValue: '',
-  offPeakLabel: '',
-  season: '',
-  image: '',
-  keywords: ''
+  type: 'safari', category: 'Safari Package', title: '', vendor: '', vendorOffice: '',
+  location: '', mapLink: '', description: '', includes: '', priceValue: '', currency: 'USD',
+  priceLabel: '', offPeakValue: '', offPeakLabel: '', season: '', image: '', keywords: ''
 }
-
 function Admin() {
   const [listings, setListings] = useState([])
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
   const [seeding, setSeeding] = useState(false)
-
   const load = async () => {
-    try {
-      const data = await fetch('/api/listings').then((r) => r.json())
-      setListings(Array.isArray(data) ? data : [])
-    } catch (e) {
-      toast.error('Failed to load listings')
-    }
+    const data = await fetch('/api/listings').then((r) => r.json())
+    setListings(Array.isArray(data) ? data : [])
   }
-
   useEffect(() => { load() }, [])
-
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
-
   const submit = async () => {
-    if (!form.title.trim()) {
-      toast.error('Title is required')
-      return
-    }
+    if (!form.title) { toast.error('Title is required'); return }
     setSaving(true)
     try {
-      const payload = {
-        ...form,
-        priceValue: form.priceValue ? Number(form.priceValue) : 0,
-        offPeakValue: form.offPeakValue ? Number(form.offPeakValue) : 0,
-        includes: typeof form.includes === 'string'
-          ? form.includes.split(',').map((s) => s.trim()).filter(Boolean)
-          : form.includes,
-        keywords: typeof form.keywords === 'string'
-          ? form.keywords.split(',').map((s) => s.trim()).filter(Boolean)
-          : form.keywords
-      }
-      const res = await fetch('/api/listings', {
+      await fetch('/api/listings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(form)
       })
-      if (!res.ok) throw new Error('Request failed')
       toast.success('Listing added')
       setForm(EMPTY_FORM)
       load()
-    } catch (e) {
-      toast.error('Failed to add listing')
-    } finally {
-      setSaving(false)
-    }
+    } catch (e) { toast.error('Failed to add listing') }
+    finally { setSaving(false) }
   }
-
   const remove = async (id) => {
-    try {
-      const res = await fetch(`/api/listings/${id}`, { method: 'DELETE' })
-      if (!res.ok) throw new Error('Delete failed')
-      toast.success('Listing removed')
-      load()
-    } catch (e) {
-      toast.error('Failed to remove listing')
-    }
+    await fetch(`/api/listings/${id}`, { method: 'DELETE' })
+    toast.success('Listing removed')
+    load()
   }
-
   const seed = async () => {
     setSeeding(true)
     try {
       const res = await fetch('/api/seed', { method: 'POST' })
       const data = await res.json()
-      toast.success(`Seeded ${data.inserted ?? 0} sample listings`)
+      toast.success(`Seeded ${data.inserted} sample listings`)
       load()
-    } catch (e) {
-      toast.error('Seed failed')
-    } finally {
-      setSeeding(false)
-    }
+    } catch (e) { toast.error('Seed failed') }
+    finally { setSeeding(false) }
   }
-
-  const availableCategories = (form.type === 'safari' ? SAFARI_CATS : LOCAL_CATS)
-    ?.filter((c) => c !== 'All') || []
-
+  const cats = form.type === 'safari' ? SAFARI_CATS.filter((c) => c !== 'All') : LOCAL_CATS.filter((c) => c !== 'All')
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -725,7 +509,6 @@ function Admin() {
           {seeding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} Reset & load sample data
         </Button>
       </div>
-
       <div className="mt-8 grid gap-8 lg:grid-cols-5">
         <Card className="border-slate-200 lg:col-span-2">
           <CardHeader><CardTitle className="text-base">Add a listing</CardTitle></CardHeader>
@@ -733,14 +516,7 @@ function Admin() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <Label className="text-xs">Tier</Label>
-                <Select
-                  value={form.type}
-                  onValueChange={(v) => {
-                    const catList = (v === 'safari' ? SAFARI_CATS : LOCAL_CATS).filter((c) => c !== 'All')
-                    set('type', v)
-                    set('category', catList[0] || '')
-                  }}
-                >
+                <Select value={form.type} onValueChange={(v) => { set('type', v); set('category', (v === 'safari' ? SAFARI_CATS : LOCAL_CATS)[1]) }}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="safari">Safari / Tourism</SelectItem>
@@ -752,32 +528,20 @@ function Admin() {
                 <Label className="text-xs">Category</Label>
                 <Select value={form.category} onValueChange={(v) => set('category', v)}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {availableCategories.map((c) => (
-                      <SelectItem key={c} value={c}>{c}</SelectItem>
-                    ))}
-                  </SelectContent>
+                  <SelectContent>{cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
             </div>
-
             <Field label="Title" v={form.title} on={(v) => set('title', v)} />
             <Field label="Vendor" v={form.vendor} on={(v) => set('vendor', v)} />
             <Field label="Vendor office" v={form.vendorOffice} on={(v) => set('vendorOffice', v)} />
             <Field label="Location" v={form.location} on={(v) => set('location', v)} />
             <Field label="Map link" v={form.mapLink} on={(v) => set('mapLink', v)} />
-
             <div>
               <Label className="text-xs">Description</Label>
-              <Textarea
-                value={form.description}
-                onChange={(e) => set('description', e.target.value)}
-                rows={3}
-              />
+              <Textarea value={form.description} onChange={(e) => set('description', e.target.value)} rows={3} />
             </div>
-
             <Field label="Includes (comma separated)" v={form.includes} on={(v) => set('includes', v)} />
-
             <div className="grid grid-cols-2 gap-3">
               <Field label="Price value (number)" v={form.priceValue} on={(v) => set('priceValue', v)} />
               <div>
@@ -791,26 +555,18 @@ function Admin() {
                 </Select>
               </div>
             </div>
-
             <div className="grid grid-cols-2 gap-3">
               <Field label="Price label" v={form.priceLabel} on={(v) => set('priceLabel', v)} ph="$350" />
               <Field label="Off-peak label" v={form.offPeakLabel} on={(v) => set('offPeakLabel', v)} ph="$280" />
             </div>
-
             <Field label="Season note" v={form.season} on={(v) => set('season', v)} ph="Low season: Apr-Jun" />
             <Field label="Image URL" v={form.image} on={(v) => set('image', v)} />
             <Field label="Keywords (comma separated)" v={form.keywords} on={(v) => set('keywords', v)} />
-
-            <Button
-              onClick={submit}
-              disabled={saving}
-              className="w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]"
-            >
+            <Button onClick={submit} disabled={saving} className="w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
               {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />} Add listing
             </Button>
           </CardContent>
         </Card>
-
         <Card className="border-slate-200 lg:col-span-3">
           <CardHeader><CardTitle className="text-base">All listings ({listings.length})</CardTitle></CardHeader>
           <CardContent>
@@ -821,7 +577,7 @@ function Admin() {
                     <TableHead>Title</TableHead>
                     <TableHead>Tier</TableHead>
                     <TableHead>Price</TableHead>
-                    <TableHead className="w-[50px]"></TableHead>
+                    <TableHead></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -832,21 +588,11 @@ function Admin() {
                         <p className="text-xs text-slate-400">{l.vendor}</p>
                       </TableCell>
                       <TableCell>
-                        <Badge
-                          variant="secondary"
-                          className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}
-                        >
-                          {l.type}
-                        </Badge>
+                        <Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge>
                       </TableCell>
                       <TableCell className="text-sm">{l.priceLabel}</TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          onClick={() => remove(l.id)}
-                          className="text-red-500 hover:text-red-700"
-                        >
+                        <Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </TableCell>
@@ -854,11 +600,7 @@ function Admin() {
                   ))}
                 </TableBody>
               </Table>
-              {listings.length === 0 && (
-                <p className="py-10 text-center text-slate-400">
-                  No listings yet. Click "Reset & load sample data".
-                </p>
-              )}
+              {listings.length === 0 && <p className="py-10 text-center text-slate-400">No listings yet. Click "Reset & load sample data".</p>}
             </div>
           </CardContent>
         </Card>
@@ -866,49 +608,37 @@ function Admin() {
     </div>
   )
 }
-
-// ---------------------------------------------------------------------------
-// Vendor Portal (login / register + self-service listings & revenue)
-// ---------------------------------------------------------------------------
+function Field({ label, v, on, ph }) {
+  return (
+    <div>
+      <Label className="text-xs">{label}</Label>
+      <Input value={v} onChange={(e) => on(e.target.value)} placeholder={ph} />
+    </div>
+  )
+}
 function VendorAuth({ onAuth }) {
   const [mode, setMode] = useState('login')
   const [f, setF] = useState({ name: '', company: '', email: '', phone: '', password: '' })
   const [loading, setLoading] = useState(false)
-
   const set = (k, v) => setF((s) => ({ ...s, [k]: v }))
-
   const submit = async () => {
-    if (!f.email || !f.password) {
-      toast.error('Email and password are required')
-      return
-    }
+    if (!f.email || !f.password) { toast.error('Email and password are required'); return }
     setLoading(true)
     try {
       const res = await fetch(`/api/auth/${mode === 'login' ? 'login' : 'register'}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(f)
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(f)
       })
       const data = await res.json()
-      if (!res.ok) {
-        toast.error(data.error || 'Failed')
-        return
-      }
+      if (!res.ok) { toast.error(data.error || 'Failed'); return }
       toast.success(mode === 'login' ? 'Welcome back!' : 'Account created!')
       onAuth(data.token, data.vendor)
-    } catch (e) {
-      toast.error('Something went wrong')
-    } finally {
-      setLoading(false)
-    }
+    } catch (e) { toast.error('Something went wrong') }
+    finally { setLoading(false) }
   }
-
   return (
     <div className="mx-auto max-w-md px-5 py-16">
       <div className="mb-6 text-center">
-        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-white">
-          <Building2 className="h-7 w-7" />
-        </span>
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-white"><Building2 className="h-7 w-7" /></span>
         <h1 className="mt-4 text-2xl font-extrabold text-slate-900">Vendor Portal</h1>
         <p className="text-sm text-slate-500">List your services and track your bookings. We only charge 5% on bookings.</p>
       </div>
@@ -937,7 +667,7 @@ function VendorAuth({ onAuth }) {
               </div>
             </TabsContent>
             <Button onClick={submit} disabled={loading} className="mt-4 w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
-              {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               {mode === 'login' ? 'Login' : 'Create vendor account'}
             </Button>
           </Tabs>
@@ -946,31 +676,12 @@ function VendorAuth({ onAuth }) {
     </div>
   )
 }
-
-function StatCard({ label, value, icon, color }) {
-  return (
-    <Card className="border-slate-200">
-      <CardContent className="p-5">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-slate-500">{label}</span>
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: color }}>
-            {icon}
-          </span>
-        </div>
-        <p className="mt-3 text-3xl font-extrabold text-slate-900">{value}</p>
-      </CardContent>
-    </Card>
-  )
-}
-
 function VendorPortal({ token, vendor, onAuth, onLogout }) {
   const [listings, setListings] = useState([])
   const [stats, setStats] = useState(null)
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
-
   const authHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-
   const load = useCallback(async () => {
     if (!token) return
     try {
@@ -982,26 +693,15 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
       setStats(s && !s.error ? s : null)
     } catch (e) { /* ignore */ }
   }, [token])
-
   useEffect(() => { if (vendor) load() }, [vendor, load])
-
   if (!vendor) return <VendorAuth onAuth={onAuth} />
-
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
-  const cats = (form.type === 'safari' ? SAFARI_CATS : LOCAL_CATS).filter((c) => c !== 'All')
-
+  const cats = form.type === 'safari' ? SAFARI_CATS.filter((c) => c !== 'All') : LOCAL_CATS.filter((c) => c !== 'All')
   const submit = async () => {
-    if (!form.title.trim()) { toast.error('Title is required'); return }
+    if (!form.title) { toast.error('Title is required'); return }
     setSaving(true)
-    const payload = {
-      ...form,
-      priceValue: form.priceValue ? Number(form.priceValue) : 0,
-      offPeakValue: form.offPeakValue ? Number(form.offPeakValue) : 0,
-      includes: typeof form.includes === 'string' ? form.includes.split(',').map((s) => s.trim()).filter(Boolean) : form.includes,
-      keywords: typeof form.keywords === 'string' ? form.keywords.split(',').map((s) => s.trim()).filter(Boolean) : form.keywords,
-    }
     try {
-      const res = await fetch('/api/listings', { method: 'POST', headers: authHeaders, body: JSON.stringify(payload) })
+      const res = await fetch('/api/listings', { method: 'POST', headers: authHeaders, body: JSON.stringify(form) })
       if (!res.ok) { toast.error('Failed to add listing'); return }
       toast.success('Listing published')
       setForm(EMPTY_FORM)
@@ -1009,17 +709,11 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
     } catch (e) { toast.error('Failed to add listing') }
     finally { setSaving(false) }
   }
-
   const remove = async (id) => {
-    try {
-      await fetch(`/api/listings/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
-      toast.success('Listing removed')
-      load()
-    } catch (e) {
-      toast.error('Failed to remove listing')
-    }
+    await fetch(`/api/listings/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+    toast.success('Listing removed')
+    load()
   }
-
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1029,13 +723,11 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
         </div>
         <Button variant="outline" onClick={onLogout}>Log out</Button>
       </div>
-
       <div className="mt-8 grid gap-5 sm:grid-cols-3">
         <StatCard label="My Listings" value={stats?.listings ?? listings.length} icon={<Compass className="h-5 w-5" />} color="#1e3a8a" />
         <StatCard label="Booking Leads" value={stats?.leads ?? 0} icon={<MessageCircle className="h-5 w-5" />} color="#f97316" />
         <StatCard label="Commission Owed (5%)" value={`$${stats?.commissionOwedUSD ?? 0}`} icon={<Percent className="h-5 w-5" />} color="#10b981" />
       </div>
-
       <Tabs defaultValue="listings" className="mt-8">
         <TabsList>
           <TabsTrigger value="listings">My Listings</TabsTrigger>
@@ -1047,7 +739,7 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow><TableHead>Title</TableHead><TableHead>Tier</TableHead><TableHead>Price</TableHead><TableHead className="w-[50px]"></TableHead></TableRow>
+                  <TableRow><TableHead>Title</TableHead><TableHead>Tier</TableHead><TableHead>Price</TableHead><TableHead></TableHead></TableRow>
                 </TableHeader>
                 <TableBody>
                   {listings.map((l) => (
@@ -1055,11 +747,7 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
                       <TableCell className="font-medium">{l.title}</TableCell>
                       <TableCell><Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge></TableCell>
                       <TableCell>{l.priceLabel}</TableCell>
-                      <TableCell className="text-right">
-                        <Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </TableCell>
+                      <TableCell className="text-right"><Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700"><Trash2 className="h-4 w-4" /></Button></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -1073,14 +761,7 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
             <CardContent className="grid gap-3 p-6 md:grid-cols-2">
               <div>
                 <Label className="text-xs">Tier</Label>
-                <Select
-                  value={form.type}
-                  onValueChange={(v) => {
-                    const availableCats = (v === 'safari' ? SAFARI_CATS : LOCAL_CATS).filter((c) => c !== 'All')
-                    set('type', v)
-                    set('category', availableCats[0] || '')
-                  }}
-                >
+                <Select value={form.type} onValueChange={(v) => { set('type', v); set('category', (v === 'safari' ? SAFARI_CATS : LOCAL_CATS)[1]) }}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent><SelectItem value="safari">Safari / Tourism</SelectItem><SelectItem value="local">Local Transit</SelectItem></SelectContent>
                 </Select>
@@ -1123,44 +804,31 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
           </Card>
         </TabsContent>
         <TabsContent value="leads" className="mt-5">
-          <Card className="border-slate-200">
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow><TableHead>Listing</TableHead><TableHead>Price</TableHead><TableHead className="text-right">Est. 5%</TableHead></TableRow>
-                </TableHeader>
-                <TableBody>
-                  {(stats?.recentLeads || []).map((l) => (
-                    <TableRow key={l.id}>
-                      <TableCell className="font-medium">{l.listingTitle}</TableCell>
-                      <TableCell>{l.priceLabel}</TableCell>
-                      <TableCell className="text-right font-semibold text-emerald-600">
-                        {l.currency === 'KES' ? `KES ${Math.round(l.priceValue * 0.05)}` : `$${l.commission}`}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-              {(!stats?.recentLeads || stats.recentLeads.length === 0) && <p className="py-10 text-center text-slate-400">No booking leads yet.</p>}
-            </CardContent>
-          </Card>
+          <RecentLeads leads={stats?.recentLeads || []} />
         </TabsContent>
       </Tabs>
     </div>
   )
 }
-
-// ---------------------------------------------------------------------------
-// Root App (default export)
-// ---------------------------------------------------------------------------
-export default function Page() {
+function StatCard({ label, value, icon, color }) {
+  return (
+    <Card className="border-slate-200">
+      <CardContent className="p-5">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-slate-500">{label}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg text-white" style={{ backgroundColor: color }}>{icon}</span>
+        </div>
+        <p className="mt-3 text-3xl font-extrabold text-slate-900">{value}</p>
+      </CardContent>
+    </Card>
+  )
+}
+function App() {
   const [view, setView] = useState('home')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [pendingQuery, setPendingQuery] = useState('')
   const [token, setToken] = useState(null)
   const [vendor, setVendor] = useState(null)
-
-  // Seed on first load if empty
   useEffect(() => {
     fetch('/api/listings').then((r) => r.json()).then((data) => {
       if (!Array.isArray(data) || data.length === 0) {
@@ -1168,8 +836,6 @@ export default function Page() {
       }
     }).catch(() => {})
   }, [])
-
-  // Restore vendor session
   useEffect(() => {
     const t = typeof window !== 'undefined' ? localStorage.getItem('osare_token') : null
     if (t) {
@@ -1180,25 +846,21 @@ export default function Page() {
         .catch(() => {})
     }
   }, [])
-
   const onAuth = (t, v) => {
     setToken(t); setVendor(v)
     if (typeof window !== 'undefined') localStorage.setItem('osare_token', t)
   }
-
   const onLogout = () => {
     setToken(null); setVendor(null)
     if (typeof window !== 'undefined') localStorage.removeItem('osare_token')
     toast.success('Logged out')
   }
-
   const go = (v, query = '') => {
     setPendingQuery(query)
     setView(v)
     setMobileOpen(false)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
-
   return (
     <div className="min-h-screen bg-white">
       <Toaster position="top-center" richColors />
@@ -1238,7 +900,6 @@ export default function Page() {
           </div>
         )}
       </header>
-
       {view === 'home' && <Home go={go} />}
       {view === 'safari' && <TierExplorer type="safari" key={'safari' + pendingQuery} />}
       {view === 'local' && <TierExplorer type="local" key={'local' + pendingQuery} />}
@@ -1246,7 +907,6 @@ export default function Page() {
       {view === 'dashboard' && <Dashboard />}
       {view === 'vendor' && <VendorPortal token={token} vendor={vendor} onAuth={onAuth} onLogout={onLogout} />}
       {view === 'admin' && <Admin />}
-
       <footer className="border-t border-slate-200 bg-slate-900 py-10 text-slate-300">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-4">
           <div>
@@ -1280,8 +940,9 @@ export default function Page() {
             </ul>
           </div>
         </div>
-        <p className="mt-8 text-center text-xs text-slate-500">© 2026 OSARE — easafariroutes.com. All rights reserved.</p>
+        <p className="mt-8 text-center text-xs text-slate-500">© 2025 OSARE — easafariroutes.com. All rights reserved.</p>
       </footer>
     </div>
   )
 }
+export default App
