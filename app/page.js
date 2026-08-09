@@ -882,7 +882,7 @@ function App() {
             </ul>
           </div>
         </div>
-        <p className="mt-8 text-center text-xs text-slate-500">© 2025 OSARE — easafariroutes.com. All rights reserved.</p>
+        <p className="mt-8 text-center text-xs text-slate-500">© 2026 OSARE — easafariroutes.com. All rights reserved.</p>
       </footer>
     </div>
   )
