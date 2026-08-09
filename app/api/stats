@@ -1,13 +1,21 @@
 // pages/api/stats.js
-
 import { requireAdmin } from '../../lib/auth';
 
 export default async function handler(req, res) {
-  const auth = await requireAdmin(req);
-  if (auth.error) {
-    return res.status(auth.status).json({ error: auth.error });
+  // Guard: Only allow GET requests
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Stats nur für Admin
-  return res.status(200).json({ totalListings: 0, totalLeads: 0 });
+  // Auth check
+  const auth = await requireAdmin(req);
+  if (auth?.error) {
+    return res.status(auth.status || 401).json({ error: auth.error });
+  }
+
+  // Stats payload for admins
+  return res.status(200).json({ 
+    totalListings: 0, 
+    totalLeads: 0 
+  });
 }
