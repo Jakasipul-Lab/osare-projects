@@ -878,7 +878,7 @@ function App() {
             <h4 className="font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
-              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Nairobi CBD, Kenya</li>
+              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Kisumu CBD, Kenya</li>
             </ul>
           </div>
         </div>
