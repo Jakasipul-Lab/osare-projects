@@ -323,6 +323,112 @@ async function handleRoute(request, { params }) {
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
     }
 
+    if (route === '/vendors/bulk-import' && method === 'POST') {
+      const adminSecret = request.headers.get('x-admin-secret')
+      if (adminSecret !== process.env.ADMIN_SECRET) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+
+      const body = await request.json()
+      const vendors = Array.isArray(body.vendors) ? body.vendors : []
+      if (vendors.length === 0) {
+        return NextResponse.json({ error: 'No vendors provided' }, { status: 400 })
+      }
+
+      let inserted = 0
+      const errors = []
+
+      for (const v of vendors) {
+        try {
+          const id = v.id || uuidv4()
+          await query(
+            `INSERT INTO vendors
+              (id, category, title, name, phone, url, location, boarding_point, description, price_label, price_value, currency, type, image, keywords, assets, is_active, created_at)
+             VALUES
+              ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, true, now())
+             ON CONFLICT (id) DO UPDATE SET
+              category=$2, title=$3, name=$4, phone=$5, url=$6, location=$7, boarding_point=$8,
+              description=$9, price_label=$10, price_value=$11, currency=$12, type=$13, image=$14,
+              keywords=$15, assets=$16`,
+            [
+              id,
+              v.category || '',
+              v.title || v.name || '',
+              v.name || v.title || '',
+              v.phone || '',
+              v.url || '',
+              v.location || '',
+              v.boardingPoint || '',
+              v.description || '',
+              v.priceLabel || '',
+              Number(v.priceValue) || 0,
+              v.currency || 'USD',
+              v.type || 'safari',
+              v.image || '',
+              Array.isArray(v.keywords) ? v.keywords : (v.keywords ? String(v.keywords).split(',').map(k => k.trim()) : []),
+              Array.isArray(v.assets) ? v.assets : ['Verified']
+            ]
+          )
+          inserted++
+        } catch (e) {
+          errors.push({ vendor: v.title || v.name || 'unknown', error: e.message })
+        }
+      }
+
+      return NextResponse.json({ success: true, inserted, total: vendors.length, errors })
+    }
+
+    if (route === '/stats' && method === 'GET') {
+      let items = [...STATIC_DATABASE]
+      try {
+        const dbRes = await query(
+          'SELECT * FROM vendors WHERE is_active IS NOT false ORDER BY created_at DESC'
+        )
+        if (dbRes && dbRes.rows.length > 0) {
+          const dbItems = dbRes.rows.map(r => ({ id: r.id, category: r.category, type: r.type }))
+          for (const dbItem of dbItems) {
+            const idx = items.findIndex(i => i.id === dbItem.id)
+            if (idx !== -1) items[idx] = { ...items[idx], ...dbItem }
+            else items.push(dbItem)
+          }
+        }
+      } catch (e) {}
+
+      const safariCount = items.filter(i => i.type === 'safari').length
+      const localCount = items.filter(i => i.type === 'local').length
+
+      let leadsRows = []
+      try {
+        const leadsRes = await query('SELECT * FROM leads ORDER BY created_at DESC LIMIT 500')
+        leadsRows = leadsRes?.rows || []
+      } catch (e) {}
+
+      const totalLeads = leadsRows.length
+      const estRevenueUSD = leadsRows.reduce((sum, l) => sum + (Number(l.commission_amount) || 0), 0).toFixed(2)
+
+      const categoryCounts = {}
+      let safariLeads = 0
+      let localLeads = 0
+      for (const l of leadsRows) {
+        const listing = items.find(i => i.id === l.vendor_id)
+        const catName = listing?.category || 'Other'
+        categoryCounts[catName] = (categoryCounts[catName] || 0) + 1
+        if (listing?.type === 'safari') safariLeads++
+        else if (listing?.type === 'local') localLeads++
+      }
+      const leadsByCategory = Object.entries(categoryCounts).map(([name, value]) => ({ name, value }))
+
+      return NextResponse.json({
+        totalListings: items.length,
+        totalLeads,
+        estRevenueUSD,
+        safariCount,
+        localCount,
+        leadsByCategory,
+        leadsByType: { safari: safariLeads, local: localLeads }
+      })
+    }
+
     if (route === '/seed') {
       return NextResponse.json({ success: true, inserted: 0, note: 'Seed data is static and always available.' })
     }
