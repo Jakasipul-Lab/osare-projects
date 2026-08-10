@@ -5,7 +5,7 @@ import {
   Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
   Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '../components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
