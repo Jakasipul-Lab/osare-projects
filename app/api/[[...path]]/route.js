@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
-import { query } from '../../lib/db'
-import { requireAdmin } from '../../lib/auth'
+import { query } from '../../../lib/db'
+import { requireAdmin } from '../../../lib/auth'
 
 const COMMISSION_RATE = 0.05
 

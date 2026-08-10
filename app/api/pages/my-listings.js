@@ -1,7 +1,7 @@
 // pages/api/my-listings.js
 
-import { requireVendor } from '../../lib/auth';
-import { db } from '../../lib/db';
+import { requireVendor } from '@/lib/auth';
+import { db } from '@/lib/db';
 
 export default async function handler(req, res) {
   const auth = await requireVendor(req);
