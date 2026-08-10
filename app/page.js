@@ -5,12 +5,11 @@ import {
   Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
   Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag
 } from 'lucide-react'
-import { Button } from '../components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Input } from '../../components/ui/input'
+import { Textarea } from '../../components/ui/textarea'
+import { Label } from '../../components/ui/label'
+import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
+import { Badge } from '../../components/ui/badge'
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select'
