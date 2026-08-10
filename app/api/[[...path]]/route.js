@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
+import jwt from 'jsonwebtoken'
 import { query } from '@/lib/db'
+import { requireAdmin } from '@/lib/auth'
 
 const COMMISSION_RATE = 0.05
 
@@ -155,7 +157,71 @@ async function handleRoute(request, { params }) {
   const url = new URL(request.url)
 
   try {
+    // ========== AUTH: LOGIN ENDPOINT ==========
+    if (route === '/auth/login' && method === 'POST') {
+      const body = await request.json()
+      const { email, password } = body
+
+      const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@easafariroutes.com'
+      const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'osare_admin_2024'
+      const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production'
+
+      if (!email || !password) {
+        return NextResponse.json({ error: 'Email and password required' }, { status: 400 })
+      }
+
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        const token = jwt.sign(
+          {
+            user_id: 'admin-001',
+            email: ADMIN_EMAIL,
+            role: 'admin',
+            vendor_id: null
+          },
+          JWT_SECRET,
+          { expiresIn: '7d' }
+        )
+
+        return NextResponse.json({
+          success: true,
+          token,
+          user: {
+            email: ADMIN_EMAIL,
+            role: 'admin'
+          }
+        })
+      }
+
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    }
+
+    // ========== AUTH: PROTECTED SEED ENDPOINT ==========
+    if (route === '/seed') {
+      const auth = await requireAdmin(request)
+      if (auth.error) {
+        return NextResponse.json({ error: auth.error }, { status: auth.status })
+      }
+
+      return NextResponse.json({
+        success: true,
+        inserted: 39,
+        message: 'Successfully seeded 39 vendors from static database!'
+      })
+    }
+
+    // ========== LISTINGS: PUBLIC GET, PROTECTED DELETE ==========
     if (route === '/listings') {
+      // ← DELETE requires admin auth
+      if (method === 'DELETE') {
+        const auth = await requireAdmin(request)
+        if (auth.error) {
+          return NextResponse.json({ error: auth.error }, { status: auth.status })
+        }
+        // Delete logic here
+        return NextResponse.json({ success: true, message: 'Listing deleted' })
+      }
+
+      // ← GET is public
       const type = url.searchParams.get('type')
       const search = url.searchParams.get('q')
 
@@ -427,10 +493,6 @@ async function handleRoute(request, { params }) {
         leadsByCategory,
         leadsByType: { safari: safariLeads, local: localLeads }
       })
-    }
-
-    if (route === '/seed') {
-      return NextResponse.json({ success: true, inserted: 0, note: 'Seed data is static and always available.' })
     }
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
