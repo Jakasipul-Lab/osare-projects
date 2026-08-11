@@ -229,7 +229,7 @@ function TierExplorer({ type, q = "" }) {
         <div className="py-20 text-center">
           <p className="text-slate-400 text-lg">No results found.</p>
           <button
-            onClick={() => { setActiveCat('All'); setSearch(') }}
+            onClick={() => { setActiveCat('All'); setSearch("") }}
             className="mt-4 text-sm font-bold text-blue-600 hover:underline"
           >
             Clear filters
