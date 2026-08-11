@@ -1,7 +1,7 @@
 // app/api/listings/route.js
 import { NextResponse } from "next/server";
-import { query } from "@/lib/db";
-import { requireAdmin, requireVendor } from "@/lib/auth";
+import { query } from "../../lib/db";
+import { requireAdmin, requireVendor } from "../../lib/auth";
 
 const SELECT_FIELDS = `
   id, owner_id, type, category, title, vendor, vendor_office, location,
