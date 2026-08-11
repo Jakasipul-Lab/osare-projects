@@ -1,60 +1,67 @@
-// pages/api/listings/index.js
+import { NextResponse } from "next/server";
+import { query } from "@/lib/db"; // adjust to your actual db helper path
 
-import { requireAdmin, requireVendor } from '../../../lib/auth';
-import { db } from '../../../lib/db';
+// GET /api/listings?type=All&q=searchterm
+export async function GET(request) {
+  const url = new URL(request.url);
+  const type = url.searchParams.get("type");
+  const search = url.searchParams.get("q");
 
-export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    // ✅ GET ist öffentlich — aber nur Live-Listings
-    const listings = await db.query(
-      'SELECT id, title, vendor, category, price FROM listings WHERE published = true'
+  try {
+    let sql = `SELECT * FROM listings`;
+    const params = [];
+    const conditions = [];
+
+    if (type && type !== "All") {
+      params.push(type);
+      conditions.push(`type = $${params.length}`);
+    }
+
+    if (search) {
+      params.push(`%${search.toLowerCase()}%`);
+      const idx = params.length;
+      conditions.push(
+        `(LOWER(title) LIKE $${idx} OR LOWER(location) LIKE $${idx} OR LOWER(description) LIKE $${idx})`
+      );
+    }
+
+    if (conditions.length > 0) {
+      sql += ` WHERE ${conditions.join(" AND ")}`;
+    }
+
+    sql += ` ORDER BY id ASC`;
+
+    const result = await query(sql, params);
+    const rows = result.rows ?? result; // adjust depending on your query() return shape
+
+    // Map DB snake_case columns -> camelCase shape the frontend expects
+    const items = rows.map((r) => ({
+      id: r.id,
+      type: r.type,
+      category: r.category,
+      title: r.title,
+      vendor: r.vendor,
+      vendorOffice: r.vendor_office,
+      location: r.location,
+      mapLink: r.map_link,
+      description: r.description,
+      includes: r.includes,
+      priceValue: r.price_value,
+      currency: r.currency,
+      priceLabel: r.price_label,
+      offPeakLabel: r.off_peak_label,
+      season: r.season,
+      image: r.image,
+      keywords: r.keywords,
+    }));
+
+    return NextResponse.json(items, {
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500, headers: { "Access-Control-Allow-Origin": "*" } }
     );
-    return res.status(200).json(listings);
   }
-
-  if (req.method === 'POST') {
-    // ❌ POST muss authentifiziert sein
-    const auth = await requireVendor(req);
-    if (auth.error) {
-      return res.status(auth.status).json({ error: auth.error });
-    }
-
-    // ❌ Vendor kann NICHT direkt posten (nur Admin oder genehmigt)
-    // For now: Nur Admins dürfen neue Listings anlegen
-    if (auth.role !== 'admin') {
-      return res.status(403).json({ error: 'Vendors cannot add listings yet' });
-    }
-
-    const { title, vendor, category, price, image } = req.body;
-
-    // ✅ Server validiert ALLES (nie dem Browser vertrauen)
-    if (!title || title.length < 3) {
-      return res.status(400).json({ error: 'Title too short' });
-    }
-    if (!vendor || vendor.length < 2) {
-      return res.status(400).json({ error: 'Vendor name required' });
-    }
-
-    // Später: Vendor-eigene Listings
-    const listing = await db.query(
-      'INSERT INTO listings (title, vendor, category, price, image, published) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-      [title, vendor, category, price, image, false] // false = Wartet auf Admin-Genehmigung
-    );
-
-    return res.status(201).json(listing);
-  }
-
-  if (req.method === 'DELETE') {
-    // ❌ DELETE darf NUR Admin
-    const auth = await requireAdmin(req);
-    if (auth.error) {
-      return res.status(auth.status).json({ error: auth.error });
-    }
-
-    const { id } = req.query;
-    await db.query('DELETE FROM listings WHERE id = $1', [id]);
-    return res.status(200).json({ success: true });
-  }
-
-  return res.status(405).json({ error: 'Method not allowed' });
 }
