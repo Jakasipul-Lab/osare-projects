@@ -8,7 +8,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
     ],
   },
-  serverExternalPackages: ['mongodb'],
   webpack(config, { dev }) {
     if (dev) {
       config.watchOptions = {
