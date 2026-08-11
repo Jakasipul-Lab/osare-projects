@@ -1,30 +1,67 @@
-import { STATIC_VENDORS } from '@/lib/vendors';
+import { NextResponse } from "next/server";
+import { query } from "@/lib/db"; // adjust to your actual db helper path
 
-// ... inside your handleRoute function:
+// GET /api/listings?type=All&q=searchterm
+export async function GET(request) {
+  const url = new URL(request.url);
+  const type = url.searchParams.get("type");
+  const search = url.searchParams.get("q");
 
-if (route === '/listings') {
-  const type = url.searchParams.get('type');
-  const search = url.searchParams.get('q');
+  try {
+    let sql = `SELECT * FROM listings`;
+    const params = [];
+    const conditions = [];
 
-  // ✅ START WITH STATIC VENDORS
-  let items = [...STATIC_VENDORS];
+    if (type && type !== "All") {
+      params.push(type);
+      conditions.push(`type = $${params.length}`);
+    }
 
-  // Filter by type
-  if (type && type !== 'All') {
-    items = items.filter(it => it.type === type);
-  }
+    if (search) {
+      params.push(`%${search.toLowerCase()}%`);
+      const idx = params.length;
+      conditions.push(
+        `(LOWER(title) LIKE $${idx} OR LOWER(location) LIKE $${idx} OR LOWER(description) LIKE $${idx})`
+      );
+    }
 
-  // Filter by search
-  if (search) {
-    const s = search.toLowerCase();
-    items = items.filter(it =>
-      (it.title || '').toLowerCase().includes(s) ||
-      (it.location || '').toLowerCase().includes(s) ||
-      (it.description || '').toLowerCase().includes(s)
+    if (conditions.length > 0) {
+      sql += ` WHERE ${conditions.join(" AND ")}`;
+    }
+
+    sql += ` ORDER BY id ASC`;
+
+    const result = await query(sql, params);
+    const rows = result.rows ?? result; // adjust depending on your query() return shape
+
+    // Map DB snake_case columns -> camelCase shape the frontend expects
+    const items = rows.map((r) => ({
+      id: r.id,
+      type: r.type,
+      category: r.category,
+      title: r.title,
+      vendor: r.vendor,
+      vendorOffice: r.vendor_office,
+      location: r.location,
+      mapLink: r.map_link,
+      description: r.description,
+      includes: r.includes,
+      priceValue: r.price_value,
+      currency: r.currency,
+      priceLabel: r.price_label,
+      offPeakLabel: r.off_peak_label,
+      season: r.season,
+      image: r.image,
+      keywords: r.keywords,
+    }));
+
+    return NextResponse.json(items, {
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500, headers: { "Access-Control-Allow-Origin": "*" } }
     );
   }
-
-  return NextResponse.json(items, { 
-    headers: { 'Access-Control-Allow-Origin': '*' } 
-  });
 }
