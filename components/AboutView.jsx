@@ -326,4 +326,4 @@ export default function AboutView() {
 
       {/* MEDIA & COMMUNICATIONS */}
       <div>
-        <h2 className="text-2xl font-black text-slate-900">Media &amp; Communications</h2>
+        <h2 className="text-2xl font-black text-slate-900">Media &amp; Communications
