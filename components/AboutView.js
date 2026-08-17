@@ -1,12 +1,65 @@
 'use client'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { Mail, MessageCircle } from 'lucide-react'
+
+function waLink(phone) {
+  const digits = (phone || '').replace(/\D/g, '')
+  return digits ? `https://wa.me/${digits}` : null
+}
+
+const HEAD_OFFICE_TEAM = [
+  {
+    name: 'Osare Nakinson',
+    position: 'Chief Executive Officer',
+    photo: '/team/osare-nakinson.jpg',
+    responsibilities: 'Overall executive leadership, strategic direction, and corporate oversight.',
+    email: 'info@easafariroutes.com',
+    phone: '+254 758 378 729',
+  },
+  {
+    name: "Ms Violet Achieng' Omollo",
+    position: 'Personal & Office Administration',
+    photo: '/team/violet-omollo.jpg',
+    responsibilities: 'Personal & office administration.',
+    email: 'personal@easafariroutes.com',
+    phone: '+254 707 618 213',
+  },
+  {
+    name: 'Ms Jacqueline Osare',
+    position: 'Liaison & Logistics Officer',
+    photo: '/team/jacqueline-osare.jpg',
+    responsibilities: 'Coordinating corporate logistics, stakeholder relations, and operational liaison.',
+    email: 'partnerships@easafariroutes.com',
+    phone: '+255 715 818 408',
+  },
+]
 
 const BRANCHES = [
-  { name: 'Kenya - Nairobi', person: 'Kenneth Oketch', role: 'Branch Manager', email: 'nairobi@osare.africa' },
-  { name: 'Uganda - Kampala', person: 'Brian Omollo', role: 'Branch Manager', email: 'kampala@osare.africa' },
-  { name: 'Tanzania - Dar es Salaam', person: 'Johnson Yongo', role: 'Branch Manager', email: 'dar@osare.africa' },
-  { name: 'Germany Liaison Office', person: 'Brunnenstraße 48', role: '34537 Bad Wildungen', email: 'germany@osare.africa' },
+  { name: 'Kenya Branch Office', person: 'Kenneth Oketch', role: 'Kenya Branch Representative', photo: '/team/kenneth-oketch.jpg', responsibilities: 'Managing regional operations, enterprise onboarding, and local vendor relations within Kenya.', email: 'tourism@easafariroutes.com', phone: '+254 710 428 814' },
+  { name: 'Uganda Branch Office', person: 'Lydia Awuor Abuya', role: 'Uganda Branch Representative', photo: '/team/lydia-abuya.jpg', responsibilities: 'Overseeing regional network expansion, enterprise support, and partnerships across Uganda.', email: 'tourism@easafariroutes.com', phone: '+254 713 131 351' },
+  { name: 'Tanzania Branch Office', person: 'Johnson Yongo', role: 'Tanzania Branch Representative', photo: '/team/johnson-yongo.jpg', responsibilities: 'Directing local enterprise development, vendor coordination, and operations within Tanzania.', email: 'tourism@easafariroutes.com', phone: '+255 765 715 053' },
+  { name: 'Germany Liaison Office', person: 'Brunnenstraße 48', role: '34537 Bad Wildungen', responsibilities: '', email: 'germany@easafariroutes.com', phone: '' },
+]
+
+const MEDIA_TEAM = [
+  {
+    name: 'Winfrith Hikloch Ogola',
+    position: 'Media & Communications Officer',
+    photo: '/team/winfrith-ogola.jpg',
+    responsibilities: 'Managing public relations, brand messaging, media inquiries, and corporate communications channels.',
+    email: 'media@easafariroutes.com',
+    phone: '+255 725 710 911',
+  },
+]
+
+const CONTACT_DIRECTORY = [
+  { label: 'General Inquiries', email: 'info@easafariroutes.com' },
+  { label: 'Tourism & Vendor Relations', email: 'tourism@easafariroutes.com' },
+  { label: 'Partnerships', email: 'partnerships@easafariroutes.com' },
+  { label: 'Media & Press', email: 'media@easafariroutes.com' },
+  { label: 'Investor Relations', email: 'investors@easafariroutes.com' },
+  { label: 'Careers & Employment', email: 'careers@easafariroutes.com' },
 ]
 
 const MILESTONES = [
@@ -15,38 +68,6 @@ const MILESTONES = [
   '2026 • Kisumu Headquarters Established',
   '2027 • Regional Expansion Program',
   '2030 • Vision for East African Mobility Ecosystem',
-]
-
-const TESTIMONIALS = [
-  'OSARE makes travel planning easier across East Africa.',
-  'A promising platform for transport integration.',
-  'Excellent visibility for tourism partners.',
-]
-
-const PRESS_RELEASES = [
-  'OSARE Announces Regional Expansion Initiative',
-  'New Transport Integration Partnerships Launched',
-  'Digital Mobility Program Introduced in East Africa',
-]
-
-const MEDIA_KIT_ITEMS = [
-  'Company Profile PDF',
-  'Logo Package',
-  'Founder Biography',
-  'Brand Guidelines',
-  'Press Materials',
-]
-
-const EVENTS = [
-  'East Africa Mobility Summit',
-  'OSARE Partner Forum',
-  'Tourism Innovation Expo',
-  'Annual Stakeholder Conference',
-]
-
-const FAQ = [
-  { q: 'How can my company partner with OSARE?', a: 'Contact our partnerships team through the inquiry form.' },
-  { q: 'Do transport operators qualify?', a: 'Yes. Bus, rail, tourism and logistics providers can apply.' },
 ]
 
 const CAREERS = [
@@ -63,6 +84,56 @@ const FUTURE_GOALS = [
   'Regional logistics marketplace',
   'Cross-border travel solutions',
 ]
+
+function initials(name) {
+  return name
+    .replace(/^Ms\s|^Mr\s/i, '')
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase()
+}
+
+function TeamCard({ person }) {
+  return (
+    <div className="rounded-2xl border p-6">
+      <div className="flex items-start gap-4">
+        {person.photo ? (
+          <img
+            src={person.photo}
+            alt={person.name}
+            className="h-14 w-14 shrink-0 rounded-full object-cover"
+          />
+        ) : (
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-lg font-bold text-white">
+            {initials(person.name)}
+          </div>
+        )}
+        <div>
+          <h3 className="font-bold text-slate-900">{person.name}</h3>
+          {person.position ? <p className="text-sm font-semibold text-[#f97316]">{person.position}</p> : null}
+        </div>
+      </div>
+      {person.responsibilities ? (
+        <p className="mt-4 text-sm text-slate-600">{person.responsibilities}</p>
+      ) : null}
+      <div className="mt-4 space-y-1.5 border-t border-slate-100 pt-4">
+        {person.email ? (
+          <a href={`mailto:${person.email}`} className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700">
+            <Mail className="h-3.5 w-3.5" /> {person.email}
+          </a>
+        ) : null}
+        {person.phone && waLink(person.phone) ? (
+          <a href={waLink(person.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#25d366] font-medium hover:text-[#1ebe5b]">
+            <MessageCircle className="h-3.5 w-3.5" /> {person.phone}
+          </a>
+        ) : null}
+      </div>
+    </div>
+  )
+}
 
 export default function AboutView() {
   // --- Newsletter ---
@@ -183,20 +254,14 @@ export default function AboutView() {
         </p>
       </div>
 
-      {/* HEADQUARTERS */}
+      {/* KISUMU HEAD OFFICE TEAM */}
       <div className="mt-20">
-        <h2 className="text-3xl font-black">Headquarters</h2>
-        <div className="mt-6 rounded-3xl border p-8">
-          <h3 className="text-xl font-bold">
-            Kisumu Headquarters, Kenya
-          </h3>
-          <p className="mt-3 text-slate-600">
-            Officer-in-Charge: Mss Jacqueline Susan Nakinson
-          </p>
-          <p className="text-slate-600">
-            Headquarters responsible for strategic planning, operations,
-            partnerships and regional coordination.
-          </p>
+        <h2 className="text-3xl font-black">Kisumu Headquarters, Kenya</h2>
+        <p className="mt-2 text-slate-500">
+          Headquarters responsible for strategic planning, operations, partnerships and regional coordination.
+        </p>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {HEAD_OFFICE_TEAM.map((p, i) => <TeamCard key={i} person={p} />)}
         </div>
       </div>
 
@@ -206,10 +271,50 @@ export default function AboutView() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {BRANCHES.map((b, i) => (
             <div key={i} className="border rounded-3xl p-6">
-              <h3 className="font-bold">{b.name}</h3>
-              <p>{b.person}</p>
-              <p>{b.role}</p>
-              <p>{b.email}</p>
+              <div className="flex items-start gap-4">
+                {b.photo ? (
+                  <img src={b.photo} alt={b.person} className="h-14 w-14 shrink-0 rounded-full object-cover" />
+                ) : null}
+                <div>
+                  <h3 className="font-bold">{b.name}</h3>
+                  <p className="mt-1 font-semibold text-slate-900">{b.person}</p>
+                  <p className="text-sm text-[#f97316] font-semibold">{b.role}</p>
+                </div>
+              </div>
+              {b.responsibilities ? <p className="mt-3 text-sm text-slate-600">{b.responsibilities}</p> : null}
+              <div className="mt-4 space-y-1.5 border-t border-slate-100 pt-4">
+                {b.email ? (
+                  <a href={`mailto:${b.email}`} className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700">
+                    <Mail className="h-3.5 w-3.5" /> {b.email}
+                  </a>
+                ) : null}
+                {b.phone && waLink(b.phone) ? (
+                  <a href={waLink(b.phone)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#25d366] font-medium hover:text-[#1ebe5b]">
+                    <MessageCircle className="h-3.5 w-3.5" /> {b.phone}
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* MEDIA & COMMUNICATIONS */}
+      <div className="mt-20">
+        <h2 className="text-3xl font-black">Media &amp; Communications</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {MEDIA_TEAM.map((p, i) => <TeamCard key={i} person={p} />)}
+        </div>
+      </div>
+
+      {/* CORPORATE CONTACT DIRECTORY */}
+      <div className="mt-20 rounded-3xl border p-8">
+        <h2 className="text-2xl font-black">Corporate Contact Directory</h2>
+        <div className="mt-6 grid sm:grid-cols-2 gap-4">
+          {CONTACT_DIRECTORY.map((c, i) => (
+            <div key={i} className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
+              <span className="text-sm font-semibold text-slate-700">{c.label}</span>
+              <a href={`mailto:${c.email}`} className="text-sm text-[#1e3a8a] hover:underline">{c.email}</a>
             </div>
           ))}
         </div>
@@ -223,17 +328,7 @@ export default function AboutView() {
         </div>
       </div>
 
-      {/* TESTIMONIALS */}
-      <div className="mt-24">
-        <h2 className="text-3xl font-black">Testimonials</h2>
-        <div className="grid md:grid-cols-3 gap-6 mt-8">
-          {TESTIMONIALS.map((t, i) => (
-            <div key={i} className="border rounded-3xl p-6">&ldquo;{t}&rdquo;</div>
-          ))}
-        </div>
-      </div>
-
-      {/* INVESTORS */}
+      {/* INVESTOR RELATIONS */}
       <div className="mt-24">
         <h2 className="text-3xl font-black">Investor Relations</h2>
         <p className="mt-5 text-slate-600">
@@ -242,49 +337,8 @@ export default function AboutView() {
           infrastructure stakeholders interested in East African mobility.
         </p>
         <p className="mt-4 font-medium">
-          investors@osare.africa
+          investors@easafariroutes.com
         </p>
-      </div>
-
-      {/* PRESS RELEASES */}
-      <div className="mt-24">
-        <h2 className="text-3xl font-black">Press Releases</h2>
-        <ul className="mt-6 space-y-4">
-          {PRESS_RELEASES.map((p, i) => <li key={i}>{p}</li>)}
-        </ul>
-      </div>
-
-      {/* MEDIA KIT */}
-      <div className="mt-24">
-        <h2 className="text-3xl font-black">Media Kit</h2>
-        <ul className="mt-6 space-y-2">
-          {MEDIA_KIT_ITEMS.map((m, i) => <li key={i}>{m}</li>)}
-        </ul>
-        <button
-          onClick={() => toast.info('Media kit download will be available soon.')}
-          className="mt-6 px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-        >
-          Download Media Kit
-        </button>
-      </div>
-
-      {/* BLOG */}
-      <div className="mt-24">
-        <h2 className="text-3xl font-black">
-          Winfrith Hikloch Ogola Blog
-        </h2>
-        <p className="mt-5 text-slate-600">
-          Articles covering mobility, transport innovation,
-          tourism, logistics, technology and regional development.
-        </p>
-      </div>
-
-      {/* EVENTS */}
-      <div className="mt-24">
-        <h2 className="text-3xl font-black">Upcoming Events</h2>
-        <ul className="mt-6 space-y-4">
-          {EVENTS.map((e, i) => <li key={i}>{e}</li>)}
-        </ul>
       </div>
 
       {/* NEWSLETTER */}
@@ -326,21 +380,6 @@ export default function AboutView() {
         >
           {sendingFeedback ? 'Sending…' : 'Send Feedback'}
         </button>
-      </div>
-
-      {/* FAQ */}
-      <div className="mt-24">
-        <h2 className="text-3xl font-black">
-          Partner FAQ
-        </h2>
-        <div className="space-y-6 mt-8">
-          {FAQ.map((item, i) => (
-            <div key={i}>
-              <h3 className="font-bold">{item.q}</h3>
-              <p className="text-slate-600">{item.a}</p>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* CAREERS */}
