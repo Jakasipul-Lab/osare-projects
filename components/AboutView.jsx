@@ -1,4 +1,3 @@
-
 'use client'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -38,42 +37,42 @@ const HEAD_OFFICE_TEAM = [
 ]
 
 const BRANCHES = [
-  { 
-    name: 'Kenya Branch Office', 
-    person: 'Kenneth Oketch', 
-    position: 'Kenya Branch Representative', 
-    photo: '/team/kenneth-oketch.jpg', 
-    responsibilities: 'Managing regional operations, enterprise onboarding, and local vendor relations within Kenya.', 
-    email: 'tourism@easafariroutes.com', 
-    phone: '+254 710 428 814' 
+  {
+    name: 'Kenya Branch Office',
+    person: 'Kenneth Oketch',
+    position: 'Kenya Branch Representative',
+    photo: '/team/kenneth-oketch.jpg',
+    responsibilities: 'Managing regional operations, enterprise onboarding, and local vendor relations within Kenya.',
+    email: 'tourism@easafariroutes.com',
+    phone: '+254 710 428 814'
   },
-  { 
-    name: 'Uganda Branch Office', 
-    person: 'Lydia Awuor Abuya', 
-    position: 'Uganda Branch Representative', 
-    photo: '/team/lydia-abuya.jpg', 
-    responsibilities: 'Overseeing regional network expansion, enterprise support, and partnerships across Uganda.', 
-    email: 'tourism@easafariroutes.com', 
-    phone: '+254 713 131 351' 
+  {
+    name: 'Uganda Branch Office',
+    person: 'Lydia Awuor Abuya',
+    position: 'Uganda Branch Representative',
+    photo: '/team/lydia-abuya.jpg',
+    responsibilities: 'Overseeing regional network expansion, enterprise support, and partnerships across Uganda.',
+    email: 'tourism@easafariroutes.com',
+    phone: '+254 713 131 351'
   },
-  { 
-    name: 'Tanzania Branch Office', 
-    person: 'Johnson Yongo', 
-    position: 'Tanzania Branch Representative', 
-    photo: '/team/johnson-yongo.jpg', 
-    responsibilities: 'Directing local enterprise development, vendor coordination, and operations within Tanzania.', 
-    email: 'tourism@easafariroutes.com', 
-    phone: '+255 765 715 053' 
+  {
+    name: 'Tanzania Branch Office',
+    person: 'Johnson Yongo',
+    position: 'Tanzania Branch Representative',
+    photo: '/team/johnson-yongo.jpg',
+    responsibilities: 'Directing local enterprise development, vendor coordination, and operations within Tanzania.',
+    email: 'tourism@easafariroutes.com',
+    phone: '+255 765 715 053'
   },
-  { 
-    name: 'Germany Liaison Office', 
-    person: 'Brunnenstraße 48, 34537 Bad Wildungen', 
-    position: 'European Coordination', 
-    photo: '/logo.png', 
-    responsibilities: 'Germany Liaison Office & European Coordination. Click to return to Home.', 
-    email: 'germany@easafariroutes.com', 
+  {
+    name: 'Germany Liaison Office',
+    person: 'Brunnenstraße 48, 34537 Bad Wildungen',
+    position: 'European Coordination',
+    photo: '/logo.png',
+    responsibilities: 'Germany Liaison Office & European Coordination. Click to return to Home.',
+    email: 'germany@easafariroutes.com',
     phone: '',
-    isLogo: true 
+    isLogo: true
   },
 ]
 
@@ -321,4 +320,171 @@ export default function AboutView() {
       <div>
         <h2 className="text-2xl font-black text-slate-900">Regional Branches</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-          {BRANCHES.map((b, i) => <TeamCard key={i
+          {BRANCHES.map((b, i) => <TeamCard key={i} person={b} />)}
+        </div>
+      </div>
+
+      {/* MEDIA & COMMUNICATIONS */}
+      <div>
+        <h2 className="text-2xl font-black text-slate-900">Media &amp; Communications</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          {MEDIA_TEAM.map((p, i) => <TeamCard key={i} person={p} />)}
+        </div>
+      </div>
+
+      {/* CORPORATE CONTACT DIRECTORY */}
+      <div className="rounded-3xl bg-white border border-slate-200/80 p-8 shadow-sm">
+        <h2 className="text-2xl font-black text-slate-900">Corporate Contact Directory</h2>
+        <div className="mt-6 grid sm:grid-cols-2 gap-4">
+          {CONTACT_DIRECTORY.map((c, i) => (
+            <div key={i} className="flex items-center justify-between rounded-2xl bg-slate-50 px-5 py-4 border border-slate-100">
+              <span className="text-sm font-semibold text-slate-700">{c.label}</span>
+              <a href={`mailto:${c.email}`} className="text-sm font-medium text-[#1e3a8a] hover:underline">{c.email}</a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* TIMELINE */}
+      <div>
+        <h2 className="text-2xl font-black text-slate-900">Milestones</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          {MILESTONES.map((m, i) => (
+            <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <span className="text-orange-600 font-bold text-lg">{m.year}</span>
+              <p className="mt-2 text-slate-700 font-medium">{m.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* INVESTOR RELATIONS */}
+      <div className="rounded-3xl bg-gradient-to-r from-slate-900 to-blue-950 p-8 text-white shadow-lg">
+        <h2 className="text-2xl font-black text-white">Investor Relations</h2>
+        <p className="mt-3 text-slate-300 max-w-3xl leading-relaxed">
+          OSARE welcomes discussions with strategic investors,
+          venture capital partners, angel investors and regional
+          infrastructure stakeholders interested in East African mobility.
+        </p>
+        <div className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-orange-400 font-semibold">
+          <Mail className="h-4 w-4" /> investors@easafariroutes.com
+        </div>
+      </div>
+
+      {/* NEWSLETTER */}
+      <div className="border border-slate-200 bg-white rounded-3xl p-8 shadow-sm">
+        <h2 className="text-2xl font-black text-slate-900">
+          Newsletter Subscription
+        </h2>
+        <p className="mt-2 text-slate-600">Stay updated with our latest releases and regional expansion news.</p>
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-6 w-full border border-slate-200 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+          placeholder="Enter your email address"
+          type="email"
+        />
+        <button
+          onClick={subscribe}
+          disabled={subscribing}
+          className="mt-4 px-8 py-3 bg-[#1e3a8a] text-white font-semibold rounded-2xl hover:bg-blue-900 transition-colors disabled:opacity-60 shadow"
+        >
+          {subscribing ? 'Subscribing…' : 'Subscribe'}
+        </button>
+      </div>
+
+      {/* FEEDBACK */}
+      <div>
+        <h2 className="text-2xl font-black text-slate-900">
+          User Feedback
+        </h2>
+        <p className="mt-2 text-slate-600">We value your input to improve our services across East Africa.</p>
+        <textarea
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
+          className="mt-6 w-full border border-slate-200 rounded-2xl p-4 h-40 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+          placeholder="Tell us how we can improve..."
+        />
+        <button
+          onClick={sendFeedback}
+          disabled={sendingFeedback}
+          className="mt-4 px-8 py-3 bg-[#f97316] text-white font-semibold rounded-2xl hover:bg-orange-600 transition-colors disabled:opacity-60 shadow"
+        >
+          {sendingFeedback ? 'Sending…' : 'Send Feedback'}
+        </button>
+      </div>
+
+      {/* CAREERS */}
+      <div>
+        <h2 className="text-2xl font-black text-slate-900">
+          Careers
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          {CAREERS.map((c, i) => (
+            <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm font-semibold text-slate-800">
+              {c}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FUTURE GOALS */}
+      <div>
+        <h2 className="text-2xl font-black text-slate-900">
+          Future Goals
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          {FUTURE_GOALS.map((g, i) => (
+            <div key={i} className="p-5 rounded-2xl bg-orange-50/60 border border-orange-100 text-slate-800 font-medium flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-orange-500 shrink-0"></span>
+              {g}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CONTACT FORM */}
+      <div className="border border-slate-200 bg-white rounded-3xl p-8 shadow-sm">
+        <h2 className="text-2xl font-black text-slate-900">
+          Contact Us
+        </h2>
+        <p className="mt-2 text-slate-600">Reach out directly to our team for any inquiries.</p>
+        <div className="grid gap-4 mt-6">
+          <input
+            value={contact.name}
+            onChange={(e) => setContactField('name', e.target.value)}
+            className="border border-slate-200 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+            placeholder="Full Name"
+          />
+          <input
+            value={contact.email}
+            onChange={(e) => setContactField('email', e.target.value)}
+            className="border border-slate-200 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+            placeholder="Email Address"
+            type="email"
+          />
+          <input
+            value={contact.phone}
+            onChange={(e) => setContactField('phone', e.target.value)}
+            className="border border-slate-200 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+            placeholder="Phone Number"
+          />
+          <textarea
+            value={contact.message}
+            onChange={(e) => setContactField('message', e.target.value)}
+            className="border border-slate-200 rounded-2xl p-4 h-40 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+            placeholder="Message"
+          />
+        </div>
+        <button
+          onClick={sendContact}
+          disabled={sendingContact}
+          className="mt-6 px-8 py-3 bg-[#1e3a8a] text-white font-semibold rounded-2xl hover:bg-blue-900 transition-colors disabled:opacity-60 shadow"
+        >
+          {sendingContact ? 'Sending…' : 'Send Inquiry'}
+        </button>
+      </div>
+
+    </section>
+  )
+}
