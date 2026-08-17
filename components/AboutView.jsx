@@ -1,3 +1,4 @@
+
 'use client'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -320,10 +321,4 @@ export default function AboutView() {
       <div>
         <h2 className="text-2xl font-black text-slate-900">Regional Branches</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-          {BRANCHES.map((b, i) => <TeamCard key={i} person={b} />)}
-        </div>
-      </div>
-
-      {/* MEDIA & COMMUNICATIONS */}
-      <div>
-        <h2 className="text-2xl font-black
+          {BRANCHES.map((b, i) => <TeamCard key={i
