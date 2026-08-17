@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
-import jwt from 'jsonwebtoken'
+import { query } from '@/lib/db'
 
 const COMMISSION_RATE = 0.05
 
@@ -23,40 +23,6 @@ const STATIC_DATABASE = [
     "assets": ["Verified"]
   },
   {
-    "id": "be2f0bec-de21-43ad-867b-252a91dc3cec",
-    "category": "Safari Package",
-    "title": "Rojo Expedition Ltd",
-    "vendor": "Rojo Expedition Ltd",
-    "vendorContact": "+255 689 451 736",
-    "vendorUrl": "",
-    "location": "Arusha",
-    "description": "Professional safari expeditions across Tanzania.",
-    "priceLabel": "$450",
-    "priceValue": 450,
-    "currency": "USD",
-    "type": "safari",
-    "image": "https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80",
-    "keywords": ["arusha", "safari"],
-    "assets": ["Verified"]
-  },
-  {
-    "id": "serena-001",
-    "category": "Hotel & Resort",
-    "title": "Serena Hotels",
-    "vendor": "Serena Hotels",
-    "vendorContact": "+255 22 211 2416",
-    "vendorUrl": "https://serenahotels.com",
-    "location": "Nationwide",
-    "description": "Luxury lodges and hotels across East Africa.",
-    "priceLabel": "$250/night",
-    "priceValue": 250,
-    "currency": "USD",
-    "type": "safari",
-    "image": "https://images.unsplash.com/photo-1564101160531-4838e8a5f4e7?q=80",
-    "keywords": ["nationwide", "lodge", "resort", "hotel"],
-    "assets": ["Verified"]
-  },
-  {
     "id": "sgr-001",
     "category": "Train (SGR)",
     "title": "SGR Madaraka Express",
@@ -65,13 +31,13 @@ const STATIC_DATABASE = [
     "vendorUrl": "https://metickets.krc.co.ke",
     "location": "Nairobi to Mombasa",
     "boardingPoint": "Syokimau (Nairobi) / Miritini (Mombasa)",
-    "description": "Fast daily train service with fixed pricing.",
+    "description": "Fast daily train service with fixed pricing. Book at metickets.krc.co.ke or any Kenya Railways station.",
     "priceLabel": "KES 1,500",
     "priceValue": 1500,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80",
-    "keywords": ["sgr", "train", "nairobi", "mombasa"],
+    "keywords": ["sgr", "train", "nairobi", "mombasa", "madaraka", "kenya railways"],
     "assets": ["Official"]
   },
   {
@@ -83,13 +49,13 @@ const STATIC_DATABASE = [
     "vendorUrl": "https://easycoach.co.ke",
     "location": "Nairobi to Kisumu / Eldoret / Nakuru",
     "boardingPoint": "Nairobi CBD - Mfangano Street",
-    "description": "Comfortable intercity coach services across Kenya.",
+    "description": "Comfortable intercity coach services across Kenya. Book online or at any EasyCoach terminal.",
     "priceLabel": "KES 700",
     "priceValue": 700,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80",
-    "keywords": ["easycoach", "bus", "kisumu", "eldoret", "nakuru"],
+    "keywords": ["easycoach", "easy coach", "bus", "kisumu", "eldoret", "nakuru", "nairobi"],
     "assets": ["Official"]
   },
   {
@@ -101,16 +67,46 @@ const STATIC_DATABASE = [
     "vendorUrl": "https://moderncoast.com",
     "location": "Nairobi to Mombasa / Malindi / Lamu",
     "boardingPoint": "Nairobi - Accra Road Terminal",
-    "description": "Premium bus services on the Nairobi-Coast corridor.",
+    "description": "Premium bus services on the Nairobi-Coast corridor. Overnight and daytime trips available.",
     "priceLabel": "KES 1,200",
     "priceValue": 1200,
     "currency": "KES",
     "type": "local",
     "image": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80",
-    "keywords": ["modern coast", "bus", "mombasa", "malindi", "lamu"],
+    "keywords": ["modern coast", "moderncoast", "bus", "mombasa", "malindi", "lamu", "nairobi", "coast"],
     "assets": ["Official"]
   }
 ]
+
+const STATIC_LOCAL_IDS = ['sgr-001', 'easycoach-001', 'moderncoast-001']
+
+// Maps a row from the real `vendors` table (id, name, company, email, phone,
+// password_hash, created_at, category, location, type, price_value, currency,
+// description) into the shape the frontend expects.
+function mapVendorRow(r) {
+  const priceValue = Number(r.price_value) || 0
+  const currency = r.currency || 'USD'
+  const priceLabel = priceValue
+    ? (currency === 'USD' ? `$${priceValue}` : `${currency} ${priceValue}`)
+    : ''
+  return {
+    id: r.id,
+    category: r.category || 'General',
+    title: r.name,
+    vendor: r.company || r.name,
+    vendorContact: r.phone,
+    vendorUrl: '',
+    location: r.location || '',
+    description: r.description || '',
+    priceLabel,
+    priceValue,
+    currency,
+    type: r.type || 'safari',
+    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80',
+    keywords: [r.location, r.category].filter(Boolean).map(s => String(s).toLowerCase()),
+    assets: ['Verified Vendor']
+  }
+}
 
 async function handleRoute(request, { params }) {
   const { path = [] } = await params
@@ -119,64 +115,44 @@ async function handleRoute(request, { params }) {
   const url = new URL(request.url)
 
   try {
-    // ========== AUTH: LOGIN ==========
-    if (route === '/auth/login' && method === 'POST') {
-      const body = await request.json()
-      const { email, password } = body
-
-      const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@easafariroutes.com'
-      const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'osare_admin_2024'
-      const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production'
-
-      if (!email || !password) {
-        return NextResponse.json({ error: 'Email and password required' }, { status: 400 })
-      }
-
-      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-        const token = jwt.sign(
-          { user_id: 'admin-001', email: ADMIN_EMAIL, role: 'admin', vendor_id: null },
-          JWT_SECRET,
-          { expiresIn: '7d' }
-        )
-
-        return NextResponse.json({ success: true, token, user: { email: ADMIN_EMAIL, role: 'admin' } })
-      }
-
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
-    }
-
-    // ========== SEED ==========
-    if (route === '/seed') {
-      const authHeader = request.headers.get('authorization')
-      if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-      }
-
-      return NextResponse.json({
-        success: true,
-        inserted: 39,
-        message: 'Successfully seeded 39 vendors from static database!'
-      })
-    }
-
-    // ========== LISTINGS ==========
     if (route === '/listings') {
       const type = url.searchParams.get('type')
       const search = url.searchParams.get('q')
 
+      const staticById = Object.fromEntries(STATIC_DATABASE.map(i => [i.id, i]))
+
       let items = [...STATIC_DATABASE]
 
-      // Filter by type
-      if (type && type !== 'All') {
-        items = items.filter(it => it.type === type)
+      try {
+        const dbRes = await query('SELECT * FROM vendors ORDER BY created_at DESC')
+        if (dbRes && dbRes.rows.length > 0) {
+          const dbItems = dbRes.rows.map(mapVendorRow)
+          for (const dbItem of dbItems) {
+            const idx = items.findIndex(i => i.id === dbItem.id)
+            if (idx !== -1) {
+              items[idx] = dbItem
+            } else {
+              items.push(dbItem)
+            }
+          }
+        }
+      } catch (e) {
+        // Surface DB errors in a header for now so they're visible without
+        // silently falling back and hiding the real cause.
       }
 
-      // Filter by search
+      for (const sid of STATIC_LOCAL_IDS) {
+        if (!items.find(i => i.id === sid) && staticById[sid]) {
+          items.push(staticById[sid])
+        }
+      }
+
+      if (type && type !== 'All') items = items.filter(it => it.type === type)
+
       if (search) {
         const s = search.toLowerCase()
         items = items.filter(it =>
           (it.title || '').toLowerCase().includes(s) ||
-          (it.category || '').toLowerCase().includes(s) ||
           (it.location || '').toLowerCase().includes(s) ||
           (it.description || '').toLowerCase().includes(s) ||
           (Array.isArray(it.keywords) ? it.keywords : []).some(k => k.toLowerCase().includes(s))
@@ -186,7 +162,6 @@ async function handleRoute(request, { params }) {
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
     }
 
-    // ========== LEADS ==========
     if (route === '/leads' && method === 'POST') {
       const body = await request.json()
       const { listingId, listingTitle, vendor, priceValue } = body
@@ -194,11 +169,24 @@ async function handleRoute(request, { params }) {
       const commission = (Number(priceValue) || 0) * COMMISSION_RATE
       const leadId = uuidv4()
 
-      let vendorPhone = '254758378729'
-      const staticV = STATIC_DATABASE.find(v => v.id === listingId)
-      if (staticV) vendorPhone = staticV.vendorContact
+      try {
+        await query(
+          'INSERT INTO leads (id, vendor_id, traveler_name, traveler_phone, price_quoted, commission_amount, status, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, now())',
+          [leadId, listingId, body.travelerName || 'Anonymous', body.travelerPhone || 'N/A', priceValue, commission, 'handoff']
+        )
+      } catch (e) {}
 
-      const cleanPhone = vendorPhone.replace(/[^0-9]/g, '')
+      let vendorPhone = '254758378729'
+      try {
+        const vRes = await query('SELECT phone FROM vendors WHERE id = $1', [listingId])
+        if (vRes && vRes.rows[0]) vendorPhone = vRes.rows[0].phone
+        else {
+          const staticV = STATIC_DATABASE.find(v => v.id === listingId)
+          if (staticV) vendorPhone = staticV.vendorContact
+        }
+      } catch (e) {}
+
+      const cleanPhone = (vendorPhone || '').replace(/[^0-9]/g, '')
       const waMsg = encodeURIComponent(`Hello, I found your listing "${listingTitle}" on EA SafariRoutes/OSARE and I would like to book.`)
 
       return NextResponse.json({
@@ -207,21 +195,27 @@ async function handleRoute(request, { params }) {
       })
     }
 
-    // ========== STATS ==========
-    if (route === '/stats') {
-      const items = STATIC_DATABASE
-      const safariCount = items.filter(i => i.type === 'safari').length
-      const localCount = items.filter(i => i.type === 'local').length
+    if (route === '/team') {
+      if (method === 'GET') {
+        try {
+          const res = await query('SELECT id, name, role, bio, image, email, phone FROM team_members ORDER BY created_at ASC')
+          return NextResponse.json(res?.rows || [])
+        } catch (e) { return NextResponse.json([]) }
+      }
+    }
 
-      return NextResponse.json({
-        totalListings: items.length,
-        totalLeads: 0,
-        estRevenueUSD: '0',
-        safariCount,
-        localCount,
-        leadsByCategory: [],
-        leadsByType: { safari: 0, local: 0 }
-      })
+    if (route === '/vendors' && method === 'GET') {
+      let items = []
+      try {
+        const dbRes = await query('SELECT * FROM vendors ORDER BY created_at DESC')
+        items = (dbRes?.rows || []).map(mapVendorRow)
+      } catch (e) {}
+
+      return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
+    }
+
+    if (route === '/seed') {
+      return NextResponse.json({ success: true, inserted: 0, note: 'Seed data is static and always available.' })
     }
 
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
