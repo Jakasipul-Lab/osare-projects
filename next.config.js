@@ -23,6 +23,12 @@ const nextConfig = {
     maxInactiveAge: 10000,
     pagesBufferLength: 2,
   },
+  async redirects() {
+    return [
+      { source: '/safari', destination: '/?view=safari', permanent: false },
+      { source: '/local', destination: '/?view=local', permanent: false },
+    ];
+  },
   async headers() {
     return [
       {
@@ -38,5 +44,4 @@ const nextConfig = {
     ];
   },
 };
-
 module.exports = nextConfig;
