@@ -162,17 +162,35 @@ async function handleRoute(request, { params }) {
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
     }
 
-    if (route === '/leads' && method === 'POST') {
+   if (route === '/leads' && method === 'POST') {
       const body = await request.json()
       const { listingId, listingTitle, vendor, priceValue } = body
 
       const commission = (Number(priceValue) || 0) * COMMISSION_RATE
       const leadId = uuidv4()
 
+      // Matches the ACTUAL leads table columns: id, listing_id, listing_title,
+      // vendor, category, type, price_label, price_value, currency, commission,
+      // channel, created_at. The previous version inserted into columns
+      // (vendor_id, traveler_name, traveler_phone, price_quoted,
+      // commission_amount, status) that don't exist on this table, so every
+      // insert since at least early July has been silently failing.
       try {
         await query(
-          'INSERT INTO leads (id, vendor_id, traveler_name, traveler_phone, price_quoted, commission_amount, status, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, now())',
-          [leadId, listingId, body.travelerName || 'Anonymous', body.travelerPhone || 'N/A', priceValue, commission, 'handoff']
+          'INSERT INTO leads (id, listing_id, listing_title, vendor, category, type, price_label, price_value, currency, commission, channel, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, now())',
+          [
+            leadId,
+            listingId,
+            listingTitle || '',
+            vendor || '',
+            body.category || '',
+            body.type || '',
+            body.priceLabel || (priceValue ? `$${priceValue}` : ''),
+            priceValue || null,
+            body.currency || 'USD',
+            commission,
+            'whatsapp'
+          ]
         )
       } catch (e) {}
 
