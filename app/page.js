@@ -280,7 +280,7 @@ function Home({ go }) {
               <button onClick={() => setTier('safari')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'safari' ? 'bg-[#f97316] text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}>Tourist Assistance</button>
               <button onClick={() => setTier('local')} className={`rounded-full px-6 py-2 text-sm font-bold transition ${tier === 'local' ? 'bg-white text-[#1e3a8a]' : 'bg-white/20 text-white hover:bg-white/30'}`}>Local Commute</button>
             </div>
-            <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl">
+            <div className="flex gap-2 rounded-2xl bg-white p-2 shadow-2xl border border-slate-200">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
                 <Input
