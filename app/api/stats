@@ -1,5 +1,6 @@
 // pages/api/stats.js
 import { requireAdmin } from '../../lib/auth';
+import { db } from '../../lib/db';
 
 export default async function handler(req, res) {
   // Guard: Only allow GET requests
@@ -13,9 +14,47 @@ export default async function handler(req, res) {
     return res.status(auth.status || 401).json({ error: auth.error });
   }
 
-  // Stats payload for admins
-  return res.status(200).json({ 
-    totalListings: 0, 
-    totalLeads: 0 
-  });
+  try {
+    const [totalListingsRes, totalLeadsRes, revenueRes, typeCountRes, categoryRes, leadTypeRes] = await Promise.all([
+      db.query('SELECT count(*) AS count FROM listings'),
+      db.query('SELECT count(*) AS count FROM leads'),
+      db.query('SELECT COALESCE(sum(commission), 0) AS total FROM leads'),
+      db.query("SELECT type, count(*) AS count FROM listings GROUP BY type"),
+      db.query("SELECT category, count(*) AS value FROM leads WHERE category IS NOT NULL AND category <> '' GROUP BY category ORDER BY value DESC LIMIT 10"),
+      db.query("SELECT type, count(*) AS count FROM leads GROUP BY type")
+    ]);
+
+    const totalListings = Number(totalListingsRes.rows[0]?.count || 0);
+    const totalLeads = Number(totalLeadsRes.rows[0]?.count || 0);
+    const estRevenueUSD = Math.round(Number(revenueRes.rows[0]?.total || 0) * 100) / 100;
+
+    const typeCounts = { safari: 0, local: 0 };
+    for (const row of typeCountRes.rows) {
+      if (row.type === 'safari') typeCounts.safari = Number(row.count);
+      if (row.type === 'local') typeCounts.local = Number(row.count);
+    }
+
+    const leadTypeCounts = { safari: 0, local: 0 };
+    for (const row of leadTypeRes.rows) {
+      if (row.type === 'safari') leadTypeCounts.safari = Number(row.count);
+      if (row.type === 'local') leadTypeCounts.local = Number(row.count);
+    }
+
+    const leadsByCategory = categoryRes.rows.map(r => ({
+      name: r.category,
+      value: Number(r.value)
+    }));
+
+    return res.status(200).json({
+      totalListings,
+      totalLeads,
+      estRevenueUSD,
+      safariCount: typeCounts.safari,
+      localCount: typeCounts.local,
+      leadsByCategory,
+      leadsByType: leadTypeCounts
+    });
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
 }
