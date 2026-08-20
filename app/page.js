@@ -209,7 +209,7 @@ function TierExplorer({ type }) {
           <p className="mt-2 max-w-2xl text-white/90">{isSafari ? 'Safaris, Kilimanjaro climbs, hotels, car & aircraft hire — compare and book instantly.' : 'Compare matatus, SGR trains, taxis & airport shuttles across Nairobi CBD and its environs.'}</p>
         </div>
       </div>
-      <div className="mx-auto -mt-8 max-w-4xl px-5">
+      <div className="mx-auto mt-6 max-w-4xl px-5">
         <Card className="border-slate-200 shadow-lg">
           <CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center">
             <div className="relative flex-1">
