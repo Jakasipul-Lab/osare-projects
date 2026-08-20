@@ -848,6 +848,12 @@ function App() {
         .catch(() => {})
     }
   }, [])
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const v = params.get('view')
+    if (v === 'safari' || v === 'local') setView(v)
+  }, [])
   const onAuth = (t, v) => {
     setToken(t); setVendor(v)
     if (typeof window !== 'undefined') localStorage.setItem('osare_token', t)
