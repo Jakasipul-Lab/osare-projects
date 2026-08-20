@@ -155,7 +155,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
     </div>
   )
 }
-export function TierExplorer({ type }) {
+function TierExplorer({ type }) {
   const isSafari = type === 'safari'
   const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
   const accent = isSafari ? '#f97316' : '#1e3a8a'
