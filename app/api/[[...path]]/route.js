@@ -176,25 +176,31 @@ async function handleRoute(request, { params }) {
         )
       } catch (e) {}
 
-      let vendorPhone = '254758378729'
+      // Read the vendor's own phone number directly from the listing row.
+      // (The old lookup queried the separate "vendors" table by listing ID,
+      // but vendors.id and listings.id were never linked, so it always
+      // fell through to the hardcoded admin number below.)
+      let vendorPhone = null
       try {
-        const vRes = await query('SELECT phone FROM vendors WHERE id = $1', [listingId])
-        if (vRes && vRes.rows[0]) vendorPhone = vRes.rows[0].phone
-        else {
+        const lRes = await query('SELECT vendor_phone FROM listings WHERE id = $1', [listingId])
+        if (lRes && lRes.rows[0] && lRes.rows[0].vendor_phone) {
+          vendorPhone = lRes.rows[0].vendor_phone
+        } else {
           const staticV = STATIC_DATABASE.find(v => v.id === listingId)
           if (staticV) vendorPhone = staticV.vendorContact
         }
       } catch (e) {}
 
+      // Only fall back to your own number if the vendor truly has none on file yet.
+      if (!vendorPhone) vendorPhone = '254758378729'
+
       const cleanPhone = (vendorPhone || '').replace(/[^0-9]/g, '')
       const waMsg = encodeURIComponent(`Hello, I found your listing "${listingTitle}" on EA SafariRoutes/OSARE and I would like to book.`)
-
       return NextResponse.json({
         success: true,
         whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
       })
     }
-
     if (route === '/team') {
       if (method === 'GET') {
         try {
