@@ -49,7 +49,49 @@ const catIcon = (cat) => {
   if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />
   return <Compass className="h-4 w-4" />
 }
-function ListingCard({ item, onBook, booking, onOpen }) {
+function SmartDescription({ text, onSearchKeyword }) {
+  const keywords = [
+    // Tanzania
+    'Zanzibar', 'Serengeti', 'Kilimanjaro', 'Arusha', 'Moshi', 'Dar es Salaam',
+    'Stone Town', 'Ngorongoro', 'Karatu', 'Nungwi', 'Fumba', 'Monduli', 'Njombe',
+    // Kenya
+    'Nairobi', 'Mombasa', 'Kisumu', 'Maasai Mara', 'Malindi', 'Lamu', 'Nakuru', 'Eldoret',
+    // Uganda
+    'Kampala', 'Entebbe',
+    // Tanzania (more)
+    'Mwanza',
+    // Categories / activities
+    'Safari', 'Safari Package', 'Kilimanjaro Climb', 'Hotel', 'Resort',
+    'Car Hire', 'Aircraft Charter', 'Sightseeing', 'Matatu', 'Shuttle',
+    'SGR', 'Train', 'Taxi', 'Airport Transfer',
+  ]
+  if (!text) return null
+  // Sort longest-first so "Kilimanjaro Climb" matches before the shorter
+  // "Kilimanjaro" swallows part of it.
+  const sorted = [...keywords].sort((a, b) => b.length - a.length)
+  const pattern = new RegExp(`(${sorted.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
+  const parts = text.split(pattern)
+  return (
+    <p className="text-sm text-slate-600 line-clamp-3">
+      {parts.map((part, i) => {
+        const isKeyword = keywords.some(k => k.toLowerCase() === part.toLowerCase())
+        if (isKeyword) {
+          return (
+            <button
+              key={i}
+              onClick={(e) => { e.stopPropagation(); onSearchKeyword && onSearchKeyword(part) }}
+              className="font-semibold text-[#1e3a8a] underline decoration-dotted underline-offset-2 hover:text-[#f97316]"
+            >
+              {part}
+            </button>
+          )
+        }
+        return <span key={i}>{part}</span>
+      })}
+    </p>
+  )
+}
+function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
   const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
   return (
     <Card
@@ -79,7 +121,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
         >
           <MapPin className="h-3 w-3" /> {item.location}
         </a>
-        <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
+        <SmartDescription text={item.description} onSearchKeyword={onSearchKeyword} />
         {item.includes?.length ? (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {item.includes.slice(0, 4).map((inc, i) => (
@@ -106,7 +148,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
     </Card>
   )
 }
-function VendorModal({ item, onClose, onBook, booking }) {
+function VendorModal({ item, onClose, onBook, booking, onSearchKeyword }) {
   if (!item) return null
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
@@ -125,7 +167,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
           <a href={item.mapLink} target="_blank" rel="noopener noreferrer" className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700">
             <MapPin className="h-3 w-3" /> {item.location}
           </a>
-          <p className="mt-4 text-sm text-slate-600">{item.description}</p>
+          <div className="mt-4"><SmartDescription text={item.description} onSearchKeyword={onSearchKeyword} /></div>
           {item.includes?.length ? (
             <div className="mt-4 flex flex-wrap gap-1.5">
               {item.includes.map((inc, i) => (
@@ -165,11 +207,12 @@ function TierExplorer({ type }) {
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
   const [selected, setSelected] = useState(null)
-  const load = useCallback(async () => {
+  const load = useCallback(async (queryOverride) => {
     setLoading(true)
     try {
       const params = new URLSearchParams({ type })
-      if (q) params.set('q', q)
+      const searchTerm = queryOverride !== undefined ? queryOverride : q
+      if (searchTerm) params.set('q', searchTerm)
       if (cat && cat !== 'All') params.set('category', cat)
       const res = await fetch(`/api/listings?${params.toString()}`)
       const data = await res.json()
@@ -182,6 +225,10 @@ function TierExplorer({ type }) {
   }, [type, q, cat])
   useEffect(() => { load() }, [cat]) // eslint-disable-line
   useEffect(() => { load() }, []) // eslint-disable-line
+  const handleKeywordSearch = (keyword) => {
+    setQ(keyword)
+    load(keyword)
+  }
   const handleBook = async (item) => {
     setBooking(item.id)
     try {
@@ -246,11 +293,11 @@ function TierExplorer({ type }) {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} onOpen={setSelected} />)}
+            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} onOpen={setSelected} onSearchKeyword={handleKeywordSearch} />)}
           </div>
         )}
       </div>
-      <VendorModal item={selected} onClose={() => setSelected(null)} onBook={handleBook} booking={booking} />
+      <VendorModal item={selected} onClose={() => setSelected(null)} onBook={handleBook} booking={booking} onSearchKeyword={handleKeywordSearch} />
     </div>
   )
 }
