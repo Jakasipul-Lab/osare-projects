@@ -852,7 +852,7 @@ function App() {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
     const v = params.get('view')
-    if (v === 'safari' || v === 'local') setView(v)
+    if (['safari', 'local', 'about'].includes(v)) setView(v)
   }, [])
   const onAuth = (t, v) => {
     setToken(t); setVendor(v)
