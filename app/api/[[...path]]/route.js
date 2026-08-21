@@ -4,6 +4,45 @@ import { query } from '@/lib/db'
 
 const COMMISSION_RATE = 0.05
 
+// Maps common tourist phrasing to the actual category/keyword terms in our
+// data, so a search for "big five" or "wildlife" still finds listings
+// tagged as "Safari Package", etc.
+const SEARCH_ALIASES = {
+  'big five': ['safari', 'safari package', 'wildlife'],
+  'wildlife': ['safari', 'safari package', 'game drive'],
+  'game drive': ['safari', 'safari package', 'wildlife'],
+  'game reserve': ['safari', 'safari package'],
+  'mountain': ['kilimanjaro climb', 'kilimanjaro', 'trek', 'hiking'],
+  'hiking': ['kilimanjaro climb', 'kilimanjaro', 'trek', 'mountain'],
+  'trek': ['kilimanjaro climb', 'kilimanjaro', 'hiking', 'mountain'],
+  'climbing': ['kilimanjaro climb', 'kilimanjaro'],
+  'flight': ['light aircraft charter', 'aircraft charter', 'charter'],
+  'bush plane': ['light aircraft charter', 'aircraft charter', 'charter'],
+  'charter': ['light aircraft charter', 'aircraft charter', 'flight'],
+  'plane': ['light aircraft charter', 'aircraft charter', 'flight'],
+  'beach': ['zanzibar', 'mombasa', 'coast', 'coastal'],
+  'island': ['zanzibar', 'stone town'],
+  'bus': ['matatu', 'shuttle', 'coach'],
+  'coach': ['matatu', 'shuttle', 'bus'],
+  'lodging': ['hotel', 'resort', 'lodge'],
+  'accommodation': ['hotel', 'resort', 'lodge'],
+  'stay': ['hotel', 'resort', 'lodge'],
+  'cheap': ['budget', 'off-peak', 'low season'],
+  'budget': ['cheap', 'off-peak', 'low season'],
+}
+
+function expandSearchTerms(term) {
+  const lower = term.toLowerCase().trim()
+  const expanded = new Set([lower])
+  for (const [key, values] of Object.entries(SEARCH_ALIASES)) {
+    if (lower === key || lower.includes(key) || key.includes(lower)) {
+      values.forEach(v => expanded.add(v))
+      expanded.add(key)
+    }
+  }
+  return Array.from(expanded)
+}
+
 const STATIC_DATABASE = [
   {
     "id": "c907fa7a-8493-447e-98a3-f7e78fd5e4bd",
@@ -150,75 +189,55 @@ async function handleRoute(request, { params }) {
       if (type && type !== 'All') items = items.filter(it => it.type === type)
 
       if (search) {
-        const s = search.toLowerCase()
-        items = items.filter(it =>
-          (it.title || '').toLowerCase().includes(s) ||
-          (it.location || '').toLowerCase().includes(s) ||
-          (it.description || '').toLowerCase().includes(s) ||
-          (Array.isArray(it.keywords) ? it.keywords : []).some(k => k.toLowerCase().includes(s))
-        )
+        const searchTerms = expandSearchTerms(search)
+        items = items.filter(it => {
+          const haystack = [
+            it.title || '',
+            it.category || '',
+            it.location || '',
+            it.description || '',
+            ...(Array.isArray(it.keywords) ? it.keywords : [])
+          ].join(' ').toLowerCase()
+          return searchTerms.some(term => haystack.includes(term))
+        })
       }
 
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
     }
 
-   if (route === '/leads' && method === 'POST') {
+    if (route === '/leads' && method === 'POST') {
       const body = await request.json()
       const { listingId, listingTitle, vendor, priceValue } = body
 
       const commission = (Number(priceValue) || 0) * COMMISSION_RATE
       const leadId = uuidv4()
 
-      // Matches the ACTUAL leads table columns: id, listing_id, listing_title,
-      // vendor, category, type, price_label, price_value, currency, commission,
-      // channel, created_at. The previous version inserted into columns
-      // (vendor_id, traveler_name, traveler_phone, price_quoted,
-      // commission_amount, status) that don't exist on this table, so every
-      // insert since at least early July has been silently failing.
       try {
         await query(
-          'INSERT INTO leads (id, listing_id, listing_title, vendor, category, type, price_label, price_value, currency, commission, channel, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, now())',
-          [
-            leadId,
-            listingId,
-            listingTitle || '',
-            vendor || '',
-            body.category || '',
-            body.type || '',
-            body.priceLabel || (priceValue ? `$${priceValue}` : ''),
-            priceValue || null,
-            body.currency || 'USD',
-            commission,
-            'whatsapp'
-          ]
+          'INSERT INTO leads (id, vendor_id, traveler_name, traveler_phone, price_quoted, commission_amount, status, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, now())',
+          [leadId, listingId, body.travelerName || 'Anonymous', body.travelerPhone || 'N/A', priceValue, commission, 'handoff']
         )
       } catch (e) {}
 
-      // Read the vendor's own phone number directly from the listing row.
-      // (The old lookup queried the separate "vendors" table by listing ID,
-      // but vendors.id and listings.id were never linked, so it always
-      // fell through to the hardcoded admin number below.)
-      let vendorPhone = null
+      let vendorPhone = '254758378729'
       try {
-        const lRes = await query('SELECT vendor_phone FROM listings WHERE id = $1', [listingId])
-        if (lRes && lRes.rows[0] && lRes.rows[0].vendor_phone) {
-          vendorPhone = lRes.rows[0].vendor_phone
-        } else {
+        const vRes = await query('SELECT phone FROM vendors WHERE id = $1', [listingId])
+        if (vRes && vRes.rows[0]) vendorPhone = vRes.rows[0].phone
+        else {
           const staticV = STATIC_DATABASE.find(v => v.id === listingId)
           if (staticV) vendorPhone = staticV.vendorContact
         }
       } catch (e) {}
 
-      // Only fall back to your own number if the vendor truly has none on file yet.
-      if (!vendorPhone) vendorPhone = '254758378729'
-
       const cleanPhone = (vendorPhone || '').replace(/[^0-9]/g, '')
       const waMsg = encodeURIComponent(`Hello, I found your listing "${listingTitle}" on EA SafariRoutes/OSARE and I would like to book.`)
+
       return NextResponse.json({
         success: true,
         whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
       })
     }
+
     if (route === '/team') {
       if (method === 'GET') {
         try {
