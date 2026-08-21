@@ -27,6 +27,7 @@ const nextConfig = {
     return [
       { source: '/safari', destination: '/?view=safari', permanent: false },
       { source: '/local', destination: '/?view=local', permanent: false },
+      { source: '/about', destination: '/?view=about', permanent: false },
     ];
   },
   async headers() {
