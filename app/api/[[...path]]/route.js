@@ -4,9 +4,6 @@ import { query } from '@/lib/db'
 
 const COMMISSION_RATE = 0.05
 
-// Maps common tourist phrasing to the actual category/keyword terms in our
-// data, so a search for "big five" or "wildlife" still finds listings
-// tagged as "Safari Package", etc.
 const SEARCH_ALIASES = {
   'big five': ['safari', 'safari package', 'wildlife'],
   'wildlife': ['safari', 'safari package', 'game drive'],
@@ -119,9 +116,7 @@ const STATIC_DATABASE = [
 
 const STATIC_LOCAL_IDS = ['sgr-001', 'easycoach-001', 'moderncoast-001']
 
-// Maps a row from the real `vendors` table (id, name, company, email, phone,
-// password_hash, created_at, category, location, type, price_value, currency,
-// description) into the shape the frontend expects.
+// Maps a row from the real `vendors` table into the shape the frontend expects.
 function mapVendorRow(r) {
   const priceValue = Number(r.price_value) || 0
   const currency = r.currency || 'USD'
@@ -143,7 +138,11 @@ function mapVendorRow(r) {
     type: r.type || 'safari',
     image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80',
     keywords: [r.location, r.category].filter(Boolean).map(s => String(s).toLowerCase()),
-    assets: ['Verified Vendor']
+    assets: ['Verified Vendor'],
+    isVerified: r.is_verified === true,
+    vendorPrice: r.vendor_price !== null && r.vendor_price !== undefined ? Number(r.vendor_price) : null,
+    platformPrice: r.platform_price !== null && r.platform_price !== undefined ? Number(r.platform_price) : priceValue,
+    priceStatus: r.price_status || 'PENDING'
   }
 }
 
@@ -175,10 +174,7 @@ async function handleRoute(request, { params }) {
             }
           }
         }
-      } catch (e) {
-        // Surface DB errors in a header for now so they're visible without
-        // silently falling back and hiding the real cause.
-      }
+      } catch (e) {}
 
       for (const sid of STATIC_LOCAL_IDS) {
         if (!items.find(i => i.id === sid) && staticById[sid]) {
@@ -203,6 +199,29 @@ async function handleRoute(request, { params }) {
       }
 
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
+    }
+
+    if (route === '/verify-vendor' && method === 'POST') {
+      const body = await request.json()
+      const { id, isVerified, vendorPrice, priceStatus } = body
+
+      if (!id) {
+        return NextResponse.json({ error: 'Missing vendor id' }, { status: 400 })
+      }
+
+      try {
+        await query(
+          `UPDATE vendors
+           SET is_verified = COALESCE($2, is_verified),
+               vendor_price = COALESCE($3, vendor_price),
+               price_status = COALESCE($4, price_status)
+           WHERE id = $1`,
+          [id, isVerified ?? null, vendorPrice ?? null, priceStatus ?? null]
+        )
+        return NextResponse.json({ success: true })
+      } catch (e) {
+        return NextResponse.json({ error: e.message }, { status: 500 })
+      }
     }
 
     if (route === '/leads' && method === 'POST') {
