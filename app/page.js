@@ -536,6 +536,34 @@ function Admin() {
     toast.success('Listing removed')
     load()
   }
+  const toggleVerified = async (item) => {
+    try {
+      await fetch('/api/verify-vendor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: item.id, isVerified: !item.isVerified })
+      })
+      toast.success(!item.isVerified ? 'Marked as verified' : 'Verification removed')
+      load()
+    } catch (e) {
+      toast.error('Could not update verification')
+    }
+  }
+  const cycleStatus = async (item) => {
+    const order = ['PENDING', 'APPROVED', 'MISMATCH']
+    const next = order[(order.indexOf(item.priceStatus) + 1) % order.length]
+    try {
+      await fetch('/api/verify-vendor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: item.id, priceStatus: next })
+      })
+      toast.success(`Price status set to ${next}`)
+      load()
+    } catch (e) {
+      toast.error('Could not update price status')
+    }
+  }
   const seed = async () => {
     setSeeding(true)
     try {
@@ -626,6 +654,8 @@ function Admin() {
                     <TableHead>Title</TableHead>
                     <TableHead>Tier</TableHead>
                     <TableHead>Price</TableHead>
+                    <TableHead>Verified</TableHead>
+                    <TableHead>Price Status</TableHead>
                     <TableHead></TableHead>
                   </TableRow>
                 </TableHeader>
@@ -640,6 +670,22 @@ function Admin() {
                         <Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge>
                       </TableCell>
                       <TableCell className="text-sm">{l.priceLabel}</TableCell>
+                      <TableCell>
+                        <Button
+                          size="sm"
+                          variant={l.isVerified ? 'default' : 'outline'}
+                          onClick={() => toggleVerified(l)}
+                          className={l.isVerified ? 'gap-1 bg-emerald-600 hover:bg-emerald-700' : 'gap-1'}
+                        >
+                          <ShieldCheck className="h-3.5 w-3.5" />
+                          {l.isVerified ? 'Verified' : 'Unverified'}
+                        </Button>
+                      </TableCell>
+                      <TableCell>
+                        <button onClick={() => cycleStatus(l)} className="cursor-pointer">
+                          <StatusBadgePrice status={l.priceStatus} />
+                        </button>
+                      </TableCell>
                       <TableCell className="text-right">
                         <Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700">
                           <Trash2 className="h-4 w-4" />
@@ -655,6 +701,18 @@ function Admin() {
         </Card>
       </div>
     </div>
+  )
+}
+function StatusBadgePrice({ status }) {
+  const map = {
+    APPROVED: 'bg-emerald-100 text-emerald-700',
+    MISMATCH: 'bg-red-100 text-red-700',
+    PENDING: 'bg-amber-100 text-amber-700',
+  }
+  return (
+    <Badge variant="secondary" className={map[status] || map.PENDING}>
+      {status || 'PENDING'}
+    </Badge>
   )
 }
 function Field({ label, v, on, ph }) {
