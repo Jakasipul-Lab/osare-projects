@@ -46,6 +46,7 @@ export async function POST(request) {
     const transactionDate = parseMpesaTimestamp(transactionDateRaw);
     const status = success ? 'completed' : 'failed';
 
+    // 1. Record / update the transaction row.
     try {
       const existing = checkoutRequestId
         ? await query('SELECT id FROM transactions WHERE checkout_request_id = $1', [checkoutRequestId])
@@ -72,8 +73,12 @@ export async function POST(request) {
            transactionDate, amount, status]
         );
       }
-    } catch (dbError) {}
+    } catch (dbError) {
+      // Continue on to try activation even if the transaction log fails —
+      // activating the paying vendor matters more than the log entry.
+    }
 
+    // 2. On success, activate the vendor who paid.
     if (success && phoneRaw) {
       try {
         const phoneMatch = String(phoneRaw).slice(-9);
@@ -81,7 +86,10 @@ export async function POST(request) {
           "UPDATE vendors SET is_active = true WHERE phone LIKE '%' || $1",
           [phoneMatch]
         );
-      } catch (activationError) {}
+      } catch (activationError) {
+        // If this fails, the transaction is still logged above, so
+        // nothing is silently lost — just not yet auto-activated.
+      }
     }
 
     return NextResponse.json({ ResultCode: 0, ResultDesc: 'Accepted' });
