@@ -26,6 +26,16 @@ const SEARCH_ALIASES = {
   'stay': ['hotel', 'resort', 'lodge'],
   'cheap': ['budget', 'off-peak', 'low season'],
   'budget': ['cheap', 'off-peak', 'low season'],
+  '4x4': ['car & caravan hire', 'car hire', 'caravan hire', 'self-drive'],
+  'land cruiser': ['car & caravan hire', 'car hire', '4x4'],
+  'land rover': ['car & caravan hire', 'car hire', '4x4'],
+  'self drive': ['car & caravan hire', 'car hire', 'self-drive', '4x4'],
+  'self-drive': ['car & caravan hire', 'car hire', 'self drive', '4x4'],
+  'rental car': ['car & caravan hire', 'car hire'],
+  'rent a car': ['car & caravan hire', 'car hire'],
+  'jeep': ['car & caravan hire', 'car hire', '4x4'],
+  'roof tent': ['car & caravan hire', 'caravan hire', 'camping'],
+  'camping vehicle': ['car & caravan hire', 'caravan hire', 'camping'],
 }
 
 function expandSearchTerms(term) {
