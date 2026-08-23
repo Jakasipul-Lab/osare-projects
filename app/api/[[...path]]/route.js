@@ -145,6 +145,15 @@ const PLACEHOLDER_POOLS = {
     'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
   ],
+  // 4x4 / safari vehicle hire — a distinct need from generic "safari
+  // package" photos: tourists searching this want to see the actual
+  // vehicle (pop-top Land Cruiser, self-drive 4x4, camping rig), not a
+  // sunset silhouette.
+  carHire: [
+    'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?q=80&w=800&auto=format&fit=crop',
+  ],
   // The big bucket — most listings on a safari platform land here, so it
   // needs the most variety to avoid repetition.
   safari: [
@@ -168,6 +177,7 @@ function pickPlaceholderImage(category, seedKey) {
   else if (c.includes('matatu') || c.includes('shuttle') || c.includes('taxi') || c.includes('bus') || c.includes('transfer')) pool = PLACEHOLDER_POOLS.transit
   else if (c.includes('cultural') || c.includes('village')) pool = PLACEHOLDER_POOLS.cultural
   else if (c.includes('marine') || c.includes('diving') || c.includes('watersports') || c.includes('beach')) pool = PLACEHOLDER_POOLS.marine
+  else if (c.includes('car hire') || c.includes('caravan') || c.includes('4x4') || c.includes('self-drive') || c.includes('self drive') || c.includes('rental')) pool = PLACEHOLDER_POOLS.carHire
 
   // Pick deterministically from the pool using the vendor's own id/name,
   // so it's stable across reloads but varies from vendor to vendor.
