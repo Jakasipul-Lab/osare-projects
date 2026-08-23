@@ -116,6 +116,34 @@ const STATIC_DATABASE = [
 
 const STATIC_LOCAL_IDS = ['sgr-001', 'easycoach-001', 'moderncoast-001']
 
+// A small pool of category-appropriate placeholder photos, so vendors
+// without a real uploaded photo don't all show the exact same image.
+const PLACEHOLDER_IMAGES = {
+  safari: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop',
+  wildlife: 'https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=800&auto=format&fit=crop',
+  kilimanjaro: 'https://images.unsplash.com/photo-1613061445510-e296bfedb73e?q=80&w=800&auto=format&fit=crop',
+  hotel: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=800&auto=format&fit=crop',
+  resort: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop',
+  cultural: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=800&auto=format&fit=crop',
+  aircraft: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop',
+  flight: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop',
+  beach: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
+  marine: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
+  travel: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop',
+  train: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
+  bus: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=800&auto=format&fit=crop',
+  matatu: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=800&auto=format&fit=crop',
+  default: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop',
+}
+
+function pickPlaceholderImage(category) {
+  const c = (category || '').toLowerCase()
+  for (const key of Object.keys(PLACEHOLDER_IMAGES)) {
+    if (key !== 'default' && c.includes(key)) return PLACEHOLDER_IMAGES[key]
+  }
+  return PLACEHOLDER_IMAGES.default
+}
+
 // Maps a row from the real `vendors` table into the shape the frontend expects.
 function mapVendorRow(r) {
   const priceValue = Number(r.price_value) || 0
@@ -136,7 +164,7 @@ function mapVendorRow(r) {
     priceValue,
     currency,
     type: r.type || 'safari',
-    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80',
+    image: r.image || pickPlaceholderImage(r.category),
     keywords: [r.location, r.category].filter(Boolean).map(s => String(s).toLowerCase()),
     assets: ['Verified Vendor'],
     isVerified: r.is_verified === true,
@@ -203,7 +231,7 @@ async function handleRoute(request, { params }) {
 
     if (route === '/verify-vendor' && method === 'POST') {
       const body = await request.json()
-      const { id, isVerified, vendorPrice, priceStatus } = body
+      const { id, isVerified, vendorPrice, priceStatus, image } = body
 
       if (!id) {
         return NextResponse.json({ error: 'Missing vendor id' }, { status: 400 })
@@ -214,9 +242,10 @@ async function handleRoute(request, { params }) {
           `UPDATE vendors
            SET is_verified = COALESCE($2, is_verified),
                vendor_price = COALESCE($3, vendor_price),
-               price_status = COALESCE($4, price_status)
+               price_status = COALESCE($4, price_status),
+               image = COALESCE($5, image)
            WHERE id = $1`,
-          [id, isVerified ?? null, vendorPrice ?? null, priceStatus ?? null]
+          [id, isVerified ?? null, vendorPrice ?? null, priceStatus ?? null, image ?? null]
         )
         return NextResponse.json({ success: true })
       } catch (e) {
