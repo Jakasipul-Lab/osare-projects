@@ -116,32 +116,65 @@ const STATIC_DATABASE = [
 
 const STATIC_LOCAL_IDS = ['sgr-001', 'easycoach-001', 'moderncoast-001']
 
-// A small pool of category-appropriate placeholder photos, so vendors
-// without a real uploaded photo don't all show the exact same image.
-const PLACEHOLDER_IMAGES = {
-  safari: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop',
-  wildlife: 'https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=800&auto=format&fit=crop',
-  kilimanjaro: 'https://images.unsplash.com/photo-1613061445510-e296bfedb73e?q=80&w=800&auto=format&fit=crop',
-  hotel: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=800&auto=format&fit=crop',
-  resort: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop',
-  cultural: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=800&auto=format&fit=crop',
-  aircraft: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop',
-  flight: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop',
-  beach: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
-  marine: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
-  travel: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop',
-  train: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
-  bus: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=800&auto=format&fit=crop',
-  matatu: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=800&auto=format&fit=crop',
-  default: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop',
+// Multiple photos per category, so even many "Safari Package" vendors
+// (the majority on a safari platform) don't all show the same image.
+// A vendor's own id picks a consistent photo from the pool deterministically,
+// so the same vendor always shows the same photo across visits.
+const PLACEHOLDER_POOLS = {
+  hotel: [
+    'https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop',
+  ],
+  aircraft: [
+    'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop',
+  ],
+  train: [
+    'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
+  ],
+  transit: [
+    'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800&auto=format&fit=crop',
+  ],
+  cultural: [
+    'https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1489493887464-892be6d1daae?q=80&w=800&auto=format&fit=crop',
+  ],
+  marine: [
+    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
+  ],
+  // The big bucket — most listings on a safari platform land here, so it
+  // needs the most variety to avoid repetition.
+  safari: [
+    'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1613061445510-e296bfedb73e?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1470114716159-e389f8712fda?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop',
+  ],
 }
 
-function pickPlaceholderImage(category) {
+function pickPlaceholderImage(category, seedKey) {
   const c = (category || '').toLowerCase()
-  for (const key of Object.keys(PLACEHOLDER_IMAGES)) {
-    if (key !== 'default' && c.includes(key)) return PLACEHOLDER_IMAGES[key]
-  }
-  return PLACEHOLDER_IMAGES.default
+  let pool = PLACEHOLDER_POOLS.safari
+  if (c.includes('hotel') || c.includes('resort') || c.includes('lodge')) pool = PLACEHOLDER_POOLS.hotel
+  else if (c.includes('aircraft') || c.includes('flight') || c.includes('charter')) pool = PLACEHOLDER_POOLS.aircraft
+  else if (c.includes('train') || c.includes('sgr')) pool = PLACEHOLDER_POOLS.train
+  else if (c.includes('matatu') || c.includes('shuttle') || c.includes('taxi') || c.includes('bus') || c.includes('transfer')) pool = PLACEHOLDER_POOLS.transit
+  else if (c.includes('cultural') || c.includes('village')) pool = PLACEHOLDER_POOLS.cultural
+  else if (c.includes('marine') || c.includes('diving') || c.includes('watersports') || c.includes('beach')) pool = PLACEHOLDER_POOLS.marine
+
+  // Pick deterministically from the pool using the vendor's own id/name,
+  // so it's stable across reloads but varies from vendor to vendor.
+  const s = String(seedKey || '')
+  let hash = 0
+  for (let i = 0; i < s.length; i++) hash = (hash * 31 + s.charCodeAt(i)) >>> 0
+  return pool[hash % pool.length]
 }
 
 // Maps a row from the real `vendors` table into the shape the frontend expects.
@@ -164,7 +197,7 @@ function mapVendorRow(r) {
     priceValue,
     currency,
     type: r.type || 'safari',
-    image: r.image || pickPlaceholderImage(r.category),
+    image: r.image || pickPlaceholderImage(r.category, r.id || r.name),
     keywords: [r.location, r.category].filter(Boolean).map(s => String(s).toLowerCase()),
     assets: ['Verified Vendor'],
     isVerified: r.is_verified === true,
