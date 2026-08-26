@@ -306,6 +306,34 @@ async function handleRoute(request, { params }) {
       }
     }
 
+    if (route === '/leads' && method === 'GET') {
+      try {
+        const res = await query(`
+          SELECT l.id, l.vendor_id, l.traveler_name, l.traveler_phone,
+                 l.price_quoted, l.commission_amount, l.status, l.created_at,
+                 v.name AS vendor_name, v.category, v.type, v.currency
+          FROM leads l
+          LEFT JOIN vendors v ON v.id = l.vendor_id
+          ORDER BY l.created_at DESC
+          LIMIT 200
+        `)
+        const leads = (res?.rows || []).map(r => ({
+          id: r.id,
+          listingTitle: r.vendor_name || 'Unknown listing',
+          vendor: r.vendor_name || 'Unknown vendor',
+          type: r.type || 'safari',
+          priceLabel: r.currency === 'KES' ? `KES ${r.price_quoted}` : `$${r.price_quoted}`,
+          priceValue: Number(r.price_quoted) || 0,
+          currency: r.currency || 'USD',
+          commission: Number(r.commission_amount) || 0,
+          status: r.status
+        }))
+        return NextResponse.json(leads)
+      } catch (e) {
+        return NextResponse.json([])
+      }
+    }
+
     if (route === '/leads' && method === 'POST') {
       const body = await request.json()
       const { listingId, listingTitle, vendor, priceValue } = body
@@ -337,6 +365,51 @@ async function handleRoute(request, { params }) {
         success: true,
         whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
       })
+    }
+
+    if (route === '/stats') {
+      try {
+        const vendorsRes = await query('SELECT type FROM vendors')
+        const totalListings = vendorsRes.rows.length
+        const safariCount = vendorsRes.rows.filter(r => r.type === 'safari').length
+        const localCount = vendorsRes.rows.filter(r => r.type === 'local').length
+
+        const leadsRes = await query(`
+          SELECT l.commission_amount, v.type, v.category
+          FROM leads l
+          LEFT JOIN vendors v ON v.id = l.vendor_id
+        `)
+        const totalLeads = leadsRes.rows.length
+        const estRevenueUSD = leadsRes.rows.reduce((sum, r) => sum + (Number(r.commission_amount) || 0), 0).toFixed(2)
+
+        const leadsByType = {
+          safari: leadsRes.rows.filter(r => r.type === 'safari').length,
+          local: leadsRes.rows.filter(r => r.type === 'local').length
+        }
+
+        const categoryCounts = {}
+        leadsRes.rows.forEach(r => {
+          const cat = r.category || 'Uncategorized'
+          categoryCounts[cat] = (categoryCounts[cat] || 0) + 1
+        })
+        const leadsByCategory = Object.entries(categoryCounts).map(([name, value]) => ({ name, value }))
+
+        return NextResponse.json({
+          totalListings,
+          totalLeads,
+          estRevenueUSD,
+          safariCount,
+          localCount,
+          leadsByType,
+          leadsByCategory
+        })
+      } catch (e) {
+        return NextResponse.json({
+          totalListings: 0, totalLeads: 0, estRevenueUSD: '0.00',
+          safariCount: 0, localCount: 0,
+          leadsByType: { safari: 0, local: 0 }, leadsByCategory: []
+        })
+      }
     }
 
     if (route === '/team') {
