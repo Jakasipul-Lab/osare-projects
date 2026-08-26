@@ -1015,12 +1015,13 @@ function App() {
         .catch(() => {})
     }
   }, [])
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const params = new URLSearchParams(window.location.search)
-    const v = params.get('view')
-    if (['safari', 'local', 'about'].includes(v)) setView(v)
-  }, [])
+ useEffect(() => {
+  if (typeof window === 'undefined') return
+  const path = window.location.pathname
+  if (path === '/safari') setView('safari')
+  else if (path === '/local') setView('local')
+  else if (path === '/about') setView('about')
+}, [])
   const onAuth = (t, v) => {
     setToken(t); setVendor(v)
     if (typeof window !== 'undefined') localStorage.setItem('osare_token', t)
