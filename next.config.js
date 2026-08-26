@@ -23,11 +23,11 @@ const nextConfig = {
     maxInactiveAge: 10000,
     pagesBufferLength: 2,
   },
-  async redirects() {
+  async rewrites() {
     return [
-      { source: '/safari', destination: '/?view=safari', permanent: false },
-      { source: '/local', destination: '/?view=local', permanent: false },
-      { source: '/about', destination: '/?view=about', permanent: false },
+      { source: '/safari', destination: '/' },
+      { source: '/local', destination: '/' },
+      { source: '/about', destination: '/' },
     ];
   },
   async headers() {
