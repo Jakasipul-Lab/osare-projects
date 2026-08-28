@@ -50,6 +50,20 @@ const catIcon = (cat) => {
   if (/airport/i.test(cat)) return <Plane className="h-4 w-4" />
   return <Compass className="h-4 w-4" />
 }
+function XIcon({ className }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  )
+}
+function TikTokIcon({ className }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/>
+    </svg>
+  )
+}
 function SmartDescription({ text, onSearchKeyword }) {
   const keywords = [
     // Tanzania
@@ -67,8 +81,6 @@ function SmartDescription({ text, onSearchKeyword }) {
     'SGR', 'Train', 'Taxi', 'Airport Transfer',
   ]
   if (!text) return null
-  // Sort longest-first so "Kilimanjaro Climb" matches before the shorter
-  // "Kilimanjaro" swallows part of it.
   const sorted = [...keywords].sort((a, b) => b.length - a.length)
   const pattern = new RegExp(`(${sorted.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
   const parts = text.split(pattern)
@@ -1016,13 +1028,12 @@ function App() {
         .catch(() => {})
     }
   }, [])
- useEffect(() => {
-  if (typeof window === 'undefined') return
-  const path = window.location.pathname
-  if (path === '/safari') setView('safari')
-  else if (path === '/local') setView('local')
-  else if (path === '/about') setView('about')
-}, [])
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const v = params.get('view')
+    if (['safari', 'local', 'about'].includes(v)) setView(v)
+  }, [])
   const onAuth = (t, v) => {
     setToken(t); setVendor(v)
     if (typeof window !== 'undefined') localStorage.setItem('osare_token', t)
@@ -1113,8 +1124,22 @@ function App() {
             <h4 className="font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
-              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Plaza Building, Oginga Odinga Street, Kisumu, Kenya</li>
+              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Nairobi CBD, Kenya</li>
             </ul>
+            <div className="mt-4 flex items-center gap-3">
+              <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-slate-400 hover:text-white">
+                <XIcon className="h-5 w-5" />
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61593524609763" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-400 hover:text-white">
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a href="https://www.linkedin.com/company/142404145/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-400 hover:text-white">
+                <Linkedin className="h-5 w-5" />
+              </a>
+              <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white">
+                <TikTokIcon className="h-5 w-5" />
+              </a>
+            </div>
           </div>
         </div>
         <p className="mt-8 text-center text-xs text-slate-500">© 2025 OSARE — easafariroutes.com. All rights reserved.</p>
