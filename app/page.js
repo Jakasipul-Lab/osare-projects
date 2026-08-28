@@ -1124,7 +1124,12 @@ function App() {
             <h4 className="font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
-              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Nairobi CBD, Kenya</li>
+             <h4 className="font-semibold text-white">Contact</h4>
+<ul className="mt-3 space-y-2 text-sm text-slate-400">
+  <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
+  <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Oginga Odinga Street, Kisumu, 40100</li>
+  <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> info@easafariroutes.com</li>
+</ul>
             </ul>
             <div className="mt-4 flex items-center gap-3">
               <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-slate-400 hover:text-white">
