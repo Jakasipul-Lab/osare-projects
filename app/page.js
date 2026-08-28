@@ -3,7 +3,8 @@ import { useEffect, useState, useCallback } from 'react'
 import {
   Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
   Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
-  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag
+  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag,
+  Facebook, Linkedin
 } from 'lucide-react'
 import AboutView from '@/components/AboutView'
 import { Button } from '@/components/ui/button'
