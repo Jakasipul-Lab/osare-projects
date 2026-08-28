@@ -1129,7 +1129,6 @@ function App() {
     <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> info@easafariroutes.com</li>
   </ul>
 </div>
-            </ul>
             <div className="mt-4 flex items-center gap-3">
               <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-slate-400 hover:text-white">
                 <XIcon className="h-5 w-5" />
