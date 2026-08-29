@@ -1,5 +1,10 @@
 import { getAllVendors } from '@/lib/vendorData'
 
+// Force this route to always run fresh (no caching) so newly added
+// vendors and pages show up immediately instead of a stale build-time copy.
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function sitemap() {
   const baseUrl = 'https://easafariroutes.com'
 
