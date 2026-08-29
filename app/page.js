@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react'
 import {
   Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
   Binoculars, Building2, Phone, ShieldCheck, TrendingUp, Percent, Users,
-  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag, Mail,
+  Leaf, Sparkles, ArrowRight, Trash2, Plus, Loader2, MessageCircle, Tag,
   Facebook, Linkedin
 } from 'lucide-react'
 import AboutView from '@/components/AboutView'
@@ -24,6 +24,7 @@ import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from 'recharts'
 import RecentLeads from '@/components/vendor/RecentLeads'
+import Link from 'next/link'
 const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
 const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 const NAV = [
@@ -123,7 +124,9 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
         ) : null}
       </div>
       <CardContent className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
+        <Link href={`/safari/${item.slug}`} onClick={(e) => e.stopPropagation()} className="text-lg font-bold text-slate-900 leading-snug hover:text-[#f97316]">
+          {item.title}
+        </Link>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
         <a
           href={item.mapLink}
@@ -1086,7 +1089,8 @@ function App() {
               </button>
             ))}
           </div>
-        )}      </header>
+        )}
+      </header>
       {view === 'home' && <Home go={go} />}
       {view === 'safari' && <TierExplorer type="safari" key={'safari' + pendingQuery} />}
       {view === 'local' && <TierExplorer type="local" key={'local' + pendingQuery} />}
@@ -1122,10 +1126,8 @@ function App() {
           <div>
             <h4 className="font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> Head Office: +254 758 378 729</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> Kenya Branch: +254 710 428 814</li>
-              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Oginga Odinga Street, Kisumu, 40100</li>
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> info@easafariroutes.com</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
+              <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Nairobi CBD, Kenya</li>
             </ul>
             <div className="mt-4 flex items-center gap-3">
               <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-slate-400 hover:text-white">
