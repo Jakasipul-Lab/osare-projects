@@ -47,7 +47,7 @@ export default async function VendorDetailPage({ params }) {
           <p className="mt-1 text-lg font-semibold text-[#1e3a8a]">By {item.vendor}</p>
 
           {item.mapLink ? (
-            
+            <a
               href={item.mapLink}
               target="_blank"
               rel="noopener noreferrer"
@@ -83,7 +83,7 @@ export default async function VendorDetailPage({ params }) {
             ) : null}
           </div>
 
-          
+          <a
             href={`https://wa.me/${whatsappPhone}?text=${whatsappMsg}`}
             target="_blank"
             rel="noopener noreferrer"
