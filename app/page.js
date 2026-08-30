@@ -1125,6 +1125,7 @@ function App() {
           </div>
           <div>
             <h4 className="font-semibold text-white">Contact</h4>
+            <ul  <h4 className="font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 707 618 213</li>
@@ -1141,17 +1142,6 @@ function App() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white">
-                <TikTokIcon className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-        <p className="mt-8 text-center text-xs text-slate-500">© 2025 OSARE — easafariroutes.com. All rights reserved.</p>
-      </footer>
-    </div>
-  )
-}
-export default App <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white">
                 <TikTokIcon className="h-5 w-5" />
               </a>
             </div>
