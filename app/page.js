@@ -1121,14 +1121,15 @@ function App() {
               <li><button onClick={() => go('admin')} className="hover:text-white">Add a listing</button></li>
               <li><button onClick={() => go('dashboard')} className="hover:text-white">Revenue dashboard</button></li>
               <li className="text-slate-400">Only 5% on bookings</li>
-            </ul>
+         </ul>
           </div>
           <div>
             <h4 className="font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
-               <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 707 618 213</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 707 618 213</li>
               <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 shrink-0" /> <span>Plaza Building, Oginga Odinga Street, Kisumu 40100, Kenya</span></li>
+            </ul>
             <div className="mt-4 flex items-center gap-3">
               <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-slate-400 hover:text-white">
                 <XIcon className="h-5 w-5" />
@@ -1140,6 +1141,17 @@ function App() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white">
+                <TikTokIcon className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <p className="mt-8 text-center text-xs text-slate-500">© 2025 OSARE — easafariroutes.com. All rights reserved.</p>
+      </footer>
+    </div>
+  )
+}
+export default App <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white">
                 <TikTokIcon className="h-5 w-5" />
               </a>
             </div>
