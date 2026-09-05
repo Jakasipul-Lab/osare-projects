@@ -23,8 +23,45 @@ export default async function VendorDetailPage({ params }) {
   )
   const whatsappPhone = (item.vendorPhone || '254758378729').replace(/[^0-9]/g, '')
 
+  const pageUrl = `https://easafariroutes.com/safari/${slug}`
+
+  // Build JSON-LD structured data from the same `item` object already
+  // powering the visible page — no extra data fetching required.
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: item.vendor || item.title,
+    description: item.description || `${item.title} by ${item.vendor} in ${item.location}.`,
+    url: pageUrl,
+    ...(item.image ? { image: item.image } : {}),
+    ...(item.location
+      ? {
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: item.location,
+          },
+        }
+      : {}),
+    ...(item.vendorPhone ? { telephone: item.vendorPhone } : {}),
+    ...(item.priceValue
+      ? {
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: item.currency || 'USD',
+            price: String(item.priceValue),
+            url: pageUrl,
+          },
+        }
+      : {}),
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Link href="/safari" className="text-sm text-slate-500 hover:text-slate-700">
         ← Back to Safari & Tourism
       </Link>
