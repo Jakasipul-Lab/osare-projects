@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -8,7 +7,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
     ],
   },
-  serverExternalPackages: ['mongodb'],
   webpack(config, { dev }) {
     if (dev) {
       config.watchOptions = {
@@ -22,13 +20,6 @@ const nextConfig = {
   onDemandEntries: {
     maxInactiveAge: 10000,
     pagesBufferLength: 2,
-  },
-  async rewrites() {
-    return [
-      { source: '/safari', destination: '/' },
-      { source: '/local', destination: '/' },
-      { source: '/about', destination: '/' },
-    ];
   },
   async headers() {
     return [
