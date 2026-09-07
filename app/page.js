@@ -848,7 +848,11 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
     setSaving(true)
     try {
       const res = await fetch('/api/listings', { method: 'POST', headers: authHeaders, body: JSON.stringify(form) })
-      if (!res.ok) { toast.error('Failed to add listing'); return }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        toast.error(data.error || 'Failed to add listing')
+        return
+      }
       toast.success('Listing published')
       setForm(EMPTY_FORM)
       load()
