@@ -746,7 +746,7 @@ function Field({ label, v, on, ph }) {
 }
 function VendorAuth({ onAuth }) {
   const [mode, setMode] = useState('login')
-  const [f, setF] = useState({ name: '', company: '', email: '', phone: '', password: '' })
+  const [f, setF] = useState({ name: '', company: '', email: '', phone: '', password: '', agreementAccepted: false })
   const [loading, setLoading] = useState(false)
   const set = (k, v) => setF((s) => ({ ...s, [k]: v }))
   const submit = async () => {
@@ -794,6 +794,20 @@ function VendorAuth({ onAuth }) {
                 <Input type="password" value={f.password} onChange={(e) => set('password', e.target.value)} />
               </div>
             </TabsContent>
+            {mode === 'register' && (
+              <div className="mt-4 flex items-start gap-2 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
+                <input
+                  type="checkbox"
+                  id="agreement"
+                  checked={f.agreementAccepted}
+                  onChange={(e) => set('agreementAccepted', e.target.checked)}
+                  className="mt-0.5"
+                />
+                <label htmlFor="agreement">
+                  I agree to pay OSARE a 5% commission on bookings made through the platform, within 48 hours, referencing the booking code provided.
+                </label>
+              </div>
+            )}
             <Button onClick={submit} disabled={loading} className="mt-4 w-full gap-2 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               {mode === 'login' ? 'Login' : 'Create vendor account'}
