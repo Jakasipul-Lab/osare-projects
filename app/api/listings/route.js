@@ -37,3 +37,63 @@ export async function GET(request) {
     );
   }
 }
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+
+    if (!body.title || !body.vendor) {
+      return NextResponse.json(
+        { success: false, error: 'Title and vendor are required' },
+        { status: 400 }
+      );
+    }
+
+    const sql = `
+      INSERT INTO listings (
+        type, category, title, vendor, vendor_office, location, map_link,
+        description, includes, price_value, currency, price_label,
+        off_peak_value, off_peak_label, season, image, keywords,
+        is_verified, price_status, created_at
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,
+        $13, $14, $15, $16, $17, $18, $19, NOW()
+      )
+      RETURNING *
+    `;
+    const params = [
+      body.type || 'safari',
+      body.category || null,
+      body.title,
+      body.vendor,
+      body.vendorOffice || null,
+      body.location || null,
+      body.mapLink || null,
+      body.description || null,
+      body.includes || null,
+      body.priceValue ? Number(body.priceValue) : null,
+      body.currency || 'USD',
+      body.priceLabel || null,
+      body.offPeakValue ? Number(body.offPeakValue) : null,
+      body.offPeakLabel || null,
+      body.season || null,
+      body.image || null,
+      body.keywords || null,
+      body.isVerified ?? true,
+      body.priceStatus || 'confirmed',
+    ];
+
+    const result = await query(sql, params);
+    const created = mapVendorRow(result.rows[0]);
+
+    return NextResponse.json(
+      { success: true, listing: created },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
+  }
+}
