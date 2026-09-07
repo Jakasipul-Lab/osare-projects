@@ -1,9 +1,9 @@
-// File location: app/api/auth/register/route.js
 import { neon } from '@neondatabase/serverless'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const sql = neon(process.env.DATABASE_URL)
+const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production'
 
 export async function POST(req) {
   const { name, company, email, phone, password, agreementAccepted } = await req.json()
@@ -23,7 +23,11 @@ export async function POST(req) {
       VALUES (${name || ''}, ${company || ''}, ${email}, ${phone || ''}, ${passwordHash}, true, now())
       RETURNING id, name, company, email, phone
     `
-    const token = jwt.sign({ id: vendor.id, email: vendor.email }, process.env.JWT_SECRET, { expiresIn: '30d' })
+    const token = jwt.sign(
+      { id: vendor.id, vendor_id: vendor.id, email: vendor.email, role: 'vendor' },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    )
     return Response.json({ token, vendor }, { status: 201 })
   } catch (e) {
     if (String(e).includes('duplicate key')) {
