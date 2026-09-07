@@ -72,12 +72,12 @@ export async function POST(request) {
     const auth = await verifyAuth(request);
     if (auth && auth.role === 'vendor' && auth.vendor_id) {
       ownerId = auth.vendor_id;
-      const vRes = await query('SELECT name, company, is_active FROM vendors WHERE id = $1', [auth.vendor_id]);
+      const vRes = await query('SELECT name, company, is_premium FROM vendors WHERE id = $1', [auth.vendor_id]);
       const v = vRes.rows[0];
       if (!vendorName) vendorName = v?.company || v?.name || null;
 
       // Enforce free listing limit — admins (no ownerId) are never limited.
-      if (!v?.is_active) {
+      if (!v?.is_premium) {
         const countRes = await query('SELECT COUNT(*) FROM listings WHERE owner_id = $1', [ownerId]);
         const currentCount = Number(countRes.rows[0].count);
         if (currentCount >= FREE_LISTING_LIMIT) {
