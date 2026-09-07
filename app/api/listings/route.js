@@ -3,6 +3,13 @@ import { query } from '@/lib/db';
 import { mapVendorRow } from '@/lib/vendorData';
 import { verifyAuth } from '@/lib/auth';
 
+function toJsonbArray(value) {
+  if (!value) return null;
+  if (Array.isArray(value)) return JSON.stringify(value);
+  const arr = String(value).split(',').map((s) => s.trim()).filter(Boolean);
+  return arr.length ? JSON.stringify(arr) : null;
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -70,8 +77,8 @@ export async function POST(request) {
         off_peak_value, off_peak_label, season, image, keywords,
         is_verified, price_status, owner_id, created_at
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,
-        $13, $14, $15, $16, $17, $18, $19, $20, NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9::jsonb, $10, $11, $12,
+        $13, $14, $15, $16, $17::jsonb, $18, $19, $20, NOW()
       )
       RETURNING *
     `;
@@ -84,7 +91,7 @@ export async function POST(request) {
       body.location || null,
       body.mapLink || null,
       body.description || null,
-      body.includes || null,
+      toJsonbArray(body.includes),
       body.priceValue ? Number(body.priceValue) : null,
       body.currency || 'USD',
       body.priceLabel || null,
@@ -92,7 +99,7 @@ export async function POST(request) {
       body.offPeakLabel || null,
       body.season || null,
       body.image || null,
-      body.keywords || null,
+      toJsonbArray(body.keywords),
       body.isVerified ?? (ownerId ? false : true),
       body.priceStatus || 'confirmed',
       ownerId,
