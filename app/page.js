@@ -804,7 +804,11 @@ function VendorAuth({ onAuth }) {
                   className="mt-0.5"
                 />
                 <label htmlFor="agreement">
-                  I agree to pay OSARE a 5% commission on bookings made through the platform, within 48 hours, referencing the booking code provided.
+                  I agree to the{' '}
+                  <Link href="/terms" target="_blank" className="underline text-[#1e3a8a] font-medium">
+                    Vendor Terms &amp; Commission Agreement
+                  </Link>{' '}
+                  (5% commission on bookings, payable within 48 hours).
                 </label>
               </div>
             )}
