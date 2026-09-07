@@ -536,11 +536,16 @@ function Admin() {
     if (!form.title) { toast.error('Title is required'); return }
     setSaving(true)
     try {
-      await fetch('/api/listings', {
+            const res = await fetch('/api/listings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        toast.error(data.error || 'Failed to add listing')
+        return
+      }
       toast.success('Listing added')
       setForm(EMPTY_FORM)
       load()
