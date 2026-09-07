@@ -76,6 +76,7 @@ export async function POST(request) {
       const v = vRes.rows[0];
       if (!vendorName) vendorName = v?.company || v?.name || null;
 
+      // Enforce free listing limit — admins (no ownerId) are never limited.
       if (!v?.is_active) {
         const countRes = await query('SELECT COUNT(*) FROM listings WHERE owner_id = $1', [ownerId]);
         const currentCount = Number(countRes.rows[0].count);
