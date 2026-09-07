@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { mapVendorRow } from '@/lib/vendorData';
+import { verifyAuth } from '@/lib/auth';
 
 export async function GET(request) {
   try {
@@ -42,7 +43,20 @@ export async function POST(request) {
   try {
     const body = await request.json();
 
-    if (!body.title || !body.vendor) {
+    let ownerId = null;
+    let vendorName = body.vendor || null;
+
+    const auth = await verifyAuth(request);
+    if (auth && auth.role === 'vendor' && auth.vendor_id) {
+      ownerId = auth.vendor_id;
+      if (!vendorName) {
+        const vRes = await query('SELECT name, company FROM vendors WHERE id = $1', [auth.vendor_id]);
+        const v = vRes.rows[0];
+        vendorName = v?.company || v?.name || null;
+      }
+    }
+
+    if (!body.title || !vendorName) {
       return NextResponse.json(
         { success: false, error: 'Title and vendor are required' },
         { status: 400 }
@@ -54,10 +68,10 @@ export async function POST(request) {
         type, category, title, vendor, vendor_office, location, map_link,
         description, includes, price_value, currency, price_label,
         off_peak_value, off_peak_label, season, image, keywords,
-        is_verified, price_status, created_at
+        is_verified, price_status, owner_id, created_at
       ) VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,
-        $13, $14, $15, $16, $17, $18, $19, NOW()
+        $13, $14, $15, $16, $17, $18, $19, $20, NOW()
       )
       RETURNING *
     `;
@@ -65,7 +79,7 @@ export async function POST(request) {
       body.type || 'safari',
       body.category || null,
       body.title,
-      body.vendor,
+      vendorName,
       body.vendorOffice || null,
       body.location || null,
       body.mapLink || null,
@@ -79,13 +93,12 @@ export async function POST(request) {
       body.season || null,
       body.image || null,
       body.keywords || null,
-      body.isVerified ?? true,
+      body.isVerified ?? (ownerId ? false : true),
       body.priceStatus || 'confirmed',
+      ownerId,
     ];
-
     const result = await query(sql, params);
     const created = mapVendorRow(result.rows[0]);
-
     return NextResponse.json(
       { success: true, listing: created },
       { status: 201 }
