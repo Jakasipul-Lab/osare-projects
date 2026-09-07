@@ -519,7 +519,7 @@ function EmptyChart() {
 const EMPTY_FORM = {
   type: 'safari', category: 'Safari Package', title: '', vendor: '', vendorOffice: '',
   location: '', mapLink: '', description: '', includes: '', priceValue: '', currency: 'USD',
-  priceLabel: '', offPeakValue: '', offPeakLabel: '', season: '', image: '', keywords: ''
+  priceLabel: '', offPeakValue: '', offPeakLabel: '', season: '', image: '', keywords: '', vendorWebsite: ''
 }
 function Admin() {
   const [listings, setListings] = useState([])
@@ -923,6 +923,7 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
               <Field label="Location" v={form.location} on={(v) => set('location', v)} />
               <Field label="Map link" v={form.mapLink} on={(v) => set('mapLink', v)} />
               <Field label="Vendor office" v={form.vendorOffice} on={(v) => set('vendorOffice', v)} />
+              <Field label="Website (optional)" v={form.vendorWebsite} on={(v) => set('vendorWebsite', v)} ph="yourcompany.com" />
               <div className="md:col-span-2">
                 <Label className="text-xs">Description</Label>
                 <Textarea value={form.description} onChange={(e) => set('description', e.target.value)} rows={3} />
