@@ -415,6 +415,19 @@ function Dashboard() {
   const [stats, setStats] = useState(null)
   const [leads, setLeads] = useState([])
   const [loading, setLoading] = useState(true)
+  const markPaid = async (code) => {
+    try {
+      const res = await fetch('/api/leads/mark-paid', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      })
+      if (!res.ok) { toast.error('Could not mark as paid'); return }
+      toast.success(`${code} marked as paid`)
+      load()
+    } catch (e) { toast.error('Could not mark as paid') }
+  }
+
   const load = async () => {
     setLoading(true)
     try {
@@ -507,7 +520,7 @@ function Dashboard() {
         </div>
 
         <div className="mt-8">
-          <RecentLeads leads={leads} showVendorColumn />
+          <RecentLeads leads={leads} showVendorColumn onMarkPaid={markPaid} />
         </div>
       </div>
     </div>

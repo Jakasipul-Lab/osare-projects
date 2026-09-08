@@ -203,6 +203,46 @@ async function handleRoute(request, { params }) {
       })
     }
 
+    if (route === '/leads/mark-paid' && method === 'POST') {
+      const body = await request.json()
+      const { code } = body
+      if (!code) {
+        return NextResponse.json({ error: 'Code is required' }, { status: 400 })
+      }
+      try {
+        const res = await query(
+          "UPDATE leads SET commission_status = 'paid' WHERE code = $1 RETURNING *",
+          [code]
+        )
+        if (res.rows.length === 0) {
+          return NextResponse.json({ error: 'Booking code not found' }, { status: 404 })
+        }
+        return NextResponse.json({ success: true, lead: res.rows[0] })
+      } catch (e) {
+        return NextResponse.json({ error: e.message }, { status: 500 })
+      }
+    }
+
+    if (route === '/leads/mark-paid' && method === 'POST') {
+      const body = await request.json()
+      const { code } = body
+      if (!code) {
+        return NextResponse.json({ error: 'Code is required' }, { status: 400 })
+      }
+      try {
+        const res = await query(
+          "UPDATE leads SET commission_status = 'paid' WHERE code = $1 RETURNING *",
+          [code]
+        )
+        if (res.rows.length === 0) {
+          return NextResponse.json({ error: 'Booking code not found' }, { status: 404 })
+        }
+        return NextResponse.json({ success: true, lead: res.rows[0] })
+      } catch (e) {
+        return NextResponse.json({ error: e.message }, { status: 500 })
+      }
+    }
+
     if (route === '/stats') {
       try {
         const vendorsRes = await query('SELECT type FROM listings')
