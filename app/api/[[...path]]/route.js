@@ -112,24 +112,24 @@ async function handleRoute(request, { params }) {
     if (route === '/leads' && method === 'GET') {
       try {
         const res = await query(`
-          SELECT l.id, l.vendor_id, l.traveler_name, l.traveler_phone,
-                 l.price_quoted, l.commission_amount, l.status, l.created_at,
-                 v.vendor AS vendor_name, v.category, v.type, v.currency
-          FROM leads l
-          LEFT JOIN listings v ON v.id = l.vendor_id
-          ORDER BY l.created_at DESC
+          SELECT id, listing_title, vendor, category, type,
+                 price_label, price_value, currency, commission,
+                 code, commission_status, created_at
+          FROM leads
+          ORDER BY created_at DESC
           LIMIT 200
         `)
         const leads = (res?.rows || []).map((r) => ({
           id: r.id,
-          listingTitle: r.vendor_name || 'Unknown listing',
-          vendor: r.vendor_name || 'Unknown vendor',
+          listingTitle: r.listing_title || 'Unknown listing',
+          vendor: r.vendor || 'Unknown vendor',
           type: r.type || 'safari',
-          priceLabel: r.currency === 'KES' ? `KES ${r.price_quoted}` : `$${r.price_quoted}`,
-          priceValue: Number(r.price_quoted) || 0,
+          priceLabel: r.price_label || (r.currency === 'KES' ? `KES ${r.price_value}` : `$${r.price_value}`),
+          priceValue: Number(r.price_value) || 0,
           currency: r.currency || 'USD',
-          commission: Number(r.commission_amount) || 0,
-          status: r.status
+          commission: Number(r.commission) || 0,
+          code: r.code,
+          commissionStatus: r.commission_status
         }))
         return NextResponse.json(leads)
       } catch (e) {
@@ -139,33 +139,66 @@ async function handleRoute(request, { params }) {
 
     if (route === '/leads' && method === 'POST') {
       const body = await request.json()
-      const { listingId, listingTitle, vendor, priceValue } = body
+      const { listingId } = body
 
-      const commission = (Number(priceValue) || 0) * COMMISSION_RATE
-      const leadId = uuidv4()
+      let listing = null
+      try {
+        const lRes = await query('SELECT * FROM listings WHERE id = $1', [listingId])
+        listing = lRes.rows[0] || null
+      } catch (e) {}
+
+      if (!listing) {
+        const staticV = STATIC_DATABASE.find((v) => v.id === listingId)
+        if (staticV) {
+          listing = {
+            id: staticV.id,
+            title: staticV.title,
+            vendor: staticV.vendor,
+            category: staticV.category,
+            type: staticV.type,
+            price_label: staticV.priceLabel,
+            price_value: staticV.priceValue,
+            currency: staticV.currency || 'USD',
+            vendor_phone: staticV.vendorContact,
+          }
+        }
+      }
+
+      if (!listing) {
+        return NextResponse.json({ error: 'Listing not found' }, { status: 404 })
+      }
+
+      const commission = (Number(listing.price_value) || 0) * COMMISSION_RATE
+
+      let code = 'OSARE0001'
+      try {
+        const countRes = await query('SELECT COUNT(*) FROM leads')
+        const nextNum = Number(countRes.rows[0].count) + 1
+        code = `OSARE${String(nextNum).padStart(4, '0')}`
+      } catch (e) {}
 
       try {
         await query(
-          'INSERT INTO leads (id, vendor_id, traveler_name, traveler_phone, price_quoted, commission_amount, status, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, now())',
-          [leadId, listingId, body.travelerName || 'Anonymous', body.travelerPhone || 'N/A', priceValue, commission, 'handoff']
+          `INSERT INTO leads
+             (listing_id, listing_title, vendor, category, type,
+              price_label, price_value, currency, commission, channel,
+              code, commission_status, created_at)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'whatsapp', $10, 'unpaid', now())`,
+          [listing.id, listing.title, listing.vendor, listing.category, listing.type,
+           listing.price_label, listing.price_value, listing.currency, commission, code]
         )
-      } catch (e) {}
+      } catch (e) {
+        console.error('Failed to insert lead:', e.message)
+      }
 
-      let vendorPhone = '254758378729'
-      try {
-        const vRes = await query('SELECT vendor_phone FROM listings WHERE id = $1', [listingId])
-        if (vRes && vRes.rows[0] && vRes.rows[0].vendor_phone) vendorPhone = vRes.rows[0].vendor_phone
-        else {
-          const staticV = STATIC_DATABASE.find((v) => v.id === listingId)
-          if (staticV) vendorPhone = staticV.vendorContact
-        }
-      } catch (e) {}
-
-      const cleanPhone = (vendorPhone || '').replace(/[^0-9]/g, '')
-      const waMsg = encodeURIComponent(`Hello, I found your listing "${listingTitle}" on EA SafariRoutes/OSARE and I would like to book.`)
+      const cleanPhone = (listing.vendor_phone || '254758378729').replace(/[^0-9]/g, '')
+      const waMsg = encodeURIComponent(
+        `Hello, I found your listing "${listing.title}" on EA SafariRoutes/OSARE and I would like to book. (Ref: ${code})`
+      )
 
       return NextResponse.json({
         success: true,
+        code,
         whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
       })
     }

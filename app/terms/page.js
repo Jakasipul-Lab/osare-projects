@@ -16,7 +16,8 @@ export default function TermsPage() {
         </section>
         <section>
           <h2 className="text-lg font-bold text-slate-900">3. Payment terms</h2>
-          <p className="mt-2">Commission is due within <strong>48 hours</strong> of receiving payment from the traveller. Please quote your booking reference code when sending payment, so it can be matched to the correct booking. Payment details are provided in your vendor dashboard and in booking notification messages.</p>
+          <p className="mt-2">Commission is due within <strong>48 hours</strong> of receiving payment from the traveller. Please quote your booking reference code (e.g. OSARE0001) when sending payment, so it can be matched to the correct booking.</p>
+          <p className="mt-2"><strong>Payment via M-Pesa Till Number: 4403029</strong> (Till phone: 0117897656).</p>
         </section>
         <section>
           <h2 className="text-lg font-bold text-slate-900">4. Accurate listings</h2>
