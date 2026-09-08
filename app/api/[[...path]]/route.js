@@ -250,13 +250,9 @@ async function handleRoute(request, { params }) {
         const safariCount = vendorsRes.rows.filter((r) => r.type === 'safari').length
         const localCount = vendorsRes.rows.filter((r) => r.type === 'local').length
 
-        const leadsRes = await query(`
-          SELECT l.commission_amount, v.type, v.category
-          FROM leads l
-          LEFT JOIN listings v ON v.id = l.vendor_id
-        `)
+        const leadsRes = await query(`SELECT commission, type, category FROM leads`)
         const totalLeads = leadsRes.rows.length
-        const estRevenueUSD = leadsRes.rows.reduce((sum, r) => sum + (Number(r.commission_amount) || 0), 0).toFixed(2)
+        const estRevenueUSD = leadsRes.rows.reduce((sum, r) => sum + (Number(r.commission) || 0), 0).toFixed(2)
 
         const leadsByType = {
           safari: leadsRes.rows.filter((r) => r.type === 'safari').length,
