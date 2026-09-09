@@ -1037,7 +1037,82 @@ function AdminGate({ children }) {
   }
   return children
 }
-function StatCard({ label, value, icon, color }) {
+function VerifyPhoneButton({ listingId, isVerified }) {
+  const [step, setStep] = useState(isVerified ? 'verified' : 'idle')
+  const [code, setCode] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const sendCode = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listingId })
+      })
+      const data = await res.json()
+      if (!res.ok) { toast.error(data.error || 'Could not send code'); return }
+      toast.success('Verification code sent to your phone')
+      setStep('sent')
+    } catch (e) {
+      toast.error('Could not send code')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const verifyCode = async () => {
+    if (!code) { toast.error('Enter the code first'); return }
+    setLoading(true)
+    try {
+      const res = await fetch('/api/verify-phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ listingId, code })
+      })
+      const data = await res.json()
+      if (!res.ok) { toast.error(data.error || 'Incorrect code'); return }
+      toast.success('Phone verified!')
+      setStep('verified')
+    } catch (e) {
+      toast.error('Could not verify code')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (step === 'verified') {
+    return (
+      <Badge variant="secondary" className="gap-1 bg-emerald-100 text-emerald-700">
+        <ShieldCheck className="h-3 w-3" /> Verified
+      </Badge>
+    )
+  }
+
+  if (step === 'sent') {
+    return (
+      <div className="flex items-center gap-1">
+        <Input
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          placeholder="6-digit code"
+          className="h-8 w-28 text-xs"
+        />
+        <Button size="sm" onClick={verifyCode} disabled={loading} className="h-8 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
+          {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : 'Confirm'}
+        </Button>
+      </div>
+    )
+  }
+
+  return (
+    <Button size="sm" variant="outline" onClick={sendCode} disabled={loading} className="h-8 gap-1 text-xs">
+      {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : <ShieldCheck className="h-3 w-3" />}
+      Verify Phone
+    </Button>
+  )
+}
+function StatCard({ label, value, icon, color }) {function StatCard({ label, value, icon, color }) {
   return (
     <Card className="border-slate-200">
       <CardContent className="p-5">
