@@ -1112,7 +1112,7 @@ function VerifyPhoneButton({ listingId, isVerified }) {
     </Button>
   )
 }
-function StatCard({ label, value, icon, color }) {function StatCard({ label, value, icon, color }) {
+function StatCard({ label, value, icon, color }) {
   return (
     <Card className="border-slate-200">
       <CardContent className="p-5">
