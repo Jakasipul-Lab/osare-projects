@@ -122,6 +122,11 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
             <Tag className="h-3 w-3" /> Off-peak {item.offPeakLabel}
           </Badge>
         ) : null}
+          {item.isVerified ? (
+  <Badge className="absolute right-3 bottom-3 gap-1 bg-emerald-600 text-white border-0 shadow">
+    <ShieldCheck className="h-3 w-3" /> Verified
+  </Badge>
+) : null}
       </div>
       <CardContent className="flex flex-1 flex-col p-5">
         <Link href={`/safari/${item.slug}`} onClick={(e) => e.stopPropagation()} className="text-lg font-bold text-slate-900 leading-snug hover:text-[#f97316]">
