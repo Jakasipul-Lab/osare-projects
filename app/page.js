@@ -902,18 +902,19 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow><TableHead>Title</TableHead><TableHead>Tier</TableHead><TableHead>Price</TableHead><TableHead></TableHead></TableRow>
-                </TableHeader>
-                <TableBody>
-                  {listings.map((l) => (
-                    <TableRow key={l.id}>
-                      <TableCell className="font-medium">{l.title}</TableCell>
-                      <TableCell><Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge></TableCell>
-                      <TableCell>{l.priceLabel}</TableCell>
-                      <TableCell className="text-right"><Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700"><Trash2 className="h-4 w-4" /></Button></TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
+  <TableRow><TableHead>Title</TableHead><TableHead>Tier</TableHead><TableHead>Price</TableHead><TableHead>Phone</TableHead><TableHead></TableHead></TableRow>
+</TableHeader>
+<TableBody>
+  {listings.map((l) => (
+    <TableRow key={l.id}>
+      <TableCell className="font-medium">{l.title}</TableCell>
+      <TableCell><Badge variant="secondary" className={l.type === 'safari' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}>{l.type}</Badge></TableCell>
+      <TableCell>{l.priceLabel}</TableCell>
+      <TableCell><VerifyPhoneButton listingId={l.id} isVerified={l.isVerified} /></TableCell>
+      <TableCell className="text-right"><Button size="icon" variant="ghost" onClick={() => remove(l.id)} className="text-red-500 hover:text-red-700"><Trash2 className="h-4 w-4" /></Button></TableCell>
+    </TableRow>
+  ))}
+</TableBody>
               </Table>
               {listings.length === 0 && <p className="py-10 text-center text-slate-400">No listings yet. Use the "Add Listing" tab.</p>}
             </CardContent>
