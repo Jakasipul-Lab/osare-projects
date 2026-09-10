@@ -1237,14 +1237,22 @@ function App() {
               <li><button onClick={() => go('about')} className="hover:text-white">About OSARE</button></li>
             </ul>
           </div>
-          <div>
-            <h4 className="font-semibold text-white">Vendors</h4>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li><button onClick={() => go('vendor')} className="hover:text-white">Become a Partner</button></li>
-              <li><button onClick={() => go('dashboard')} className="hover:text-white">Revenue dashboard</button></li>
-              <li className="text-slate-400">Only 5% on bookings</li>
-         </ul>
-          </div>
+         <div>
+  <h4 className="font-semibold text-white">Vendors</h4>
+  <ul className="mt-3 space-y-2 text-sm">
+    <li><button onClick={() => go('vendor')} className="hover:text-white">Become a Partner</button></li>
+    <li className="text-slate-400">Only 5% on bookings</li>
+  </ul>
+</div>
+<div>
+  <h4 className="font-semibold text-white">Legal</h4>
+  <ul className="mt-3 space-y-2 text-sm">
+    <li><a href="/vendor-agreement" className="hover:text-white">Vendor Agreement</a></li>
+    <li><a href="/terms-of-use" className="hover:text-white">Terms of Use</a></li>
+    <li><a href="/privacy-policy" className="hover:text-white">Privacy Policy</a></li>
+    <li><a href="/cookie-policy" className="hover:text-white">Cookie Policy</a></li>
+  </ul>
+</div>
           <div>
             <h4 className="font-semibold text-white">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-slate-400">
