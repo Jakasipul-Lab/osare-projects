@@ -1191,11 +1191,14 @@ function App() {
               </button>
             ))}
           </nav>
-          <div className="hidden md:block">
-            <Button onClick={() => go('safari')} className="gap-2 bg-[#f97316] text-white hover:bg-[#ea6c0f]">
-              Explore <ArrowRight className="h-4 w-4" />
-            </Button>
-          </div>
+          <div className="hidden items-center gap-3 md:flex">
+  <button onClick={() => go('vendor')} className="text-sm font-medium text-slate-600 hover:text-slate-900">
+    Vendor Login
+  </button>
+  <Button onClick={() => go('safari')} className="gap-2 bg-[#f97316] text-white hover:bg-[#ea6c0f]">
+    Explore <ArrowRight className="h-4 w-4" />
+  </Button>
+</div>
           <button className="md:hidden" onClick={() => setMobileOpen((o) => !o)}>
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
