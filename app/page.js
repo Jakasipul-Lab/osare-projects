@@ -1240,7 +1240,7 @@ function App() {
           <div>
             <h4 className="font-semibold text-white">Vendors</h4>
             <ul className="mt-3 space-y-2 text-sm">
-              <li><button onClick={() => go('admin')} className="hover:text-white">Add a listing</button></li>
+              <li><button onClick={() => go('admin')} className="hover:text-white">Become a Partner</button></li>
               <li><button onClick={() => go('dashboard')} className="hover:text-white">Revenue dashboard</button></li>
               <li className="text-slate-400">Only 5% on bookings</li>
          </ul>
