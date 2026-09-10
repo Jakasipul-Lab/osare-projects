@@ -1231,12 +1231,13 @@ function App() {
           </div>
           <div>
             <h4 className="font-semibold text-white">Platform</h4>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li><button onClick={() => go('safari')} className="hover:text-white">Safari & Tourism</button></li>
-              <li><button onClick={() => go('local')} className="hover:text-white">Local Commute</button></li>
-              <li><button onClick={() => go('about')} className="hover:text-white">About OSARE</button></li>
-            </ul>
-          </div>
+<ul className="mt-3 space-y-2 text-sm">
+  <li><button onClick={() => go('safari')} className="hover:text-white">Safari & Tourism</button></li>
+  <li><button onClick={() => go('local')} className="hover:text-white">Local Commute</button></li>
+  <li><button onClick={() => go('about')} className="hover:text-white">About OSARE</button></li>
+  <li><a href="/how-it-works" className="hover:text-white">How It Works</a></li>
+</ul>
+</div>
          <div>
   <h4 className="font-semibold text-white">Vendors</h4>
   <ul className="mt-3 space-y-2 text-sm">
