@@ -32,9 +32,6 @@ const NAV = [
   { key: 'safari', label: 'Safari' },
   { key: 'local', label: 'Local Transit' },
   { key: 'about', label: 'About' },
-  { key: 'dashboard', label: 'Dashboard' },
-  { key: 'vendor', label: 'Vendor Portal' },
-  { key: 'admin', label: 'Admin' },
 ]
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
