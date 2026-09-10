@@ -1234,7 +1234,7 @@ function App() {
             <ul className="mt-3 space-y-2 text-sm">
               <li><button onClick={() => go('safari')} className="hover:text-white">Safari & Tourism</button></li>
               <li><button onClick={() => go('local')} className="hover:text-white">Local Commute</button></li>
-              <li><button onClick={() => go('about')} className="hover:text-white">About</button></li>
+              <li><button onClick={() => go('about')} className="hover:text-white">About OSARE</button></li>
             </ul>
           </div>
           <div>
@@ -1268,7 +1268,7 @@ function App() {
             </div>
           </div>
         </div>
-        <p className="mt-8 text-center text-xs text-slate-500">© 2025 OSARE — easafariroutes.com. All rights reserved.</p>
+        <p className="mt-8 text-center text-xs text-slate-500">© 2026 OSARE — easafariroutes.com. All rights reserved.</p>
       </footer>
     </div>
   )
