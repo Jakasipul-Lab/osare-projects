@@ -1274,6 +1274,9 @@ function App() {
               <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white">
                 <TikTokIcon className="h-5 w-5" />
               </a>
+        <a href="https://www.threads.com/@nakinsonosareson" target="_blank" rel="noopener noreferrer" aria-label="Threads" className="text-slate-400 hover:text-white">
+  <ThreadsIcon className="h-5 w-5" />
+</a>
             </div>
           </div>
         </div>
