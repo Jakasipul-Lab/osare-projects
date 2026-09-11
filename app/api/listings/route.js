@@ -59,7 +59,6 @@ export async function GET(request) {
     sql += ` AND (${wordConditions.join(' AND ')})`;
   }
 }
-    }
     sql += ' ORDER BY created_at DESC';
     const result = await query(sql, params);
     const items = result.rows.map(mapVendorRow);
