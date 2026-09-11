@@ -3,6 +3,7 @@ import "./globals.css"
 import { Providers } from "./providers"
 
 export const metadata = {
+  metadataBase: new URL('https://easafariroutes.com'),
   title: "OSARE — East Africa Safari Routes & Transit Hub",
   description: "Free information assistant & booking hub for tourists and locals across East Africa. Safaris, Kilimanjaro, hotels, car hire, flights & Nairobi transit.",
   icons: {
