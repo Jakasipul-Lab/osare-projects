@@ -11,7 +11,7 @@ build_with_cache() {
   fi
 
   echo "Building"
-  yarn build
+  npm run build
 
   echo "Done, caching .next/cache"
   rsync -a .next/cache/ "$XDG_CACHE_HOME"/next
@@ -20,5 +20,5 @@ build_with_cache() {
 if [[ "$RENDER" ]]; then
   build_with_cache
 else
-  yarn build
+  npm run build
 fi
