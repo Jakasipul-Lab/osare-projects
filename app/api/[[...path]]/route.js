@@ -67,21 +67,31 @@ async function handleRoute(request, { params }) {
       if (type && type !== 'All') items = items.filter((it) => it.type === type)
 
       if (search) {
-        const searchTerms = expandSearchTerms(search)
-        items = items.filter((it) => {
-          const haystack = [
-            it.title || '',
-            it.category || '',
-            it.location || '',
-            it.description || '',
-            ...(Array.isArray(it.keywords) ? it.keywords : [])
-          ]
-            .join(' ')
-            .toLowerCase()
-          return searchTerms.some((term) => haystack.includes(term))
-        })
-      }
+  const stopWords = new Set(['to', 'from', 'and', 'the', 'a', 'in', 'at'])
+  const searchWords = search
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((w) => w.length > 1 && !stopWords.has(w))
 
+  if (searchWords.length > 0) {
+    items = items.filter((it) => {
+      const haystack = [
+        it.title || '',
+        it.category || '',
+        it.location || '',
+        it.description || '',
+        ...(Array.isArray(it.keywords) ? it.keywords : [])
+      ]
+        .join(' ')
+        .toLowerCase()
+
+      return searchWords.every((word) => {
+        const expandedTerms = expandSearchTerms(word)
+        return expandedTerms.some((term) => haystack.includes(term))
+      })
+    })
+  }
+}
       return NextResponse.json(items, { headers: { 'Access-Control-Allow-Origin': '*' } })
     }
 
