@@ -38,15 +38,27 @@ export async function GET(request) {
       sql += ` AND type = $${params.length}`;
     }
     if (search) {
-      params.push(`%${search.toLowerCase()}%`);
+  const stopWords = new Set(['to', 'from', 'and', 'the', 'a', 'in', 'at']);
+  const searchWords = search
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((w) => w.length > 1 && !stopWords.has(w));
+
+  if (searchWords.length > 0) {
+    const wordConditions = searchWords.map((word) => {
+      params.push(`%${word}%`);
       const idx = params.length;
-      sql += ` AND (
+      return `(
         LOWER(title) LIKE $${idx} OR
         LOWER(vendor) LIKE $${idx} OR
         LOWER(location) LIKE $${idx} OR
         LOWER(description) LIKE $${idx} OR
         LOWER(category) LIKE $${idx}
       )`;
+    });
+    sql += ` AND (${wordConditions.join(' AND ')})`;
+  }
+}
     }
     sql += ' ORDER BY created_at DESC';
     const result = await query(sql, params);
