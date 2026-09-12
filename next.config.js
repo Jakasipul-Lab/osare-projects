@@ -23,7 +23,6 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      { source: '/admin', destination: '/?view=admin', permanent: false },
       { source: '/ads', destination: '/advertise', permanent: false },
     ];
   },
