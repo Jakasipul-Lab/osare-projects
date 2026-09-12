@@ -21,6 +21,12 @@ const nextConfig = {
     maxInactiveAge: 10000,
     pagesBufferLength: 2,
   },
+  async redirects() {
+    return [
+      { source: '/admin', destination: '/?view=admin', permanent: false },
+      { source: '/ads', destination: '/advertise', permanent: false },
+    ];
+  },
   async headers() {
     return [
       {
