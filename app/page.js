@@ -536,7 +536,7 @@ const EMPTY_FORM = {
   location: '', mapLink: '', description: '', includes: '', priceValue: '', currency: 'USD',
   priceLabel: '', offPeakValue: '', offPeakLabel: '', season: '', image: '', keywords: '', vendorWebsite: ''
 }
-function Admin() {
+export function Admin() {
   const [listings, setListings] = useState([])
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
