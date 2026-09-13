@@ -1,7 +1,5 @@
-import Script from 'next/script'
 import "./globals.css"
 import { Providers } from "./providers"
-
 export const metadata = {
   metadataBase: new URL('https://easafariroutes.com'),
   title: "OSARE — East Africa Safari Routes & Transit Hub",
@@ -20,18 +18,11 @@ export const metadata = {
     images: ["/og-image.png"],
   },
 }
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
         <script dangerouslySetInnerHTML={{__html:'window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);'}} />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1492564155912705"
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
       </head>
       <body>
         <Providers>{children}</Providers>
