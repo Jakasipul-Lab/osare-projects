@@ -1,4 +1,5 @@
 import AboutView from '@/components/AboutView'
+import { AdSense } from '@/components/AdSense'
 
 export const metadata = {
   title: 'About Us | OSARE East Africa Safari Vendors',
@@ -6,5 +7,10 @@ export const metadata = {
 }
 
 export default function AboutPage() {
-  return <AboutView />
+  return (
+    <>
+      <AdSense />
+      <AboutView />
+    </>
+  )
 }
