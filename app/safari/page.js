@@ -1,6 +1,12 @@
 'use client'
 import { TierExplorer } from '@/components/TierExplorer'
+import { AdSense } from '@/components/AdSense'
 
 export default function SafariPage() {
-  return <TierExplorer type="safari" />
+  return (
+    <>
+      <AdSense />
+      <TierExplorer type="safari" />
+    </>
+  )
 }
