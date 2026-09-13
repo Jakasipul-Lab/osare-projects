@@ -1214,6 +1214,7 @@ function App() {
           </div>
         )}
       </header>
+     {['home', 'safari', 'local', 'about'].includes(view) && <AdSense />}
       {view === 'home' && <Home go={go} />}
       {view === 'safari' && <TierExplorer type="safari" key={'safari' + pendingQuery} />}
       {view === 'local' && <TierExplorer type="local" key={'local' + pendingQuery} />}
