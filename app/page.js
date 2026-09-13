@@ -7,6 +7,7 @@ import {
   Facebook, Linkedin, Youtube
 } from 'lucide-react'
 import AboutView from '@/components/AboutView'
+import { AdSense } from '@/components/AdSense'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
