@@ -1,6 +1,7 @@
 import { getVendorBySlug } from '@/lib/vendorData'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { AdSense } from '@/components/AdSense'
 
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -57,6 +58,7 @@ export default async function VendorDetailPage({ params }) {
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
+      <AdSense />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
