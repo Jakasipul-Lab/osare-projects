@@ -111,9 +111,10 @@ export default function LetterheadPage() {
           <p className={styles.signoff}>Sincerely,</p>
 
           <div className={styles.signature}>Osare Nakinson</div>
-          <div className={styles.name}>Osare Nakinson</div>
-          <div>Founder &amp; CEO</div>
-          <div>OSARE — East Africa Safari Routes</div>
+<div className={styles.name}>Osare Nakinson</div>
+<div>Chief Executive Officer</div>
+<div>EA SafariRoutes</div>
+<div>Plaza Building, Oginga Odinga Street, Kisumu 40100, Kenya</div>
         </article>
 
         <footer className={styles.footer}>
