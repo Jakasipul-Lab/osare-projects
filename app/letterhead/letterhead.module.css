@@ -59,6 +59,17 @@
   height: auto;
 }
 
+.logoSmall {
+  display: block;
+  width: 55mm;
+  max-width: 100%;
+  height: auto;
+}
+
+.paper {
+  padding: 10mm;
+}
+
 .contact {
   font-size: 10.5pt;
   line-height: 1.45;
