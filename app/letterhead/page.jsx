@@ -25,10 +25,10 @@ export default function LetterheadPage() {
         <header className={styles.header}>
           <div className={styles.brand}>
             <img
-              src="/logo/safariroutes-logo.png"
-              alt="OSARE — East Africa Safari Routes"
-              className={styles.logoSmall}
-            />
+  src="/logo.png"
+  alt="OSARE — East Africa Safari Routes"
+  className={styles.logoSmall}
+/>
           </div>
 
           <div className={styles.contact}>
