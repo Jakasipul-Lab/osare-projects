@@ -14,23 +14,24 @@
 .toolbar {
   width: 210mm;
   max-width: 100%;
-  margin: 0 auto 16px;
+  margin: 0 auto 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  font-size: 13px;
 }
 
 .toolbar button {
   border: 0;
   border-radius: 6px;
-  padding: 10px 16px;
+  padding: 6px 12px;
+  font-size: 13px;
   background: #075638;
   color: white;
   font-weight: 700;
   cursor: pointer;
 }
-
 .paper {
   position: relative;
   width: 210mm;
