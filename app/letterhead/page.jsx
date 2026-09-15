@@ -118,14 +118,9 @@ export default function LetterheadPage() {
         </article>
 
         <footer className={styles.footer}>
-          <div className={styles.footerWebsite}>◎ &nbsp; easafariroutes.com</div>
-          <div className={styles.savanna}>
-            <span>☀</span>
-            <span>♟</span>
-            <span>♟</span>
-            <span>♟</span>
-          </div>
-        </footer>
+  <div className={styles.footerWebsite}>◎ &nbsp; easafariroutes.com</div>
+  <div className={styles.footerContact}>info@easafariroutes.com &nbsp;•&nbsp; +254 758 378 729</div>
+</footer>
       </section>
     </main>
   );
