@@ -1,6 +1,6 @@
 @page {
   size: A4;
-  margin: 0;
+  margin: 18mm 15mm;
 }
 
 .screen {
@@ -14,17 +14,19 @@
 .toolbar {
   width: 210mm;
   max-width: 100%;
-  margin: 0 auto 16px;
+  margin: 0 auto 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  font-size: 13px;
 }
 
 .toolbar button {
   border: 0;
   border-radius: 6px;
-  padding: 10px 16px;
+  padding: 6px 12px;
+  font-size: 13px;
   background: #075638;
   color: white;
   font-weight: 700;
@@ -193,11 +195,14 @@
   margin-bottom: 5px;
 }
 
+.signatureBlock {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
 .signoff {
   margin-top: 18px !important;
   margin-bottom: 5px !important;
-  page-break-inside: avoid;
-  break-inside: avoid;
 }
 
 .signature {
@@ -286,10 +291,12 @@
   }
 
   .paper {
-    width: 210mm;
-    min-height: 297mm;
+    width: auto;
+    min-height: auto;
+    max-width: none;
     box-shadow: none;
     margin: 0;
+    padding: 0;
   }
 
   .letter input {
@@ -297,7 +304,7 @@
   }
 
   .header, .footer, .subject, .recipient, .divider,
-  .letter p, .letter ul, .signoff {
+  .letter p, .letter ul, .signatureBlock {
     page-break-inside: avoid;
     break-inside: avoid;
   }
