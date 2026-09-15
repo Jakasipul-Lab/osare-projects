@@ -25,7 +25,7 @@ export default function LetterheadPage() {
         <header className={styles.header}>
           <div className={styles.brand}>
             <img
-  src="/logo.png"
+  src="/logo/letterhead.png"
   alt="OSARE — East Africa Safari Routes"
   className={styles.logoSmall}
 />
