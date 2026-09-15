@@ -17,7 +17,9 @@ export default function LetterheadPage() {
   return (
     <main className={styles.screen}>
       <div className={styles.toolbar}>
-        <strong>SAFARIRoutes — A4 Letterhead</strong>
+  <strong>SAFARIRoutes Letterhead</strong>
+  <button onClick={() => window.print()}>Print / Save as PDF</button>
+</div>
         <button onClick={() => window.print()}>Print / Save as PDF</button>
       </div>
 
