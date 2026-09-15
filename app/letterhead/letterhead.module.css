@@ -14,24 +14,23 @@
 .toolbar {
   width: 210mm;
   max-width: 100%;
-  margin: 0 auto 12px;
+  margin: 0 auto 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  font-size: 13px;
 }
 
 .toolbar button {
   border: 0;
   border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 13px;
+  padding: 10px 16px;
   background: #075638;
   color: white;
   font-weight: 700;
   cursor: pointer;
 }
+
 .paper {
   position: relative;
   width: 210mm;
@@ -39,18 +38,21 @@
   max-width: 100%;
   margin: 0 auto;
   background: #fff;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 5px 25px rgba(0,0,0,.16);
   display: flex;
   flex-direction: column;
+  padding: 10mm;
 }
 
 .header {
-  min-height: 48mm;
-  padding: 9mm 14mm 5mm;
+  min-height: 40mm;
+  padding: 6mm 4mm 5mm;
   display: grid;
   grid-template-columns: 52% 48%;
   align-items: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .logo {
@@ -65,10 +67,6 @@
   width: 55mm;
   max-width: 100%;
   height: auto;
-}
-
-.paper {
-  padding: 10mm;
 }
 
 .contact {
@@ -107,6 +105,8 @@
 .divider {
   height: 3px;
   display: flex;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .divider span:first-child {
@@ -121,9 +121,11 @@
 
 .letter {
   flex: 1;
-  padding: 9mm 14mm 20mm;
+  padding: 6mm 4mm 10mm;
   font-size: 10.5pt;
   line-height: 1.35;
+  orphans: 3;
+  widows: 3;
 }
 
 .letter label,
@@ -144,6 +146,8 @@
 .recipient {
   margin-top: 16px;
   margin-bottom: 16px;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .recipient input {
@@ -162,6 +166,8 @@
   color: #075638;
   font-weight: 700;
   margin: 12px 0 17px;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .subject input {
@@ -172,11 +178,15 @@
 
 .letter p {
   margin: 0 0 12px;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .letter ul {
   margin: 0 0 15px;
   padding-left: 25px;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .letter li {
@@ -186,6 +196,8 @@
 .signoff {
   margin-top: 18px !important;
   margin-bottom: 5px !important;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .signature {
@@ -201,11 +213,14 @@
 
 .footer {
   position: relative;
-  min-height: 33mm;
+  min-height: 30mm;
   background: #064d32;
   color: white;
   overflow: hidden;
-  padding: 17mm 14mm 7mm;
+  padding: 14mm 4mm 7mm;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  page-break-before: avoid;
 }
 
 .footer::before {
@@ -279,5 +294,11 @@
 
   .letter input {
     border: 0;
+  }
+
+  .header, .footer, .subject, .recipient, .divider,
+  .letter p, .letter ul, .signoff {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }
