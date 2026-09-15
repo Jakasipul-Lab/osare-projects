@@ -24,11 +24,13 @@ export default function LetterheadPage() {
       <section className={styles.paper}>
         <header className={styles.header}>
           <div className={styles.brand}>
-            <img
-  src="/logo/letterhead.png"
+           
+<img
+  src="/logo/safariroutes-logo.png"
   alt="OSARE — East Africa Safari Routes"
   className={styles.logoSmall}
 />
+
           </div>
 
           <div className={styles.contact}>
