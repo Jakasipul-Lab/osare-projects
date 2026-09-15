@@ -17,9 +17,7 @@ export default function LetterheadPage() {
   return (
     <main className={styles.screen}>
       <div className={styles.toolbar}>
-  <strong>SAFARIRoutes Letterhead</strong>
-  <button onClick={() => window.print()}>Print / Save as PDF</button>
-</div>
+        <strong>SAFARIRoutes Letterhead</strong>
         <button onClick={() => window.print()}>Print / Save as PDF</button>
       </div>
 
@@ -27,10 +25,10 @@ export default function LetterheadPage() {
         <header className={styles.header}>
           <div className={styles.brand}>
             <img
-  src="/logo/safariroutes-logo.png"
-  alt="OSARE — East Africa Safari Routes"
-  className={styles.logoSmall}
-/>
+              src="/logo/safariroutes-logo.png"
+              alt="OSARE — East Africa Safari Routes"
+              className={styles.logoSmall}
+            />
           </div>
 
           <div className={styles.contact}>
@@ -113,10 +111,10 @@ export default function LetterheadPage() {
           <p className={styles.signoff}>Sincerely,</p>
 
           <div className={styles.signature}>Osare Nakinson</div>
-<div className={styles.name}>Osare Nakinson</div>
-<div>Chief Executive Officer</div>
-<div>EA SafariRoutes</div>
-<div>Plaza Building, Oginga Odinga Street, Kisumu 40100, Kenya</div>
+          <div className={styles.name}>Osare Nakinson</div>
+          <div>Chief Executive Officer</div>
+          <div>EA SafariRoutes</div>
+          <div>Plaza Building, Oginga Odinga Street, Kisumu 40100, Kenya</div>
         </article>
 
         <footer className={styles.footer}>
