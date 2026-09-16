@@ -1,8 +1,10 @@
-export const metadata = {
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
   title: 'How It Works | OSARE',
   description: 'How OSARE connects travelers with verified tourism operators across East Africa.',
-}
-
+  path: '/how-it-works',
+})
 export default function HowItWorks() {
   return (
     <div style={{ maxWidth: 780, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
