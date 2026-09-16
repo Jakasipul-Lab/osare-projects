@@ -1,7 +1,10 @@
-export const metadata = {
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
   title: 'Cookie Policy | OSARE',
   description: 'How OSARE (easafariroutes.com) uses cookies.',
-}
+  path: '/cookie-policy',
+})
 
 export default function CookiePolicy() {
   return (
