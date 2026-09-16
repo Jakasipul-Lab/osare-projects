@@ -7,15 +7,13 @@ export async function generateMetadata({ params }) {
   const { slug } = await params
   const item = await getVendorBySlug(slug)
   if (!item) return { title: 'Listing not found | OSARE' }
-  return {
+  return buildMetadata({
     title: `${item.title} — ${item.vendor} | OSARE`,
     description: item.description?.slice(0, 160) || `${item.title} by ${item.vendor} in ${item.location}. Compare and book direct on OSARE.`,
-    alternates: {
-      canonical: `https://easafariroutes.com/safari/${slug}`,
-    },
-  }
+    path: `/safari/${slug}`,
+    image: item.image,
+  })
 }
-
 export default async function VendorDetailPage({ params }) {
   const { slug } = await params
   const item = await getVendorBySlug(slug)
