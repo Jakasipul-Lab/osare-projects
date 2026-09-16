@@ -1,8 +1,10 @@
-export const metadata = {
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
   title: 'Vendor Agreement | OSARE',
   description: 'Terms governing tourism operators and transport providers listed on OSARE.',
-}
-
+  path: '/vendor-agreement',
+})
 export default function VendorAgreement() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
