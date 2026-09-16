@@ -1,7 +1,10 @@
-export const metadata = {
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
   title: 'Privacy Policy | OSARE',
   description: 'How OSARE (easafariroutes.com) collects and uses information.',
-}
+  path: '/privacy-policy',
+})
 
 export default function PrivacyPolicy() {
   return (
