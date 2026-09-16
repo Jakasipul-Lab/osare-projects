@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { AdSense } from '@/components/AdSense'
 import { buildMetadata } from '@/lib/seo'
+import { buildMetadata, buildProductSchema } from '@/lib/seo'
 export async function generateMetadata({ params }) {
   const { slug } = await params
   const item = await getVendorBySlug(slug)
@@ -29,34 +30,7 @@ export default async function VendorDetailPage({ params }) {
 
   // Build JSON-LD structured data from the same `item` object already
   // powering the visible page — no extra data fetching required.
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: item.vendor || item.title,
-    description: item.description || `${item.title} by ${item.vendor} in ${item.location}.`,
-    url: pageUrl,
-    ...(item.image ? { image: item.image } : {}),
-    ...(item.location
-      ? {
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: item.location,
-          },
-        }
-      : {}),
-    ...(item.vendorPhone ? { telephone: item.vendorPhone } : {}),
-    ...(item.priceValue
-      ? {
-          offers: {
-            '@type': 'Offer',
-            priceCurrency: item.currency || 'USD',
-            price: String(item.priceValue),
-            url: pageUrl,
-          },
-        }
-      : {}),
-  }
-
+  const jsonLd = buildProductSchema(item, `/safari/${slug}`)
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
       <AdSense />
