@@ -1,8 +1,10 @@
-export const metadata = {
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
   title: 'Impressum | OSARE',
   description: 'Legal notice for OSARE (easafariroutes.com) according to German law.',
-}
-
+  path: '/impressum',
+})
 export default function Impressum() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
