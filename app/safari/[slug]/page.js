@@ -10,6 +10,9 @@ export async function generateMetadata({ params }) {
   return {
     title: `${item.title} — ${item.vendor} | OSARE`,
     description: item.description?.slice(0, 160) || `${item.title} by ${item.vendor} in ${item.location}. Compare and book direct on OSARE.`,
+    alternates: {
+      canonical: `https://easafariroutes.com/safari/${slug}`,
+    },
   }
 }
 
