@@ -1,10 +1,10 @@
-export const metadata = {
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
   title: 'Terms of Use | OSARE',
   description: 'Terms governing use of the OSARE platform (easafariroutes.com).',
-  alternates: {
-    canonical: 'https://easafariroutes.com/terms-of-use',
-  },
-}
+  path: '/terms-of-use',
+})
 export default function TermsOfUse() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
