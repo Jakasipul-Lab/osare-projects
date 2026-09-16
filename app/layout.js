@@ -7,12 +7,21 @@ export const metadata = {
   metadataBase: new URL('https://easafariroutes.com'),
   title: "OSARE — East Africa Safari Routes & Transit Hub",
   description: "Free information assistant & booking hub for tourists and locals across East Africa. Safaris, Kilimanjaro, hotels, car hire, flights & Nairobi transit.",
+  alternates: {
+    canonical: "https://easafariroutes.com",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: "data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
   },
   openGraph: {
     title: "OSARE — East Africa Safari Routes & Transit Hub",
     description: "Free, verified safaris, hotels, car hire & transit across East Africa.",
+    url: "https://easafariroutes.com",
+    type: "website",
     images: ["/og-image.png"],
   },
   twitter: {
