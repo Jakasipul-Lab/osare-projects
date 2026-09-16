@@ -1,7 +1,9 @@
+
 import Script from 'next/script'
 import "./globals.css"
 import { Providers } from "./providers"
 import CookieConsent from '@/components/CookieConsent'
+import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
 
 export const metadata = {
   metadataBase: new URL('https://easafariroutes.com'),
@@ -41,6 +43,14 @@ export default function RootLayout({ children }) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1492564155912705"
           crossOrigin="anonymous"
           strategy="beforeInteractive"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationSchema()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebsiteSchema()) }}
         />
       </head>
       <body>
