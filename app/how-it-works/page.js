@@ -1,13 +1,48 @@
-import { buildMetadata } from '@/lib/seo'
+import { buildMetadata, buildFAQSchema } from '@/lib/seo'
 
 export const metadata = buildMetadata({
   title: 'How It Works | OSARE',
   description: 'How OSARE connects travelers with verified tourism operators across East Africa.',
   path: '/how-it-works',
 })
+
+const FAQS = [
+  {
+    question: 'Is OSARE free to use for travelers?',
+    answer: 'Yes, completely free. You can search, compare, and contact any vendor on OSARE at no cost. We never charge travelers a booking fee.',
+  },
+  {
+    question: 'How do I book a safari, hotel, or transport listed on OSARE?',
+    answer: 'Click "Book via WhatsApp" on any listing to message the vendor directly. Your booking and payment happen directly with them — OSARE is never in the middle of your money.',
+  },
+  {
+    question: 'How does OSARE make money if it\'s free for travelers?',
+    answer: 'OSARE earns a small 5% commission from vendors only when a booking actually happens. There are no fees for travelers, and no upfront costs for vendors.',
+  },
+  {
+    question: 'What does the "Verified" badge mean?',
+    answer: 'A Verified badge means the vendor has confirmed their phone number through our SMS verification system, adding an extra layer of trust before you reach out.',
+  },
+  {
+    question: 'Can my tourism business list on OSARE for free?',
+    answer: 'Yes. Vendors can create up to 2 listings at no cost. Businesses wanting more listings can contact us about becoming a Partner.',
+  },
+  {
+    question: 'Which countries does OSARE cover?',
+    answer: 'OSARE currently lists verified tourism operators, hotels, and transport services across Kenya, Tanzania, and Uganda.',
+  },
+]
+
 export default function HowItWorks() {
+  const faqSchema = buildFAQSchema(FAQS)
+
   return (
     <div style={{ maxWidth: 780, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <div style={{ textAlign: 'center', marginBottom: 48 }}>
         <span style={{ display: 'inline-block', background: '#fff7ed', color: '#f97316', fontWeight: 700, fontSize: 13, padding: '6px 16px', borderRadius: 999 }}>
           HOW IT WORKS
@@ -84,6 +119,16 @@ export default function HowItWorks() {
             <p style={{ color: '#475569' }}>Only pay when you get a booking — 5% of the transaction value. No monthly fees, no cost for listings that don't convert.</p>
           </div>
         </div>
+      </div>
+
+      <h2 style={{ fontSize: 26, fontWeight: 900, marginTop: 56, color: '#1e293b' }}>Frequently Asked Questions</h2>
+      <div style={{ marginTop: 24 }}>
+        {FAQS.map((faq, i) => (
+          <div key={i} style={{ borderBottom: '1px solid #e2e8f0', padding: '18px 0' }}>
+            <h3 style={{ fontWeight: 700, fontSize: 16, margin: 0 }}>{faq.question}</h3>
+            <p style={{ color: '#475569', marginTop: 8, marginBottom: 0 }}>{faq.answer}</p>
+          </div>
+        ))}
       </div>
 
       <div style={{ textAlign: 'center', marginTop: 56, paddingTop: 32, borderTop: '1px solid #e2e8f0' }}>
