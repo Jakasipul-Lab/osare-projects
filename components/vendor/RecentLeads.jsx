@@ -4,12 +4,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
-// Approximate KES <-> USD rate for display purposes only (not used for
-// actual commission calculation, which is stored per-lead in its own
-// currency). Update this if the rate moves significantly.
 const USD_TO_KES = 130
 
-function dualAmount(value, currency) {
+function dualAmount(value, currency, fallbackLabel) {
+  if (value === null || value === undefined) {
+    return { primary: fallbackLabel || 'Contact for Price', secondary: '' }
+  }
   const v = Number(value) || 0
   if (currency === 'KES') {
     return { primary: `KES ${v.toLocaleString()}`, secondary: `≈ $${(v / USD_TO_KES).toFixed(2)}` }
@@ -39,21 +39,24 @@ export default function RecentLeads({ leads = [], showVendorColumn = false, onMa
             </TableHeader>
             <TableBody>
               {leads.slice(0, 15).map((l) => {
-                const price = dualAmount(l.priceValue, l.currency)
-                const commissionValue = l.commission ?? Math.round((l.priceValue || 0) * 0.05)
-                const commission = dualAmount(commissionValue, l.currency)
+                const hasPrice = l.priceValue !== null && l.priceValue !== undefined
+                const price = dualAmount(l.priceValue, l.currency, l.priceLabel)
+                const commissionValue = hasPrice ? (l.commission ?? Math.round((l.priceValue || 0) * 0.05)) : null
+                const commission = hasPrice
+                  ? dualAmount(commissionValue, l.currency)
+                  : { primary: '—', secondary: '' }
                 return (
                   <TableRow key={l.id}>
                     <TableCell className="font-mono text-xs text-slate-500">{l.code || '—'}</TableCell>
                     <TableCell className="font-medium">{l.listingTitle}</TableCell>
                     {showVendorColumn && <TableCell className="text-slate-500">{l.vendor}</TableCell>}
                     <TableCell>
-                      <div>{price.primary}</div>
-                      <div className="text-xs text-slate-400">{price.secondary}</div>
+                      <div className={hasPrice ? '' : 'italic text-slate-500'}>{price.primary}</div>
+                      {price.secondary && <div className="text-xs text-slate-400">{price.secondary}</div>}
                     </TableCell>
                     <TableCell className="text-right font-semibold text-emerald-600">
                       <div>{commission.primary}</div>
-                      <div className="text-xs font-normal text-slate-400">{commission.secondary}</div>
+                      {commission.secondary && <div className="text-xs font-normal text-slate-400">{commission.secondary}</div>}
                     </TableCell>
                     <TableCell>
                       {l.commissionStatus === 'paid' ? (
