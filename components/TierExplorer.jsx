@@ -51,6 +51,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
         
+                  
           href={item.mapLink}
           target="_blank"
           rel="noopener noreferrer"
