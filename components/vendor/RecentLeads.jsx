@@ -31,6 +31,7 @@ export default function RecentLeads({ leads = [], showVendorColumn = false, onMa
                 <TableHead>Code</TableHead>
                 <TableHead>Listing</TableHead>
                 {showVendorColumn && <TableHead>Vendor</TableHead>}
+                <TableHead>Traveler</TableHead>
                 <TableHead>Price</TableHead>
                 <TableHead className="text-right">Est. 5% Commission</TableHead>
                 <TableHead>Status</TableHead>
@@ -50,6 +51,20 @@ export default function RecentLeads({ leads = [], showVendorColumn = false, onMa
                     <TableCell className="font-mono text-xs text-slate-500">{l.code || '—'}</TableCell>
                     <TableCell className="font-medium">{l.listingTitle}</TableCell>
                     {showVendorColumn && <TableCell className="text-slate-500">{l.vendor}</TableCell>}
+                    <TableCell>
+                      {l.travelerName || l.travelerPhone ? (
+                        <div>
+                          <div className="text-sm">{l.travelerName || '—'}</div>
+                          {l.travelerPhone && (
+                            <a href={`tel:${l.travelerPhone}`} className="text-xs text-slate-500 hover:text-slate-700">
+                              {l.travelerPhone}
+                            </a>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-xs italic text-slate-400">Not captured</span>
+                      )}
+                    </TableCell>
                     <TableCell>
                       <div className={hasPrice ? '' : 'italic text-slate-500'}>{price.primary}</div>
                       {price.secondary && <div className="text-xs text-slate-400">{price.secondary}</div>}
