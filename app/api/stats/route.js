@@ -3,24 +3,28 @@ import { query } from '@/lib/db';
 
 export async function GET() {
   try {
-    const [listingsCount, typeCounts, leadsCount, leadsByType, leadsByCategory, revenue, recentLeadsRes] =
+    const [listingsCount, typeCounts, leadsCount, leadsByType, leadsByCategory, revenueByCurrency, recentLeadsRes] =
       await Promise.all([
         query('SELECT COUNT(*) FROM listings'),
         query("SELECT type, COUNT(*) FROM listings GROUP BY type"),
         query('SELECT COUNT(*) FROM leads'),
         query("SELECT type, COUNT(*) FROM leads GROUP BY type"),
         query("SELECT category, COUNT(*) AS value FROM leads GROUP BY category ORDER BY value DESC LIMIT 8"),
-        query("SELECT COALESCE(SUM(commission), 0) AS total FROM leads"),
+        query("SELECT currency, COALESCE(SUM(commission), 0) AS total FROM leads GROUP BY currency"),
         query('SELECT * FROM leads ORDER BY created_at DESC LIMIT 10'),
       ]);
 
     const typeMap = Object.fromEntries(typeCounts.rows.map((r) => [r.type, Number(r.count)]));
     const leadTypeMap = Object.fromEntries(leadsByType.rows.map((r) => [r.type, Number(r.count)]));
+    const revenueMap = Object.fromEntries(
+      revenueByCurrency.rows.map((r) => [r.currency, Number(r.total) || 0])
+    );
 
     const stats = {
       totalListings: Number(listingsCount.rows[0].count),
       totalLeads: Number(leadsCount.rows[0].count),
-      estRevenueUSD: Number(revenue.rows[0].total) || 0,
+      estRevenueUSD: revenueMap.USD || 0,
+      estRevenueKES: revenueMap.KES || 0,
       safariCount: typeMap.safari || 0,
       localCount: typeMap.local || 0,
       leadsByType: {
