@@ -4,6 +4,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
+// Approximate KES <-> USD rate for display purposes only (not used for
+// actual commission calculation, which is stored per-lead in its own
+// currency). Update this if the rate moves significantly.
+const USD_TO_KES = 130
+
+function dualAmount(value, currency) {
+  const v = Number(value) || 0
+  if (currency === 'KES') {
+    return { primary: `KES ${v.toLocaleString()}`, secondary: `≈ $${(v / USD_TO_KES).toFixed(2)}` }
+  }
+  return { primary: `$${v.toLocaleString()}`, secondary: `≈ KES ${(v * USD_TO_KES).toLocaleString()}` }
+}
+
 export default function RecentLeads({ leads = [], showVendorColumn = false, onMarkPaid }) {
   return (
     <Card className="border-slate-200">
@@ -19,39 +32,48 @@ export default function RecentLeads({ leads = [], showVendorColumn = false, onMa
                 <TableHead>Listing</TableHead>
                 {showVendorColumn && <TableHead>Vendor</TableHead>}
                 <TableHead>Price</TableHead>
-                <TableHead className="text-right">Est. 5%</TableHead>
+                <TableHead className="text-right">Est. 5% Commission</TableHead>
                 <TableHead>Status</TableHead>
                 {showVendorColumn && <TableHead></TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {leads.slice(0, 15).map((l) => (
-                <TableRow key={l.id}>
-                  <TableCell className="font-mono text-xs text-slate-500">{l.code || '—'}</TableCell>
-                  <TableCell className="font-medium">{l.listingTitle}</TableCell>
-                  {showVendorColumn && <TableCell className="text-slate-500">{l.vendor}</TableCell>}
-                  <TableCell>{l.priceLabel}</TableCell>
-                  <TableCell className="text-right font-semibold text-emerald-600">
-                    {l.currency === 'KES' ? `KES ${Math.round((l.priceValue || 0) * 0.05)}` : `$${l.commission ?? Math.round((l.priceValue || 0) * 0.05)}`}
-                  </TableCell>
-                  <TableCell>
-                    {l.commissionStatus === 'paid' ? (
-                      <Badge className="bg-emerald-100 text-emerald-700 border-0">Paid</Badge>
-                    ) : (
-                      <Badge variant="secondary" className="bg-amber-100 text-amber-700">Unpaid</Badge>
-                    )}
-                  </TableCell>
-                  {showVendorColumn && (
-                    <TableCell className="text-right">
-                      {l.commissionStatus !== 'paid' && l.code && onMarkPaid && (
-                        <Button size="sm" variant="outline" onClick={() => onMarkPaid(l.code)}>
-                          Mark Paid
-                        </Button>
+              {leads.slice(0, 15).map((l) => {
+                const price = dualAmount(l.priceValue, l.currency)
+                const commissionValue = l.commission ?? Math.round((l.priceValue || 0) * 0.05)
+                const commission = dualAmount(commissionValue, l.currency)
+                return (
+                  <TableRow key={l.id}>
+                    <TableCell className="font-mono text-xs text-slate-500">{l.code || '—'}</TableCell>
+                    <TableCell className="font-medium">{l.listingTitle}</TableCell>
+                    {showVendorColumn && <TableCell className="text-slate-500">{l.vendor}</TableCell>}
+                    <TableCell>
+                      <div>{price.primary}</div>
+                      <div className="text-xs text-slate-400">{price.secondary}</div>
+                    </TableCell>
+                    <TableCell className="text-right font-semibold text-emerald-600">
+                      <div>{commission.primary}</div>
+                      <div className="text-xs font-normal text-slate-400">{commission.secondary}</div>
+                    </TableCell>
+                    <TableCell>
+                      {l.commissionStatus === 'paid' ? (
+                        <Badge className="bg-emerald-100 text-emerald-700 border-0">Paid</Badge>
+                      ) : (
+                        <Badge variant="secondary" className="bg-amber-100 text-amber-700">Unpaid</Badge>
                       )}
                     </TableCell>
-                  )}
-                </TableRow>
-              ))}
+                    {showVendorColumn && (
+                      <TableCell className="text-right">
+                        {l.commissionStatus !== 'paid' && l.code && onMarkPaid && (
+                          <Button size="sm" variant="outline" onClick={() => onMarkPaid(l.code)}>
+                            Mark Paid
+                          </Button>
+                        )}
+                      </TableCell>
+                    )}
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         )}
