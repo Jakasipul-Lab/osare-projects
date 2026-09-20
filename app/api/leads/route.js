@@ -17,6 +17,9 @@ function mapLead(row) {
     createdAt: row.created_at,
     code: row.code,
     commissionStatus: row.commission_status,
+    vendorId: row.vendor_id,
+    travelerName: row.traveler_name,
+    travelerPhone: row.traveler_phone,
   };
 }
 
@@ -32,7 +35,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { listingId } = body;
+    const { listingId, travelerName, travelerPhone } = body;
 
     if (!listingId) {
       return NextResponse.json({ success: false, error: 'listingId is required' }, { status: 400 });
@@ -55,9 +58,9 @@ export async function POST(request) {
       `INSERT INTO leads (
         listing_id, listing_title, vendor, category, type,
         price_label, price_value, currency, commission, channel,
-        code, commission_status, vendor_id, created_at
+        code, commission_status, vendor_id, traveler_name, traveler_phone, created_at
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, 'whatsapp', $10, 'unpaid', $11, NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, 'whatsapp', $10, 'unpaid', $11, $12, $13, NOW()
       ) RETURNING *`,
       [
         listing.id,
@@ -71,6 +74,8 @@ export async function POST(request) {
         commission,
         code,
         listing.owner_id || null,
+        travelerName || null,
+        travelerPhone || null,
       ]
     );
 
