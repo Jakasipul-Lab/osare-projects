@@ -38,7 +38,6 @@ export default function RecentLeads({ leads = [], showVendorColumn = false, onMa
               </TableRow>
             </TableHeader>
             <TableBody>
-                          <TableBody>
               {leads.slice(0, 15).map((l) => {
                 const hasPrice = Number(l.priceValue) > 0
                 const price = dualAmount(l.priceValue, l.currency, l.priceLabel)
