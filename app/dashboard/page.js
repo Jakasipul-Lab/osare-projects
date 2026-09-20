@@ -127,7 +127,7 @@ function Dashboard() {
   const cards = [
     { label: 'Total Listings', value: stats.totalListings, icon: <Compass className="h-6 w-6" />, gradient: 'from-[#1e3a8a] to-[#3b82f6]' },
     { label: 'Booking Leads', value: stats.totalLeads, icon: <MessageCircle className="h-6 w-6" />, gradient: 'from-[#f97316] to-[#fb923c]' },
-    { label: 'Est. Commission (5%)', value: `$${stats.estRevenueUSD}`, icon: <Percent className="h-6 w-6" />, gradient: 'from-[#10b981] to-[#34d399]' },
+    { label: 'Est. Commission (5%)', value: `$${stats.estRevenueUSD} · KSh ${stats.estRevenueKES?.toLocaleString?.() ?? stats.estRevenueKES}`, icon: <Percent className="h-6 w-6" />, gradient: 'from-[#10b981] to-[#34d399]' },
     { label: 'Safari / Local', value: `${stats.safariCount} / ${stats.localCount}`, icon: <Users className="h-6 w-6" />, gradient: 'from-[#8b5cf6] to-[#a78bfa]' },
   ]
 
