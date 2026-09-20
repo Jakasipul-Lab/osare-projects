@@ -50,14 +50,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
       <CardContent className="flex flex-1 flex-col p-5">
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
-        
-                  
-          href={item.mapLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700"
-        >
+        <a href={item.mapLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700">
           <MapPin className="h-3 w-3" /> {item.location}
         </a>
         <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
