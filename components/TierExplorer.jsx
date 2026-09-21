@@ -14,9 +14,13 @@ import {
 import { toast } from 'sonner'
 
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
-const LOCAL_CATS = ['All', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
+const LOCAL_CATS = ['All', 'Bus / Coach', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
+
+const SAFARI_SUGGESTIONS = ['Maasai Mara', 'Kilimanjaro', 'Zanzibar', 'Car Hire', 'Sightseeing']
+const LOCAL_SUGGESTIONS = ['Nairobi–Mombasa', 'Bus', 'SGR Train', 'Matatu', 'Taxi', 'Airport Transfer']
 
 const catIcon = (cat) => {
+  if (/bus|coach/i.test(cat)) return <Bus className="h-4 w-4" />
   if (/kilimanjaro/i.test(cat)) return <Mountain className="h-4 w-4" />
   if (/hotel|resort/i.test(cat)) return <Hotel className="h-4 w-4" />
   if (/car|caravan/i.test(cat)) return <Car className="h-4 w-4" />
@@ -50,7 +54,13 @@ function ListingCard({ item, onBook, booking, onOpen }) {
       <CardContent className="flex flex-1 flex-col p-5">
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
-        <a href={item.mapLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700">
+        <a
+          href={item.mapLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700"
+        >
           <MapPin className="h-3 w-3" /> {item.location}
         </a>
         <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
@@ -134,6 +144,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
 export function TierExplorer({ type }) {
   const isSafari = type === 'safari'
   const cats = isSafari ? SAFARI_CATS : LOCAL_CATS
+  const suggestions = isSafari ? SAFARI_SUGGESTIONS : LOCAL_SUGGESTIONS
   const accent = isSafari ? '#f97316' : '#1e3a8a'
   const [q, setQ] = useState('')
   const [cat, setCat] = useState('All')
@@ -158,6 +169,22 @@ export function TierExplorer({ type }) {
   }, [type, q, cat])
   useEffect(() => { load() }, [cat]) // eslint-disable-line
   useEffect(() => { load() }, []) // eslint-disable-line
+  const searchWithTerm = async (term) => {
+    setQ(term)
+    setLoading(true)
+    try {
+      const params = new URLSearchParams({ type })
+      if (term) params.set('q', term)
+      if (cat && cat !== 'All') params.set('category', cat)
+      const res = await fetch(`/api/listings?${params.toString()}`)
+      const data = await res.json()
+      setItems(Array.isArray(data) ? data : [])
+    } catch (e) {
+      toast.error('Failed to load listings')
+    } finally {
+      setLoading(false)
+    }
+  }
   const handleBook = async (item) => {
     const travelerPhone = window.prompt('Enter your phone number (so we can confirm your booking and any promo rewards):')
     if (!travelerPhone) {
@@ -207,6 +234,19 @@ export function TierExplorer({ type }) {
             </Button>
           </CardContent>
         </Card>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-medium text-slate-400">Popular:</span>
+          {suggestions.map((s) => (
+            <button
+              key={s}
+              onClick={() => searchWithTerm(s)}
+              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600 shadow-sm hover:border-slate-300 hover:bg-slate-50"
+              style={{ color: q === s ? accent : undefined, borderColor: q === s ? accent : undefined }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="mx-auto max-w-7xl px-5 py-10">
         <div className="mb-5 flex items-center justify-between">
