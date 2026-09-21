@@ -26,41 +26,69 @@ async function checkWebsite(url) {
   }
 }
 
+function buildWordConditions(words, params) {
+  return words.map((word) => {
+    params.push(`%${word}%`);
+    const idx = params.length;
+    return `(
+      LOWER(title) LIKE $${idx} OR
+      LOWER(vendor) LIKE $${idx} OR
+      LOWER(location) LIKE $${idx} OR
+      LOWER(description) LIKE $${idx} OR
+      LOWER(category) LIKE $${idx}
+    )`;
+  });
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
     const search = searchParams.get('q');
-    let sql = 'SELECT * FROM listings WHERE 1=1';
-    const params = [];
-    if (type && type !== 'All') {
-      params.push(type);
-      sql += ` AND type = $${params.length}`;
-    }
-    if (search) {
-  const stopWords = new Set(['to', 'from', 'and', 'the', 'a', 'in', 'at']);
-  const searchWords = search
-    .toLowerCase()
-    .split(/\s+/)
-    .filter((w) => w.length > 1 && !stopWords.has(w));
+    const category = searchParams.get('category');
 
-  if (searchWords.length > 0) {
-    const wordConditions = searchWords.map((word) => {
-      params.push(`%${word}%`);
-      const idx = params.length;
-      return `(
-        LOWER(title) LIKE $${idx} OR
-        LOWER(vendor) LIKE $${idx} OR
-        LOWER(location) LIKE $${idx} OR
-        LOWER(description) LIKE $${idx} OR
-        LOWER(category) LIKE $${idx}
-      )`;
-    });
-    sql += ` AND (${wordConditions.join(' AND ')})`;
-  }
-}
-    sql += ' ORDER BY created_at DESC';
-    const result = await query(sql, params);
+    let baseSql = 'SELECT * FROM listings WHERE 1=1';
+    const baseParams = [];
+    if (type && type !== 'All') {
+      baseParams.push(type);
+      baseSql += ` AND type = $${baseParams.length}`;
+    }
+    if (category && category !== 'All') {
+      baseParams.push(category);
+      baseSql += ` AND category = $${baseParams.length}`;
+    }
+
+    let result;
+
+    if (search) {
+      const stopWords = new Set(['to', 'from', 'and', 'the', 'a', 'in', 'at']);
+      const searchWords = search
+        .toLowerCase()
+        .split(/\s+/)
+        .filter((w) => w.length > 1 && !stopWords.has(w));
+
+      if (searchWords.length > 0) {
+        // First try: every word must appear (most precise)
+        const andParams = [...baseParams];
+        const andConditions = buildWordConditions(searchWords, andParams);
+        const andSql = `${baseSql} AND (${andConditions.join(' AND ')}) ORDER BY created_at DESC`;
+        result = await query(andSql, andParams);
+
+        // Fallback: if that found nothing, match ANY word instead of ALL of them
+        if (result.rows.length === 0) {
+          const orParams = [...baseParams];
+          const orConditions = buildWordConditions(searchWords, orParams);
+          const orSql = `${baseSql} AND (${orConditions.join(' OR ')}) ORDER BY created_at DESC`;
+          result = await query(orSql, orParams);
+        }
+      } else {
+        // search term was only stopwords/too short — ignore it
+        result = await query(`${baseSql} ORDER BY created_at DESC`, baseParams);
+      }
+    } else {
+      result = await query(`${baseSql} ORDER BY created_at DESC`, baseParams);
+    }
+
     const items = result.rows.map(mapVendorRow);
     return NextResponse.json(items, {
       headers: { 'Access-Control-Allow-Origin': '*' }
