@@ -357,7 +357,7 @@ function Home({ go }) {
                   className="h-12 border-0 pl-10 text-base text-slate-900 focus-visible:ring-0"
                 />
               </div>
-              <Button onClick={search} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: tier === 'safari' ? '#f97316' : '#1e3a8a' }}>
+              <Button onClick={search} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: tier === 'safari' ? '#c2410c' : '#1e3a8a' }}>
                 Search <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
@@ -372,7 +372,7 @@ function Home({ go }) {
             <img src={HERO} alt="safari" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             <div className="absolute bottom-0 p-6 text-white">
-              <Badge className="mb-2 gap-1 border-0 bg-[#f97316] text-white"><Compass className="h-3 w-3" /> Tier 1</Badge>
+              <Badge className="mb-2 gap-1 border-0 bg-[#c2410c] text-white"><Compass className="h-3 w-3" /> Tier 1</Badge>
               <h3 className="text-2xl font-bold">Safari & Tourism</h3>
               <p className="mt-1 text-sm text-white/85">Mara migration, Kilimanjaro, hotels, car & aircraft hire, sightseeing.</p>
               <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-orange-300">Explore safaris <ArrowRight className="h-4 w-4" /></span>
@@ -964,7 +964,7 @@ function VendorPortal({ token, vendor, onAuth, onLogout }) {
               <Field label="Season note" v={form.season} on={(v) => set('season', v)} />
               <Field label="Image URL" v={form.image} on={(v) => set('image', v)} />
               <div className="md:col-span-2">
-                <Button onClick={submit} disabled={saving} className="w-full gap-2 bg-[#f97316] text-white hover:bg-[#ea6c0f]">
+                <Button onClick={submit} disabled={saving} className="w-full gap-2 bg-[#c2410c] text-white hover:bg-[#9a3412]">
                   {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />} Publish listing
                 </Button>
               </div>
@@ -1196,7 +1196,7 @@ function App() {
   <button onClick={() => go('vendor')} className="text-sm font-medium text-slate-600 hover:text-slate-900">
     Vendor Login
   </button>
-  <Button onClick={() => go('safari')} className="gap-2 bg-[#f97316] text-white hover:bg-[#ea6c0f]">
+  <Button onClick={() => go('safari')} className="gap-2 bg-[#c2410c] text-white hover:bg-[#9a3412]">
     Explore <ArrowRight className="h-4 w-4" />
   </Button>
 </div>
