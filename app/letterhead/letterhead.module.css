@@ -219,7 +219,7 @@
 .footer {
   position: relative;
   min-height: 30mm;
-  background: #064d32;
+  background: #1e3a8a;
   color: white;
   overflow: hidden;
   padding: 14mm 4mm 7mm;
@@ -299,7 +299,7 @@
 
   .paper {
     width: auto;
-    min-height: auto;
+    min-height: 297mm;
     max-width: none;
     box-shadow: none;
     margin: 0;
