@@ -374,21 +374,21 @@ export default function KampalaPage() {
 
                 {[
                   {
-                    title: 'Kasubi Tombs',
-                    text: 'A significant cultural and historical site connected with the Buganda Kingdom.',
-                  },
-                  {
-                    title: 'Uganda Museum',
-                    text: 'Learn more about Uganda's history, cultures and heritage.',
-                  },
-                  {
-                    title: 'Owino Market',
-                    text: 'A major marketplace offering a lively view of local commerce.',
-                  },
-                  {
-                    title: 'Craft Markets',
-                    text: 'Discover handmade products, art, clothing and souvenirs.',
-                  },
+  title: 'Kasubi Tombs',
+  text: 'A significant cultural and historical site connected with the Buganda Kingdom.',
+},
+{
+  title: 'Uganda Museum',
+  text: "Learn more about Uganda's history, cultures and heritage.",
+},
+{
+  title: 'Owino Market',
+  text: 'A major marketplace offering a lively view of local commerce.',
+},
+{
+  title: 'Craft Markets',
+  text: 'Discover handmade products, art, clothing and souvenirs.',
+},
                 ].map((item) => (
                   <div
                     key={item.title}
