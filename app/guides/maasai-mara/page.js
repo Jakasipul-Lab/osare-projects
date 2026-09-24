@@ -2,26 +2,26 @@ import Link from 'next/link'
 import { buildMetadata, buildFAQSchema } from '@/lib/seo'
 
 export const metadata = buildMetadata({
-  title: 'Masai Mara Travel Guide 2026 — Best Time, How to Get There & Where to Stay | OSARE',
-  description: 'Planning a Masai Mara safari? Here is when to go, how to get there from Nairobi, where to stay (from budget bandas to luxury camps), what to pack, and what it costs.',
+  title: 'Maasai Mara Travel Guide 2026 — Best Time, How to Get There & Where to Stay | OSARE',
+  description: 'Planning a Maasai Mara safari? Here is when to go, how to get there from Nairobi, where to stay (from budget bandas to luxury camps), what to pack, and what it costs.',
   path: '/guides/masai-mara',
 })
 
 const FAQS = [
   {
-    question: 'When is the best time to visit Masai Mara?',
+    question: 'When is the best time to visit Maasai Mara?',
     answer: 'June through October is the dry season with the best game viewing. For the famous river crossings during the Great Migration, aim for late July through October. Avoid March and April, when heavy rains make roads difficult.',
   },
   {
-    question: 'How do I get to Masai Mara from Nairobi?',
+    question: 'How do I get to Maasai Mara from Nairobi?',
     answer: 'By road, it is about 230km and roughly 5 hours on mostly paved roads to the main Sekenani Gate. By air, small planes fly from Nairobi’s Wilson Airport directly to airstrips inside the reserve, usually in 45 minutes to an hour.',
   },
   {
-    question: 'Where can I stay in Masai Mara on a budget?',
+    question: 'Where can I stay in Maasai Mara on a budget?',
     answer: 'Alongside luxury tented camps and mid-range lodges, there are budget-friendly bandas, public campsites, and guesthouses run by smaller local operators — a great way to experience the Mara without luxury prices.',
   },
   {
-    question: 'What should I pack for a Masai Mara safari?',
+    question: 'What should I pack for a Maasai Mara safari?',
     answer: 'Neutral-colored clothing, warm layers for cold early-morning game drives, sun protection, binoculars, and a camera or phone with plenty of storage.',
   },
 ]
@@ -50,7 +50,7 @@ export default function MasaiMaraGuide() {
           TRAVEL GUIDE
         </span>
         <h1 style={{ fontSize: 38, fontWeight: 900, marginTop: 16, lineHeight: 1.2 }}>
-          Masai Mara: The Complete Guide for First-Time Visitors
+          Maasai Mara: The Complete Guide for First-Time Visitors
         </h1>
         <p style={{ color: '#64748b', fontSize: 18, marginTop: 12 }}>
           Kenya&rsquo;s most famous safari destination &mdash; rolling savannah, huge cat populations, and the
@@ -125,7 +125,7 @@ export default function MasaiMaraGuide() {
       </div>
 
       <div style={{ marginTop: 56, padding: 28, background: '#f0f9ff', borderRadius: 16, textAlign: 'center' }}>
-        <h3 style={{ fontSize: 20, fontWeight: 800, color: '#1e3a8a' }}>Ready to plan your Masai Mara trip?</h3>
+        <h3 style={{ fontSize: 20, fontWeight: 800, color: '#1e3a8a' }}>Ready to plan your Maasai Mara trip?</h3>
         <p style={{ color: '#475569', marginTop: 8 }}>
           Compare verified safari operators, camps, and stays &mdash; and message them directly, free of charge.
         </p>
