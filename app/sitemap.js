@@ -1,4 +1,3 @@
-```js
 import { getAllVendors } from '@/lib/vendorData'
 
 // Force this route to always run fresh (no caching) so newly added
@@ -41,4 +40,3 @@ export default async function sitemap() {
 
   return [...staticRoutes, ...vendorRoutes]
 }
-```
