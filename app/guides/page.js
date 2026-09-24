@@ -33,11 +33,11 @@ const GUIDES = [
     img: 'https://images.unsplash.com/photo-1757777598981-2a589811168d?q=80&w=800&auto=format&fit=crop',
   },
   {
-    href: '/guides/masai-mara',
-    title: "Masai Mara Travel Guide",
-    blurb: "When to go, how to get there, and where to stay for Kenya's most famous safari destination.",
-    img: 'https://images.unsplash.com/photo-1745526180300-443ef46e6a73?q=80&w=800&auto=format&fit=crop',
-  },
+  href: '/guides/maasai-mara',
+  title: "Maasai Mara Travel Guide",
+  blurb: "When to go, how to get there, what to expect, and where to stay in Kenya's iconic Maasai Mara.",
+  img: 'https://images.unsplash.com/photo-1745526180300-443ef46e6a73?q=80&w=800&auto=format&fit=crop',
+},
 ]
 
 export default function GuidesIndex() {
