@@ -9,7 +9,7 @@ export function AdSense() {
   return (
     <Script
       async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1492564155912705"
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5760405093106435"
       crossOrigin="anonymous"
       strategy="afterInteractive"
     />
