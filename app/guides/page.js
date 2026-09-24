@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
   title: "East Africa Travel Guides — Visas, Safety, Costs, Wildlife & More | OSARE",
-  description: "Free, practical travel guides for East Africa: visa requirements, health & safety, money & tipping, what to pack, and destination guides like Masai Mara.",
+  description: "Free, practical travel guides for East Africa: visa requirements, health & safety, money & tipping, what to pack, and destination guides like Maasai Mara.",
   path: '/guides',
 })
 
