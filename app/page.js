@@ -1192,6 +1192,9 @@ function App() {
               </button>
             ))}
           </nav>
+          <a href="/guides" className="hidden rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 md:block">
+            Guides
+          </a>
           <div className="hidden items-center gap-3 md:flex">
   <button onClick={() => go('vendor')} className="text-sm font-medium text-slate-600 hover:text-slate-900">
     Vendor Login
@@ -1211,6 +1214,7 @@ function App() {
                 {n.label}
               </button>
             ))}
+            <a href="/guides" className="block w-full px-5 py-3 text-left text-sm font-medium text-slate-600">Guides</a>
           </div>
         )}
       </header>
@@ -1238,6 +1242,7 @@ function App() {
   <li><button onClick={() => go('local')} className="hover:text-white">Local Commute</button></li>
   <li><button onClick={() => go('about')} className="hover:text-white">About OSARE</button></li>
   <li><a href="/how-it-works" className="hover:text-white">How It Works</a></li>
+  <li><a href="/guides" className="hover:text-white">Travel Guides</a></li>
 </ul>
 </div>
          <div>
