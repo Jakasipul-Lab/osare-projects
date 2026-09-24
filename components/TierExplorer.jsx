@@ -240,11 +240,11 @@ export function TierExplorer({ type }) {
             <button
               key={s}
               onClick={() => searchWithTerm(s)}
-              className="rounded-full border px-3 py-1 text-xs font-medium shadow-sm transition"
+              className="rounded-full border px-3 py-1 text-xs font-bold shadow-sm transition hover:opacity-90"
               style={{
-                color: '#1e3a8a',
+                color: 'white',
                 borderColor: '#1e3a8a',
-                backgroundColor: q === s ? '#e0e7ff' : 'white',
+                backgroundColor: '#1e3a8a',
               }}
             >
               {s}
