@@ -1,4 +1,3 @@
-```js
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
 
@@ -297,4 +296,4 @@ function LinkCard({ title, href }) {
     </Link>
   )
 }
-```
+
