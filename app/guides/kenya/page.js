@@ -460,16 +460,7 @@ export default function KenyaGuidePage() {
 /* --------------------------------
    COMPONENTS
 -------------------------------- */
-
-function FactCard({
-  title,
-  value,
-  icon,
-}: {
-  title: string
-  value: string
-  icon: string
-}) {
+function FactCard({ title, value, icon }) {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
       <div className="text-2xl">{icon}</div>
@@ -491,12 +482,6 @@ function DestinationCard({
   description,
   icon,
   active = false,
-}: {
-  title: string
-  href: string
-  description: string
-  icon: string
-  active?: boolean
 }) {
   return (
     <Link
@@ -528,17 +513,7 @@ function DestinationCard({
   )
 }
 
-function GuideCard({
-  title,
-  description,
-  href,
-  icon,
-}: {
-  title: string
-  description: string
-  href: string
-  icon: string
-}) {
+function GuideCard({ title, description, href, icon }) {
   return (
     <Link
       href={href}
@@ -561,28 +536,19 @@ function GuideCard({
   )
 }
 
-function MiniCard({
-  text,
-  icon,
-}: {
-  text: string
-  icon: string
-}) {
+function MiniCard({ text, icon }) {
   return (
     <div className="rounded-2xl bg-white/10 p-5 text-center">
       <div className="text-3xl">{icon}</div>
-      <p className="mt-2 font-semibold">{text}</p>
+
+      <p className="mt-2 font-semibold">
+        {text}
+      </p>
     </div>
   )
 }
 
-function LinkCard({
-  title,
-  href,
-}: {
-  title: string
-  href: string
-}) {
+function LinkCard({ title, href }) {
   return (
     <Link
       href={href}
