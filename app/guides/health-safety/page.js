@@ -63,6 +63,10 @@ export default function HealthSafetyGuide() {
         </p>
       </div>
 
+      <div style={{ marginBottom: 8 }}>
+        <Link href="/guides" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Back to all guides</Link>
+      </div>
+
       <Section title="Vaccinations & malaria">
         <p>
           Speak to a travel clinic <strong>four to six weeks before departure</strong>. Yellow fever is
@@ -116,6 +120,11 @@ export default function HealthSafetyGuide() {
           emergencies are actually handled out there.
         </p>
       </Section>
+
+      <div style={{ marginTop: 48, display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', borderTop: '1px solid #e2e8f0', paddingTop: 24 }}>
+        <Link href="/guides/visa-entry-requirements" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Previous: Visa &amp; Entry Requirements</Link>
+        <Link href="/guides/money-costs-tipping" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>Next: Money, Costs &amp; Tipping &rarr;</Link>
+      </div>
 
       <div style={{ marginTop: 56, padding: 28, background: '#f0f9ff', borderRadius: 16, textAlign: 'center' }}>
         <h3 style={{ fontSize: 20, fontWeight: 800, color: '#1e3a8a' }}>Ready to book a guided safari?</h3>

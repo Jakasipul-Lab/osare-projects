@@ -64,6 +64,10 @@ export default function VisaEntryGuide() {
         </p>
       </div>
 
+      <div style={{ marginBottom: 8 }}>
+        <Link href="/guides" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Back to all guides</Link>
+      </div>
+
       <Section title="Do you need a visa?">
         <p>
           Almost every visitor from outside East Africa needs a visa for Kenya, Tanzania and Uganda.
@@ -105,6 +109,11 @@ export default function VisaEntryGuide() {
           <li><strong>Yellow fever certificate</strong> if arriving from, or having transited through, a country with yellow fever risk &mdash; officers do check this.</li>
         </ul>
       </Section>
+
+      <div style={{ marginTop: 48, display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', borderTop: '1px solid #e2e8f0', paddingTop: 24 }}>
+        <span />
+        <Link href="/guides/health-safety" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>Next: Health &amp; Safety &rarr;</Link>
+      </div>
 
       <div style={{ marginTop: 56, padding: 28, background: '#f0f9ff', borderRadius: 16, textAlign: 'center' }}>
         <h3 style={{ fontSize: 20, fontWeight: 800, color: '#1e3a8a' }}>Ready to plan the rest of your trip?</h3>

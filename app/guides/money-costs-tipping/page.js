@@ -64,6 +64,10 @@ export default function MoneyCostsGuide() {
         </p>
       </div>
 
+      <div style={{ marginBottom: 8 }}>
+        <Link href="/guides" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Back to all guides</Link>
+      </div>
+
       <Section title="Currency to carry">
         <p>
           Bring a mix. <strong>US dollars</strong> (2009 or newer bills, no marks, tears or stains &mdash; older
@@ -112,6 +116,11 @@ export default function MoneyCostsGuide() {
           printed price tags, prices are fixed. Either way, a warm greeting first goes a long way.
         </p>
       </Section>
+
+      <div style={{ marginTop: 48, display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', borderTop: '1px solid #e2e8f0', paddingTop: 24 }}>
+        <Link href="/guides/health-safety" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Previous: Health &amp; Safety</Link>
+        <Link href="/guides/packing-best-time" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>Next: What to Pack &amp; Best Time &rarr;</Link>
+      </div>
 
       <div style={{ marginTop: 56, padding: 28, background: '#f0f9ff', borderRadius: 16, textAlign: 'center' }}>
         <h3 style={{ fontSize: 20, fontWeight: 800, color: '#1e3a8a' }}>Ready to compare real prices?</h3>

@@ -59,6 +59,10 @@ export default function MasaiMaraGuide() {
         </p>
       </div>
 
+      <div style={{ marginBottom: 8 }}>
+        <Link href="/guides" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Back to all guides</Link>
+      </div>
+
       <Section title="When to Go">
         <p>
           The best months are <strong>June through October</strong> &mdash; dry season, easier wildlife viewing,
@@ -114,6 +118,11 @@ export default function MasaiMaraGuide() {
           before booking.
         </p>
       </Section>
+
+      <div style={{ marginTop: 48, display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', borderTop: '1px solid #e2e8f0', paddingTop: 24 }}>
+        <Link href="/guides/packing-best-time" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Previous: What to Pack &amp; Best Time</Link>
+        <Link href="/guides" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>Back to all guides &rarr;</Link>
+      </div>
 
       <div style={{ marginTop: 56, padding: 28, background: '#f0f9ff', borderRadius: 16, textAlign: 'center' }}>
         <h3 style={{ fontSize: 20, fontWeight: 800, color: '#1e3a8a' }}>Ready to plan your Masai Mara trip?</h3>
