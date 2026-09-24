@@ -2,579 +2,973 @@ import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
-  title: 'Nairobi Travel Guide — Things to Do, Safari, Transport & Travel Information | OSARE',
+  title:
+    'Nairobi Travel Guide — Things to Do, Wildlife, Safari, Food & Transport | OSARE',
   description:
-    'Explore Nairobi, Kenya with practical travel information covering wildlife, attractions, transport, accommodation, food, safety, costs and trips from Nairobi.',
-  path: '/guides/nairobi',
+    'Explore Nairobi, Kenya with practical travel information covering wildlife, attractions, city areas, food, accommodation, transport, safari connections and journeys across East Africa.',
+  path: '/guides/kenya/nairobi',
 })
+
+const AREAS = [
+  {
+    icon: '🏙️',
+    title: 'Central Nairobi',
+    color: 'bg-amber-100',
+    border: 'border-amber-200',
+    text: 'Explore the city centre, museums, markets, parks, historic buildings and Nairobi’s busy urban life.',
+  },
+  {
+    icon: '🌆',
+    title: 'Westlands',
+    color: 'bg-sky-100',
+    border: 'border-sky-200',
+    text: 'A lively area known for hotels, restaurants, shopping, entertainment and business.',
+  },
+  {
+    icon: '🌿',
+    title: 'Kilimani',
+    color: 'bg-emerald-100',
+    border: 'border-emerald-200',
+    text: 'A popular neighbourhood with cafés, restaurants, apartments and easy access to many parts of Nairobi.',
+  },
+  {
+    icon: '🦒',
+    title: 'Karen & Lang’ata',
+    color: 'bg-orange-100',
+    border: 'border-orange-200',
+    text: 'A greener part of Nairobi close to wildlife attractions, museums, gardens and conservation experiences.',
+  },
+  {
+    icon: '🌳',
+    title: 'Gigiri & Runda',
+    color: 'bg-lime-100',
+    border: 'border-lime-200',
+    text: 'Known for international organisations, diplomatic activity, hotels, restaurants and shopping.',
+  },
+  {
+    icon: '🍛',
+    title: 'Parklands',
+    color: 'bg-rose-100',
+    border: 'border-rose-200',
+    text: 'A diverse part of Nairobi with accommodation, restaurants, food experiences and convenient city access.',
+  },
+]
+
+const EXPERIENCES = [
+  {
+    icon: '🦁',
+    title: 'Wildlife',
+    text: 'Experience Nairobi National Park and discover wildlife surprisingly close to the city.',
+  },
+  {
+    icon: '🌿',
+    title: 'Nature',
+    text: 'Walk through Karura Forest, discover green spaces and enjoy a different side of Nairobi.',
+  },
+  {
+    icon: '🏛️',
+    title: 'History',
+    text: 'Explore museums, historic places and stories that help explain Kenya and Nairobi.',
+  },
+  {
+    icon: '🎨',
+    title: 'Culture',
+    text: 'Discover Kenyan art, music, crafts, markets, food and everyday city life.',
+  },
+  {
+    icon: '🍽️',
+    title: 'Food',
+    text: 'Try Kenyan dishes and explore Nairobi’s huge range of African and international restaurants.',
+  },
+  {
+    icon: '🛍️',
+    title: 'Shopping',
+    text: 'Find local crafts, souvenirs, fashion, markets, shopping centres and unique Kenyan products.',
+  },
+  {
+    icon: '☕',
+    title: 'Cafés',
+    text: 'Nairobi has a growing café culture, from relaxed neighbourhood cafés to modern city spaces.',
+  },
+  {
+    icon: '🎵',
+    title: 'Nightlife',
+    text: 'Restaurants, live music, entertainment and nightlife give Nairobi another personality after dark.',
+  },
+]
+
+const WILDLIFE = [
+  {
+    icon: '🦁',
+    title: 'Nairobi National Park',
+    text: 'A remarkable wildlife area on the edge of the capital, offering a safari experience with the city skyline nearby.',
+  },
+  {
+    icon: '🦒',
+    title: 'Giraffe Centre',
+    text: 'A popular conservation and wildlife experience where visitors can learn more about giraffes.',
+  },
+  {
+    icon: '🐘',
+    title: 'Elephant Conservation',
+    text: 'Nairobi is home to important wildlife conservation organisations and experiences connected with elephant rescue and rehabilitation.',
+  },
+  {
+    icon: '🌳',
+    title: 'Karura Forest',
+    text: 'A large urban forest offering walking trails, waterfalls, caves and a peaceful escape from the busy city.',
+  },
+]
+
+const ROUTES = [
+  {
+    icon: '🦁',
+    destination: 'Nairobi → Maasai Mara',
+    text: 'Continue from Kenya’s capital toward one of East Africa’s best-known safari regions.',
+  },
+  {
+    icon: '🐘',
+    destination: 'Nairobi → Amboseli',
+    text: 'Travel south toward Amboseli and its famous views of Mount Kilimanjaro.',
+  },
+  {
+    icon: '🌊',
+    destination: 'Nairobi → Mombasa',
+    text: 'Leave the capital for Kenya’s Indian Ocean coast, beaches and Swahili culture.',
+  },
+  {
+    icon: '🦩',
+    destination: 'Nairobi → Lake Naivasha',
+    text: 'Head into the Great Rift Valley for lakes, landscapes and nature experiences.',
+  },
+  {
+    icon: '🚌',
+    destination: 'Nairobi → Kampala',
+    text: 'Continue west into Uganda and discover another part of the East African network.',
+  },
+  {
+    icon: '🌴',
+    destination: 'Nairobi → Tanzania',
+    text: 'Connect your Kenyan journey with Tanzania, safari destinations and Zanzibar.',
+  },
+]
 
 export default function NairobiGuidePage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-800">
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-emerald-900 via-green-800 to-teal-700 text-white">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="max-w-4xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-emerald-200">
-              Kenya Travel Guide
-            </p>
+    <main className="min-h-screen bg-amber-50 text-slate-800">
 
-            <h1 className="text-4xl font-bold leading-tight md:text-6xl">
-              Nairobi Travel Guide
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-green-800 to-amber-700 text-white">
+        <div className="absolute -right-32 -top-32 h-80 w-80 rounded-full bg-yellow-400/20 blur-3xl" />
+        <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-orange-400/20 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-20 md:py-28">
+          <div className="max-w-5xl">
+
+            <div className="mb-6 flex flex-wrap gap-3">
+              <span className="rounded-full bg-yellow-400 px-4 py-2 text-sm font-bold text-green-950">
+                🇰🇪 KENYA
+              </span>
+
+              <span className="rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+                EAST AFRICA
+              </span>
+
+              <span className="rounded-full bg-orange-500 px-4 py-2 text-sm font-bold text-white">
+                🦁 SAFARI GATEWAY
+              </span>
+            </div>
+
+            <h1 className="text-5xl font-black leading-tight md:text-7xl">
+              Nairobi
+              <span className="block text-yellow-300">
+                Travel Guide
+              </span>
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-emerald-50 md:text-xl">
-              Discover Nairobi, Kenya&apos;s vibrant capital city and one of
-              East Africa&apos;s most important gateways to safari, wildlife,
-              culture, business and adventure.
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-green-50 md:text-2xl md:leading-10">
+              Discover the city where modern African life meets wildlife,
+              culture, food, business and adventure — and where your journey
+              across East Africa can begin.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/search"
-                className="rounded-full bg-white px-6 py-3 font-semibold text-emerald-900 shadow-sm transition hover:bg-emerald-50"
+                className="rounded-full bg-yellow-400 px-7 py-4 font-bold text-green-950 shadow-lg transition hover:bg-yellow-300 hover:scale-105"
               >
-                Search East Africa
+                🔎 Search East Africa
               </Link>
 
               <Link
                 href="/guides"
-                className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                className="rounded-full border-2 border-white/50 bg-white/10 px-7 py-4 font-bold text-white backdrop-blur transition hover:bg-white/20"
               >
-                Explore Travel Guides
+                🌍 Explore Travel Guides
               </Link>
+            </div>
+          </div>
+
+          {/* HERO HIGHLIGHTS */}
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-3xl bg-white/10 p-5 backdrop-blur-md">
+              <div className="text-3xl">🦁</div>
+              <p className="mt-2 font-bold">Wildlife</p>
+              <p className="mt-1 text-sm text-green-100">
+                Safari close to the city
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-yellow-400 p-5 text-green-950 shadow-lg">
+              <div className="text-3xl">🌍</div>
+              <p className="mt-2 font-bold">East Africa</p>
+              <p className="mt-1 text-sm">
+                A major regional gateway
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-orange-500 p-5 text-white shadow-lg">
+              <div className="text-3xl">🍛</div>
+              <p className="mt-2 font-bold">Food & Culture</p>
+              <p className="mt-1 text-sm text-orange-50">
+                Kenyan life and flavours
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-sky-500 p-5 text-white shadow-lg">
+              <div className="text-3xl">🚌</div>
+              <p className="mt-2 font-bold">Transport</p>
+              <p className="mt-1 text-sm text-sky-50">
+                Connect to many destinations
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* INTRO */}
-      <section className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr]">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900">
-              Welcome to Nairobi
+      <section className="bg-orange-100">
+        <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
+
+            <div>
+              <p className="font-bold uppercase tracking-widest text-orange-700">
+                Welcome to Nairobi
+              </p>
+
+              <h2 className="mt-3 text-4xl font-black text-green-950 md:text-5xl">
+                Nairobi is more than a stopover.
+              </h2>
+
+              <p className="mt-6 text-lg leading-8 text-slate-700">
+                Nairobi is one of East Africa’s most important cities and a
+                fascinating destination in its own right. It combines a modern
+                capital, busy business districts, restaurants, markets,
+                museums, green spaces and wildlife experiences.
+              </p>
+
+              <p className="mt-5 text-lg leading-8 text-slate-700">
+                For many travellers, Nairobi is also the beginning of a much
+                larger East African journey. From here you can continue toward
+                safari destinations, the Kenyan coast, Uganda, Tanzania and
+                Zanzibar.
+              </p>
+
+              <p className="mt-5 text-lg leading-8 text-slate-700">
+                This guide helps you understand where to go, what to see,
+                where different parts of Nairobi are located, how to move
+                around and how to continue your journey.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-green-950 p-8 text-white shadow-xl">
+              <div className="text-5xl">📍</div>
+
+              <h2 className="mt-5 text-2xl font-black">
+                Nairobi at a glance
+              </h2>
+
+              <div className="mt-7 space-y-5">
+                <div className="border-b border-white/10 pb-4">
+                  <p className="text-sm font-semibold text-yellow-300">
+                    COUNTRY
+                  </p>
+                  <p className="mt-1 font-bold">Kenya 🇰🇪</p>
+                </div>
+
+                <div className="border-b border-white/10 pb-4">
+                  <p className="text-sm font-semibold text-yellow-300">
+                    REGION
+                  </p>
+                  <p className="mt-1 font-bold">East Africa</p>
+                </div>
+
+                <div className="border-b border-white/10 pb-4">
+                  <p className="text-sm font-semibold text-yellow-300">
+                    INTERNATIONAL AIRPORT
+                  </p>
+                  <p className="mt-1 font-bold">
+                    Jomo Kenyatta International Airport
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-yellow-300">
+                    KNOWN FOR
+                  </p>
+                  <p className="mt-1 font-bold">
+                    Wildlife • Culture • Business • Food • Safari
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* WHY NAIROBI */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+
+          <div className="max-w-3xl">
+            <p className="font-bold uppercase tracking-widest text-emerald-700">
+              Discover the city
+            </p>
+
+            <h2 className="mt-3 text-4xl font-black text-green-950">
+              Why visit Nairobi?
             </h2>
 
-            <p className="mt-5 leading-8 text-slate-600">
-              Nairobi is more than a starting point for a safari. It is a
-              destination in its own right, combining modern city life with
-              wildlife, green spaces, museums, restaurants, markets and
-              neighbourhoods with different personalities.
-            </p>
-
-            <p className="mt-4 leading-8 text-slate-600">
-              For many international visitors, Nairobi is the first major
-              stop in Kenya. From here, travellers can continue to destinations
-              such as Maasai Mara, Amboseli, Naivasha, Mombasa and many other
-              parts of East Africa.
-            </p>
-
-            <p className="mt-4 leading-8 text-slate-600">
-              This guide is designed to help you understand Nairobi before you
-              arrive, what you can do while you are there, how to move around,
-              and how Nairobi connects with the wider East African travel
-              network.
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              Nairobi gives travellers a combination that is difficult to find
+              elsewhere: a major African city surrounded by nature, culture
+              and access to some of the region’s most famous travel routes.
             </p>
           </div>
 
-          <div className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-            <h2 className="text-xl font-bold text-slate-900">
-              Nairobi at a glance
-            </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-3xl bg-green-100 p-7 ring-1 ring-green-200">
+              <div className="text-4xl">🦁</div>
+              <h3 className="mt-5 text-2xl font-black text-green-950">
+                Wildlife
+              </h3>
+              <p className="mt-3 leading-7 text-green-900">
+                See wildlife and conservation attractions without leaving the
+                Nairobi area.
+              </p>
+            </div>
 
-            <div className="mt-6 space-y-4 text-sm">
-              <div>
-                <p className="font-semibold text-slate-900">Country</p>
-                <p className="text-slate-600">Kenya</p>
-              </div>
+            <div className="rounded-3xl bg-yellow-100 p-7 ring-1 ring-yellow-200">
+              <div className="text-4xl">🏛️</div>
+              <h3 className="mt-5 text-2xl font-black text-yellow-950">
+                Culture
+              </h3>
+              <p className="mt-3 leading-7 text-yellow-900">
+                Discover Kenyan history, art, food, music, crafts and everyday
+                city life.
+              </p>
+            </div>
 
-              <div>
-                <p className="font-semibold text-slate-900">Region</p>
-                <p className="text-slate-600">East Africa</p>
-              </div>
+            <div className="rounded-3xl bg-orange-100 p-7 ring-1 ring-orange-200">
+              <div className="text-4xl">🍛</div>
+              <h3 className="mt-5 text-2xl font-black text-orange-950">
+                Food
+              </h3>
+              <p className="mt-3 leading-7 text-orange-900">
+                Explore Kenyan flavours alongside a huge variety of
+                international cuisines.
+              </p>
+            </div>
 
-              <div>
-                <p className="font-semibold text-slate-900">
-                  Main international airport
-                </p>
-                <p className="text-slate-600">
-                  Jomo Kenyatta International Airport (JKIA)
-                </p>
-              </div>
-
-              <div>
-                <p className="font-semibold text-slate-900">
-                  Best known for
-                </p>
-                <p className="text-slate-600">
-                  Wildlife, culture, business, food and safari connections
-                </p>
-              </div>
+            <div className="rounded-3xl bg-sky-100 p-7 ring-1 ring-sky-200">
+              <div className="text-4xl">🌍</div>
+              <h3 className="mt-5 text-2xl font-black text-sky-950">
+                Adventure
+              </h3>
+              <p className="mt-3 leading-7 text-sky-900">
+                Use Nairobi as a launch point for Kenya and wider East Africa.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHY VISIT */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Why visit Nairobi?
-          </h2>
+      {/* AREAS */}
+      <section className="bg-green-950 text-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
-          <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-            Nairobi gives travellers something unusual: a major African city
-            where wildlife experiences can be reached without travelling far
-            from the urban centre.
+          <p className="font-bold uppercase tracking-widest text-yellow-300">
+            Know Nairobi
           </p>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                title: 'Wildlife',
-                text: 'Experience wildlife close to the city, including the unique Nairobi National Park.',
-              },
-              {
-                title: 'Culture',
-                text: 'Discover Kenyan history, art, food, music and everyday city life.',
-              },
-              {
-                title: 'Adventure',
-                text: 'Use Nairobi as a starting point for safari and other East African adventures.',
-              },
-              {
-                title: 'City life',
-                text: 'Enjoy restaurants, shopping, entertainment, business districts and green spaces.',
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200"
+          <h2 className="mt-3 text-4xl font-black md:text-5xl">
+            Different parts of Nairobi
+          </h2>
+
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-green-100">
+            Nairobi is a large and diverse city. Different neighbourhoods
+            offer different experiences, accommodation styles, restaurants
+            and reasons for visiting.
+          </p>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {AREAS.map((area) => (
+              <article
+                key={area.title}
+                className={`rounded-3xl ${area.color} ${area.border} border p-7 text-slate-900 shadow-lg transition hover:-translate-y-1`}
               >
-                <h3 className="text-xl font-bold text-slate-900">
-                  {item.title}
+                <div className="text-4xl">{area.icon}</div>
+
+                <h3 className="mt-5 text-2xl font-black">
+                  {area.title}
                 </h3>
-                <p className="mt-3 leading-7 text-slate-600">{item.text}</p>
-              </div>
+
+                <p className="mt-3 leading-7 text-slate-700">
+                  {area.text}
+                </p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* THINGS TO DO */}
-      <section className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-        <h2 className="text-3xl font-bold text-slate-900">
-          Things to do in Nairobi
-        </h2>
+      {/* WILDLIFE */}
+      <section className="bg-emerald-100">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
-        <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-          You can spend a full day or several days exploring Nairobi. These
-          are some of the experiences travellers commonly look for when
-          planning their visit.
-        </p>
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.5fr]">
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <article className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-2xl font-bold text-slate-900">
-              Nairobi National Park
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              One of Nairobi&apos;s most distinctive attractions is its
-              national park, where visitors can experience a safari environment
-              with the city skyline nearby.
-            </p>
-          </article>
+            <div>
+              <span className="inline-block rounded-full bg-green-900 px-4 py-2 text-sm font-bold text-yellow-300">
+                🦁 WILDLIFE IN THE CITY
+              </span>
 
-          <article className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-2xl font-bold text-slate-900">
-              Giraffe Centre
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              The Giraffe Centre is a popular Nairobi wildlife attraction where
-              visitors can learn about giraffes and conservation.
-            </p>
-          </article>
+              <h2 className="mt-5 text-4xl font-black text-green-950 md:text-5xl">
+                Nairobi’s wild side
+              </h2>
 
-          <article className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-2xl font-bold text-slate-900">
-              David Sheldrick Wildlife Trust
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              Wildlife conservation is an important part of Nairobi&apos;s
-              tourism story. Visitors can learn more about elephant rescue,
-              rehabilitation and conservation work.
-            </p>
-          </article>
+              <p className="mt-5 text-lg leading-8 text-green-900">
+                One of Nairobi’s most unusual features is the way wildlife and
+                city life exist so close together.
+              </p>
 
-          <article className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-2xl font-bold text-slate-900">
-              Nairobi National Museum
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              A useful stop for travellers interested in Kenyan history,
-              culture, art, archaeology and natural heritage.
-            </p>
-          </article>
+              <p className="mt-5 leading-8 text-green-900">
+                Visitors can combine a city stay with wildlife, conservation
+                and nature experiences before continuing to another part of
+                Kenya.
+              </p>
+            </div>
 
-          <article className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-2xl font-bold text-slate-900">
-              Karura Forest
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              Karura offers a very different side of Nairobi, with forest,
-              walking trails, waterfalls and green space within the city.
-            </p>
-          </article>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {WILDLIFE.map((item) => (
+                <article
+                  key={item.title}
+                  className="rounded-3xl bg-white p-7 shadow-lg ring-1 ring-green-200"
+                >
+                  <div className="text-4xl">{item.icon}</div>
 
-          <article className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-2xl font-bold text-slate-900">
-              Markets, food and shopping
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              Nairobi has a wide variety of restaurants, cafés, markets,
-              shopping centres and places where visitors can experience local
-              and international cuisine.
-            </p>
-          </article>
+                  <h3 className="mt-4 text-xl font-black text-green-950">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-3 leading-7 text-slate-600">
+                    {item.text}
+                  </p>
+                </article>
+              ))}
+            </div>
+
+          </div>
         </div>
       </section>
 
-      {/* SAFARI FROM NAIROBI */}
-      <section className="bg-emerald-50">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-          <div className="max-w-4xl">
-            <p className="text-sm font-semibold uppercase tracking-widest text-emerald-700">
-              Your East Africa connection
-            </p>
+      {/* EXPERIENCES */}
+      <section className="bg-orange-50">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
-            <h2 className="mt-3 text-3xl font-bold text-slate-900">
-              Start your safari from Nairobi
-            </h2>
+          <p className="font-bold uppercase tracking-widest text-orange-700">
+            Plan your time
+          </p>
 
-            <p className="mt-5 leading-8 text-slate-700">
-              Nairobi is one of the most useful starting points for exploring
-              Kenya. Travellers can arrange road transport, safari vehicles,
-              tours and other services depending on their destination and
-              travel plans.
-            </p>
+          <h2 className="mt-3 text-4xl font-black text-green-950">
+            Things to do in Nairobi
+          </h2>
 
-            <p className="mt-4 leading-8 text-slate-700">
-              Popular journeys from Nairobi include trips toward the Maasai
-              Mara, Amboseli, Lake Naivasha and other destinations. Nairobi can
-              also be part of a larger East African journey connecting Kenya
-              with Tanzania and Uganda.
-            </p>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+            Whether you have a few hours or several days, Nairobi offers many
+            different ways to experience the city.
+          </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/guides/maasai-mara"
-                className="rounded-full bg-emerald-700 px-6 py-3 font-semibold text-white transition hover:bg-emerald-800"
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {EXPERIENCES.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-orange-100 transition hover:-translate-y-1 hover:shadow-xl"
               >
-                Explore Maasai Mara
-              </Link>
+                <div className="text-4xl">{item.icon}</div>
 
-              <Link
-                href="/guides"
-                className="rounded-full border border-emerald-700 px-6 py-3 font-semibold text-emerald-800 transition hover:bg-emerald-100"
-              >
-                More East Africa Guides
-              </Link>
-            </div>
+                <h3 className="mt-4 text-xl font-black text-green-950">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  {item.text}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ITINERARY */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+
+          <p className="font-bold uppercase tracking-widest text-emerald-700">
+            Build your trip
+          </p>
+
+          <h2 className="mt-3 text-4xl font-black text-green-950">
+            Nairobi in 1, 2 or 3 days
+          </h2>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+
+            <article className="rounded-3xl bg-sky-100 p-8 ring-1 ring-sky-200">
+              <div className="text-4xl">☀️</div>
+
+              <h3 className="mt-5 text-2xl font-black text-sky-950">
+                1 Day
+              </h3>
+
+              <p className="mt-4 leading-7 text-sky-900">
+                Combine one major wildlife or cultural attraction with a meal,
+                city experience and time to discover part of Nairobi.
+              </p>
+            </article>
+
+            <article className="rounded-3xl bg-yellow-100 p-8 ring-1 ring-yellow-200">
+              <div className="text-4xl">🌅</div>
+
+              <h3 className="mt-5 text-2xl font-black text-yellow-950">
+                2 Days
+              </h3>
+
+              <p className="mt-4 leading-7 text-yellow-900">
+                Add wildlife, culture, food and one of Nairobi’s distinctive
+                neighbourhoods to create a more complete city visit.
+              </p>
+            </article>
+
+            <article className="rounded-3xl bg-orange-100 p-8 ring-1 ring-orange-200">
+              <div className="text-4xl">🌍</div>
+
+              <h3 className="mt-5 text-2xl font-black text-orange-950">
+                3 Days
+              </h3>
+
+              <p className="mt-4 leading-7 text-orange-900">
+                Give yourself time for several attractions and begin planning
+                your next journey beyond Nairobi.
+              </p>
+            </article>
+
           </div>
         </div>
       </section>
 
       {/* TRANSPORT */}
-      <section className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-        <h2 className="text-3xl font-bold text-slate-900">
-          Getting around Nairobi
-        </h2>
+      <section className="bg-sky-100">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
-        <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-          Nairobi has several ways to move around the city and connect to
-          destinations outside the capital. The right option depends on your
-          budget, destination, luggage and schedule.
-        </p>
+          <div className="max-w-3xl">
+            <p className="font-bold uppercase tracking-widest text-sky-700">
+              Move around & move onward
+            </p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-xl font-bold text-slate-900">
-              Airport transfers
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              Travellers arriving at JKIA can arrange transport into Nairobi
-              and onward to hotels or other destinations.
+            <h2 className="mt-3 text-4xl font-black text-green-950">
+              Getting around Nairobi
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-slate-700">
+              Nairobi is a major transport hub. Travellers can choose between
+              different local and long-distance transport options depending on
+              their journey.
             </p>
           </div>
 
-          <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-xl font-bold text-slate-900">
-              City transport
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              Taxis, ride-hailing services, buses, matatus and private
-              transport are among the options available around the city.
-            </p>
-          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
 
-          <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-xl font-bold text-slate-900">
-              Long-distance travel
-            </h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              Nairobi is a major transport hub for journeys to other Kenyan
-              cities and destinations across East Africa.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-8 rounded-3xl bg-slate-900 p-8 text-white">
-          <h3 className="text-2xl font-bold">
-            Looking for transport in East Africa?
-          </h3>
-
-          <p className="mt-3 max-w-3xl leading-7 text-slate-300">
-            Use eaSafariRoutes to explore available travel information and
-            transport connections. The platform is designed to help travellers
-            discover services across East Africa.
-          </p>
-
-          <Link
-            href="/search"
-            className="mt-6 inline-block rounded-full bg-white px-6 py-3 font-semibold text-slate-900 transition hover:bg-slate-100"
-          >
-            Search Routes
-          </Link>
-        </div>
-      </section>
-
-      {/* WHERE TO STAY */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Where to stay in Nairobi
-          </h2>
-
-          <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-            Nairobi has accommodation for different types of travellers,
-            including luxury hotels, business hotels, boutique properties,
-            serviced apartments, hostels and budget accommodation.
-          </p>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
-              <h3 className="text-xl font-bold text-slate-900">
-                City centre
+            <div className="rounded-3xl bg-white p-7 shadow-lg">
+              <div className="text-4xl">✈️</div>
+              <h3 className="mt-4 text-2xl font-black text-green-950">
+                Airport transfers
               </h3>
               <p className="mt-3 leading-7 text-slate-600">
-                Convenient for travellers interested in central Nairobi,
-                business and city activities.
+                Travellers arriving through JKIA can arrange transport into
+                Nairobi or continue onward to another destination.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
-              <h3 className="text-xl font-bold text-slate-900">
-                Westlands
+            <div className="rounded-3xl bg-white p-7 shadow-lg">
+              <div className="text-4xl">🚕</div>
+              <h3 className="mt-4 text-2xl font-black text-green-950">
+                City transport
               </h3>
               <p className="mt-3 leading-7 text-slate-600">
-                A popular area with hotels, restaurants, shopping and
-                entertainment.
+                Depending on the journey, travellers can use taxis,
+                ride-hailing, buses, matatus or private transport.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
-              <h3 className="text-xl font-bold text-slate-900">
-                Karen
+            <div className="rounded-3xl bg-white p-7 shadow-lg">
+              <div className="text-4xl">🚌</div>
+              <h3 className="mt-4 text-2xl font-black text-green-950">
+                Long-distance travel
               </h3>
               <p className="mt-3 leading-7 text-slate-600">
-                Known for a greener, quieter environment and proximity to
-                several attractions.
+                Nairobi connects travellers with cities, safari destinations
+                and other countries across East Africa.
               </p>
+            </div>
+
+          </div>
+
+          <div className="mt-10 rounded-3xl bg-green-950 p-8 text-white shadow-xl md:p-10">
+            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+
+              <div>
+                <span className="rounded-full bg-yellow-400 px-4 py-2 text-sm font-bold text-green-950">
+                  🚌 eaSafariRoutes SEARCH
+                </span>
+
+                <h3 className="mt-5 text-3xl font-black">
+                  Looking for a route?
+                </h3>
+
+                <p className="mt-4 max-w-3xl leading-8 text-green-100">
+                  Search travel information and connections across East
+                  Africa. Nairobi can be your starting point for discovering
+                  what comes next.
+                </p>
+              </div>
+
+              <Link
+                href="/search"
+                className="rounded-full bg-yellow-400 px-7 py-4 text-center font-black text-green-950 transition hover:bg-yellow-300 hover:scale-105"
+              >
+                🔎 Search Routes
+              </Link>
+
             </div>
           </div>
         </div>
       </section>
 
       {/* FOOD */}
-      <section className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-        <h2 className="text-3xl font-bold text-slate-900">
-          Food and dining in Nairobi
-        </h2>
+      <section className="bg-amber-100">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
-        <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-          Nairobi&apos;s food scene reflects the city itself: diverse,
-          international and strongly connected to Kenyan culture. Visitors can
-          find traditional Kenyan dishes alongside Indian, Ethiopian,
-          European, Middle Eastern and other international cuisines.
-        </p>
+          <div className="grid gap-10 lg:grid-cols-2">
 
-        <div className="mt-8 rounded-3xl bg-amber-50 p-8 ring-1 ring-amber-100">
-          <h3 className="text-xl font-bold text-slate-900">
-            Foods visitors may want to try
-          </h3>
+            <div>
+              <p className="font-bold uppercase tracking-widest text-orange-700">
+                Taste Nairobi
+              </p>
 
-          <p className="mt-3 leading-7 text-slate-700">
-            Depending on where you eat, you may encounter dishes such as
-            nyama choma, ugali, sukuma wiki, chapati, samosas and a wide range
-            of fresh local produce.
-          </p>
-        </div>
-      </section>
+              <h2 className="mt-3 text-4xl font-black text-green-950">
+                Food and dining
+              </h2>
 
-      {/* SAFETY */}
-      <section className="bg-slate-100">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Practical safety information
-          </h2>
-
-          <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-            As with any large city, travellers should take normal precautions
-            and stay aware of their surroundings.
-          </p>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
-              <p className="leading-7 text-slate-700">
-                Keep valuables secure and avoid displaying large amounts of
-                cash or expensive equipment unnecessarily.
+              <p className="mt-5 text-lg leading-8 text-slate-700">
+                Nairobi’s food scene reflects the diversity of the city.
+                Visitors can experience Kenyan dishes alongside Indian,
+                Ethiopian, Middle Eastern, European and other international
+                cuisines.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
-              <p className="leading-7 text-slate-700">
-                Use reputable transport providers and confirm your destination
-                before starting a journey.
+            <div className="rounded-3xl bg-white p-8 shadow-lg">
+              <div className="text-5xl">🍛</div>
+
+              <h3 className="mt-5 text-2xl font-black text-green-950">
+                Foods visitors may want to try
+              </h3>
+
+              <p className="mt-4 leading-8 text-slate-600">
+                Depending on where you eat, you may encounter nyama choma,
+                ugali, sukuma wiki, chapati, samosas and many other Kenyan
+                dishes and ingredients.
               </p>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {[
+                  'Nyama Choma',
+                  'Ugali',
+                  'Sukuma Wiki',
+                  'Chapati',
+                  'Samosas',
+                ].map((food) => (
+                  <span
+                    key={food}
+                    className="rounded-full bg-orange-100 px-4 py-2 text-sm font-bold text-orange-900"
+                  >
+                    {food}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
-              <p className="leading-7 text-slate-700">
-                Follow current local travel advice and check conditions before
-                travelling.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
-              <p className="leading-7 text-slate-700">
-                Keep important travel documents and emergency contacts
-                accessible.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* DAY TRIPS */}
-      <section className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-        <h2 className="text-3xl font-bold text-slate-900">
-          Day trips and journeys from Nairobi
-        </h2>
+      {/* WHERE TO STAY */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
-        <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-          Nairobi is an excellent base for exploring more of Kenya. Depending
-          on the amount of time available, travellers can plan short excursions
-          or continue into longer safari and coastal journeys.
-        </p>
+          <p className="font-bold uppercase tracking-widest text-emerald-700">
+            Accommodation
+          </p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            'Maasai Mara',
-            'Amboseli',
-            'Lake Naivasha',
-            'Mombasa and the Coast',
-          ].map((destination) => (
-            <div
-              key={destination}
-              className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
-            >
-              <h3 className="font-bold text-slate-900">{destination}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
-                Plan your route from Nairobi and explore more of Kenya.
+          <h2 className="mt-3 text-4xl font-black text-green-950">
+            Where to stay in Nairobi
+          </h2>
+
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+            Nairobi has accommodation for many types of travellers, from
+            luxury and business hotels to boutique properties, serviced
+            apartments, hostels and budget accommodation.
+          </p>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+
+            <div className="rounded-3xl bg-green-100 p-7 ring-1 ring-green-200">
+              <div className="text-4xl">🏙️</div>
+              <h3 className="mt-4 text-2xl font-black text-green-950">
+                City Centre
+              </h3>
+              <p className="mt-3 leading-7 text-green-900">
+                Convenient for central Nairobi, business activities, city
+                attractions and transport connections.
               </p>
             </div>
-          ))}
+
+            <div className="rounded-3xl bg-sky-100 p-7 ring-1 ring-sky-200">
+              <div className="text-4xl">🌆</div>
+              <h3 className="mt-4 text-2xl font-black text-sky-950">
+                Westlands
+              </h3>
+              <p className="mt-3 leading-7 text-sky-900">
+                A lively area with hotels, restaurants, shopping and
+                entertainment.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-orange-100 p-7 ring-1 ring-orange-200">
+              <div className="text-4xl">🌿</div>
+              <h3 className="mt-4 text-2xl font-black text-orange-950">
+                Karen
+              </h3>
+              <p className="mt-3 leading-7 text-orange-900">
+                A greener area with access to wildlife, conservation and
+                several Nairobi attractions.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* SAFETY */}
+      <section className="bg-red-50">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+
+          <div className="max-w-3xl">
+            <p className="font-bold uppercase tracking-widest text-red-700">
+              Travel smart
+            </p>
+
+            <h2 className="mt-3 text-4xl font-black text-green-950">
+              Practical safety information
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-slate-700">
+              Nairobi is a large and busy city. Travellers should use sensible
+              precautions and check current local travel advice before their
+              journey.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+
+            {[
+              'Keep valuables secure and avoid displaying large amounts of cash unnecessarily.',
+              'Use reputable transport providers and confirm your destination before travelling.',
+              'Stay aware of your surroundings, particularly in crowded areas.',
+              'Keep important travel documents and emergency contacts accessible.',
+            ].map((tip, index) => (
+              <div
+                key={tip}
+                className="flex gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-red-100"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-600 font-black text-white">
+                  {index + 1}
+                </div>
+
+                <p className="leading-7 text-slate-700">
+                  {tip}
+                </p>
+              </div>
+            ))}
+
+          </div>
+        </div>
+      </section>
+
+      {/* ROUTES */}
+      <section className="bg-green-950 text-white">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+
+          <p className="font-bold uppercase tracking-widest text-yellow-300">
+            Continue your journey
+          </p>
+
+          <h2 className="mt-3 text-4xl font-black md:text-5xl">
+            Where can you go from Nairobi?
+          </h2>
+
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-green-100">
+            Nairobi is not only a destination. It is one of the places where
+            travellers can connect different parts of East Africa.
+          </p>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {ROUTES.map((route) => (
+              <div
+                key={route.destination}
+                className="rounded-3xl bg-white/10 p-7 backdrop-blur-sm transition hover:bg-white/15"
+              >
+                <div className="text-4xl">{route.icon}</div>
+
+                <h3 className="mt-4 text-xl font-black text-yellow-300">
+                  {route.destination}
+                </h3>
+
+                <p className="mt-3 leading-7 text-green-100">
+                  {route.text}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 flex flex-wrap gap-4">
+            <Link
+              href="/search"
+              className="rounded-full bg-yellow-400 px-7 py-4 font-black text-green-950 transition hover:bg-yellow-300"
+            >
+              🔎 Search Your Route
+            </Link>
+
+            <Link
+              href="/guides/maasai-mara"
+              className="rounded-full border-2 border-yellow-400 px-7 py-4 font-black text-yellow-300 transition hover:bg-yellow-400 hover:text-green-950"
+            >
+              🦁 Maasai Mara Guide
+            </Link>
+          </div>
+
         </div>
       </section>
 
       {/* EAST AFRICA */}
-      <section className="bg-gradient-to-br from-slate-900 to-emerald-950 text-white">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <div className="max-w-4xl">
-            <p className="text-sm font-semibold uppercase tracking-widest text-emerald-300">
-              Explore beyond Nairobi
-            </p>
+      <section className="bg-gradient-to-br from-orange-500 via-amber-500 to-yellow-400">
+        <div className="mx-auto max-w-7xl px-6 py-16 text-green-950 md:py-20">
 
-            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-              Your journey can continue across East Africa
+          <div className="max-w-4xl">
+
+            <span className="rounded-full bg-green-950 px-5 py-2 text-sm font-black text-yellow-300">
+              🌍 BEYOND NAIROBI
+            </span>
+
+            <h2 className="mt-6 text-4xl font-black md:text-5xl">
+              Your East African journey can continue.
             </h2>
 
-            <p className="mt-5 leading-8 text-slate-300">
-              Nairobi can be the beginning of a much bigger journey. From
-              Kenya, travellers can continue toward Tanzania, Uganda and other
-              East African destinations.
+            <p className="mt-5 text-lg leading-8">
+              Start in Nairobi and discover more of Kenya, then continue into
+              Tanzania, Uganda and other destinations across East Africa.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/guides/kenya"
-                className="rounded-full bg-white px-6 py-3 font-semibold text-slate-900 transition hover:bg-slate-100"
+                className="rounded-full bg-green-950 px-6 py-3 font-bold text-white transition hover:bg-green-900"
               >
-                Kenya Travel Guide
+                🇰🇪 Kenya Guide
               </Link>
 
               <Link
                 href="/guides/tanzania"
-                className="rounded-full border border-white/30 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                className="rounded-full bg-white px-6 py-3 font-bold text-green-950 transition hover:bg-slate-100"
               >
-                Tanzania Travel Guide
+                🇹🇿 Tanzania Guide
               </Link>
 
               <Link
                 href="/guides"
-                className="rounded-full border border-white/30 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                className="rounded-full border-2 border-green-950 px-6 py-3 font-bold text-green-950 transition hover:bg-green-950 hover:text-white"
               >
-                All Travel Guides
+                🌍 All Guides
               </Link>
             </div>
+
           </div>
         </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-16 text-center">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Ready to explore Nairobi?
-          </h2>
+      <section className="bg-green-950">
+        <div className="mx-auto max-w-7xl px-6 py-20 text-center">
 
-          <p className="mx-auto mt-4 max-w-2xl leading-8 text-slate-600">
-            Start with Nairobi, discover Kenya, and continue your journey
-            across East Africa with eaSafariRoutes.
-          </p>
+          <div className="mx-auto max-w-3xl">
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/search"
-              className="rounded-full bg-emerald-700 px-7 py-3 font-semibold text-white transition hover:bg-emerald-800"
-            >
-              Search eaSafariRoutes
-            </Link>
+            <div className="text-6xl">🌍</div>
 
-            <Link
-              href="/guides"
-              className="rounded-full border border-slate-300 px-7 py-3 font-semibold text-slate-800 transition hover:bg-slate-50"
-            >
-              Explore More Guides
-            </Link>
+            <h2 className="mt-6 text-4xl font-black text-white md:text-5xl">
+              Nairobi is only the beginning.
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-green-100">
+              Discover Nairobi, find your route, connect with East Africa and
+              continue your adventure.
+            </p>
+
+            <div className="mt-9 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/search"
+                className="rounded-full bg-yellow-400 px-8 py-4 font-black text-green-950 shadow-lg transition hover:bg-yellow-300 hover:scale-105"
+              >
+                🔎 Search eaSafariRoutes
+              </Link>
+
+              <Link
+                href="/guides"
+                className="rounded-full border-2 border-white/40 px-8 py-4 font-bold text-white transition hover:bg-white/10"
+              >
+                Explore More Guides
+              </Link>
+            </div>
+
+            <p className="mt-10 font-semibold text-yellow-300">
+              www.easafariroutes.com
+            </p>
+
           </div>
-
-          <p className="mt-8 text-sm text-slate-500">
-            www.easafariroutes.com
-          </p>
         </div>
       </section>
+
     </main>
   )
 }
