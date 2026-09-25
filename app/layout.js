@@ -3,8 +3,8 @@ import Script from 'next/script'
 import "./globals.css"
 import { Providers } from "./providers"
 import CookieConsent from '@/components/CookieConsent'
-import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
 import GoogleTranslate from '@/components/GoogleTranslate'
+import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
 
 export const metadata = {
   metadataBase: new URL('https://easafariroutes.com'),
