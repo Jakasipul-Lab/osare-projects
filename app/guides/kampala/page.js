@@ -476,14 +476,14 @@ export default function KampalaPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
 
             {[
-              ['🏛️', 'History', 'Discover Uganda's cultural and historical heritage.'],
-              ['🛍️', 'Markets', 'Explore local markets and shopping areas.'],
-              ['🍛', 'Food', 'Taste Ugandan food and street food.'],
-              ['🎶', 'Music', 'Experience Kampala's vibrant music scene.'],
-              ['🎨', 'Art', 'Discover local artists and creative spaces.'],
-              ['☕', 'Cafés', 'Relax in cafés and social spaces around the city.'],
-              ['🌙', 'Nightlife', 'Enjoy restaurants, entertainment and nightlife.'],
-              ['📸', 'City Exploring', 'Explore Kampala's hills and neighbourhoods.'],
+              ['🏛️', 'History', "Discover Uganda's cultural and historical heritage."],
+['🛍️', 'Markets', 'Explore local markets and shopping areas.'],
+['🍛', 'Food', 'Taste Ugandan food and street food.'],
+['🎶', 'Music', "Experience Kampala's vibrant music scene."],
+['🎨', 'Art', 'Discover local artists and creative spaces.'],
+['☕', 'Cafés', 'Relax in cafés and social spaces around the city.'],
+['🌙', 'Nightlife', 'Enjoy restaurants, entertainment and nightlife.'],
+['📸', 'City Exploring', "Explore Kampala's hills and neighbourhoods."],
             ].map(([icon, title, text]) => (
               <div
                 key={title}
