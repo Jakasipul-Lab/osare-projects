@@ -374,41 +374,44 @@ export default function MaasaiMaraGuide() {
           </div>
         </div>
       </section>
+{/* THINGS TO DO */}
+<section className="bg-[#7c4a03] text-white">
+  <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+    <p className="font-bold uppercase tracking-widest text-emerald-300">
+      Things to do
+    </p>
 
-      {/* THINGS TO DO */}
-      <section className="bg-[#7c4a03] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <p className="font-bold uppercase tracking-widest text-emerald-300">
-            Things to do
+    <h2 className="mt-3 text-4xl font-black">
+      Build your own Maasai Mara safari
+    </h2>
+
+    <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      {[
+        ['🚙', 'Game Drives', 'Morning and afternoon drives in search of the Big Five.', '/safari'],
+        ['🌾', 'River Crossings', "Watch the Great Migration's dramatic Mara River crossings (July–Oct).", '/safari'],
+        ['🎈', 'Balloon Safari', 'Rise at dawn for a hot air balloon flight over the plains.', '/safari'],
+        ['🏘️', 'Maasai Village Visit', "Learn about the Maasai people's traditions and daily life.", '/local'],
+        ['📸', 'Photography Safaris', 'Golden-hour light and huge skies make the Mara a favorite for photographers.', '/safari'],
+        ['🌙', 'Night Game Drives', "Some conservancies allow night drives to spot nocturnal wildlife.", '/safari'],
+        ['🚶', 'Walking Safaris', 'Guided walks in select conservancies for a different pace and perspective.', '/safari'],
+        ['🍽️', 'Bush Dinners', 'Many camps offer a private dinner under the stars out on the plains.', '/safari'],
+      ].map(([icon, title, text, href]) => (
+        <Link
+          key={title}
+          href={href}
+          className="block rounded-2xl bg-white/10 p-6 backdrop-blur transition hover:bg-white/20"
+        >
+          <div className="text-3xl">{icon}</div>
+          <h3 className="mt-3 font-black">{title}</h3>
+          <p className="mt-2 text-sm leading-6 text-orange-50">{text}</p>
+          <p className="mt-3 text-xs font-bold uppercase tracking-wide text-emerald-300">
+            {href === '/local' ? 'Find local experiences →' : 'Find safaris →'}
           </p>
-
-          <h2 className="mt-3 text-4xl font-black">
-            Build your own Maasai Mara safari
-          </h2>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              ['🚙', 'Game Drives', 'Morning and afternoon drives in search of the Big Five.'],
-              ['🌾', 'River Crossings', "Watch the Great Migration's dramatic Mara River crossings (July–Oct)."],
-              ['🎈', 'Balloon Safari', 'Rise at dawn for a hot air balloon flight over the plains.'],
-              ['🏘️', 'Maasai Village Visit', "Learn about the Maasai people's traditions and daily life."],
-              ['📸', 'Photography Safaris', 'Golden-hour light and huge skies make the Mara a favorite for photographers.'],
-              ['🌙', 'Night Game Drives', "Some conservancies allow night drives to spot nocturnal wildlife."],
-              ['🚶', 'Walking Safaris', 'Guided walks in select conservancies for a different pace and perspective.'],
-              ['🍽️', 'Bush Dinners', 'Many camps offer a private dinner under the stars out on the plains.'],
-            ].map(([icon, title, text]) => (
-              <div
-                key={title}
-                className="rounded-2xl bg-white/10 p-6 backdrop-blur transition hover:bg-white/15"
-              >
-                <div className="text-3xl">{icon}</div>
-                <h3 className="mt-3 font-black">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-orange-50">{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* GETTING THERE */}
       <section className="bg-[#fef3e7]">
