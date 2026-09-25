@@ -459,64 +459,65 @@ export default function MaasaiMaraGuide() {
         </div>
       </section>
 
-      {/* ROUTES */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <p className="font-bold uppercase tracking-widest text-orange-600">
-            Continue your journey
+  {/* ROUTES */}
+<section className="bg-white">
+  <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+    <p className="font-bold uppercase tracking-widest text-orange-600">
+      Continue your journey
+    </p>
+
+    <h2 className="mt-3 text-4xl font-black text-[#7c4a03]">
+      Where can you go from the Mara?
+    </h2>
+
+    <p className="mt-4 max-w-3xl text-lg text-slate-600">
+      The Maasai Mara fits naturally into a wider Kenya or East
+      Africa itinerary.
+    </p>
+
+    <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {[
+        ['Maasai Mara → Nairobi', '🏙️', 'Return to the capital by road or a short flight.', '/guides/kenya/nairobi'],
+        ['Maasai Mara → Serengeti', '🦓', "Continue into Tanzania's Serengeti, part of the same ecosystem.", '/guides/tanzania/serengeti'],
+        ['Maasai Mara → Kenyan Coast', '🏖️', 'Combine your safari with beach time in Mombasa or Diani.', '/guides/kenya/coast'],
+        ['Maasai Mara → Zanzibar', '🏝️', 'Add island time in Zanzibar after your safari.', '/guides/tanzania/zanzibar'],
+        ['Maasai Mara → Amboseli', '🐘', 'Continue to a second Kenyan reserve, famous for elephants and Kilimanjaro views.', '/guides/kenya/amboseli'],
+        ['Maasai Mara → Lake Nakuru', '🦩', 'Add a stop known for flamingos and rhino sanctuaries.', '/guides/kenya/lake-nakuru'],
+      ].map(([route, icon, text, href]) => (
+        <Link
+          key={route}
+          href={href}
+          className="block rounded-3xl border border-slate-100 bg-gradient-to-br from-slate-50 to-orange-50 p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+        >
+          <div className="text-3xl">{icon}</div>
+          <h3 className="mt-4 font-black text-[#7c4a03]">{route}</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+        </Link>
+      ))}
+    </div>
+
+    <div className="mt-10 rounded-3xl bg-gradient-to-r from-[#f97316] to-[#fb923c] p-8 text-white shadow-xl">
+      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h3 className="text-2xl font-black">
+            Ready to book your safari?
+          </h3>
+          <p className="mt-2 text-orange-50">
+            Compare verified safari operators, camps, and stays on
+            OSARE — and message them directly, free of charge.
           </p>
-
-          <h2 className="mt-3 text-4xl font-black text-[#7c4a03]">
-            Where can you go from the Mara?
-          </h2>
-
-          <p className="mt-4 max-w-3xl text-lg text-slate-600">
-            The Maasai Mara fits naturally into a wider Kenya or East
-            Africa itinerary.
-          </p>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              ['Maasai Mara → Nairobi', '🏙️', 'Return to the capital by road or a short flight.'],
-              ['Maasai Mara → Serengeti', '🦓', "Continue into Tanzania's Serengeti, part of the same ecosystem."],
-              ['Maasai Mara → Kenyan Coast', '🏖️', 'Combine your safari with beach time in Mombasa or Diani.'],
-              ['Maasai Mara → Zanzibar', '🏝️', 'Add island time in Zanzibar after your safari.'],
-              ['Maasai Mara → Amboseli', '🐘', 'Continue to a second Kenyan reserve, famous for elephants and Kilimanjaro views.'],
-              ['Maasai Mara → Lake Nakuru', '🦩', 'Add a stop known for flamingos and rhino sanctuaries.'],
-            ].map(([route, icon, text]) => (
-              <div
-                key={route}
-                className="rounded-3xl border border-slate-100 bg-gradient-to-br from-slate-50 to-orange-50 p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="text-3xl">{icon}</div>
-                <h3 className="mt-4 font-black text-[#7c4a03]">{route}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 rounded-3xl bg-gradient-to-r from-[#f97316] to-[#fb923c] p-8 text-white shadow-xl">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
-                <h3 className="text-2xl font-black">
-                  Ready to book your safari?
-                </h3>
-                <p className="mt-2 text-orange-50">
-                  Compare verified safari operators, camps, and stays on
-                  OSARE — and message them directly, free of charge.
-                </p>
-              </div>
-
-              <Link
-                href="/safari"
-                className="rounded-2xl bg-white px-7 py-4 text-center font-black text-orange-700 transition hover:bg-orange-50"
-              >
-                Browse Safaris →
-              </Link>
-            </div>
-          </div>
         </div>
-      </section>
+
+        <Link
+          href="/safari"
+          className="rounded-2xl bg-white px-7 py-4 text-center font-black text-orange-700 transition hover:bg-orange-50"
+        >
+          Browse Safaris →
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ACCOMMODATION */}
       <section className="bg-[#fff7ed]">
