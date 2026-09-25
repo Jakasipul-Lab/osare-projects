@@ -55,9 +55,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Providers>{children}</Providers>
-        <CookieConsent />
-      </body>
+  <Providers>{children}</Providers>
+  <CookieConsent />
+  <GoogleTranslate />
+</body>
     </html>
   )
 }
