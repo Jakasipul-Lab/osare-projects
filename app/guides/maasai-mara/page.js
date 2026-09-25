@@ -4,7 +4,7 @@ import { buildMetadata, buildFAQSchema } from '@/lib/seo'
 export const metadata = buildMetadata({
   title: 'Maasai Mara Travel Guide 2026 — Best Time, How to Get There & Where to Stay | OSARE',
   description: 'Planning a Maasai Mara safari? Here is when to go, how to get there from Nairobi, where to stay (from budget bandas to luxury camps), what to pack, and what it costs.',
-  path: '/guides/masai-mara',
+  path: '/guides/maasai-mara',
 })
 
 const FAQS = [
