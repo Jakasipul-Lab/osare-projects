@@ -38,6 +38,72 @@ const GUIDES = [
   blurb: "When to go, how to get there, what to expect, and where to stay in Kenya's iconic Maasai Mara.",
   img: 'https://images.unsplash.com/photo-1745526180300-443ef46e6a73?q=80&w=800&auto=format&fit=crop',
 },
+{
+  href: '/guides/kenya',
+  title: "Kenya Travel Guide",
+  blurb: "Safari destinations, transport, beaches and everything you need to plan a Kenya trip.",
+  img: 'https://images.unsplash.com/photo-1611348586804-61bf6c080437?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/kenya/nairobi',
+  title: "Nairobi Travel Guide",
+  blurb: "Things to do, wildlife, safari day trips, food and transport in Kenya's capital.",
+  img: 'https://images.unsplash.com/photo-1741991110666-88115e724741?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/tanzania',
+  title: "Tanzania Travel Guide",
+  blurb: "Safari, wildlife, Zanzibar, Kilimanjaro and travel information for Tanzania.",
+  img: 'https://images.unsplash.com/photo-1519659528534-7fd733a832a0?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/tanzania/dar-es-salaam',
+  title: "Dar es Salaam Travel Guide",
+  blurb: "Beaches, culture, food and transport in Tanzania's largest city.",
+  img: 'https://images.unsplash.com/photo-1568625502763-2a5ec6a94c47?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/uganda',
+  title: "Uganda Travel Guide",
+  blurb: "Safari, wildlife, gorilla trekking and practical travel information for Uganda.",
+  img: 'https://images.unsplash.com/photo-1551357141-f73a8402ceb3?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/kampala',
+  title: "Kampala Travel Guide",
+  blurb: "Culture, food, markets, nightlife and transport in Uganda's capital city.",
+  img: 'https://images.unsplash.com/photo-1675756261486-09bd1e0f6c8a?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/rwanda',
+  title: "Rwanda Travel Guide",
+  blurb: "Gorilla trekking, safari and wildlife — practical travel information for Rwanda.",
+  img: 'https://images.unsplash.com/photo-1605559911928-e03606ea0dc0?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/botswana',
+  title: "Botswana Travel Guide",
+  blurb: "Okavango Delta safaris, wildlife, and practical travel information for Botswana.",
+  img: 'https://images.unsplash.com/photo-1653900217156-77a588505248?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/zimbabwe',
+  title: "Zimbabwe Travel Guide",
+  blurb: "Victoria Falls, safari, wildlife and travel information for Zimbabwe.",
+  img: 'https://images.unsplash.com/photo-1523027425231-692d4c697160?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/mozambique',
+  title: "Mozambique Travel Guide",
+  blurb: "Beaches, safari, wildlife and practical travel information for Mozambique.",
+  img: 'https://images.unsplash.com/photo-1595761033910-f8993636082d?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/burundi',
+  title: "Burundi Travel Guide",
+  blurb: "Wildlife, Lake Tanganyika, and culture — practical travel information for Burundi.",
+  img: 'https://images.unsplash.com/photo-1672787076496-ccb18a869605?q=80&w=800&auto=format&fit=crop',
+},
 ]
 
 export default function GuidesIndex() {
