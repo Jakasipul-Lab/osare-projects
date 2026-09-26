@@ -137,10 +137,9 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700"
-        >
-          <MapPin className="h-3 w-3" /> {item.location}
-        </a>
+          <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+  <MapPin className="h-3 w-3" /> {item.location}
+</p>
         <SmartDescription text={item.description} onSearchKeyword={onSearchKeyword} />
         {item.includes?.length ? (
           <div className="mt-3 flex flex-wrap gap-1.5">
