@@ -160,8 +160,8 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
           disabled={booking === item.id}
           className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
         >
-          {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-          Book via WhatsApp
+         {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
+Book & Pay via WhatsApp
         </Button>
       </CardContent>
     </Card>
