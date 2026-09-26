@@ -84,10 +84,9 @@ export async function POST(request) {
     const rawPhone = listing.vendor_phone || listing.vendor_phone_alt || '254758378729';
 const cleanPhone = String(rawPhone).replace(/[^0-9]/g, '');
 const waMsg = encodeURIComponent(
-  `Hello, I found your listing "${listing.title}" on EA SafariRoutes/OSARE and I would like to book and pay. (Ref: ${code})``
-    );
-    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
-
+  `Hello, I found your listing "${listing.title}" on EA SafariRoutes/OSARE and I would like to book and pay. (Ref: ${code})`
+);
+const whatsappUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
     return NextResponse.json({ success: true, whatsappUrl, lead: mapLead(lead) });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
