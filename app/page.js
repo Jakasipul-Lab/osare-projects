@@ -132,12 +132,7 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
           {item.title}
         </Link>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
-        <a
-          href={item.mapLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+        <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
   <MapPin className="h-3 w-3" /> {item.location}
 </p>
         <SmartDescription text={item.description} onSearchKeyword={onSearchKeyword} />
