@@ -184,9 +184,10 @@ function VendorModal({ item, onClose, onBook, booking, onSearchKeyword }) {
           <p className="mt-1 text-sm font-semibold" style={{ color: item.type === 'safari' ? '#f97316' : '#1e3a8a' }}>
             By {item.vendor}
           </p>
-          <a href={item.mapLink} target="_blank" rel="noopener noreferrer" className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700">
-            <MapPin className="h-3 w-3" /> {item.location}
-          </a>
+          <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+  <MapPin className="h-3 w-3" /> {item.location}
+</p>
+<LocationMap location={item.location} />
           <div className="mt-4"><SmartDescription text={item.description} onSearchKeyword={onSearchKeyword} /></div>
           {item.includes?.length ? (
             <div className="mt-4 flex flex-wrap gap-1.5">
