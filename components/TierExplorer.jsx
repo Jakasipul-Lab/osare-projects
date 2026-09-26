@@ -56,7 +56,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
         <a
-                  <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                        <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
           <MapPin className="h-3 w-3" /> {item.location}
         </p>
         <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
