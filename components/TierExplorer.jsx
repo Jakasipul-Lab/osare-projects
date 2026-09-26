@@ -5,6 +5,7 @@ import {
   Binoculars, Building2, Loader2, MessageCircle, Tag
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import LocationMap from '@/components/LocationMap'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
