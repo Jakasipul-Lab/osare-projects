@@ -104,6 +104,34 @@ function Dashboard() {
     } catch (e) { toast.error('Could not mark as paid') }
   }
 
+  const requestPesapal = async (code) => {
+    const toastId = `pesapal-${code}`
+    toast.loading('Requesting Pesapal payment link…', { id: toastId })
+    try {
+      const res = await fetch('/api/pesapal/request-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      })
+      const data = await res.json()
+      toast.dismiss(toastId)
+      if (!res.ok || !data.success) {
+        toast.error(data.error || 'Could not create Pesapal payment link')
+        return
+      }
+      if (data.whatsappUrl) {
+        window.open(data.whatsappUrl, '_blank')
+        toast.success(`Payment link sent via WhatsApp for ${code}`)
+      } else if (data.redirectUrl) {
+        window.open(data.redirectUrl, '_blank')
+        toast.success(`Payment link ready for ${code} (no vendor phone on file — opened directly)`)
+      }
+    } catch (e) {
+      toast.dismiss(toastId)
+      toast.error('Could not create Pesapal payment link')
+    }
+  }
+
   const load = async () => {
     setLoading(true)
     try {
@@ -198,7 +226,7 @@ function Dashboard() {
         </div>
 
         <div className="mt-8">
-          <RecentLeads leads={leads} showVendorColumn onMarkPaid={markPaid} />
+          <RecentLeads leads={leads} showVendorColumn onMarkPaid={markPaid} onRequestPesapal={requestPesapal} />
         </div>
       </div>
     </div>
