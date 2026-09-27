@@ -19,8 +19,8 @@ export async function GET(request) {
     }
 
     const statusData = await getTransactionStatus(orderTrackingId);
-    const statusDesc = statusData?.payment_status_description; // COMPLETED | FAILED | INVALID | REVERSED
-    const success = statusDesc === 'COMPLETED';
+    const statusDesc = statusData?.payment_status_description; // Pesapal sends "Completed" / "Failed" / "Invalid" / "Reversed"
+    const success = String(statusDesc || '').toLowerCase() === 'completed';
 
     try {
       await query(
