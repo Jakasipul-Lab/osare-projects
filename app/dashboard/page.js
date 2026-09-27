@@ -236,8 +236,11 @@ function Dashboard() {
 
 export default function DashboardPage() {
   return (
-    <AdminGate>
-      <Dashboard />
-    </AdminGate>
+    <>
+      <Toaster position="top-center" richColors />
+      <AdminGate>
+        <Dashboard />
+      </AdminGate>
+    </>
   )
 }
