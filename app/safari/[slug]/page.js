@@ -2,6 +2,7 @@ import { getVendorBySlug } from '@/lib/vendorData'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { AdSense } from '@/components/AdSense'
+import LocationMap from '@/components/LocationMap'
 import { buildMetadata, buildProductSchema } from '@/lib/seo'
 export async function generateMetadata({ params }) {
   const { slug } = await params
