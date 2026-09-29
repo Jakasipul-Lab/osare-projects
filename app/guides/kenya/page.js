@@ -12,10 +12,29 @@ export const metadata = buildMetadata({
 export default function KenyaGuidePage() {
   return (
     <main className="bg-white text-gray-900">
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-green-950 via-green-900 to-amber-900 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+           {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-green-950 via-green-900 to-amber-900 text-white">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?q=80&w=1600&auto=format&fit=crop"
+            alt="Kenyan savannah landscape"
+            className="h-full w-full object-cover opacity-30"
+          />
+        </div>
+        <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-amber-300/20 blur-3xl" />
+        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-16 lg:py-20">
           <div className="max-w-4xl">
+            <div className="mb-4 flex flex-wrap gap-3 text-sm font-semibold">
+              <span className="rounded-full bg-white/15 px-4 py-2 backdrop-blur">
+                🇰🇪 KENYA
+              </span>
+              <span className="rounded-full bg-emerald-500 px-4 py-2 text-white">
+                🌍 EAST AFRICA
+              </span>
+            </div>
+
             <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-amber-300">
               East Africa Travel Guide
             </p>
