@@ -119,6 +119,35 @@ export default function KenyaGuidePage() {
         </div>
       </section>
 
+            {/* PHOTO GALLERY */}
+      <section className="mx-auto max-w-7xl px-6 pb-16">
+        <p className="text-sm font-bold uppercase tracking-wider text-green-700">
+          Kenya in pictures
+        </p>
+
+        <h2 className="mt-2 text-3xl font-bold text-green-950">
+          A glimpse of what awaits
+        </h2>
+
+        <div className="mt-8 grid gap-5 sm:grid-cols-3">
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?q=80&w=800&auto=format&fit=crop"
+            alt="Kenyan savannah landscape"
+            caption="Open savannah plains"
+          />
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1679546397515-b914d6601234?q=80&w=800&auto=format&fit=crop"
+            alt="Elephants walking across a green field in Kenya"
+            caption="Elephants on the move"
+          />
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1745885909535-58c453688cb4?q=80&w=800&auto=format&fit=crop"
+            alt="Lions crossing the savannah"
+            caption="Kenya's iconic wildlife"
+          />
+        </div>
+      </section>
+
       {/* POPULAR DESTINATIONS */}
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
