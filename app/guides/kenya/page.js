@@ -264,27 +264,6 @@ export default function KenyaGuidePage() {
               href="/guides/health-safety"
               icon="🛡️"
             />
-
-            <GuideCard
-              title="Culture & Etiquette"
-              description="Learn about Kenyan culture, languages, customs and respectful travel."
-              href="/guides/culture-etiquette"
-              icon="🤝"
-            />
-
-            <GuideCard
-              title="Connectivity & Internet"
-              description="Mobile networks, SIM cards, internet access and staying connected."
-              href="/guides/connectivity"
-              icon="📱"
-            />
-
-            <GuideCard
-              title="Packing for Kenya"
-              description="Practical things to consider when preparing for different Kenyan destinations."
-              href="/guides/packing-best-time"
-              icon="🎒"
-            />
           </div>
         </div>
       </section>
