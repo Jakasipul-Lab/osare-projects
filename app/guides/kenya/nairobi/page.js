@@ -159,6 +159,13 @@ export default function NairobiGuidePage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-green-800 to-amber-700 text-white">
+               <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1741991110666-88115e724741?q=80&w=1600&auto=format&fit=crop"
+            alt="Nairobi city skyline"
+            className="h-full w-full object-cover opacity-30"
+          />
+        </div>
         <div className="absolute -right-32 -top-32 h-80 w-80 rounded-full bg-yellow-400/20 blur-3xl" />
         <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-orange-400/20 blur-3xl" />
 
