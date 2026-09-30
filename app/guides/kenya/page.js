@@ -131,10 +131,7 @@ export default function KenyaGuidePage() {
 
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           <PhotoCard
-            src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?q=80&w=800&auto=format&fit=crop"
-            alt="Kenyan savannah landscape"
-            caption="Open savannah plains"
-          />
+                    <div className="mt-8 grid gap-5 sm:grid-cols-2">
           <PhotoCard
             src="https://images.unsplash.com/photo-1679546397515-b914d6601234?q=80&w=800&auto=format&fit=crop"
             alt="Elephants walking across a green field in Kenya"
