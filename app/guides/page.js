@@ -18,7 +18,7 @@ const GUIDES = [
     href: '/guides/health-safety',
     title: "Health & Safety",
     blurb: "Vaccinations, malaria prevention, and how to safely share the road with the Big Five.",
-    img: 'https://images.unsplash.com/photo-1645817202565-ba62d937e744?q=80&w=800&auto=format&fit=crop',
+      img: 'https://images.unsplash.com/photo-1679546397515-b914d6601234?q=80&w=800&auto=format&fit=crop',
   },
   {
     href: '/guides/money-costs-tipping',
