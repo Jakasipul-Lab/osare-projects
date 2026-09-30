@@ -173,37 +173,30 @@ export default function KenyaGuidePage() {
             active
           />
 
-          <DestinationCard
+                   <DestinationCard
             title="Nairobi"
-            href="/guides/nairobi"
+            href="/guides/kenya/nairobi"
             description="Kenya's capital, international gateway and starting point for many journeys."
             icon="🏙️"
           />
 
           <DestinationCard
             title="Amboseli"
-            href="/guides/amboseli"
+            href="/guides/kenya/amboseli"
             description="Wildlife, open plains and views toward Mount Kilimanjaro."
             icon="🐘"
           />
 
           <DestinationCard
-            title="Tsavo"
-            href="/guides/tsavo"
-            description="One of Kenya's major safari regions with extensive wilderness areas."
-            icon="🌿"
-          />
-
-          <DestinationCard
             title="Lake Nakuru"
-            href="/guides/lake-nakuru"
+            href="/guides/kenya/lake-nakuru"
             description="Wildlife, landscapes and an important stop within Kenya's safari circuit."
             icon="🦒"
           />
 
           <DestinationCard
             title="Kenya Coast"
-            href="/guides/kenya-coast"
+            href="/guides/kenya/coast"
             description="Mombasa, Diani, Watamu, Malindi and the Indian Ocean coast."
             icon="🌊"
           />
