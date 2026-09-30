@@ -42,7 +42,7 @@ const GUIDES = [
   href: '/guides/kenya',
   title: "Kenya Travel Guide",
   blurb: "Safari destinations, transport, beaches and everything you need to plan a Kenya trip.",
-  img: 'https://images.unsplash.com/photo-1611348586804-61bf6c080437?q=80&w=800&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1679546397515-b914d6601234?q=80&w=800&auto=format&fit=crop',
 },
 {
   href: '/guides/kenya/nairobi',
