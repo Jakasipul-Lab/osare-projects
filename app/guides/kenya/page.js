@@ -16,7 +16,7 @@ export default function KenyaGuidePage() {
       <section className="relative overflow-hidden bg-gradient-to-br from-green-950 via-green-900 to-amber-900 text-white">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?q=80&w=1600&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1679546397515-b914d6601234?q=80&w=1600&auto=format&fit=crop"
             alt="Kenyan savannah landscape"
             className="h-full w-full object-cover opacity-30"
           />
