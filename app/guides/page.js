@@ -69,7 +69,7 @@ const GUIDES = [
   img: 'https://images.unsplash.com/photo-1551357141-f73a8402ceb3?q=80&w=800&auto=format&fit=crop',
 },
 {
-  href: '/guides/kampala',
+  href: '/guides/uganda/kampala',
   title: "Kampala Travel Guide",
   blurb: "Culture, food, markets, nightlife and transport in Uganda's capital city.",
   img: 'https://images.unsplash.com/photo-1675756261486-09bd1e0f6c8a?q=80&w=800&auto=format&fit=crop',
