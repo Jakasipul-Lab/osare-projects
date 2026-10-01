@@ -12,10 +12,29 @@ export const metadata = buildMetadata({
 export default function KenyaGuidePage() {
   return (
     <main className="bg-white text-gray-900">
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-green-950 via-green-900 to-amber-900 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+           {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-green-950 via-green-900 to-amber-900 text-white">
+        <div className="absolute inset-0">
+          <img
+                        src="https://images.unsplash.com/photo-1679546397515-b914d6601234?q=80&w=1600&auto=format&fit=crop"
+            alt="Kenyan savannah landscape"
+            className="h-full w-full object-cover opacity-30"
+          />
+        </div>
+        <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-amber-300/20 blur-3xl" />
+        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-16 lg:py-20">
           <div className="max-w-4xl">
+            <div className="mb-4 flex flex-wrap gap-3 text-sm font-semibold">
+              <span className="rounded-full bg-white/15 px-4 py-2 backdrop-blur">
+                🇰🇪 KENYA
+              </span>
+              <span className="rounded-full bg-emerald-500 px-4 py-2 text-white">
+                🌍 EAST AFRICA
+              </span>
+            </div>
+
             <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-amber-300">
               East Africa Travel Guide
             </p>
@@ -100,6 +119,30 @@ export default function KenyaGuidePage() {
         </div>
       </section>
 
+            {/* PHOTO GALLERY */}
+      <section className="mx-auto max-w-7xl px-6 pb-16">
+        <p className="text-sm font-bold uppercase tracking-wider text-green-700">
+          Kenya in pictures
+        </p>
+
+        <h2 className="mt-2 text-3xl font-bold text-green-950">
+          A glimpse of what awaits
+        </h2>
+
+                <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1679546397515-b914d6601234?q=80&w=800&auto=format&fit=crop"
+            alt="Elephants walking across a green field in Kenya"
+            caption="Elephants on the move"
+          />
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1745885909535-58c453688cb4?q=80&w=800&auto=format&fit=crop"
+            alt="Lions crossing the savannah"
+            caption="Kenya's iconic wildlife"
+          />
+        </div>
+      </section>
+
       {/* POPULAR DESTINATIONS */}
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -130,37 +173,30 @@ export default function KenyaGuidePage() {
             active
           />
 
-          <DestinationCard
+                   <DestinationCard
             title="Nairobi"
-            href="/guides/nairobi"
+            href="/guides/kenya/nairobi"
             description="Kenya's capital, international gateway and starting point for many journeys."
             icon="🏙️"
           />
 
           <DestinationCard
             title="Amboseli"
-            href="/guides/amboseli"
+            href="/guides/kenya/amboseli"
             description="Wildlife, open plains and views toward Mount Kilimanjaro."
             icon="🐘"
           />
 
           <DestinationCard
-            title="Tsavo"
-            href="/guides/tsavo"
-            description="One of Kenya's major safari regions with extensive wilderness areas."
-            icon="🌿"
-          />
-
-          <DestinationCard
             title="Lake Nakuru"
-            href="/guides/lake-nakuru"
+            href="/guides/kenya/lake-nakuru"
             description="Wildlife, landscapes and an important stop within Kenya's safari circuit."
             icon="🦒"
           />
 
           <DestinationCard
             title="Kenya Coast"
-            href="/guides/kenya-coast"
+            href="/guides/kenya/coast"
             description="Mombasa, Diani, Watamu, Malindi and the Indian Ocean coast."
             icon="🌊"
           />
@@ -227,27 +263,6 @@ export default function KenyaGuidePage() {
               description="General travel health, safety and emergency information for visitors."
               href="/guides/health-safety"
               icon="🛡️"
-            />
-
-            <GuideCard
-              title="Culture & Etiquette"
-              description="Learn about Kenyan culture, languages, customs and respectful travel."
-              href="/guides/culture-etiquette"
-              icon="🤝"
-            />
-
-            <GuideCard
-              title="Connectivity & Internet"
-              description="Mobile networks, SIM cards, internet access and staying connected."
-              href="/guides/connectivity"
-              icon="📱"
-            />
-
-            <GuideCard
-              title="Packing for Kenya"
-              description="Practical things to consider when preparing for different Kenyan destinations."
-              href="/guides/packing-best-time"
-              icon="🎒"
             />
           </div>
         </div>
@@ -403,6 +418,48 @@ export default function KenyaGuidePage() {
         </div>
       </section>
 
+            {/* EMERGENCY CONTACTS */}
+      <section className="mx-auto max-w-7xl px-6 pb-16">
+        <div className="rounded-3xl border border-red-200 bg-red-50 p-8 lg:p-10">
+          <p className="text-sm font-bold uppercase tracking-wider text-red-700">
+            Stay safe
+          </p>
+
+          <h2 className="mt-2 text-3xl font-bold text-red-950">
+            Emergency contacts in Kenya
+          </h2>
+
+          <p className="mt-3 max-w-3xl leading-7 text-gray-700">
+            Save these numbers before you travel. Response times and coverage
+            vary by region — city centers like Nairobi have faster access than
+            remote safari areas.
+          </p>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <EmergencyCard
+              title="Police / General Emergency"
+              value="999 or 112"
+              icon="🚔"
+            />
+            <EmergencyCard
+              title="Kenya Red Cross"
+              value="1199"
+              icon="➕"
+            />
+            <EmergencyCard
+              title="St. John Ambulance"
+              value="020 221 0000"
+              icon="🚑"
+            />
+            <EmergencyCard
+              title="Fire & Rescue (Nairobi)"
+              value="020 222 2181"
+              icon="🚒"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* INFORMATION STATUS */}
       <section className="mx-auto max-w-7xl px-6 py-12">
         <div className="rounded-2xl border border-green-200 bg-green-50 p-6">
@@ -543,6 +600,39 @@ function MiniCard({ text, icon }) {
 
       <p className="mt-2 font-semibold">
         {text}
+      </p>
+    </div>
+  )
+}
+
+function PhotoCard({ src, alt, caption }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
+      <div className="aspect-[4/3] overflow-hidden">
+        <img
+          src={src}
+          alt={alt}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+      </div>
+      <p className="bg-white p-3 text-sm font-semibold text-green-950">
+        {caption}
+      </p>
+    </div>
+  )
+}
+
+function EmergencyCard({ title, value, icon }) {
+  return (
+    <div className="rounded-2xl bg-white p-5 shadow-sm">
+      <div className="text-2xl">{icon}</div>
+
+      <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+        {title}
+      </p>
+
+      <p className="mt-1 text-lg font-bold text-red-800">
+        {value}
       </p>
     </div>
   )

@@ -7,6 +7,7 @@ import {
   Facebook, Linkedin, Youtube
 } from 'lucide-react'
 import AboutView from '@/components/AboutView'
+import LocationMap from '@/components/LocationMap'
 import { AdSense } from '@/components/AdSense'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -131,15 +132,9 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
           {item.title}
         </Link>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
-        <a
-          href={item.mapLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700"
-        >
-          <MapPin className="h-3 w-3" /> {item.location}
-        </a>
+        <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+  <MapPin className="h-3 w-3" /> {item.location}
+</p>
         <SmartDescription text={item.description} onSearchKeyword={onSearchKeyword} />
         {item.includes?.length ? (
           <div className="mt-3 flex flex-wrap gap-1.5">
@@ -160,8 +155,8 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
           disabled={booking === item.id}
           className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
         >
-          {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-          Book via WhatsApp
+         {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
+Book & Pay via WhatsApp
         </Button>
       </CardContent>
     </Card>
@@ -183,9 +178,10 @@ function VendorModal({ item, onClose, onBook, booking, onSearchKeyword }) {
           <p className="mt-1 text-sm font-semibold" style={{ color: item.type === 'safari' ? '#f97316' : '#1e3a8a' }}>
             By {item.vendor}
           </p>
-          <a href={item.mapLink} target="_blank" rel="noopener noreferrer" className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700">
-            <MapPin className="h-3 w-3" /> {item.location}
-          </a>
+          <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+  <MapPin className="h-3 w-3" /> {item.location}
+</p>
+<LocationMap location={item.location} />
           <div className="mt-4"><SmartDescription text={item.description} onSearchKeyword={onSearchKeyword} /></div>
           {item.includes?.length ? (
             <div className="mt-4 flex flex-wrap gap-1.5">

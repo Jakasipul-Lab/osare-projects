@@ -2,6 +2,7 @@ import { getVendorBySlug } from '@/lib/vendorData'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { AdSense } from '@/components/AdSense'
+import LocationMap from '@/components/LocationMap'
 import { buildMetadata, buildProductSchema } from '@/lib/seo'
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -59,18 +60,8 @@ export default async function VendorDetailPage({ params }) {
           <h1 className="mt-3 text-3xl font-extrabold text-slate-900">{item.title}</h1>
           <p className="mt-1 text-lg font-semibold text-[#1e3a8a]">By {item.vendor}</p>
 
-          {item.mapLink ? (
-            <a
-              href={item.mapLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700"
-            >
-              📍 {item.location}
-            </a>
-          ) : (
-            <p className="mt-1 text-sm text-slate-500">📍 {item.location}</p>
-          )}
+          <p className="mt-1 text-sm text-slate-500">📍 {item.location}</p>
+<LocationMap location={item.location} />
 
           {item.description ? (
             <p className="mt-4 text-slate-700 leading-relaxed">{item.description}</p>

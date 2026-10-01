@@ -5,6 +5,7 @@ import {
   Binoculars, Building2, Loader2, MessageCircle, Tag
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import LocationMap from '@/components/LocationMap'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -54,15 +55,10 @@ function ListingCard({ item, onBook, booking, onOpen }) {
       <CardContent className="flex flex-1 flex-col p-5">
         <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
         <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
-        <a
-          href={item.mapLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700"
-        >
+        
+                        <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
           <MapPin className="h-3 w-3" /> {item.location}
-        </a>
+        </p>
         <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
         {item.includes?.length ? (
           <div className="mt-3 flex flex-wrap gap-1.5">
@@ -84,7 +80,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
           className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
         >
           {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-          Book via WhatsApp
+          Book & Pay via WhatsApp
         </Button>
       </CardContent>
     </Card>
@@ -107,9 +103,10 @@ function VendorModal({ item, onClose, onBook, booking }) {
           <p className="mt-1 text-sm font-semibold" style={{ color: item.type === 'safari' ? '#f97316' : '#1e3a8a' }}>
             By {item.vendor}
           </p>
-          <a href={item.mapLink} target="_blank" rel="noopener noreferrer" className="mt-1 flex items-center gap-1 text-xs text-slate-500 hover:text-slate-700">
-            <MapPin className="h-3 w-3" /> {item.location}
-          </a>
+          <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+  <MapPin className="h-3 w-3" /> {item.location}
+</p>
+<LocationMap location={item.location} />
           <p className="mt-4 text-sm text-slate-600">{item.description}</p>
           {item.includes?.length ? (
             <div className="mt-4 flex flex-wrap gap-1.5">
@@ -133,7 +130,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
             className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
           >
             {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-            Book via WhatsApp
+            Book & Pay via WhatsApp
           </Button>
         </div>
       </div>

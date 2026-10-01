@@ -17,7 +17,7 @@ function dualAmount(value, currency, fallbackLabel) {
   return { primary: `$${v.toLocaleString()}`, secondary: `≈ KES ${(v * USD_TO_KES).toLocaleString()}` }
 }
 
-export default function RecentLeads({ leads = [], showVendorColumn = false, onMarkPaid }) {
+export default function RecentLeads({ leads = [], showVendorColumn = false, onMarkPaid, onRequestPesapal }) {
   return (
     <Card className="border-slate-200">
       <CardHeader><CardTitle className="text-base">Recent booking leads</CardTitle></CardHeader>
@@ -82,10 +82,19 @@ export default function RecentLeads({ leads = [], showVendorColumn = false, onMa
                     </TableCell>
                     {showVendorColumn && (
                       <TableCell className="text-right">
-                        {l.commissionStatus !== 'paid' && l.code && onMarkPaid && (
-                          <Button size="sm" variant="outline" onClick={() => onMarkPaid(l.code)}>
-                            Mark Paid
-                          </Button>
+                        {l.commissionStatus !== 'paid' && l.code && (
+                          <div className="flex flex-col items-end gap-1">
+                            {onRequestPesapal && (
+                              <Button size="sm" className="bg-emerald-600 text-white hover:bg-emerald-700" onClick={() => onRequestPesapal(l.code)}>
+                                Request via Pesapal
+                              </Button>
+                            )}
+                            {onMarkPaid && (
+                              <Button size="sm" variant="outline" onClick={() => onMarkPaid(l.code)}>
+                                Mark Paid
+                              </Button>
+                            )}
+                          </div>
                         )}
                       </TableCell>
                     )}
