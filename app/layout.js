@@ -3,6 +3,7 @@ import Script from 'next/script'
 import "./globals.css"
 import { Providers } from "./providers"
 import CookieConsent from '@/components/CookieConsent'
+import GoogleTranslate from '@/components/GoogleTranslate'
 import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
 
 export const metadata = {
@@ -54,9 +55,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Providers>{children}</Providers>
-        <CookieConsent />
-      </body>
+  <Providers>{children}</Providers>
+  <CookieConsent />
+  <GoogleTranslate />
+</body>
     </html>
   )
 }
