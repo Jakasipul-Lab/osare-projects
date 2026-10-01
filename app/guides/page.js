@@ -104,6 +104,36 @@ const GUIDES = [
   blurb: "Wildlife, Lake Tanganyika, and culture — practical travel information for Burundi.",
   img: 'https://images.unsplash.com/photo-1672787076496-ccb18a869605?q=80&w=800&auto=format&fit=crop',
 },
+{
+  href: '/guides/kenya/amboseli',
+  title: "Amboseli Travel Guide",
+  blurb: "Elephant herds, views of Mount Kilimanjaro, and how to plan a visit to Amboseli National Park.",
+  img: 'https://images.unsplash.com/photo-1592670130129-4388cdb9d76e?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/kenya/coast',
+  title: "Kenyan Coast Travel Guide",
+  blurb: "Mombasa, Diani, Watamu and Lamu - beaches, culture and practical coastal travel information.",
+  img: 'https://images.unsplash.com/photo-1665449417444-fe7fec4b7425?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/kenya/lake-nakuru',
+  title: "Lake Nakuru Travel Guide",
+  blurb: "Flamingos, the rhino sanctuary, and how to pair Lake Nakuru with a Maasai Mara trip.",
+  img: 'https://images.unsplash.com/photo-1706391162070-60a37dee114d?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/tanzania/serengeti',
+  title: "Serengeti Travel Guide",
+  blurb: "The Great Migration, when to go, and where to stay for a Serengeti safari.",
+  img: 'https://images.unsplash.com/photo-1763675848759-9cdf601bfbc4?q=80&w=800&auto=format&fit=crop',
+},
+{
+  href: '/guides/tanzania/zanzibar',
+  title: "Zanzibar Travel Guide",
+  blurb: "Stone Town, beaches, spice tours and how to get there from Dar es Salaam.",
+  img: 'https://images.unsplash.com/photo-1678042956696-e072ff82cff5?q=80&w=800&auto=format&fit=crop',
+},
 ]
 
 export default function GuidesIndex() {
