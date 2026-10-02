@@ -401,7 +401,31 @@ export default function NairobiGuidePage() {
         </div>
       </section>
 
-           {/* AREAS */}
+                 {/* PHOTO GALLERY */}
+      <section className="mx-auto max-w-7xl px-6 py-16">
+        <p className="text-sm font-bold uppercase tracking-wider text-emerald-700">
+          Nairobi in pictures
+        </p>
+
+        <h2 className="mt-2 text-3xl font-bold text-green-950">
+          Where the city meets the wild
+        </h2>
+
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1683435299487-12296f884718?q=80&w=800&auto=format&fit=crop"
+            alt="Giraffes standing in a field with Nairobi's skyline behind them"
+            caption="Giraffes in Nairobi National Park, city skyline behind"
+          />
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1634662101368-fa8021773862?q=80&w=800&auto=format&fit=crop"
+            alt="A giraffe in Nairobi National Park with the city skyline in the background"
+            caption="The only capital city built around a national park"
+          />
+        </div>
+      </section>
+  
+            {/* AREAS */}
       <section className="bg-green-950 text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
