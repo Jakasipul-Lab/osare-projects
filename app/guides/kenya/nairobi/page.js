@@ -129,16 +129,19 @@ const ROUTES = [
     icon: '🦁',
     destination: 'Nairobi → Maasai Mara',
     text: 'Continue from Kenya’s capital toward one of East Africa’s best-known safari regions.',
+    href: '/guides/maasai-mara',
   },
   {
     icon: '🐘',
     destination: 'Nairobi → Amboseli',
     text: 'Travel south toward Amboseli and its famous views of Mount Kilimanjaro.',
+    href: '/guides/kenya/amboseli',
   },
   {
     icon: '🌊',
     destination: 'Nairobi → Mombasa',
     text: 'Leave the capital for Kenya’s Indian Ocean coast, beaches and Swahili culture.',
+    href: '/guides/kenya/coast',
   },
   {
     icon: '🦩',
@@ -149,11 +152,13 @@ const ROUTES = [
     icon: '🚌',
     destination: 'Nairobi → Kampala',
     text: 'Continue west into Uganda and discover another part of the East African network.',
+    href: '/guides/uganda/kampala',
   },
   {
     icon: '🌴',
     destination: 'Nairobi → Tanzania',
     text: 'Connect your Kenyan journey with Tanzania, safari destinations and Zanzibar.',
+    href: '/guides/tanzania',
   },
 ]
 
