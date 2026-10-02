@@ -67,44 +67,57 @@ export default function LakeNakuruGuide() {
     <main className="min-h-screen bg-[#fffaf2] text-slate-800">
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0b5966] via-[#087f83] to-[#55b89c] text-white">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-yellow-300 blur-3xl" />
-          <div className="absolute -bottom-24 -left-20 h-80 w-80 rounded-full bg-pink-300 blur-3xl" />
-        </div>
+<section className="relative min-h-[620px] overflow-hidden text-white">
+  {/* Lake Nakuru flamingo photo */}
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{
+      backgroundImage: "url('/images/lake-nakuru-flamingos.jpg')",
+    }}
+  />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-          <div className="max-w-4xl">
-            <p className="text-sm font-black uppercase tracking-[0.3em] text-yellow-200">
-              🇰🇪 Kenya · Great Rift Valley
-            </p>
+  {/* Soft teal overlay for readability */}
+  <div className="absolute inset-0 bg-gradient-to-r from-[#075866]/85 via-[#087f83]/50 to-[#55b89c]/20" />
 
-            <h1 className="mt-5 text-5xl font-black leading-tight sm:text-6xl lg:text-7xl">
-              Lake Nakuru
-            </h1>
+  {/* Soft homepage-style color glow */}
+  <div className="absolute inset-0 opacity-20">
+    <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-yellow-300 blur-3xl" />
+    <div className="absolute -bottom-24 -left-20 h-80 w-80 rounded-full bg-pink-300 blur-3xl" />
+  </div>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-teal-50 sm:text-xl">
-              Wildlife, rhinos, birds and dramatic Rift Valley scenery —
-              all in one compact national park close to Nakuru city.
-            </p>
+  <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-center px-6 py-20 lg:px-8 lg:py-28">
+    <div className="max-w-4xl">
+      <p className="text-sm font-black uppercase tracking-[0.3em] text-yellow-200">
+        🇰🇪 Kenya · Great Rift Valley
+      </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/safari"
-                className="rounded-full bg-yellow-300 px-7 py-4 font-black text-[#174b45] shadow-xl transition hover:bg-yellow-200"
-              >
-                🔎 Find Safari Operators
-              </Link>
+      <h1 className="mt-5 text-5xl font-black leading-tight sm:text-6xl lg:text-7xl">
+        Lake Nakuru
+      </h1>
 
-              <Link
-                href="/guides/kenya"
-                className="rounded-full border border-white/40 bg-white/10 px-7 py-4 font-bold backdrop-blur transition hover:bg-white/20"
-              >
-                🇰🇪 Explore Kenya
-              </Link>
-            </div>
-          </div>
+      <p className="mt-6 max-w-3xl text-lg leading-8 text-teal-50 sm:text-xl">
+        Wildlife, rhinos, birds and dramatic Rift Valley scenery —
+        all in one compact national park close to Nakuru city.
+      </p>
 
+      <div className="mt-8 flex flex-wrap gap-4">
+        <Link
+          href="/safari"
+          className="rounded-full bg-yellow-300 px-7 py-4 font-black text-[#174b45] shadow-xl transition hover:bg-yellow-200"
+        >
+          🔎 Find Safari Operators
+        </Link>
+
+        <Link
+          href="/guides/kenya"
+          className="rounded-full border border-white/40 bg-white/10 px-7 py-4 font-bold backdrop-blur transition hover:bg-white/20"
+        >
+          🇰🇪 Explore Kenya
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
           {/* HERO HIGHLIGHTS */}
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
