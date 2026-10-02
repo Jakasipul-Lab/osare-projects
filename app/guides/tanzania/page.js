@@ -21,8 +21,7 @@ export default function TanzaniaGuidePage() {
             className="h-full w-full object-cover opacity-30"
           />
         </div>
-        <div className="relative mx-auto max-w-6xl">
-        <div className="mx-auto max-w-6xl">
+               <div className="relative mx-auto max-w-6xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-amber-200">
             East Africa Travel Guide
           </p>
