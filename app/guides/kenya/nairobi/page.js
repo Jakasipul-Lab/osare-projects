@@ -753,7 +753,7 @@ export default function NairobiGuidePage() {
                 dishes and ingredients.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-2">
+                            <div className="mt-6 flex flex-wrap gap-2">
                 {[
                   'Nyama Choma',
                   'Ugali',
@@ -768,6 +768,34 @@ export default function NairobiGuidePage() {
                     {food}
                   </span>
                 ))}
+              </div>
+
+              <div className="mt-6 space-y-3 border-t border-orange-100 pt-6 text-sm leading-6 text-slate-700">
+                <p>
+                  <strong className="text-green-950">Classic Kenyan experience: </strong>
+                  <a
+                    href="https://tamarind.co.ke/carnivore"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-orange-700 hover:underline"
+                  >
+                    The Carnivore Restaurant
+                  </a>{' '}
+                  — Nairobi&apos;s famous open-air nyama choma grill, open since 1980.
+                </p>
+
+                <p>
+                  <strong className="text-green-950">Something familiar: </strong>
+                  <a
+                    href="https://www.kempinski.com/en/hotel-villa-rosa/restaurants-bars/lucca"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-orange-700 hover:underline"
+                  >
+                    Lucca
+                  </a>{' '}
+                  — Italian dining inside the Villa Rosa Kempinski, Westlands.
+                </p>
               </div>
             </div>
 
