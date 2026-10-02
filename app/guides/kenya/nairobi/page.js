@@ -102,21 +102,25 @@ const WILDLIFE = [
     icon: '🦁',
     title: 'Nairobi National Park',
     text: 'A remarkable wildlife area on the edge of the capital, offering a safari experience with the city skyline nearby.',
+    link: 'https://kws.go.ke/park/nairobi-national-park/',
   },
   {
     icon: '🦒',
     title: 'Giraffe Centre',
     text: 'A popular conservation and wildlife experience where visitors can learn more about giraffes.',
+    link: 'https://www.giraffecentre.org/',
   },
   {
     icon: '🐘',
     title: 'Elephant Conservation',
     text: 'Nairobi is home to important wildlife conservation organisations and experiences connected with elephant rescue and rehabilitation.',
+    link: 'https://www.sheldrickwildlifetrust.org/',
   },
   {
     icon: '🌳',
     title: 'Karura Forest',
     text: 'A large urban forest offering walking trails, waterfalls, caves and a peaceful escape from the busy city.',
+    link: 'https://friendsofkarura.org/',
   },
 ]
 
