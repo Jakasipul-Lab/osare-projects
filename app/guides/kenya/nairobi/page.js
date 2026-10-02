@@ -403,7 +403,6 @@ export default function NairobiGuidePage() {
 
            {/* AREAS */}
       <section className="bg-green-950 text-white">
-      <section className="bg-green-950 text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
           <p className="font-bold uppercase tracking-widest text-yellow-300">
