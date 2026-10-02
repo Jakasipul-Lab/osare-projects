@@ -1003,3 +1003,36 @@ export default function NairobiGuidePage() {
     </main>
   )
 }
+
+function PhotoCard({ src, alt, caption }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
+      <div className="aspect-[4/3] overflow-hidden">
+        <img
+          src={src}
+          alt={alt}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+      </div>
+      <p className="bg-white p-3 text-sm font-semibold text-green-950">
+        {caption}
+      </p>
+    </div>
+  )
+}
+
+function EmergencyCard({ title, value, icon }) {
+  return (
+    <div className="rounded-2xl bg-white p-5 shadow-sm">
+      <div className="text-2xl">{icon}</div>
+
+      <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+        {title}
+      </p>
+
+      <p className="mt-1 text-lg font-bold text-red-800">
+        {value}
+      </p>
+    </div>
+  )
+}
