@@ -963,7 +963,8 @@ export default function NairobiGuidePage() {
                   {inner}
                 </div>
               )
-            })}
+                        })}
+          </div>
 
           <div className="mt-12 flex flex-wrap gap-4">
             <Link
