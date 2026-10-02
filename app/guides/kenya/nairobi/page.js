@@ -937,23 +937,33 @@ export default function NairobiGuidePage() {
           </p>
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {ROUTES.map((route) => (
-              <div
-                key={route.destination}
-                className="rounded-3xl bg-white/10 p-7 backdrop-blur-sm transition hover:bg-white/15"
-              >
-                <div className="text-4xl">{route.icon}</div>
+                        {ROUTES.map((route) => {
+              const cardClass =
+                'block rounded-3xl bg-white/10 p-7 backdrop-blur-sm transition hover:bg-white/15'
+              const inner = (
+                <>
+                  <div className="text-4xl">{route.icon}</div>
 
-                <h3 className="mt-4 text-xl font-black text-yellow-300">
-                  {route.destination}
-                </h3>
+                  <h3 className="mt-4 text-xl font-black text-yellow-300">
+                    {route.destination}
+                  </h3>
 
-                <p className="mt-3 leading-7 text-green-100">
-                  {route.text}
-                </p>
-              </div>
-            ))}
-          </div>
+                  <p className="mt-3 leading-7 text-green-100">
+                    {route.text}
+                  </p>
+                </>
+              )
+
+              return route.href ? (
+                <Link key={route.destination} href={route.href} className={cardClass}>
+                  {inner}
+                </Link>
+              ) : (
+                <div key={route.destination} className={cardClass}>
+                  {inner}
+                </div>
+              )
+            })}
 
           <div className="mt-12 flex flex-wrap gap-4">
             <Link
