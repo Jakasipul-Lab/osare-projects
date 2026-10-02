@@ -401,7 +401,8 @@ export default function NairobiGuidePage() {
         </div>
       </section>
 
-      {/* AREAS */}
+           {/* AREAS */}
+      <section className="bg-green-950 text-white">
       <section className="bg-green-950 text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
