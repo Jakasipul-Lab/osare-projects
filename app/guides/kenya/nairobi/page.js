@@ -858,7 +858,48 @@ export default function NairobiGuidePage() {
         </div>
       </section>
 
-      {/* ROUTES */}
+            {/* EMERGENCY CONTACTS */}
+      <section className="mx-auto max-w-7xl px-6 pb-16">
+        <div className="rounded-3xl border border-red-200 bg-red-50 p-8 lg:p-10">
+          <p className="text-sm font-bold uppercase tracking-wider text-red-700">
+            Stay safe
+          </p>
+
+          <h2 className="mt-2 text-3xl font-bold text-red-950">
+            Emergency contacts in Nairobi
+          </h2>
+
+          <p className="mt-3 max-w-3xl leading-7 text-gray-700">
+            Save these numbers before you arrive. They cover the same
+            national services used across Kenya.
+          </p>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <EmergencyCard
+              title="Police / General Emergency"
+              value="999 or 112"
+              icon="🚔"
+            />
+            <EmergencyCard
+              title="Kenya Red Cross"
+              value="1199"
+              icon="➕"
+            />
+            <EmergencyCard
+              title="St. John Ambulance"
+              value="020 221 0000"
+              icon="🚑"
+            />
+            <EmergencyCard
+              title="Fire & Rescue (Nairobi)"
+              value="020 222 2181"
+              icon="🚒"
+            />
+          </div>
+        </div>
+      </section>
+                
+{/* ROUTES */}
       <section className="bg-green-950 text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
