@@ -919,6 +919,43 @@ export default function TanzaniaGuidePage() {
           </div>
         </section>
 
+                {/* EMERGENCY CONTACTS */}
+        <section className="mb-14 rounded-3xl border border-red-200 bg-red-50 p-8 sm:p-10">
+          <p className="text-sm font-semibold uppercase tracking-widest text-red-700">
+            Stay safe
+          </p>
+
+          <h2 className="mt-2 text-3xl font-bold text-red-950">
+            Emergency contacts in Tanzania
+          </h2>
+
+          <p className="mt-4 max-w-4xl leading-7 text-red-900">
+            Save these numbers before you travel. 112 is the universal
+            emergency number and the most reliable one to try first on any
+            network.
+          </p>
+
+          <div className="mt-7 grid gap-5 md:grid-cols-3">
+            <SafetyCard
+              icon="🚨"
+              title="General Emergency"
+              text="112 — works across all mobile networks for police, fire and ambulance."
+            />
+
+            <SafetyCard
+              icon="🚔"
+              title="Police (alternative)"
+              text="999 is also commonly used as a direct police line."
+            />
+
+            <SafetyCard
+              icon="🧭"
+              title="Tourist Police (Dar es Salaam)"
+              text="+255 22 211 1747"
+            />
+          </div>
+        </section>
+
         {/* OFFICIAL INFORMATION */}
         <section className="mb-14 rounded-3xl border border-amber-300 bg-amber-50 p-8 sm:p-10">
           <p className="text-sm font-semibold uppercase tracking-widest text-amber-700">
