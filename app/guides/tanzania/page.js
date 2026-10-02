@@ -12,8 +12,16 @@ export const metadata = buildMetadata({
 export default function TanzaniaGuidePage() {
   return (
     <main className="min-h-screen bg-stone-50">
-      {/* HERO */}
-      <header className="bg-gradient-to-br from-green-900 via-emerald-800 to-teal-700 px-6 py-16 text-white">
+            {/* HERO */}
+      <header className="relative overflow-hidden bg-gradient-to-br from-green-900 via-emerald-800 to-teal-700 px-6 py-16 text-white">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1763675848759-9cdf601bfbc4?q=80&w=1600&auto=format&fit=crop"
+            alt="Wildebeest migration in the Serengeti, Tanzania"
+            className="h-full w-full object-cover opacity-30"
+          />
+        </div>
+        <div className="relative mx-auto max-w-6xl">
         <div className="mx-auto max-w-6xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-amber-200">
             East Africa Travel Guide
