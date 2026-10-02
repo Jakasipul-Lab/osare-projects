@@ -133,6 +133,28 @@ export default function TanzaniaGuidePage() {
           </div>
         </section>
 
+          {/* PHOTO GALLERY */}
+        <section className="mb-14">
+          <SectionHeading
+            eyebrow="Tanzania in pictures"
+            title="A glimpse of what awaits"
+            description="Real photos from the Serengeti migration, Tarangire's elephants and Zanzibar's Stone Town."
+          />
+
+          <div className="mt-7 grid gap-5 sm:grid-cols-2">
+            <PhotoCard
+              src="https://images.unsplash.com/photo-1502452302126-a987e1f3fea4?q=80&w=800&auto=format&fit=crop"
+              alt="Aerial view of Stone Town, Zanzibar, Tanzania"
+              caption="Stone Town, Zanzibar"
+            />
+            <PhotoCard
+              src="https://images.unsplash.com/photo-1664270734194-256bbb732959?q=80&w=800&auto=format&fit=crop"
+              alt="Elephants in Tarangire National Park, Tanzania"
+              caption="Elephants in Tarangire National Park"
+            />
+          </div>
+        </section>
+
         {/* TRIP PLANNER */}
         <section className="mb-14">
           <SectionHeading
