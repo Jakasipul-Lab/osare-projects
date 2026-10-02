@@ -1,4 +1,3 @@
-```jsx
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
 
@@ -644,4 +643,4 @@ export default function LakeNakuruGuide() {
     </main>
   )
 }
-```
+
