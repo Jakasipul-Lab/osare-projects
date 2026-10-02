@@ -507,9 +507,20 @@ export default function NairobiGuidePage() {
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 leading-7 text-slate-600">
+                                <p className="mt-3 leading-7 text-slate-600">
                     {item.text}
                   </p>
+
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-block text-sm font-bold text-green-700 hover:underline"
+                    >
+                      Official site →
+                    </a>
+                  )}
                 </article>
               ))}
             </div>
