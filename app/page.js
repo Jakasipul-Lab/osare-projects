@@ -418,13 +418,49 @@ function Home({ go }) {
                   <p className="mt-1 text-sm text-slate-500">{f.d}</p>
                 </CardContent>
               </Card>
-            ))}
+                       ))}
           </div>
         </div>
       </div>
+      <div className="py-14">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="grid gap-8 text-center sm:grid-cols-3">
+            <div>
+              <div className="text-4xl font-extrabold text-[#1e3a8a]">{vendorCount ? `${vendorCount}+` : '—'}</div>
+              <p className="mt-1 text-sm font-semibold text-slate-500">Verified vendors</p>
+            </div>
+            <div>
+              <div className="text-4xl font-extrabold text-[#1e3a8a]">3</div>
+              <p className="mt-1 text-sm font-semibold text-slate-500">Countries — Kenya, Tanzania &amp; Uganda</p>
+            </div>
+            <div>
+              <div className="text-4xl font-extrabold text-[#1e3a8a]">0%</div>
+              <p className="mt-1 text-sm font-semibold text-slate-500">Booking fees for travelers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {testimonials.length > 0 && (
+        <div className="bg-slate-50 py-16">
+          <div className="mx-auto max-w-3xl px-5 text-center">
+            <h2 className="text-3xl font-extrabold text-slate-900">What people say</h2>
+            <div className="mt-10 grid gap-6">
+              {testimonials.map((t, i) => (
+                <div key={i} className="rounded-2xl bg-white p-8 shadow-md border border-slate-200 text-left">
+                  <div className="text-5xl font-serif text-[#f97316] leading-none">&ldquo;</div>
+                  <p className="mt-2 text-lg text-slate-700 italic">{t.quote}</p>
+                  <p className="mt-6 font-bold text-slate-900">{t.name}</p>
+                  <p className="text-sm text-slate-500">{t.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
+function Dashboard() {
 function Dashboard() {
   const [stats, setStats] = useState(null)
   const [leads, setLeads] = useState([])
