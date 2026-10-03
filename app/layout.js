@@ -55,8 +55,10 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebsiteSchema()) }}
         />
       </head>
-      <body>
-  <Providers>{children}</Providers>
+            <body>
+  <Providers>
+    <SiteChrome>{children}</SiteChrome>
+  </Providers>
   <CookieConsent />
   <GoogleTranslate />
 </body>
