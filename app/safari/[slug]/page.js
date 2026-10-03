@@ -1,5 +1,9 @@
 import { getVendorBySlug } from '@/lib/vendorData'
 import { notFound } from 'next/navigation'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 import Link from 'next/link'
 import { AdSense } from '@/components/AdSense'
 import LocationMap from '@/components/LocationMap'
