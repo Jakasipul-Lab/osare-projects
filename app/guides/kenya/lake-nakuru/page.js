@@ -264,11 +264,24 @@ export default function LakeNakuruGuide() {
             What could you see?
           </h2>
 
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+                   <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
             Lake Nakuru may be smaller than some of Kenya's famous safari
             destinations, but its different habitats support a surprisingly
             varied range of wildlife.
           </p>
+
+          <div className="mt-8 overflow-hidden rounded-3xl shadow-sm">
+            <img
+              src="https://images.unsplash.com/photo-1519439532776-1824a3e4a98c?q=80&w=1200&auto=format&fit=crop"
+              alt="Black rhino in Kenya"
+              className="h-72 w-full object-cover"
+            />
+            <p className="bg-white px-5 py-3 text-sm text-slate-500">
+              Black rhino — Lake Nakuru is one of Kenya&apos;s key rhino sanctuaries.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {WILDLIFE.map(([icon, title, text]) => (
