@@ -1242,7 +1242,8 @@ function App() {
   <li><button onClick={() => go('local')} className="hover:text-white">Local Commute</button></li>
   <li><button onClick={() => go('about')} className="hover:text-white">About OSARE</button></li>
   <li><a href="/how-it-works" className="hover:text-white">How It Works</a></li>
-  <li><a href="/guides" className="hover:text-white">Travel Guides</a></li>
+    <li><a href="/guides" className="hover:text-white">Travel Guides</a></li>
+  <li><a href="/blog" className="hover:text-white">Blog</a></li>
 </ul>
 </div>
          <div>
