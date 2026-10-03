@@ -319,9 +319,24 @@ function TierExplorer({ type }) {
 function Home({ go }) {
   const [q, setQ] = useState('')
   const [tier, setTier] = useState('safari')
+  const [vendorCount, setVendorCount] = useState(null)
+  const [testimonials, setTestimonials] = useState([])
   const search = () => {
     go(tier, q)
   }
+  useEffect(() => {
+    fetch('/api/listings')
+      .then((r) => r.json())
+      .then((data) => {
+        const items = Array.isArray(data) ? data : (data?.items || [])
+        const unique = new Set(items.map((i) => i.vendor).filter(Boolean))
+        if (unique.size > 0) setVendorCount(unique.size)
+      })
+      .catch(() => {})
+  }, [])
+  useEffect(() => {
+    fetch('/api/testimonials').then((r) => r.json()).then(setTestimonials).catch(() => {})
+  }, [])
   return (
     <div>
       <div className="relative min-h-[560px] w-full overflow-hidden">
