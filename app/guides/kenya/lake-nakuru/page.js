@@ -66,7 +66,6 @@ export default function LakeNakuruGuide() {
   return (
     <main className="min-h-screen bg-[#fffaf2] text-slate-800">
 
-    ```jsx
 {/* HERO */}
 <section className="relative min-h-[620px] overflow-hidden text-white">
   {/* Lake Nakuru flamingo photo */}
@@ -137,7 +136,6 @@ export default function LakeNakuruGuide() {
     </div>
   </div>
 </section>
-
 
 {/* NAVIGATION */}
 <section className="border-b border-slate-200 bg-white">
