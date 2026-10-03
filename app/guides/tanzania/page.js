@@ -12,9 +12,16 @@ export const metadata = buildMetadata({
 export default function TanzaniaGuidePage() {
   return (
     <main className="min-h-screen bg-stone-50">
-      {/* HERO */}
-      <header className="bg-gradient-to-br from-green-900 via-emerald-800 to-teal-700 px-6 py-16 text-white">
-        <div className="mx-auto max-w-6xl">
+            {/* HERO */}
+      <header className="relative overflow-hidden bg-gradient-to-br from-green-900 via-emerald-800 to-teal-700 px-6 py-16 text-white">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1763675848759-9cdf601bfbc4?q=80&w=1600&auto=format&fit=crop"
+            alt="Wildebeest migration in the Serengeti, Tanzania"
+            className="h-full w-full object-cover opacity-30"
+          />
+        </div>
+               <div className="relative mx-auto max-w-6xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-amber-200">
             East Africa Travel Guide
           </p>
@@ -121,6 +128,28 @@ export default function TanzaniaGuidePage() {
               title="Zanzibar & The Coast"
               text="Combine a mainland safari with beaches, marine activities, history and culture across Zanzibar and the coast."
               color="from-cyan-500 to-teal-700"
+            />
+          </div>
+        </section>
+
+          {/* PHOTO GALLERY */}
+        <section className="mb-14">
+          <SectionHeading
+            eyebrow="Tanzania in pictures"
+            title="A glimpse of what awaits"
+            description="Real photos from the Serengeti migration, Tarangire's elephants and Zanzibar's Stone Town."
+          />
+
+          <div className="mt-7 grid gap-5 sm:grid-cols-2">
+            <PhotoCard
+              src="https://images.unsplash.com/photo-1502452302126-a987e1f3fea4?q=80&w=800&auto=format&fit=crop"
+              alt="Aerial view of Stone Town, Zanzibar, Tanzania"
+              caption="Stone Town, Zanzibar"
+            />
+            <PhotoCard
+              src="https://images.unsplash.com/photo-1664270734194-256bbb732959?q=80&w=800&auto=format&fit=crop"
+              alt="Elephants in Tarangire National Park, Tanzania"
+              caption="Elephants in Tarangire National Park"
             />
           </div>
         </section>
@@ -889,6 +918,43 @@ export default function TanzaniaGuidePage() {
           </div>
         </section>
 
+                {/* EMERGENCY CONTACTS */}
+        <section className="mb-14 rounded-3xl border border-red-200 bg-red-50 p-8 sm:p-10">
+          <p className="text-sm font-semibold uppercase tracking-widest text-red-700">
+            Stay safe
+          </p>
+
+          <h2 className="mt-2 text-3xl font-bold text-red-950">
+            Emergency contacts in Tanzania
+          </h2>
+
+          <p className="mt-4 max-w-4xl leading-7 text-red-900">
+            Save these numbers before you travel. 112 is the universal
+            emergency number and the most reliable one to try first on any
+            network.
+          </p>
+
+          <div className="mt-7 grid gap-5 md:grid-cols-3">
+            <SafetyCard
+              icon="🚨"
+              title="General Emergency"
+              text="112 — works across all mobile networks for police, fire and ambulance."
+            />
+
+            <SafetyCard
+              icon="🚔"
+              title="Police (alternative)"
+              text="999 is also commonly used as a direct police line."
+            />
+
+            <SafetyCard
+              icon="🧭"
+              title="Tourist Police (Dar es Salaam)"
+              text="+255 22 211 1747"
+            />
+          </div>
+        </section>
+
         {/* OFFICIAL INFORMATION */}
         <section className="mb-14 rounded-3xl border border-amber-300 bg-amber-50 p-8 sm:p-10">
           <p className="text-sm font-semibold uppercase tracking-widest text-amber-700">
@@ -1150,6 +1216,22 @@ function AnimalCard({ emoji, title }) {
       <div className="text-5xl">{emoji}</div>
 
       <p className="mt-3 font-semibold">{title}</p>
+    </div>
+  )
+}
+function PhotoCard({ src, alt, caption }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+      <div className="aspect-[4/3] overflow-hidden">
+        <img
+          src={src}
+          alt={alt}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+      </div>
+      <p className="p-3 text-sm font-semibold text-gray-900">
+        {caption}
+      </p>
     </div>
   )
 }

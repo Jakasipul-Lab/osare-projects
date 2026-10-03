@@ -102,21 +102,25 @@ const WILDLIFE = [
     icon: '🦁',
     title: 'Nairobi National Park',
     text: 'A remarkable wildlife area on the edge of the capital, offering a safari experience with the city skyline nearby.',
+    link: 'https://kws.go.ke/park/nairobi-national-park/',
   },
   {
     icon: '🦒',
     title: 'Giraffe Centre',
     text: 'A popular conservation and wildlife experience where visitors can learn more about giraffes.',
+    link: 'https://www.giraffecentre.org/',
   },
   {
     icon: '🐘',
     title: 'Elephant Conservation',
     text: 'Nairobi is home to important wildlife conservation organisations and experiences connected with elephant rescue and rehabilitation.',
+    link: 'https://www.sheldrickwildlifetrust.org/',
   },
   {
     icon: '🌳',
     title: 'Karura Forest',
     text: 'A large urban forest offering walking trails, waterfalls, caves and a peaceful escape from the busy city.',
+    link: 'https://friendsofkarura.org/',
   },
 ]
 
@@ -125,16 +129,19 @@ const ROUTES = [
     icon: '🦁',
     destination: 'Nairobi → Maasai Mara',
     text: 'Continue from Kenya’s capital toward one of East Africa’s best-known safari regions.',
+    href: '/guides/maasai-mara',
   },
   {
     icon: '🐘',
     destination: 'Nairobi → Amboseli',
     text: 'Travel south toward Amboseli and its famous views of Mount Kilimanjaro.',
+    href: '/guides/kenya/amboseli',
   },
   {
     icon: '🌊',
     destination: 'Nairobi → Mombasa',
     text: 'Leave the capital for Kenya’s Indian Ocean coast, beaches and Swahili culture.',
+    href: '/guides/kenya/coast',
   },
   {
     icon: '🦩',
@@ -145,11 +152,13 @@ const ROUTES = [
     icon: '🚌',
     destination: 'Nairobi → Kampala',
     text: 'Continue west into Uganda and discover another part of the East African network.',
+    href: '/guides/uganda/kampala',
   },
   {
     icon: '🌴',
     destination: 'Nairobi → Tanzania',
     text: 'Connect your Kenyan journey with Tanzania, safari destinations and Zanzibar.',
+    href: '/guides/tanzania',
   },
 ]
 
@@ -401,7 +410,31 @@ export default function NairobiGuidePage() {
         </div>
       </section>
 
-      {/* AREAS */}
+                 {/* PHOTO GALLERY */}
+      <section className="mx-auto max-w-7xl px-6 py-16">
+        <p className="text-sm font-bold uppercase tracking-wider text-emerald-700">
+          Nairobi in pictures
+        </p>
+
+        <h2 className="mt-2 text-3xl font-bold text-green-950">
+          Where the city meets the wild
+        </h2>
+
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1683435299487-12296f884718?q=80&w=800&auto=format&fit=crop"
+            alt="Giraffes standing in a field with Nairobi's skyline behind them"
+            caption="Giraffes in Nairobi National Park, city skyline behind"
+          />
+          <PhotoCard
+            src="https://images.unsplash.com/photo-1634662101368-fa8021773862?q=80&w=800&auto=format&fit=crop"
+            alt="A giraffe in Nairobi National Park with the city skyline in the background"
+            caption="The only capital city built around a national park"
+          />
+        </div>
+      </section>
+  
+            {/* AREAS */}
       <section className="bg-green-950 text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
@@ -479,9 +512,20 @@ export default function NairobiGuidePage() {
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 leading-7 text-slate-600">
+                                <p className="mt-3 leading-7 text-slate-600">
                     {item.text}
                   </p>
+
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-block text-sm font-bold text-green-700 hover:underline"
+                    >
+                      Official site →
+                    </a>
+                  )}
                 </article>
               ))}
             </div>
@@ -709,7 +753,7 @@ export default function NairobiGuidePage() {
                 dishes and ingredients.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-2">
+                            <div className="mt-6 flex flex-wrap gap-2">
                 {[
                   'Nyama Choma',
                   'Ugali',
@@ -724,6 +768,34 @@ export default function NairobiGuidePage() {
                     {food}
                   </span>
                 ))}
+              </div>
+
+              <div className="mt-6 space-y-3 border-t border-orange-100 pt-6 text-sm leading-6 text-slate-700">
+                <p>
+                  <strong className="text-green-950">Classic Kenyan experience: </strong>
+                  <a
+                    href="https://tamarind.co.ke/carnivore"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-orange-700 hover:underline"
+                  >
+                    The Carnivore Restaurant
+                  </a>{' '}
+                  — Nairobi&apos;s famous open-air nyama choma grill, open since 1980.
+                </p>
+
+                <p>
+                  <strong className="text-green-950">Something familiar: </strong>
+                  <a
+                    href="https://www.kempinski.com/en/hotel-villa-rosa/restaurants-bars/lucca"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-orange-700 hover:underline"
+                  >
+                    Lucca
+                  </a>{' '}
+                  — Italian dining inside the Villa Rosa Kempinski, Westlands.
+                </p>
               </div>
             </div>
 
@@ -834,7 +906,48 @@ export default function NairobiGuidePage() {
         </div>
       </section>
 
-      {/* ROUTES */}
+            {/* EMERGENCY CONTACTS */}
+      <section className="mx-auto max-w-7xl px-6 pb-16">
+        <div className="rounded-3xl border border-red-200 bg-red-50 p-8 lg:p-10">
+          <p className="text-sm font-bold uppercase tracking-wider text-red-700">
+            Stay safe
+          </p>
+
+          <h2 className="mt-2 text-3xl font-bold text-red-950">
+            Emergency contacts in Nairobi
+          </h2>
+
+          <p className="mt-3 max-w-3xl leading-7 text-gray-700">
+            Save these numbers before you arrive. They cover the same
+            national services used across Kenya.
+          </p>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <EmergencyCard
+              title="Police / General Emergency"
+              value="999 or 112"
+              icon="🚔"
+            />
+            <EmergencyCard
+              title="Kenya Red Cross"
+              value="1199"
+              icon="➕"
+            />
+            <EmergencyCard
+              title="St. John Ambulance"
+              value="020 221 0000"
+              icon="🚑"
+            />
+            <EmergencyCard
+              title="Fire & Rescue (Nairobi)"
+              value="020 222 2181"
+              icon="🚒"
+            />
+          </div>
+        </div>
+      </section>
+                
+{/* ROUTES */}
       <section className="bg-green-950 text-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
 
@@ -852,22 +965,33 @@ export default function NairobiGuidePage() {
           </p>
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {ROUTES.map((route) => (
-              <div
-                key={route.destination}
-                className="rounded-3xl bg-white/10 p-7 backdrop-blur-sm transition hover:bg-white/15"
-              >
-                <div className="text-4xl">{route.icon}</div>
+                        {ROUTES.map((route) => {
+              const cardClass =
+                'block rounded-3xl bg-white/10 p-7 backdrop-blur-sm transition hover:bg-white/15'
+              const inner = (
+                <>
+                  <div className="text-4xl">{route.icon}</div>
 
-                <h3 className="mt-4 text-xl font-black text-yellow-300">
-                  {route.destination}
-                </h3>
+                  <h3 className="mt-4 text-xl font-black text-yellow-300">
+                    {route.destination}
+                  </h3>
 
-                <p className="mt-3 leading-7 text-green-100">
-                  {route.text}
-                </p>
-              </div>
-            ))}
+                  <p className="mt-3 leading-7 text-green-100">
+                    {route.text}
+                  </p>
+                </>
+              )
+
+              return route.href ? (
+                <Link key={route.destination} href={route.href} className={cardClass}>
+                  {inner}
+                </Link>
+              ) : (
+                <div key={route.destination} className={cardClass}>
+                  {inner}
+                </div>
+              )
+                        })}
           </div>
 
           <div className="mt-12 flex flex-wrap gap-4">
@@ -977,5 +1101,38 @@ export default function NairobiGuidePage() {
       </section>
 
     </main>
+  )
+}
+
+function PhotoCard({ src, alt, caption }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
+      <div className="aspect-[4/3] overflow-hidden">
+        <img
+          src={src}
+          alt={alt}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+      </div>
+      <p className="bg-white p-3 text-sm font-semibold text-green-950">
+        {caption}
+      </p>
+    </div>
+  )
+}
+
+function EmergencyCard({ title, value, icon }) {
+  return (
+    <div className="rounded-2xl bg-white p-5 shadow-sm">
+      <div className="text-2xl">{icon}</div>
+
+      <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+        {title}
+      </p>
+
+      <p className="mt-1 text-lg font-bold text-red-800">
+        {value}
+      </p>
+    </div>
   )
 }
