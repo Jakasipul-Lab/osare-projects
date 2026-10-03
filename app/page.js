@@ -1213,7 +1213,8 @@ function App() {
                 {n.label}
               </button>
             ))}
-            <a href="/guides" className="block w-full px-5 py-3 text-left text-sm font-medium text-slate-600">Guides</a>
+                      <a href="/guides" className="block w-full px-5 py-3 text-left text-sm font-medium text-slate-600">Guides</a>
+            <a href="/blog" className="block w-full px-5 py-3 text-left text-sm font-medium text-slate-600">Blog</a>
           </div>
         )}
       </header>
