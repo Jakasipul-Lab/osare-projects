@@ -116,22 +116,22 @@ export default function LakeNakuruGuide() {
           🇰🇪 Explore Kenya
         </Link>
       </div>
-
-       {/* HERO HIGHLIGHTS */}
+      {/* HERO HIGHLIGHTS */}
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          ['🦏', 'Rhino country'],
-          ['🦅', 'Birdwatching'],
-          ['🌊', 'Rift Valley lake'],
-          ['🌄', 'Scenic viewpoints'],
-        ].map(([icon, label]) => (
-          <div
+          ['🦏', 'Rhino country', '#wildlife'],
+          ['🦅', 'Birdwatching', '#flamingo-reality'],
+          ['🌊', 'Rift Valley lake', '#quick-facts'],
+          ['🌄', 'Scenic viewpoints', '#experiences'],
+        ].map(([icon, label, href]) => (
+          <a
             key={label}
-            className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur"
+            href={href}
+            className="block rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur transition hover:bg-white/20"
           >
             <div className="text-3xl">{icon}</div>
             <p className="mt-3 font-black">{label}</p>
-          </div>
+          </a>
         ))}
       </div>
     </div>
