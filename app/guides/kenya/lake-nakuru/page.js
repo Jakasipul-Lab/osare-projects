@@ -112,7 +112,6 @@ export default function LakeNakuruGuide() {
           href="/guides/kenya"
           className="rounded-full border border-white/40 bg-white/10 px-7 py-4 font-bold backdrop-blur transition hover:bg-white/20"
         >
-         ```jsx
         🇰🇪 Explore Kenya
         </Link>
       </div>
