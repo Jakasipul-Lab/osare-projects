@@ -5,6 +5,7 @@ import { Providers } from "./providers"
 import CookieConsent from '@/components/CookieConsent'
 import GoogleTranslate from '@/components/GoogleTranslate'
 import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
+import SiteChrome from '@/components/SiteChrome'
 
 export const metadata = {
   metadataBase: new URL('https://easafariroutes.com'),
