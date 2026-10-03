@@ -66,7 +66,8 @@ export default function LakeNakuruGuide() {
   return (
     <main className="min-h-screen bg-[#fffaf2] text-slate-800">
 
-      {/* HERO */}
+    ```jsx
+{/* HERO */}
 <section className="relative min-h-[620px] overflow-hidden text-white">
   {/* Lake Nakuru flamingo photo */}
   <div
@@ -85,7 +86,7 @@ export default function LakeNakuruGuide() {
     <div className="absolute -bottom-24 -left-20 h-80 w-80 rounded-full bg-pink-300 blur-3xl" />
   </div>
 
-  <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-center px-6 py-20 lg:px-8 lg:py-28">
+  <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
     <div className="max-w-4xl">
       <p className="text-sm font-black uppercase tracking-[0.3em] text-yellow-200">
         🇰🇪 Kenya · Great Rift Valley
@@ -112,31 +113,31 @@ export default function LakeNakuruGuide() {
           href="/guides/kenya"
           className="rounded-full border border-white/40 bg-white/10 px-7 py-4 font-bold backdrop-blur transition hover:bg-white/20"
         >
-        🇰🇪 Explore Kenya
+          🇰🇪 Explore Kenya
         </Link>
+      </div>
+
+      {/* HERO HIGHLIGHTS */}
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          ['🦏', 'Rhino country'],
+          ['🦅', 'Birdwatching'],
+          ['🌊', 'Rift Valley lake'],
+          ['🌄', 'Scenic viewpoints'],
+        ].map(([icon, label]) => (
+          <div
+            key={label}
+            className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur"
+          >
+            <div className="text-3xl">{icon}</div>
+            <p className="mt-3 font-black">{label}</p>
+          </div>
+        ))}
       </div>
     </div>
   </div>
-
-  {/* HERO HIGHLIGHTS */}
-  <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-    {[
-      ['🦏', 'Rhino country'],
-      ['🦅', 'Birdwatching'],
-      ['🌊', 'Rift Valley lake'],
-      ['🌄', 'Scenic viewpoints'],
-    ].map(([icon, label]) => (
-      <div
-        key={label}
-        className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur"
-      >
-        <div className="text-3xl">{icon}</div>
-        <p className="mt-3 font-black">{label}</p>
-      </div>
-    ))}
-  </div>
-</div>
 </section>
+
 
 {/* NAVIGATION */}
 <section className="border-b border-slate-200 bg-white">
