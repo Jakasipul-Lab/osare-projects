@@ -72,7 +72,8 @@ export default function LakeNakuruGuide() {
   <div
     className="absolute inset-0 bg-cover bg-center"
     style={{
-      backgroundImage: "url('/images/lake-nakuru-flamingos.jpg')",
+      backgroundImage:
+        "url('https://images.unsplash.com/photo-1609849007477-1063724e241d?q=80&w=1600&auto=format&fit=crop')",
     }}
   />
 
