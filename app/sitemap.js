@@ -14,7 +14,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/safari`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${baseUrl}/local`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-        { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/blog/welcome-to-osare`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/guides/maasai-mara`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
