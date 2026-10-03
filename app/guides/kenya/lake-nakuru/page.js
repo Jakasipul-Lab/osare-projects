@@ -112,39 +112,42 @@ export default function LakeNakuruGuide() {
           href="/guides/kenya"
           className="rounded-full border border-white/40 bg-white/10 px-7 py-4 font-bold backdrop-blur transition hover:bg-white/20"
         >
-          🇰🇪 Explore Kenya
+         ```jsx
+        🇰🇪 Explore Kenya
         </Link>
       </div>
     </div>
   </div>
-</section>
-          {/* HERO HIGHLIGHTS */}
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ['🦏', 'Rhino country'],
-              ['🦅', 'Birdwatching'],
-              ['🌊', 'Rift Valley lake'],
-              ['🌄', 'Scenic viewpoints'],
-            ].map(([icon, label]) => (
-              <div
-                key={label}
-                className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur"
-              >
-                <div className="text-3xl">{icon}</div>
-                <p className="mt-3 font-black">{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* NAVIGATION */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-wrap gap-3 px-6 py-5 lg:px-8">
-          <Link
-            href="/"
-            className="rounded-full bg-slate-100 px-5 py-2 font-semibold transition hover:bg-slate-200"
-          >
+  {/* HERO HIGHLIGHTS */}
+  <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {[
+      ['🦏', 'Rhino country'],
+      ['🦅', 'Birdwatching'],
+      ['🌊', 'Rift Valley lake'],
+      ['🌄', 'Scenic viewpoints'],
+    ].map(([icon, label]) => (
+      <div
+        key={label}
+        className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur"
+      >
+        <div className="text-3xl">{icon}</div>
+        <p className="mt-3 font-black">{label}</p>
+      </div>
+    ))}
+  </div>
+</div>
+</section>
+
+{/* NAVIGATION */}
+<section className="border-b border-slate-200 bg-white">
+  <div className="mx-auto flex max-w-7xl flex-wrap gap-3 px-6 py-5 lg:px-8">
+    <Link
+      href="/"
+      className="rounded-full bg-slate-100 px-5 py-2 font-semibold transition hover:bg-slate-200"
+    >
+```
+
             🏠 Home
           </Link>
 
