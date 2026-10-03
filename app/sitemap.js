@@ -1,9 +1,10 @@
 import { getAllVendors } from '@/lib/vendorData'
 
-// Force this route to always run fresh (no caching) so newly added
-// vendors and pages show up immediately instead of a stale build-time copy.
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// Cache this route for 1 hour instead of hitting the database on every
+// single request. New vendors show up within an hour instead of instantly,
+// but this keeps the sitemap fast and reliable even if the database is
+// briefly slow to respond (e.g. Neon free-tier waking from idle).
+export const revalidate = 3600
 
 export default async function sitemap() {
   const baseUrl = 'https://www.easafariroutes.com'
