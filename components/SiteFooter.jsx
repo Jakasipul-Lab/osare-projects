@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Phone, MapPin, Facebook, Linkedin, Youtube } from 'lucide-react'
+import { Facebook, Linkedin, Youtube } from 'lucide-react'
 
 function XIcon({ className }) {
   return (
@@ -26,72 +26,30 @@ function ThreadsIcon({ className }) {
 export default function SiteFooter() {
   return (
     <footer className="border-t border-slate-200 bg-slate-900 py-10 text-slate-300">
-      <div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-5">
+      <div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#1e3a8a] to-[#f97316] text-sm font-black text-white">O</span>
             <span className="text-lg font-extrabold text-white">OSARE</span>
           </div>
           <p className="mt-3 text-sm text-slate-400">East Africa Safari Routes &amp; Transit Hub. Free information for tourists &amp; locals.</p>
+          <div className="mt-4 flex items-center gap-4">
+            <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-slate-400 hover:text-white"><XIcon className="h-5 w-5" /></a>
+            <a href="https://www.facebook.com/profile.php?id=61593524609763" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-400 hover:text-white"><Facebook className="h-5 w-5" /></a>
+            <a href="https://www.linkedin.com/company/142404145/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-400 hover:text-white"><Linkedin className="h-5 w-5" /></a>
+            <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white"><TikTokIcon className="h-5 w-5" /></a>
+            <a href="https://www.youtube.com/channel/UCuGcuNyF62nUqzJY7XVe65g" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-slate-400 hover:text-white"><Youtube className="h-5 w-5" /></a>
+            <a href="https://www.threads.com/@nakinsonosareson" target="_blank" rel="noopener noreferrer" aria-label="Threads" className="text-slate-400 hover:text-white"><ThreadsIcon className="h-5 w-5" /></a>
+          </div>
         </div>
-
         <div>
           <h4 className="font-semibold text-white">Platform</h4>
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link href="/" className="hover:text-white">Home</Link></li>
-            <li><Link href="/about" className="hover:text-white">About OSARE</Link></li>
             <li><Link href="/how-it-works" className="hover:text-white">How It Works</Link></li>
             <li><Link href="/guides" className="hover:text-white">Travel Guides</Link></li>
             <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
           </ul>
-        </div>
-
-        <div>
-          <h4 className="font-semibold text-white">Vendors</h4>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li><Link href="/" className="hover:text-white">Become a Partner</Link></li>
-            <li><Link href="/advertise" className="hover:text-white">Advertise with Us</Link></li>
-            <li className="text-slate-400">Only 5% on bookings</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-semibold text-white">Legal</h4>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li><Link href="/vendor-agreement" className="hover:text-white">Vendor Agreement</Link></li>
-            <li><Link href="/terms-of-use" className="hover:text-white">Terms of Use</Link></li>
-            <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
-            <li><Link href="/cookie-policy" className="hover:text-white">Cookie Policy</Link></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-semibold text-white">Contact</h4>
-          <ul className="mt-3 space-y-2 text-sm text-slate-400">
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 758 378 729</li>
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-[#25d366]" /> +254 707 618 213</li>
-            <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 shrink-0" /> <span>Plaza Building, Oginga Odinga Street, Kisumu 40100, Kenya</span></li>
-          </ul>
-          <div className="mt-4 flex items-center gap-3">
-            <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-slate-400 hover:text-white">
-              <XIcon className="h-5 w-5" />
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61593524609763" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-400 hover:text-white">
-              <Facebook className="h-5 w-5" />
-            </a>
-            <a href="https://www.linkedin.com/company/142404145/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-400 hover:text-white">
-              <Linkedin className="h-5 w-5" />
-            </a>
-            <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-400 hover:text-white">
-              <TikTokIcon className="h-5 w-5" />
-            </a>
-            <a href="https://www.youtube.com/channel/UCuGcuNyF62nUqzJY7XVe65g" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-slate-400 hover:text-white">
-              <Youtube className="h-5 w-5" />
-            </a>
-            <a href="https://www.threads.com/@nakinsonosareson" target="_blank" rel="noopener noreferrer" aria-label="Threads" className="text-slate-400 hover:text-white">
-              <ThreadsIcon className="h-5 w-5" />
-            </a>
-          </div>
         </div>
       </div>
       <p className="mt-8 text-center text-xs text-slate-500">&copy; {new Date().getFullYear()} OSARE — East Africa Safari Routes</p>
