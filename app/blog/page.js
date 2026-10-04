@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
+import { query } from '@/lib/db'
 
 export const metadata = buildMetadata({
   title: "OSARE Blog — East Africa Travel Tips & News | OSARE",
@@ -7,17 +8,14 @@ export const metadata = buildMetadata({
   path: '/blog',
 })
 
-const POSTS = [
-  {
-    href: '/blog/welcome-to-osare',
-    title: "Welcome to the OSARE Blog",
-    blurb: "Why we built OSARE, and what you can expect to find here as we grow across East Africa.",
-    date: 'October 2026',
-    img: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
-  },
-]
+export const dynamic = 'force-dynamic'
 
-export default function BlogIndex() {
+export default async function BlogIndex() {
+  const result = await query(
+    'SELECT slug, title, blurb, image, created_at FROM blog_posts WHERE published = true ORDER BY created_at DESC'
+  )
+  const posts = result.rows
+
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', color: '#1e293b' }}>
       <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -33,15 +31,19 @@ export default function BlogIndex() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
-        {POSTS.map((p) => (
+        {posts.map((p) => (
           <Link
-            key={p.href}
-            href={p.href}
+            key={p.slug}
+            href={`/blog/${p.slug}`}
             style={{ display: 'block', borderRadius: 16, overflow: 'hidden', border: '1px solid #dbeafe', textDecoration: 'none', color: 'inherit' }}
           >
-            <img src={p.img} alt={p.title} style={{ width: '100%', height: 170, objectFit: 'cover', display: 'block' }} />
+            {p.image && (
+              <img src={p.image} alt={p.title} style={{ width: '100%', height: 170, objectFit: 'cover', display: 'block' }} />
+            )}
             <div style={{ padding: 18 }}>
-              <p style={{ fontSize: 12, fontWeight: 700, color: '#1e3a8a', textTransform: 'uppercase', letterSpacing: 0.5 }}>{p.date}</p>
+              <p style={{ fontSize: 12, fontWeight: 700, color: '#1e3a8a', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                {new Date(p.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </p>
               <h3 style={{ fontSize: 18, fontWeight: 800, color: '#1e3a8a', marginTop: 6 }}>{p.title}</h3>
               <p style={{ marginTop: 8, fontSize: 14, color: '#64748b', lineHeight: 1.6 }}>{p.blurb}</p>
             </div>
