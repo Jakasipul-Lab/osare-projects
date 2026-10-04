@@ -461,7 +461,6 @@ function Home({ go }) {
   )
 }
 function Dashboard() {
-function Dashboard() {
   const [stats, setStats] = useState(null)
   const [leads, setLeads] = useState([])
   const [loading, setLoading] = useState(true)
