@@ -210,7 +210,6 @@ export function TierExplorer({ type }) {
     }
   }
   return (
-  return (
     <div>
       <div className="mx-auto max-w-4xl px-5 pt-8">
         <Card className="border-slate-200 shadow-lg">
