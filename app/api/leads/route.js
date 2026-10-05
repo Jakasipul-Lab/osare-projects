@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { isAdminRequest } from '@/lib/auth';
+import { validatePhone } from '@/lib/phone';
 
 function mapLead(row) {
   return {
@@ -45,9 +46,9 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'listingId is required' }, { status: 400 });
     }
 
-    const travelerDigits = String(travelerPhone || '').replace(/[^0-9]/g, '');
-    if (travelerDigits.length < 9 || travelerDigits.length > 15) {
-      return NextResponse.json({ success: false, error: 'A valid phone number is required' }, { status: 400 });
+    const phoneCheck = validatePhone(travelerPhone);
+    if (!phoneCheck.ok) {
+      return NextResponse.json({ success: false, error: phoneCheck.error }, { status: 400 });
     }
 
     const listingRes = await query('SELECT * FROM listings WHERE id = $1', [listingId]);
@@ -84,7 +85,7 @@ export async function POST(request) {
         code,
         listing.owner_id || null,
         travelerName || null,
-        String(travelerPhone).trim(),
+        phoneCheck.e164,
       ]
     );
 
