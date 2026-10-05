@@ -244,10 +244,12 @@ function TierExplorer({ type }) {
     setQ(keyword)
     load(keyword)
     }
-  const handleBook = async (item) => {
-    const travelerPhone = window.prompt('Enter your phone number (so we can confirm your request):')
-    if (!travelerPhone || !travelerPhone.trim()) {
-      toast.error('Phone number is required')
+    const handleBook = async (item) => {
+    const phoneInput = window.prompt('Enter your WhatsApp number with country code (for example +254 712 345 678):')
+    if (phoneInput === null) return
+    const phoneCheck = validatePhone(phoneInput)
+    if (!phoneCheck.ok) {
+      toast.error(phoneCheck.error)
       return
     }
     setBooking(item.id)
@@ -255,7 +257,7 @@ function TierExplorer({ type }) {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: item.id, travelerPhone: travelerPhone.trim() })
+        body: JSON.stringify({ listingId: item.id, travelerPhone: phoneCheck.e164 })
       })
       const data = await res.json()
       if (!res.ok || !data.whatsappUrl) {
