@@ -7,6 +7,7 @@ export const revalidate = 0
 import Link from 'next/link'
 import { AdSense } from '@/components/AdSense'
 import LocationMap from '@/components/LocationMap'
+import EnquireButton from '@/components/EnquireButton'
 import { buildMetadata, buildProductSchema } from '@/lib/seo'
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -24,11 +25,6 @@ export default async function VendorDetailPage({ params }) {
   const item = await getVendorBySlug(slug)
 
   if (!item) notFound()
-
-  const whatsappMsg = encodeURIComponent(
-    `Hello, I found your listing "${item.title}" on EA SafariRoutes/OSARE and I would like to book.`
-  )
-  const whatsappPhone = (item.vendorPhone || '254758378729').replace(/[^0-9]/g, '')
 
   const pageUrl = `https://easafariroutes.com/safari/${slug}`
 
@@ -91,14 +87,7 @@ export default async function VendorDetailPage({ params }) {
             ) : null}
           </div>
 
-          <a
-            href={`https://wa.me/${whatsappPhone}?text=${whatsappMsg}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#25d366] py-3 font-semibold text-white hover:bg-[#1ebe5b]"
-          >
-            Book via WhatsApp
-          </a>
+          <div className="mt-6"><EnquireButton listingId={item.id} /></div>
         </div>
       </div>
     </div>
