@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { validatePhone } from '@/lib/phone'
 
 export default function EnquireButton({ listingId }) {
   const [phone, setPhone] = useState('')
@@ -8,9 +9,9 @@ export default function EnquireButton({ listingId }) {
   const [error, setError] = useState('')
 
   const start = async () => {
-    const digits = phone.replace(/\D/g, '')
-    if (digits.length < 9 || digits.length > 15) {
-      setError('Please enter a valid phone number, for example 2547XXXXXXXX')
+    const check = validatePhone(phone)
+    if (!check.ok) {
+      setError(check.error)
       return
     }
     setError('')
@@ -21,7 +22,7 @@ export default function EnquireButton({ listingId }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           listingId,
-          travelerPhone: phone.trim(),
+          travelerPhone: check.e164,
           travelerName: name.trim() || undefined,
         }),
       })
@@ -50,7 +51,7 @@ export default function EnquireButton({ listingId }) {
       <input
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        placeholder="Your phone / WhatsApp number"
+        placeholder="Your WhatsApp number, e.g. +254 712 345 678"
         inputMode="tel"
         className="w-full rounded-lg border border-slate-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
       />
