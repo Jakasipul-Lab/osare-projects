@@ -229,7 +229,7 @@ function TierExplorer({ type }) {
       const searchTerm = queryOverride !== undefined ? queryOverride : q
       if (searchTerm) params.set('q', searchTerm)
       if (cat && cat !== 'All') params.set('category', cat)
-      const res = await fetch(`/api/listings?${params.toString()}`)
+        const res = await fetch(`/api/search?${params.toString()}`)
       const data = await res.json()
       setItems(Array.isArray(data) ? data : [])
     } catch (e) {
