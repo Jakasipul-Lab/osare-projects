@@ -243,7 +243,8 @@ function TierExplorer({ type }) {
   const handleKeywordSearch = (keyword) => {
     setQ(keyword)
     load(keyword)
-  }
+    }
+  const handleBook = async (item) => {
     const travelerPhone = window.prompt('Enter your phone number (so we can confirm your request):')
     if (!travelerPhone || !travelerPhone.trim()) {
       toast.error('Phone number is required')
