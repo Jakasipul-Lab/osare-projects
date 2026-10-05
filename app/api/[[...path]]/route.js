@@ -96,6 +96,18 @@ async function handleRoute(request, { params }) {
     }
 
     if (route === '/verify-vendor' && method === 'POST') {
+               const cookieHeader = request.headers.get('cookie') || ''
+         const adminCookie = cookieHeader.split(';').map((s) => s.trim()).find((s) => s.startsWith('osare_admin='))
+         let isAdmin = false
+         try {
+           const secret = process.env.JWT_SECRET || 'dev-secret-change-in-production'
+           isAdmin = jwt.verify(adminCookie.slice('osare_admin='.length), secret).role === 'admin'
+         } catch (e) {
+           isAdmin = false
+         }
+         if (!isAdmin) {
+           return NextResponse.json({ error: 'Admin login required' }, { status: 401 })
+         }
       const body = await request.json()
       const { id, isVerified, vendorPrice, priceStatus, image } = body
 
