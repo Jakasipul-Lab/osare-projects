@@ -87,6 +87,59 @@ function ListingCard({ item, onBook, booking, onOpen }) {
   )
 }
 
+function ListingCard({ item, onBook, booking, onOpen }) {
+  const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
+  return (
+    <Card
+      onClick={() => onOpen(item)}
+      className="cursor-pointer overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col"
+    >
+      <div className="relative h-52 w-full overflow-hidden">
+        <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+        <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow" style={{ backgroundColor: accent }}>
+          {catIcon(item.category)} {item.category}
+        </Badge>
+        {item.offPeakLabel ? (
+          <Badge className="absolute right-3 top-3 gap-1 bg-emerald-600 text-white border-0 shadow">
+            <Tag className="h-3 w-3" /> Off-peak {item.offPeakLabel}
+          </Badge>
+        ) : null}
+      </div>
+      <CardContent className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-bold text-slate-900 leading-snug">{item.title}</h3>
+        <p className="mt-1 text-sm font-semibold" style={{ color: accent }}>By {item.vendor}</p>
+        
+                        <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+          <MapPin className="h-3 w-3" /> {item.location}
+        </p>
+        <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.description}</p>
+        {item.includes?.length ? (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {item.includes.slice(0, 4).map((inc, i) => (
+              <span key={i} className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">{inc}</span>
+            ))}
+          </div>
+        ) : null}
+        <div className="mt-4 flex items-end justify-between border-t border-slate-100 pt-3">
+          <div>
+            <p className="text-2xl font-extrabold text-emerald-600">{item.priceLabel}</p>
+            {item.season ? <p className="text-[11px] text-slate-400">{item.season}</p> : null}
+          </div>
+          <p className="flex items-center gap-1 text-[11px] text-slate-400"><Building2 className="h-3 w-3" /> {item.vendorOffice}</p>
+        </div>
+        <Button
+          onClick={(e) => { e.stopPropagation(); onBook(item) }}
+          disabled={booking === item.id}
+          className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
+        >
+          {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
+          Enquire via WhatsApp
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+
 function VendorModal({ item, onClose, onBook, booking }) {
   if (!item) return null
   return (
@@ -130,7 +183,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
             className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
           >
             {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-            Book & Pay via WhatsApp
+            Enquire via WhatsApp
           </Button>
         </div>
       </div>
