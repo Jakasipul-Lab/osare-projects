@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { isAdminRequest } from '@/lib/auth';
 import { validatePhone } from '@/lib/phone';
+import { notifyOwner } from '@/lib/notify';
 
 function mapLead(row) {
   return {
@@ -90,6 +91,16 @@ export async function POST(request) {
     );
 
     const lead = insertRes.rows[0];
+
+    // Alert the owner on Telegram. Not awaited: it must never slow down or break the enquiry.
+    notifyOwner(`New enquiry ${code}`, [
+      `Listing: ${listing.title}`,
+      `Partner: ${listing.vendor || 'n/a'}`,
+      `Price: ${listing.price_label || 'not set'}`,
+      `Traveler: ${travelerName || 'no name given'}`,
+      `Traveler phone: ${phoneCheck.e164}`,
+      `Commission: ${commission} ${listing.currency || 'USD'}`,
+    ]).catch(() => {});
 
     const rawPhone = listing.vendor_phone || listing.vendor_phone_alt || '254758378729';
     const digitsOnly = String(rawPhone).replace(/[^0-9]/g, '');
