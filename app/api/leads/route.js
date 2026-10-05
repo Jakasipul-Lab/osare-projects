@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { isAdminRequest } from '@/lib/auth';
 
 function mapLead(row) {
   return {
@@ -23,7 +24,10 @@ function mapLead(row) {
   };
 }
 
-export async function GET() {
+export async function GET(request) {
+  if (!isAdminRequest(request)) {
+    return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
+  }
   try {
     const result = await query('SELECT * FROM leads ORDER BY created_at DESC');
     return NextResponse.json(result.rows.map(mapLead));
@@ -39,6 +43,11 @@ export async function POST(request) {
 
     if (!listingId) {
       return NextResponse.json({ success: false, error: 'listingId is required' }, { status: 400 });
+    }
+
+    const travelerDigits = String(travelerPhone || '').replace(/[^0-9]/g, '');
+    if (travelerDigits.length < 9 || travelerDigits.length > 15) {
+      return NextResponse.json({ success: false, error: 'A valid phone number is required' }, { status: 400 });
     }
 
     const listingRes = await query('SELECT * FROM listings WHERE id = $1', [listingId]);
@@ -75,19 +84,19 @@ export async function POST(request) {
         code,
         listing.owner_id || null,
         travelerName || null,
-        travelerPhone || null,
+        String(travelerPhone).trim(),
       ]
     );
 
     const lead = insertRes.rows[0];
 
-      const rawPhone = listing.vendor_phone || listing.vendor_phone_alt || '254758378729';
-const digitsOnly = String(rawPhone).replace(/[^0-9]/g, '');
-const cleanPhone = digitsOnly.startsWith('0') ? '254' + digitsOnly.slice(1) : digitsOnly;
-const waMsg = encodeURIComponent(
-  `Hello, I found your listing "${listing.title}" on EA SafariRoutes/OSARE and I would like to book and pay. (Ref: ${code})`
-);
-const whatsappUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
+    const rawPhone = listing.vendor_phone || listing.vendor_phone_alt || '254758378729';
+    const digitsOnly = String(rawPhone).replace(/[^0-9]/g, '');
+    const cleanPhone = digitsOnly.startsWith('0') ? '254' + digitsOnly.slice(1) : digitsOnly;
+    const waMsg = encodeURIComponent(
+      `Hello, I found your listing "${listing.title}" on EA SafariRoutes/OSARE and I would like to enquire. (Ref: ${code})`
+    );
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
     return NextResponse.json({ success: true, whatsappUrl, lead: mapLead(lead) });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
