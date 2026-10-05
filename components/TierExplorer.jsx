@@ -182,7 +182,7 @@ export function TierExplorer({ type }) {
       setLoading(false)
     }
   }
-   const handleBook = async (item) => {
+  const handleBook = async (item) => {
     const travelerPhone = window.prompt('Enter your phone number (so we can confirm your enquiry):')
     if (!travelerPhone || !travelerPhone.trim()) {
       toast.error('Phone number is required')
@@ -209,25 +209,7 @@ export function TierExplorer({ type }) {
       setBooking(null)
     }
   }
-      return
-    }
-    const travelerName = window.prompt('Your name (optional):') || ''
-    setBooking(item.id)
-    try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: item.id, travelerName, travelerPhone })
-      })
-      const data = await res.json()
-      toast.success('Opening WhatsApp to complete your booking...')
-      window.open(data.whatsappUrl, '_blank')
-    } catch (e) {
-      toast.error('Could not start booking')
-    } finally {
-      setBooking(null)
-    }
-  }
+  return (
   return (
     <div>
       <div className="mx-auto max-w-4xl px-5 pt-8">
