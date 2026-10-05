@@ -244,19 +244,27 @@ function TierExplorer({ type }) {
     setQ(keyword)
     load(keyword)
   }
-  const handleBook = async (item) => {
+    const travelerPhone = window.prompt('Enter your phone number (so we can confirm your request):')
+    if (!travelerPhone || !travelerPhone.trim()) {
+      toast.error('Phone number is required')
+      return
+    }
     setBooking(item.id)
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: item.id })
+        body: JSON.stringify({ listingId: item.id, travelerPhone: travelerPhone.trim() })
       })
       const data = await res.json()
-      toast.success('Opening WhatsApp to complete your booking...')
+      if (!res.ok || !data.whatsappUrl) {
+        toast.error(data.error || 'Could not start the enquiry')
+        return
+      }
+      toast.success('Opening WhatsApp...')
       window.open(data.whatsappUrl, '_blank')
     } catch (e) {
-      toast.error('Could not start booking')
+      toast.error('Could not start the enquiry')
     } finally {
       setBooking(null)
     }
