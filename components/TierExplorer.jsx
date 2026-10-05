@@ -34,7 +34,6 @@ const catIcon = (cat) => {
   return <Compass className="h-4 w-4" />
 }
 
-
 function ListingCard({ item, onBook, booking, onOpen }) {
   const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
   return (
