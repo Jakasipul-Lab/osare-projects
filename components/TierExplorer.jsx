@@ -13,6 +13,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select'
 import { toast } from 'sonner'
+import { validatePhone } from '@/lib/phone'
 
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Bus / Coach', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
@@ -183,9 +184,11 @@ export function TierExplorer({ type }) {
     }
   }
   const handleBook = async (item) => {
-    const travelerPhone = window.prompt('Enter your phone number (so we can confirm your enquiry):')
-    if (!travelerPhone || !travelerPhone.trim()) {
-      toast.error('Phone number is required')
+    const phoneInput = window.prompt('Enter your WhatsApp number with country code (for example +254 712 345 678):')
+    if (phoneInput === null) return
+    const phoneCheck = validatePhone(phoneInput)
+    if (!phoneCheck.ok) {
+      toast.error(phoneCheck.error)
       return
     }
     const travelerName = window.prompt('Your name (optional):') || ''
@@ -194,7 +197,7 @@ export function TierExplorer({ type }) {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: item.id, travelerName, travelerPhone: travelerPhone.trim() })
+        body: JSON.stringify({ listingId: item.id, travelerName, travelerPhone: phoneCheck.e164 })
       })
       const data = await res.json()
       if (!res.ok || !data.whatsappUrl) {
