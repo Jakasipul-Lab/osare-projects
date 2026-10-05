@@ -10,7 +10,7 @@ export default function CookiePolicy() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
       <h1 style={{ fontSize: 32, fontWeight: 900, marginBottom: 8 }}>Cookie Policy</h1>
-      <p style={{ color: '#64748b', marginBottom: 32 }}>Last updated: September 2026</p>
+      <p style={{ color: '#64748b', marginBottom: 32 }}>Last updated: October 2026</p>
 
       <p>This page explains how OSARE (easafariroutes.com) uses cookies and similar technologies.</p>
 
@@ -25,7 +25,7 @@ export default function CookiePolicy() {
       </ul>
 
       <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>Third-party links</h2>
-      <p>When you click "Book via WhatsApp" or a vendor's own website link, you leave easafariroutes.com and are subject to that third party's (WhatsApp, or the vendor's) own cookie and privacy practices, which we do not control.</p>
+      <p>When you click "Enquire via WhatsApp" or a vendor's own website link, you leave easafariroutes.com and are subject to that third party's (WhatsApp, or the vendor's) own cookie and privacy practices, which we do not control.</p>
 
       <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>Managing cookies</h2>
       <p>Most browsers let you control or delete cookies through their settings. You can also opt out of personalized Google advertising at <a href="https://adssettings.google.com" style={{ color: '#1e3a8a' }}>adssettings.google.com</a>.</p>
