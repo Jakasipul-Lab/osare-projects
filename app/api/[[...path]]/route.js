@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import jwt from 'jsonwebtoken'
 import { NextResponse } from 'next/server'
 import { query } from '@/lib/db'
 import { STATIC_DATABASE, STATIC_LOCAL_IDS, mapVendorRow, getAllVendors } from '@/lib/vendorData'
