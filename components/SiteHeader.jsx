@@ -13,6 +13,7 @@ export default function SiteHeader() {
           <Link href="/guides" className="rounded-lg px-3 py-2 transition hover:bg-slate-100">Guides</Link>
           <Link href="/blog" className="rounded-lg px-3 py-2 transition hover:bg-slate-100">Blog</Link>
           <Link href="/how-it-works" className="rounded-lg px-3 py-2 transition hover:bg-slate-100">How It Works</Link>
+          <Link href="/request-a-trip" className="rounded-lg bg-orange-500 px-3 py-2 text-white transition hover:bg-orange-600">Request a Trip</Link>
         </nav>
       </div>
     </header>
