@@ -1,3 +1,4 @@
+import { isAdminRequest } from "../../../lib/auth";
 // KATO member contact scraper — one-off harvest route.
 //
 // Drop at: app/api/kato-harvest/route.ts   (or pages/api/kato-harvest.ts)
@@ -111,6 +112,9 @@ async function getProfile(slug: string) {
 }
 
 export async function GET(req: Request) {
+  if (!isAdminRequest(req)) {
+    return new Response("Admin login required", { status: 401 });
+  }
   const url = new URL(req.url);
   const from = Number(url.searchParams.get("from") ?? 0);
   const to = Number(url.searchParams.get("to") ?? 9999);
