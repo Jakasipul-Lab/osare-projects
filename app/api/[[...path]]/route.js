@@ -221,11 +221,11 @@ async function handleRoute(request, { params }) {
       return NextResponse.json({
         success: true,
         code,
-        whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
+               whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
       })
     }
 
-    if (route === '/leads/mark-paid' && method === 'POST') {
+    if (route === '/stats') { 
       const body = await request.json()
       const { code } = body
       if (!code) {
