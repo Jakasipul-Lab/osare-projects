@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
+import { randomInt } from 'crypto';
 import { query } from '@/lib/db';
+import { allow, reset } from '@/lib/throttle';
 
 // Sends a 6-digit verification code to a listing's vendor_phone via
 // Africa's Talking SMS API. Works in sandbox mode by default (safe,
 // no real SMS sent) until AT_USERNAME is switched to your live username.
 
 function generateCode() {
-  return String(Math.floor(100000 + Math.random() * 900000)); // 6 digits
+  return String(randomInt(100000, 1000000)); // 6 digits
 }
 
 export async function POST(request) {
@@ -14,6 +16,19 @@ export async function POST(request) {
     const { listingId } = await request.json();
     if (!listingId) {
       return NextResponse.json({ error: 'Missing listingId' }, { status: 400 });
+    }
+
+    const ip = (request.headers.get('x-forwarded-for') || 'unknown').split(',')[0].trim();
+    const HOUR = 60 * 60 * 1000;
+    if (
+      !allow(`sv-ip:${ip}`, 10, HOUR) ||
+      !allow(`sv-cool:${listingId}`, 1, 2 * 60 * 1000) ||
+      !allow(`sv-hour:${listingId}`, 3, HOUR)
+    ) {
+      return NextResponse.json(
+        { error: 'Too many code requests. Please wait a few minutes and try again.' },
+        { status: 429 }
+      );
     }
 
     const res = await query('SELECT vendor_phone FROM listings WHERE id = $1', [listingId]);
@@ -29,6 +44,7 @@ export async function POST(request) {
       'UPDATE listings SET phone_verification_code = $1, phone_verification_expires = $2 WHERE id = $3',
       [code, expires, listingId]
     );
+    reset(`vp:${listingId}`); // a fresh code starts a fresh set of attempts
 
     // Send via Africa's Talking SMS API (sandbox or live, based on env vars)
     const AT_USERNAME = process.env.AT_USERNAME || 'sandbox';
@@ -38,7 +54,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'SMS service not configured (missing AT_API_KEY)' }, { status: 500 });
     }
 
-    const smsRes = await fetch('https://api.sandbox.africastalking.com/version1/messaging', {
+    await fetch('https://api.sandbox.africastalking.com/version1/messaging', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -52,10 +68,8 @@ export async function POST(request) {
       }),
     });
 
-    const smsData = await smsRes.json();
-
-    return NextResponse.json({ success: true, sandbox: AT_USERNAME === 'sandbox', smsResult: smsData });
+    return NextResponse.json({ success: true, sandbox: AT_USERNAME === 'sandbox' });
   } catch (e) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return NextResponse.json({ error: 'Could not send the code. Please try again later.' }, { status: 500 });
   }
 }
