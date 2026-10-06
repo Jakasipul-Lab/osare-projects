@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { submitOrderRequest } from '@/lib/pesapal';
+import { isAdminRequest } from '@/lib/auth';
 
 // Fixed conversion used elsewhere on the site (dualAmount in RecentLeads.jsx)
 // so the KES amount a vendor is asked to pay matches what they see on the
@@ -11,6 +12,9 @@ const USD_TO_KES = 130;
 // dashboard. Looks up that lead's 5% commission, asks Pesapal for a payment
 // link, and hands back a ready-to-send WhatsApp message for the vendor.
 export async function POST(request) {
+  if (!isAdminRequest(request)) {
+    return NextResponse.json({ success: false, error: 'Admin login required' }, { status: 401 });
+  }
   try {
     const { code } = await request.json();
     if (!code) {
