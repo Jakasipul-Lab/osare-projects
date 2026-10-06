@@ -175,7 +175,7 @@ export async function POST(request) {
       body.season || null,
       body.image || null,
       toJsonbArray(body.keywords),
-      body.isVerified ?? (ownerId ? false : true),
+            isAdmin ? (body.isVerified ?? true) : false,
       body.priceStatus || 'confirmed',
       ownerId,
       body.vendorWebsite || null,
