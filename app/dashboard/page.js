@@ -90,6 +90,7 @@ function AdminGate({ children }) {
 
 function Dashboard() {
   const [stats, setStats] = useState(null)
+  const [tripRequests, setTripRequests] = useState([])
   const [leads, setLeads] = useState([])
   const [loading, setLoading] = useState(true)
 
