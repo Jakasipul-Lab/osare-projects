@@ -109,6 +109,10 @@ export async function POST(request) {
     let vendorName = body.vendor || null;
 
     const auth = await verifyAuth(request);
+        const isAdmin = isAdminRequest(request);
+    if (!isAdmin && !(auth && auth.role === 'vendor' && auth.vendor_id)) {
+      return NextResponse.json({ success: false, error: 'Login required' }, { status: 401 });
+    }
     if (auth && auth.role === 'vendor' && auth.vendor_id) {
       ownerId = auth.vendor_id;
       const vRes = await query('SELECT name, company, is_premium FROM vendors WHERE id = $1', [auth.vendor_id]);
