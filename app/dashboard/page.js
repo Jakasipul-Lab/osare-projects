@@ -134,25 +134,39 @@ function Dashboard() {
       toast.error('Could not create Pesapal payment link')
     }
   }
+  const changeTripStatus = async (code, status) => {
+    try {
+      const res = await fetch('/api/trip-requests', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, status }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.success) throw new Error(data.error || 'Failed')
+      setTripRequests((prev) => prev.map((t) => (t.code === code ? { ...t, status } : t)))
+      toast.success(`${code} marked ${status}`)
+    } catch (e) {
+      toast.error('Could not update trip request')
+    }
+  }
 
   const load = async () => {
     setLoading(true)
     try {
-      const [s, l] = await Promise.all([
+      const [s, l, t] = await Promise.all([
         fetch('/api/stats').then((r) => r.json()),
         fetch('/api/leads').then((r) => r.json()),
+        fetch('/api/trip-requests').then((r) => r.json()).catch(() => []),
       ])
       setStats(s)
       setLeads(Array.isArray(l) ? l : [])
+      setTripRequests(Array.isArray(t) ? t : (Array.isArray(t?.requests) ? t.requests : []))
     } catch (e) {
       toast.error('Failed to load dashboard')
     } finally {
       setLoading(false)
     }
   }
-
-  useEffect(() => { load() }, [])
-
   if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
 
   const cards = [
