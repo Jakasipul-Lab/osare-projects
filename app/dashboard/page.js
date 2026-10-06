@@ -242,11 +242,10 @@ function Dashboard() {
           </Card>
         </div>
 
-                  <div className="mt-8">
+       <div className="mt-8">
           <RecentLeads leads={leads} showVendorColumn onMarkPaid={markPaid} onRequestPesapal={requestPesapal} />
         </div>
-
-        <div className="mt-8">
+          <div className="mt-8">
           <TripRequests requests={tripRequests} onStatusChange={changeTripStatus} />
         </div>
       </div>
