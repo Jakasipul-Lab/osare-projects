@@ -1,8 +1,15 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+
+// Pages where the language box is hidden (admin screens do not need translation)
+const HIDE_ON = ['/dashboard', '/admin']
 
 export default function GoogleTranslate() {
+  const pathname = usePathname() || ''
+  const hidden = HIDE_ON.some((p) => pathname === p || pathname.startsWith(p + '/'))
+
   useEffect(() => {
     // Don't load the script twice if the component re-renders
     if (document.getElementById('google-translate-script')) return
@@ -30,19 +37,27 @@ export default function GoogleTranslate() {
   }, [])
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 12,
-        right: 12,
-        zIndex: 9999,
-        background: 'white',
-        padding: '4px 8px',
-        borderRadius: 8,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-      }}
-    >
-      <div id="google_translate_element" />
-    </div>
+    <>
+      <style>{`
+        iframe.goog-te-banner-frame { display: none !important; }
+        body { top: 0 !important; }
+      `}</style>
+      <div
+        style={{
+          display: hidden ? 'none' : 'block',
+          position: 'fixed',
+          bottom: 14,
+          left: 14,
+          zIndex: 50,
+          background: 'white',
+          padding: '2px 6px',
+          borderRadius: 8,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+          fontSize: 12,
+        }}
+      >
+        <div id="google_translate_element" />
+      </div>
+    </>
   )
 }
