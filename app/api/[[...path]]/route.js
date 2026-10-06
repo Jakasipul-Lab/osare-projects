@@ -221,11 +221,13 @@ async function handleRoute(request, { params }) {
       return NextResponse.json({
         success: true,
         code,
-               whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
+    whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
       })
     }
 
-    if (route === '/stats') { 
+    if (route === '/stats') {
+      try {
+        const vendorsRes = await query('SELECT type FROM listings')
       const body = await request.json()
       const { code } = body
       if (!code) {
