@@ -263,8 +263,8 @@ async function handleRoute(request, { params }) {
         }
         return NextResponse.json({ success: true, lead: res.rows[0] })
       } catch (e) {
-        return NextResponse.json({ error: e.message }, { status: 500 })
-      }
+                whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
+      })
     }
 
     if (route === '/stats') {
