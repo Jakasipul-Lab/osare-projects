@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { mapVendorRow } from '@/lib/vendorData';
-import { verifyAuth } from '@/lib/auth';
+import { verifyAuth, isAdminRequest } from '@/lib/auth';
 
 const FREE_LISTING_LIMIT = 2;
 
