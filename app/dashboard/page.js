@@ -163,10 +163,13 @@ function Dashboard() {
       setTripRequests(Array.isArray(t) ? t : (Array.isArray(t?.requests) ? t.requests : []))
     } catch (e) {
       toast.error('Failed to load dashboard')
-    } finally {
+        } finally {
       setLoading(false)
     }
   }
+
+  useEffect(() => { load() }, [])
+
   if (loading || !stats) return <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
 
   const cards = [
