@@ -35,6 +35,25 @@ const catIcon = (cat) => {
   return <Compass className="h-4 w-4" />
 }
 
+const isStock = (src) => !src || src.includes('unsplash.com')
+
+function CardPhoto({ item }) {
+  if (isStock(item.image)) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-900 to-blue-600 px-5 text-center">
+        <span className="text-base font-bold leading-snug text-white">{item.title}</span>
+      </div>
+    )
+  }
+  return (
+    <img
+      src={item.image}
+      alt={item.title}
+      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+    />
+  )
+}
+
 function ListingCard({ item, onBook, booking, onOpen }) {
   const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
   return (
@@ -43,7 +62,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
       className="cursor-pointer overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col"
     >
       <div className="relative h-52 w-full overflow-hidden">
-        <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+        <CardPhoto item={item} />
         <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow" style={{ backgroundColor: accent }}>
           {catIcon(item.category)} {item.category}
         </Badge>
@@ -94,7 +113,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="relative h-56 w-full overflow-hidden rounded-t-2xl">
-          <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover" />
+          <CardPhoto item={item} />
           <button onClick={onClose} className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 shadow">
             <X className="h-4 w-4" />
           </button>
