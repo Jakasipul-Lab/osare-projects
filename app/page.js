@@ -28,8 +28,6 @@ import {
 } from 'recharts'
 import RecentLeads from '@/components/vendor/RecentLeads'
 import Link from 'next/link'
-const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
-const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 const NAV = [
   { key: 'home', label: 'Home' },
   { key: 'safari', label: 'Safari' },
@@ -105,6 +103,25 @@ function SmartDescription({ text, onSearchKeyword }) {
     </p>
   )
 }
+const isStock = (src) => !src || src.includes('unsplash.com')
+
+function CardPhoto({ item }) {
+  if (isStock(item.image)) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-900 to-blue-600 px-5 text-center">
+        <span className="text-base font-bold leading-snug text-white">{item.title}</span>
+      </div>
+    )
+  }
+  return (
+    <img
+      src={item.image}
+      alt={item.title}
+      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+    />
+  )
+}
+
 function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
   const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
   return (
@@ -113,7 +130,7 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
       className="cursor-pointer overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col"
     >
       <div className="relative h-52 w-full overflow-hidden">
-        <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+        <CardPhoto item={item} />
         <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow" style={{ backgroundColor: accent }}>
           {catIcon(item.category)} {item.category}
         </Badge>
@@ -169,7 +186,7 @@ function VendorModal({ item, onClose, onBook, booking, onSearchKeyword }) {
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="relative h-56 w-full overflow-hidden rounded-t-2xl">
-          <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover" />
+          <CardPhoto item={item} />
           <button onClick={onClose} className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 shadow">
             <X className="h-4 w-4" />
           </button>
@@ -276,7 +293,7 @@ function TierExplorer({ type }) {
   return (
     <div>
       <div className="relative h-64 w-full overflow-hidden">
-        <img src={isSafari ? HERO : LOCAL_HERO} alt="banner" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-[#0f1f4d]" />
         <div className="absolute inset-0" style={{ background: isSafari ? 'linear-gradient(135deg, rgba(249,115,22,.85), rgba(30,58,138,.7))' : 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' }} />
         <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
           <h1 className="text-3xl font-extrabold md:text-4xl">{isSafari ? 'Tourist Assistance — East Africa' : 'Local Commute — Nairobi & Beyond'}</h1>
@@ -352,7 +369,7 @@ function Home({ go }) {
   return (
     <div>
       <div className="relative min-h-[560px] w-full overflow-hidden">
-        <img src={HERO} alt="hero" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-[#0f1f4d]" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/85 via-[#1e3a8a]/60 to-[#f97316]/70" />
         <div className="relative mx-auto flex max-w-5xl flex-col items-center px-5 py-24 text-center text-white">
           <Badge className="mb-4 gap-1 border-white/30 bg-white/15 text-white backdrop-blur">
@@ -392,7 +409,7 @@ function Home({ go }) {
         <p className="mt-2 text-center text-slate-500">Choose your journey.</p>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <button onClick={() => go('safari')} className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
-            <img src={HERO} alt="safari" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-blue-600" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             <div className="absolute bottom-0 p-6 text-white">
               <Badge className="mb-2 gap-1 border-0 bg-[#c2410c] text-white"><Compass className="h-3 w-3" /> Tier 1</Badge>
@@ -402,7 +419,7 @@ function Home({ go }) {
             </div>
           </button>
           <button onClick={() => go('local')} className="group relative h-72 overflow-hidden rounded-2xl text-left shadow-lg">
-            <img src={LOCAL_HERO} alt="local" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a] to-[#0f1f4d]" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             <div className="absolute bottom-0 p-6 text-white">
               <Badge className="mb-2 gap-1 border-0 bg-[#1e3a8a] text-white"><Bus className="h-3 w-3" /> Tier 2</Badge>
