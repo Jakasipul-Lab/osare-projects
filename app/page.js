@@ -9,6 +9,7 @@ import {
 import AboutView from '@/components/AboutView'
 import LocationMap from '@/components/LocationMap'
 import { AdSense } from '@/components/AdSense'
+import { LocalRoutesExplorer } from '@/components/LocalRoutesExplorer'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -1280,10 +1281,10 @@ function App() {
           </div>
         )}
       </header>
-     {['home', 'safari', 'local', 'about'].includes(view) && <AdSense />}
+         {['home', 'safari', 'local', 'about'].includes(view) && <AdSense />}
       {view === 'home' && <Home go={go} />}
       {view === 'safari' && <TierExplorer type="safari" key={'safari' + pendingQuery} />}
-      {view === 'local' && <TierExplorer type="local" key={'local' + pendingQuery} />}
+      {view === 'local' && <LocalRoutesExplorer />}
       {view === 'about' && <AboutView />}
       {view === 'dashboard' && <AdminGate><Dashboard /></AdminGate>}
       {view === 'vendor' && <VendorPortal token={token} vendor={vendor} onAuth={onAuth} onLogout={onLogout} />}
