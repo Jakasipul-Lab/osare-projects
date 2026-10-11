@@ -29,9 +29,9 @@ export async function GET(request) {
       conditions.push(`${haystack} ILIKE $${params.length}`);
     }
 
-    const result = await query(
+   const result = await query(
       `SELECT id, operator, from_city, to_city, boarding_point, landmark, departure_info,
-              fare_label, whatsapp, website, booking_method, confirmed
+              fare_label, whatsapp, website, booking_method, confirmed, image
        FROM local_routes
        WHERE ${conditions.join(' AND ')}
        ORDER BY confirmed DESC, operator ASC
