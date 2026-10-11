@@ -51,7 +51,7 @@ export async function GET(request) {
       whatsapp: row.whatsapp,
       website: row.website,
       bookingMethod: row.booking_method,
-      confirmed: row.confirmed,
+      confirmed: row.confirmed,image: row.image,
     }));
 
     return NextResponse.json(routes);
