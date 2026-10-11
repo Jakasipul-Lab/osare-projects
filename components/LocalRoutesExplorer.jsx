@@ -10,12 +10,25 @@ const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7
 
 const SUGGESTIONS = ['Nairobi', 'Mombasa', 'Kampala', 'Kitui', 'Thika', 'Nanyuki', 'Kajiado']
 
-function waLink(route) {
-  const text = `Hello ${route.operator}, I found you on easafariroutes.com. I would like information about the ${route.from} to ${route.to} bus.`
+function formatDate(value) {
+  if (!value) return ''
+  const d = new Date(`${value}T00:00:00`)
+  if (Number.isNaN(d.getTime())) return ''
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
+function waLink(route, trip) {
+  const tripFrom = trip.from || route.from
+  const tripTo = trip.to || route.to
+  const day = formatDate(trip.date)
+  const people = `${trip.passengers} passenger${trip.passengers === 1 ? '' : 's'}`
+  const text = day
+    ? `Hello ${route.operator}, I found you on easafariroutes.com. I would like to travel from ${tripFrom} to ${tripTo} on ${day}, ${people}. Is a seat available, and what is the fare?`
+    : `Hello ${route.operator}, I found you on easafariroutes.com. I would like information about the ${tripFrom} to ${tripTo} bus for ${people}.`
   return `https://wa.me/${route.whatsapp}?text=${encodeURIComponent(text)}`
 }
 
-function RouteCard({ route }) {
+function RouteCard({ route, trip }) {
   return (
     <Card className="flex flex-col border-slate-200">
       <CardContent className="flex flex-1 flex-col p-5">
@@ -42,12 +55,12 @@ function RouteCard({ route }) {
         <div className="mt-4 flex flex-col gap-2">
           {route.whatsapp ? (
             <a
-              href={waLink(route)}
+              href={waLink(route, trip)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#25d366] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1ebe5b]"
             >
-              <MessageCircle className="h-4 w-4" /> Enquire via WhatsApp
+              <MessageCircle className="h-4 w-4" /> Request this trip on WhatsApp
             </a>
           ) : (
             <p className="rounded-md bg-slate-100 px-3 py-2 text-center text-sm text-slate-500">
@@ -73,6 +86,10 @@ function RouteCard({ route }) {
 export function LocalRoutesExplorer() {
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
+  const [date, setDate] = useState('')
+  const [passengers, setPassengers] = useState(1)
+  const [minDate, setMinDate] = useState('')
+  const [searched, setSearched] = useState({ from: '', to: '' })
   const [routes, setRoutes] = useState([])
   const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
@@ -80,6 +97,7 @@ export function LocalRoutesExplorer() {
   const load = useCallback(async (f, t) => {
     setLoading(true)
     setFailed(false)
+    setSearched({ from: f.trim(), to: t.trim() })
     try {
       const params = new URLSearchParams()
       if (f.trim()) params.set('from', f.trim())
@@ -97,6 +115,10 @@ export function LocalRoutesExplorer() {
   }, [])
 
   useEffect(() => {
+    const now = new Date()
+    const month = String(now.getMonth() + 1).padStart(2, '0')
+    const day = String(now.getDate()).padStart(2, '0')
+    setMinDate(`${now.getFullYear()}-${month}-${day}`)
     load('', '')
   }, [load])
 
@@ -118,6 +140,8 @@ export function LocalRoutesExplorer() {
     load('', '')
   }
 
+  const trip = { from: searched.from && searched.to ? searched.from : '', to: searched.from && searched.to ? searched.to : '', date, passengers }
+
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
       <div className="relative h-64 w-full overflow-hidden">
@@ -129,7 +153,7 @@ export function LocalRoutesExplorer() {
         <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
           <h1 className="text-3xl font-extrabold md:text-4xl">Local Commute — Buses &amp; Matatus</h1>
           <p className="mt-2 max-w-2xl text-white/90">
-            Find daily buses between cities and towns. See the operator and message them directly on WhatsApp.
+            Plan your trip: choose where you travel from and to, and the day. See the buses on that route and send your request to the operator on WhatsApp.
           </p>
         </div>
       </div>
@@ -160,8 +184,44 @@ export function LocalRoutesExplorer() {
                   className="h-12 pl-10 text-base"
                 />
               </div>
-              <Button onClick={search} className="h-12 px-6 text-white" style={{ backgroundColor: '#1e3a8a' }}>
-                Search
+            </div>
+            <div className="mt-3 flex flex-col gap-3 md:flex-row md:items-center">
+              <div className="flex-1">
+                <label htmlFor="route-date" className="mb-1 block text-xs font-medium text-slate-500">
+                  Travel date
+                </label>
+                <Input
+                  id="route-date"
+                  type="date"
+                  value={date}
+                  min={minDate || undefined}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="h-12 text-base"
+                />
+              </div>
+              <div className="flex-1">
+                <label htmlFor="route-passengers" className="mb-1 block text-xs font-medium text-slate-500">
+                  Passengers
+                </label>
+                <select
+                  id="route-passengers"
+                  value={passengers}
+                  onChange={(e) => setPassengers(Number(e.target.value))}
+                  className="h-12 w-full rounded-md border border-slate-200 bg-white px-3 text-base text-slate-900"
+                >
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                    <option key={n} value={n}>
+                      {n} {n === 1 ? 'passenger' : 'passengers'}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <Button
+                onClick={search}
+                className="h-12 px-8 text-white md:mt-5"
+                style={{ backgroundColor: '#1e3a8a' }}
+              >
+                Search buses
               </Button>
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -181,6 +241,9 @@ export function LocalRoutesExplorer() {
                 </button>
               ) : null}
             </div>
+            <p className="mt-3 text-xs text-slate-400">
+              Your date and number of passengers are added to the WhatsApp message. The operator confirms seats and fares.
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -204,7 +267,7 @@ export function LocalRoutesExplorer() {
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {routes.map((r) => (
-              <RouteCard key={r.id} route={r} />
+              <RouteCard key={r.id} route={r} trip={trip} />
             ))}
           </div>
         )}
