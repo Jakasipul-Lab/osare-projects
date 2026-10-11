@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge'
 
 const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 
+const BUS_FALLBACK = LOCAL_HERO
+
 const SUGGESTIONS = ['Nairobi', 'Mombasa', 'Kampala', 'Kitui', 'Thika', 'Nanyuki', 'Kajiado']
 
 function formatDate(value) {
@@ -30,15 +32,21 @@ function waLink(route, trip) {
 function RouteCard({ route, trip }) {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
-      <div className="h-1.5 w-full" style={{ backgroundColor: '#1e3a8a' }} />
+      <div className="relative h-40 w-full overflow-hidden bg-slate-200">
+        <img
+          src={route.image || BUS_FALLBACK}
+          alt={route.operator}
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: '#1e3a8a' }} />
+      </div>
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-lg font-bold leading-snug text-slate-900">{route.operator}</h3>
           {route.confirmed ? (
             <Badge className="shrink-0 border-0 bg-emerald-600 text-white">Confirmed</Badge>
-          ) : (
-            <Badge className="shrink-0 border-0 bg-amber-100 text-amber-800">Details not yet confirmed</Badge>
-          )}
+          ) : null}
         </div>
         <p className="mt-3 flex items-center gap-1.5 rounded-lg bg-blue-50 px-3 py-2 text-sm font-bold text-[#1e3a8a]">
           <MapPin className="h-4 w-4 shrink-0" /> {route.from} → {route.to}
