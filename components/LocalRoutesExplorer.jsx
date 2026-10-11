@@ -3,7 +3,6 @@ import { useEffect, useState, useCallback } from 'react'
 import { Search, MapPin, MessageCircle, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
@@ -30,8 +29,9 @@ function waLink(route, trip) {
 
 function RouteCard({ route, trip }) {
   return (
-    <Card className="flex flex-col border-slate-200">
-      <CardContent className="flex flex-1 flex-col p-5">
+    <div className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
+      <div className="h-1.5 w-full" style={{ backgroundColor: '#1e3a8a' }} />
+      <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-lg font-bold leading-snug text-slate-900">{route.operator}</h3>
           {route.confirmed ? (
@@ -40,10 +40,10 @@ function RouteCard({ route, trip }) {
             <Badge className="shrink-0 border-0 bg-amber-100 text-amber-800">Details not yet confirmed</Badge>
           )}
         </div>
-        <p className="mt-2 flex items-center gap-1 text-sm font-semibold text-[#1e3a8a]">
-          <MapPin className="h-4 w-4" /> {route.from} → {route.to}
+        <p className="mt-3 flex items-center gap-1.5 rounded-lg bg-blue-50 px-3 py-2 text-sm font-bold text-[#1e3a8a]">
+          <MapPin className="h-4 w-4 shrink-0" /> {route.from} → {route.to}
         </p>
-        {route.departureInfo ? <p className="mt-1 text-sm text-slate-600">{route.departureInfo}</p> : null}
+        {route.departureInfo ? <p className="mt-3 text-sm text-slate-700">{route.departureInfo}</p> : null}
         {route.boardingPoint ? (
           <p className="mt-1 text-sm text-slate-600">
             Boarding point: {route.boardingPoint}
@@ -52,18 +52,18 @@ function RouteCard({ route, trip }) {
         ) : null}
         {route.fareLabel ? <p className="mt-1 text-sm text-slate-600">Fare: {route.fareLabel}</p> : null}
         {route.bookingMethod ? <p className="mt-3 text-xs text-slate-500">{route.bookingMethod}</p> : null}
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="mt-auto flex flex-col gap-2 pt-4">
           {route.whatsapp ? (
             <a
               href={waLink(route, trip)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#25d366] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1ebe5b]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#25d366] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#1ebe5b]"
             >
               <MessageCircle className="h-4 w-4" /> Request this trip on WhatsApp
             </a>
           ) : (
-            <p className="rounded-md bg-slate-100 px-3 py-2 text-center text-sm text-slate-500">
+            <p className="rounded-md bg-slate-100 px-3 py-2.5 text-center text-sm text-slate-500">
               No contact number yet
             </p>
           )}
@@ -78,8 +78,8 @@ function RouteCard({ route, trip }) {
             </a>
           ) : null}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }
 
@@ -143,51 +143,55 @@ export function LocalRoutesExplorer() {
   const trip = { from: searched.from && searched.to ? searched.from : '', to: searched.from && searched.to ? searched.to : '', date, passengers }
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-16">
-      <div className="relative h-64 w-full overflow-hidden">
-        <img src={LOCAL_HERO} alt="banner" className="h-full w-full object-cover" />
+    <div className="min-h-screen pb-16" style={{ backgroundColor: '#eef2f9' }}>
+      <div className="relative w-full overflow-hidden">
+        <img src={LOCAL_HERO} alt="banner" className="absolute inset-0 h-full w-full object-cover" />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, rgba(30,58,138,.9), rgba(59,130,246,.75))' }}
+          style={{ background: 'linear-gradient(135deg, rgba(23,42,105,.94), rgba(30,58,138,.88))' }}
         />
-        <div className="absolute inset-0 mx-auto flex max-w-5xl flex-col justify-center px-5 text-white">
+        <div className="relative mx-auto max-w-6xl px-5 py-12 text-white">
           <h1 className="text-3xl font-extrabold md:text-4xl">Local Commute — Buses &amp; Matatus</h1>
           <p className="mt-2 max-w-2xl text-white/90">
             Plan your trip: choose where you travel from and to, and the day. See the buses on that route and send your request to the operator on WhatsApp.
           </p>
-        </div>
-      </div>
 
-      <div className="mx-auto -mt-8 max-w-4xl px-5">
-        <Card className="border-slate-200 shadow-lg">
-          <CardContent className="p-4">
-            <div className="flex flex-col gap-3 md:flex-row md:items-center">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-                <Input
-                  id="route-from"
-                  value={from}
-                  onChange={(e) => setFrom(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && search()}
-                  placeholder="From (e.g. Nairobi)"
-                  className="h-12 pl-10 text-base"
-                />
+          <div className="mt-8 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm md:p-5">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-[1.3fr_1.3fr_1fr_1fr_auto] md:items-end">
+              <div>
+                <label htmlFor="route-from" className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/80">
+                  From
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                  <Input
+                    id="route-from"
+                    value={from}
+                    onChange={(e) => setFrom(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && search()}
+                    placeholder="e.g. Nairobi"
+                    className="h-12 border-0 bg-white pl-10 text-base text-slate-900"
+                  />
+                </div>
               </div>
-              <div className="relative flex-1">
-                <MapPin className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-                <Input
-                  id="route-to"
-                  value={to}
-                  onChange={(e) => setTo(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && search()}
-                  placeholder="To (e.g. Mombasa)"
-                  className="h-12 pl-10 text-base"
-                />
+              <div>
+                <label htmlFor="route-to" className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/80">
+                  To
+                </label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                  <Input
+                    id="route-to"
+                    value={to}
+                    onChange={(e) => setTo(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && search()}
+                    placeholder="e.g. Mombasa"
+                    className="h-12 border-0 bg-white pl-10 text-base text-slate-900"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="mt-3 flex flex-col gap-3 md:flex-row md:items-center">
-              <div className="flex-1">
-                <label htmlFor="route-date" className="mb-1 block text-xs font-medium text-slate-500">
+              <div>
+                <label htmlFor="route-date" className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/80">
                   Travel date
                 </label>
                 <Input
@@ -196,18 +200,18 @@ export function LocalRoutesExplorer() {
                   value={date}
                   min={minDate || undefined}
                   onChange={(e) => setDate(e.target.value)}
-                  className="h-12 text-base"
+                  className="h-12 border-0 bg-white text-base text-slate-900"
                 />
               </div>
-              <div className="flex-1">
-                <label htmlFor="route-passengers" className="mb-1 block text-xs font-medium text-slate-500">
+              <div>
+                <label htmlFor="route-passengers" className="mb-1 block text-xs font-semibold uppercase tracking-wide text-white/80">
                   Passengers
                 </label>
                 <select
                   id="route-passengers"
                   value={passengers}
                   onChange={(e) => setPassengers(Number(e.target.value))}
-                  className="h-12 w-full rounded-md border border-slate-200 bg-white px-3 text-base text-slate-900"
+                  className="h-12 w-full rounded-md border-0 bg-white px-3 text-base text-slate-900"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                     <option key={n} value={n}>
@@ -218,38 +222,39 @@ export function LocalRoutesExplorer() {
               </div>
               <Button
                 onClick={search}
-                className="h-12 px-8 text-white md:mt-5"
-                style={{ backgroundColor: '#1e3a8a' }}
+                className="h-12 w-full px-8 font-semibold text-white md:w-auto"
+                style={{ backgroundColor: '#f59e0b' }}
               >
                 Search buses
               </Button>
             </div>
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-slate-400">Try:</span>
+
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-xs text-white/70">Try:</span>
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s}
                   onClick={() => pickSuggestion(s)}
-                  className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 hover:bg-slate-100"
+                  className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium text-white hover:bg-white/20"
                 >
                   {s}
                 </button>
               ))}
               {from || to ? (
-                <button onClick={clearSearch} className="ml-auto text-xs font-medium text-[#1e3a8a] hover:underline">
+                <button onClick={clearSearch} className="ml-auto text-xs font-medium text-white underline hover:text-white/80">
                   Clear search
                 </button>
               ) : null}
             </div>
-            <p className="mt-3 text-xs text-slate-400">
+            <p className="mt-3 text-xs text-white/70">
               Your date and number of passengers are added to the WhatsApp message. The operator confirms seats and fares.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       <div className="mx-auto mt-8 max-w-6xl px-5">
-        <p className="mb-5 text-sm text-slate-500">
+        <p className="mb-5 text-sm font-medium text-slate-600">
           {loading ? 'Searching…' : `${routes.length} bus route${routes.length === 1 ? '' : 's'} found`}
         </p>
         {loading ? (
@@ -257,11 +262,11 @@ export function LocalRoutesExplorer() {
             <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
           </div>
         ) : failed ? (
-          <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
+          <div className="rounded-xl border border-dashed border-slate-300 bg-white py-20 text-center text-slate-500">
             The routes could not be loaded. Please try again in a moment.
           </div>
         ) : routes.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
+          <div className="rounded-xl border border-dashed border-slate-300 bg-white py-20 text-center text-slate-500">
             No buses found for this route yet. We add operators one by one. Try a single town, such as Nairobi.
           </div>
         ) : (
