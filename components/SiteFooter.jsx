@@ -51,6 +51,15 @@ export default function SiteFooter() {
             <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
           </ul>
         </div>
+        <div>
+          <h4 className="font-semibold text-white">Legal</h4>
+          <ul className="mt-3 space-y-2 text-sm">
+            <li><Link href="/vendor-agreement" className="hover:text-white">Vendor Agreement</Link></li>
+            <li><Link href="/terms-of-use" className="hover:text-white">Terms of Use</Link></li>
+            <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
+            <li><Link href="/cookie-policy" className="hover:text-white">Cookie Policy</Link></li>
+          </ul>
+        </div>
       </div>
       <p className="mt-8 text-center text-xs text-slate-500">&copy; {new Date().getFullYear()} OSARE — East Africa Safari Routes</p>
     </footer>
