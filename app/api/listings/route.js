@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { mapVendorRow } from '@/lib/vendorData';
-import { verifyAuth } from '@/lib/auth';
+import { verifyAuth, isAdminRequest } from '@/lib/auth';
 
 const FREE_LISTING_LIMIT = 2;
 
@@ -109,6 +109,10 @@ export async function POST(request) {
     let vendorName = body.vendor || null;
 
     const auth = await verifyAuth(request);
+        const isAdmin = isAdminRequest(request);
+    if (!isAdmin && !(auth && auth.role === 'vendor' && auth.vendor_id)) {
+      return NextResponse.json({ success: false, error: 'Login required' }, { status: 401 });
+    }
     if (auth && auth.role === 'vendor' && auth.vendor_id) {
       ownerId = auth.vendor_id;
       const vRes = await query('SELECT name, company, is_premium FROM vendors WHERE id = $1', [auth.vendor_id]);
@@ -171,7 +175,7 @@ export async function POST(request) {
       body.season || null,
       body.image || null,
       toJsonbArray(body.keywords),
-      body.isVerified ?? (ownerId ? false : true),
+            isAdmin ? (body.isVerified ?? true) : false,
       body.priceStatus || 'confirmed',
       ownerId,
       body.vendorWebsite || null,

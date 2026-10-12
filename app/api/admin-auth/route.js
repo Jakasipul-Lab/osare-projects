@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
 
 export async function POST(request) {
   try {
@@ -11,7 +12,17 @@ export async function POST(request) {
     }
 
     if (password === correct) {
-      return NextResponse.json({ success: true });
+      const secret = process.env.JWT_SECRET || 'dev-secret-change-in-production';
+      const token = jwt.sign({ role: 'admin' }, secret, { expiresIn: '12h' });
+      const res = NextResponse.json({ success: true });
+      res.cookies.set('osare_admin', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 12,
+      });
+      return res;
     }
     return NextResponse.json({ success: false, error: 'Incorrect password' }, { status: 401 });
   } catch (e) {

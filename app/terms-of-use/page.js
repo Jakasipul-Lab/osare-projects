@@ -10,7 +10,7 @@ export default function TermsOfUse() {
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
       <h1 style={{ fontSize: 32, fontWeight: 900, marginBottom: 8 }}>Terms of Use</h1>
       <p style={{ color: '#64748b', marginBottom: 32 }}>
-        Draft — pending review by legal counsel. Last updated: September 2026.
+        Draft — pending review by legal counsel. Last updated: October 2026.
       </p>
 
       <p>These Terms of Use ("Terms") govern your access to and use of OSARE (easafariroutes.com), a platform connecting travelers with independent tourism operators, accommodations, and transport providers across East Africa. By using this website, you agree to these Terms.</p>
@@ -19,7 +19,7 @@ export default function TermsOfUse() {
       <p>OSARE is a free directory and discovery platform. We display listings submitted by independent Vendors so that travelers can search, compare, and contact them directly. OSARE does not operate safaris, transport services, or accommodations itself, and is not a party to any booking made between a traveler and a Vendor.</p>
 
       <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>2. Using the Platform</h2>
-      <p>You may browse and search listings free of charge. When you choose to contact a Vendor — including via the "Book via WhatsApp" feature — you leave OSARE and communicate directly with that Vendor. Any booking, payment, or agreement made is strictly between you and the Vendor.</p>
+      <p>You may browse and search listings free of charge. When you choose to contact a Vendor — including via the "Enquire via WhatsApp" feature — we record your enquiry (your phone number, optional name, and the listing concerned) and pass it to that Vendor, and you then communicate directly with that Vendor on WhatsApp. Any booking, payment, or agreement made is strictly between you and the Vendor.</p>
 
       <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>3. No Guarantee of Accuracy</h2>
       <p>Listing information (including prices, availability, and descriptions) is provided by Vendors themselves. While we take reasonable steps such as phone verification, OSARE cannot guarantee that all listing information is accurate, current, or complete. Always confirm details directly with the Vendor before booking.</p>

@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { isAdminRequest } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(request) {
+  if (!isAdminRequest(request)) {
+    return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
+  }
   try {
     const [listingsCount, typeCounts, leadsCount, leadsByType, leadsByCategory, revenueByCurrency, recentLeadsRes] =
       await Promise.all([

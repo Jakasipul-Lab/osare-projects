@@ -9,6 +9,7 @@ import {
 import AboutView from '@/components/AboutView'
 import LocationMap from '@/components/LocationMap'
 import { AdSense } from '@/components/AdSense'
+import { LocalRoutesExplorer } from '@/components/LocalRoutesExplorer'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -22,11 +23,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
+import { validatePhone } from '@/lib/phone'
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from 'recharts'
 import RecentLeads from '@/components/vendor/RecentLeads'
 import Link from 'next/link'
+import ListingFAQ from '@/components/ListingFAQ'
 const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
 const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 const NAV = [
@@ -156,7 +159,7 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
           className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
         >
          {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-Book & Pay via WhatsApp
+Enquire via WhatsApp
         </Button>
       </CardContent>
     </Card>
@@ -189,7 +192,8 @@ function VendorModal({ item, onClose, onBook, booking, onSearchKeyword }) {
                 <span key={i} className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">{inc}</span>
               ))}
             </div>
-          ) : null}
+         ) : null}
+          <ListingFAQ type={item.type} />
           <div className="mt-5 flex items-end justify-between border-t border-slate-100 pt-4">
             <div>
               <p className="text-2xl font-extrabold text-emerald-600">{item.priceLabel}</p>
@@ -205,7 +209,7 @@ function VendorModal({ item, onClose, onBook, booking, onSearchKeyword }) {
             className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
           >
             {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-            Book via WhatsApp
+        Enquire via WhatsApp
           </Button>
         </div>
       </div>
@@ -229,7 +233,7 @@ function TierExplorer({ type }) {
       const searchTerm = queryOverride !== undefined ? queryOverride : q
       if (searchTerm) params.set('q', searchTerm)
       if (cat && cat !== 'All') params.set('category', cat)
-      const res = await fetch(`/api/listings?${params.toString()}`)
+        const res = await fetch(`/api/search?${params.toString()}`)
       const data = await res.json()
       setItems(Array.isArray(data) ? data : [])
     } catch (e) {
@@ -243,20 +247,31 @@ function TierExplorer({ type }) {
   const handleKeywordSearch = (keyword) => {
     setQ(keyword)
     load(keyword)
-  }
-  const handleBook = async (item) => {
+    }
+    const handleBook = async (item) => {
+    const phoneInput = window.prompt('Enter your WhatsApp number with country code (for example +254 712 345 678):')
+    if (phoneInput === null) return
+    const phoneCheck = validatePhone(phoneInput)
+    if (!phoneCheck.ok) {
+      toast.error(phoneCheck.error)
+      return
+    }
     setBooking(item.id)
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: item.id })
+        body: JSON.stringify({ listingId: item.id, travelerPhone: phoneCheck.e164 })
       })
       const data = await res.json()
-      toast.success('Opening WhatsApp to complete your booking...')
+      if (!res.ok || !data.whatsappUrl) {
+        toast.error(data.error || 'Could not start the enquiry')
+        return
+      }
+      toast.success('Opening WhatsApp...')
       window.open(data.whatsappUrl, '_blank')
     } catch (e) {
-      toast.error('Could not start booking')
+      toast.error('Could not start the enquiry')
     } finally {
       setBooking(null)
     }
@@ -319,9 +334,24 @@ function TierExplorer({ type }) {
 function Home({ go }) {
   const [q, setQ] = useState('')
   const [tier, setTier] = useState('safari')
+  const [vendorCount, setVendorCount] = useState(null)
+  const [testimonials, setTestimonials] = useState([])
   const search = () => {
     go(tier, q)
   }
+  useEffect(() => {
+    fetch('/api/listings')
+      .then((r) => r.json())
+      .then((data) => {
+        const items = Array.isArray(data) ? data : (data?.items || [])
+        const unique = new Set(items.map((i) => i.vendor).filter(Boolean))
+        if (unique.size > 0) setVendorCount(unique.size)
+      })
+      .catch(() => {})
+  }, [])
+  useEffect(() => {
+    fetch('/api/testimonials').then((r) => r.json()).then(setTestimonials).catch(() => {})
+  }, [])
   return (
     <div>
       <div className="relative min-h-[560px] w-full overflow-hidden">
@@ -403,10 +433,45 @@ function Home({ go }) {
                   <p className="mt-1 text-sm text-slate-500">{f.d}</p>
                 </CardContent>
               </Card>
-            ))}
+                       ))}
           </div>
         </div>
       </div>
+      <div className="py-14">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="grid gap-8 text-center sm:grid-cols-3">
+            <div>
+              <div className="text-4xl font-extrabold text-[#1e3a8a]">{vendorCount ? `${vendorCount}+` : '—'}</div>
+              <p className="mt-1 text-sm font-semibold text-slate-500">Verified vendors</p>
+            </div>
+            <div>
+              <div className="text-4xl font-extrabold text-[#1e3a8a]">3</div>
+              <p className="mt-1 text-sm font-semibold text-slate-500">Countries — Kenya, Tanzania &amp; Uganda</p>
+            </div>
+            <div>
+              <div className="text-4xl font-extrabold text-[#1e3a8a]">0%</div>
+              <p className="mt-1 text-sm font-semibold text-slate-500">Booking fees for travelers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {testimonials.length > 0 && (
+        <div className="bg-slate-50 py-16">
+          <div className="mx-auto max-w-3xl px-5 text-center">
+            <h2 className="text-3xl font-extrabold text-slate-900">What people say</h2>
+            <div className="mt-10 grid gap-6">
+              {testimonials.map((t, i) => (
+                <div key={i} className="rounded-2xl bg-white p-8 shadow-md border border-slate-200 text-left">
+                  <div className="text-5xl font-serif text-[#f97316] leading-none">&ldquo;</div>
+                  <p className="mt-2 text-lg text-slate-700 italic">{t.quote}</p>
+                  <p className="mt-6 font-bold text-slate-900">{t.name}</p>
+                  <p className="text-sm text-slate-500">{t.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -1036,51 +1101,10 @@ function AdminGate({ children }) {
   }
   return children
 }
-function VerifyPhoneButton({ listingId, isVerified }) {
-  const [step, setStep] = useState(isVerified ? 'verified' : 'idle')
-  const [code, setCode] = useState('')
-  const [loading, setLoading] = useState(false)
+const OSARE_WHATSAPP = '254758378729'
 
-  const sendCode = async () => {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/send-verification', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId })
-      })
-      const data = await res.json()
-      if (!res.ok) { toast.error(data.error || 'Could not send code'); return }
-      toast.success('Verification code sent to your phone')
-      setStep('sent')
-    } catch (e) {
-      toast.error('Could not send code')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const verifyCode = async () => {
-    if (!code) { toast.error('Enter the code first'); return }
-    setLoading(true)
-    try {
-      const res = await fetch('/api/verify-phone', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId, code })
-      })
-      const data = await res.json()
-      if (!res.ok) { toast.error(data.error || 'Incorrect code'); return }
-      toast.success('Phone verified!')
-      setStep('verified')
-    } catch (e) {
-      toast.error('Could not verify code')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (step === 'verified') {
+function VerifyPhoneButton({ listingId, isVerified, title }) {
+  if (isVerified) {
     return (
       <Badge variant="secondary" className="gap-1 bg-emerald-100 text-emerald-700">
         <ShieldCheck className="h-3 w-3" /> Verified
@@ -1088,26 +1112,18 @@ function VerifyPhoneButton({ listingId, isVerified }) {
     )
   }
 
-  if (step === 'sent') {
-    return (
-      <div className="flex items-center gap-1">
-        <Input
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          placeholder="6-digit code"
-          className="h-8 w-28 text-xs"
-        />
-        <Button size="sm" onClick={verifyCode} disabled={loading} className="h-8 bg-[#1e3a8a] text-white hover:bg-[#1e40af]">
-          {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : 'Confirm'}
-        </Button>
-      </div>
-    )
-  }
+  const text = `Hello OSARE, please verify my listing${title ? `: ${title}` : ''}. (Listing ID: ${String(listingId).slice(0, 8)})`
+  const href = `https://wa.me/${OSARE_WHATSAPP}?text=${encodeURIComponent(text)}`
 
   return (
-    <Button size="sm" variant="outline" onClick={sendCode} disabled={loading} className="h-8 gap-1 text-xs">
-      {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : <ShieldCheck className="h-3 w-3" />}
-      Verify Phone
+    <Button
+      size="sm"
+      variant="outline"
+      onClick={() => window.open(href, '_blank', 'noopener,noreferrer')}
+      className="h-8 gap-1 text-xs"
+    >
+      <ShieldCheck className="h-3 w-3" />
+      Verify on WhatsApp
     </Button>
   )
 }
@@ -1188,8 +1204,11 @@ function App() {
               </button>
             ))}
           </nav>
-          <a href="/guides" className="hidden rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 md:block">
+                    <a href="/guides" className="hidden rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 md:block">
             Guides
+          </a>
+          <a href="/blog" className="hidden rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 md:block">
+            Blog
           </a>
           <div className="hidden items-center gap-3 md:flex">
   <button onClick={() => go('vendor')} className="text-sm font-medium text-slate-600 hover:text-slate-900">
@@ -1210,14 +1229,15 @@ function App() {
                 {n.label}
               </button>
             ))}
-            <a href="/guides" className="block w-full px-5 py-3 text-left text-sm font-medium text-slate-600">Guides</a>
+                      <a href="/guides" className="block w-full px-5 py-3 text-left text-sm font-medium text-slate-600">Guides</a>
+            <a href="/blog" className="block w-full px-5 py-3 text-left text-sm font-medium text-slate-600">Blog</a>
           </div>
         )}
       </header>
-     {['home', 'safari', 'local', 'about'].includes(view) && <AdSense />}
+         {['home', 'safari', 'local', 'about'].includes(view) && <AdSense />}
       {view === 'home' && <Home go={go} />}
       {view === 'safari' && <TierExplorer type="safari" key={'safari' + pendingQuery} />}
-      {view === 'local' && <TierExplorer type="local" key={'local' + pendingQuery} />}
+      {view === 'local' && <LocalRoutesExplorer />}
       {view === 'about' && <AboutView />}
       {view === 'dashboard' && <AdminGate><Dashboard /></AdminGate>}
       {view === 'vendor' && <VendorPortal token={token} vendor={vendor} onAuth={onAuth} onLogout={onLogout} />}
@@ -1238,7 +1258,8 @@ function App() {
   <li><button onClick={() => go('local')} className="hover:text-white">Local Commute</button></li>
   <li><button onClick={() => go('about')} className="hover:text-white">About OSARE</button></li>
   <li><a href="/how-it-works" className="hover:text-white">How It Works</a></li>
-  <li><a href="/guides" className="hover:text-white">Travel Guides</a></li>
+    <li><a href="/guides" className="hover:text-white">Travel Guides</a></li>
+  <li><a href="/blog" className="hover:text-white">Blog</a></li>
 </ul>
 </div>
          <div>

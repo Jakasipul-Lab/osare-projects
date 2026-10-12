@@ -13,6 +13,8 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select'
 import { toast } from 'sonner'
+import { validatePhone } from '@/lib/phone'
+import ListingFAQ from '@/components/ListingFAQ'
 
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Bus / Coach', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
@@ -34,6 +36,25 @@ const catIcon = (cat) => {
   return <Compass className="h-4 w-4" />
 }
 
+const isStock = (src) => !src || src.includes('unsplash.com')
+
+function CardPhoto({ item }) {
+  if (isStock(item.image)) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-900 to-blue-600 px-5 text-center">
+        <span className="text-base font-bold leading-snug text-white">{item.title}</span>
+      </div>
+    )
+  }
+  return (
+    <img
+      src={item.image}
+      alt={item.title}
+      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+    />
+  )
+}
+
 function ListingCard({ item, onBook, booking, onOpen }) {
   const accent = item.type === 'safari' ? '#f97316' : '#1e3a8a'
   return (
@@ -42,7 +63,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
       className="cursor-pointer overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col"
     >
       <div className="relative h-52 w-full overflow-hidden">
-        <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+        <CardPhoto item={item} />
         <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow" style={{ backgroundColor: accent }}>
           {catIcon(item.category)} {item.category}
         </Badge>
@@ -80,7 +101,7 @@ function ListingCard({ item, onBook, booking, onOpen }) {
           className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
         >
           {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-          Book & Pay via WhatsApp
+          Enquire via WhatsApp
         </Button>
       </CardContent>
     </Card>
@@ -93,7 +114,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="relative h-56 w-full overflow-hidden rounded-t-2xl">
-          <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover" />
+          <CardPhoto item={item} />
           <button onClick={onClose} className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 shadow">
             <X className="h-4 w-4" />
           </button>
@@ -115,6 +136,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
               ))}
             </div>
           ) : null}
+          <ListingFAQ type={item.type} />
           <div className="mt-5 flex items-end justify-between border-t border-slate-100 pt-4">
             <div>
               <p className="text-2xl font-extrabold text-emerald-600">{item.priceLabel}</p>
@@ -130,7 +152,7 @@ function VendorModal({ item, onClose, onBook, booking }) {
             className="mt-4 w-full gap-2 bg-[#25d366] text-white hover:bg-[#1ebe5b]"
           >
             {booking === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />}
-            Book & Pay via WhatsApp
+            Enquire via WhatsApp
           </Button>
         </div>
       </div>
@@ -183,9 +205,11 @@ export function TierExplorer({ type }) {
     }
   }
   const handleBook = async (item) => {
-    const travelerPhone = window.prompt('Enter your phone number (so we can confirm your booking and any promo rewards):')
-    if (!travelerPhone) {
-      toast.error('Phone number is required to book')
+    const phoneInput = window.prompt('Enter your WhatsApp number with country code (for example +254 712 345 678):')
+    if (phoneInput === null) return
+    const phoneCheck = validatePhone(phoneInput)
+    if (!phoneCheck.ok) {
+      toast.error(phoneCheck.error)
       return
     }
     const travelerName = window.prompt('Your name (optional):') || ''
@@ -194,13 +218,17 @@ export function TierExplorer({ type }) {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ listingId: item.id, travelerName, travelerPhone })
+        body: JSON.stringify({ listingId: item.id, travelerName, travelerPhone: phoneCheck.e164 })
       })
       const data = await res.json()
-      toast.success('Opening WhatsApp to complete your booking...')
+      if (!res.ok || !data.whatsappUrl) {
+        toast.error(data.error || 'Could not start the enquiry')
+        return
+      }
+      toast.success('Opening WhatsApp...')
       window.open(data.whatsappUrl, '_blank')
     } catch (e) {
-      toast.error('Could not start booking')
+      toast.error('Could not start the enquiry')
     } finally {
       setBooking(null)
     }

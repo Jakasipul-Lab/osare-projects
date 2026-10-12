@@ -7,6 +7,7 @@ import { Loader2, Compass, MessageCircle, Percent, Users, ShieldCheck } from 'lu
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import TripRequests from '@/components/vendor/TripRequests'
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from 'recharts'
@@ -89,6 +90,7 @@ function AdminGate({ children }) {
 
 function Dashboard() {
   const [stats, setStats] = useState(null)
+  const [tripRequests, setTripRequests] = useState([])
   const [leads, setLeads] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -132,19 +134,36 @@ function Dashboard() {
       toast.error('Could not create Pesapal payment link')
     }
   }
+  const changeTripStatus = async (code, status) => {
+    try {
+      const res = await fetch('/api/trip-requests', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, status }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.success) throw new Error(data.error || 'Failed')
+      setTripRequests((prev) => prev.map((t) => (t.code === code ? { ...t, status } : t)))
+      toast.success(`${code} marked ${status}`)
+    } catch (e) {
+      toast.error('Could not update trip request')
+    }
+  }
 
   const load = async () => {
     setLoading(true)
     try {
-      const [s, l] = await Promise.all([
+      const [s, l, t] = await Promise.all([
         fetch('/api/stats').then((r) => r.json()),
         fetch('/api/leads').then((r) => r.json()),
+        fetch('/api/trip-requests').then((r) => r.json()).catch(() => []),
       ])
       setStats(s)
       setLeads(Array.isArray(l) ? l : [])
+      setTripRequests(Array.isArray(t) ? t : (Array.isArray(t?.requests) ? t.requests : []))
     } catch (e) {
       toast.error('Failed to load dashboard')
-    } finally {
+        } finally {
       setLoading(false)
     }
   }
@@ -226,8 +245,11 @@ function Dashboard() {
           </Card>
         </div>
 
-        <div className="mt-8">
+       <div className="mt-8">
           <RecentLeads leads={leads} showVendorColumn onMarkPaid={markPaid} onRequestPesapal={requestPesapal} />
+        </div>
+          <div className="mt-8">
+          <TripRequests requests={tripRequests} onStatusChange={changeTripStatus} />
         </div>
       </div>
     </div>
