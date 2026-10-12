@@ -2,7 +2,7 @@ import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
   title: 'Cookie Policy | OSARE',
-  description: 'How OSARE (easafariroutes.com) uses cookies.',
+  description: 'How OSARE (easafariroutes.com) uses cookies and similar technologies.',
   path: '/cookie-policy',
 })
 
@@ -10,28 +10,31 @@ export default function CookiePolicy() {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '60px 20px', fontFamily: 'sans-serif', lineHeight: 1.7, color: '#1e293b' }}>
       <h1 style={{ fontSize: 32, fontWeight: 900, marginBottom: 8 }}>Cookie Policy</h1>
-      <p style={{ color: '#64748b', marginBottom: 32 }}>Last updated: September 2026</p>
+      <p style={{ color: '#64748b', marginBottom: 32 }}>Last updated: October 2026</p>
 
-      <p>This page explains how OSARE (easafariroutes.com) uses cookies and similar technologies.</p>
+      <p>This Cookie Policy explains how OSARE (easafariroutes.com) uses cookies and similar technologies when you visit our website.</p>
 
       <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>What are cookies?</h2>
-      <p>Cookies are small text files stored on your device when you visit a website. They help websites remember information about your visit.</p>
+      <p>Cookies are small text files stored on your device when you visit a website. They help websites remember information about your visit and improve your browsing experience.</p>
 
       <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>How we use cookies</h2>
-      <p>OSARE uses cookies in the following ways:</p>
-      <ul style={{ paddingLeft: 24 }}>
-        <li><strong>Advertising (Google AdSense):</strong> We display ads through Google AdSense, which may set cookies to show ads relevant to you and measure ad performance. Google's use of advertising cookies is governed by Google's own policies.</li>
-        <li><strong>Essential site function:</strong> Some data is stored temporarily in your browser (not a traditional cookie, but similar in purpose) to keep you logged in during an admin or vendor session. This is deleted when you close your browser.</li>
-      </ul>
+      <p>OSARE uses cookies and similar technologies for the following purposes:</p>
 
-      <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>Third-party links</h2>
-      <p>When you click "Book via WhatsApp" or a vendor's own website link, you leave easafariroutes.com and are subject to that third party's (WhatsApp, or the vendor's) own cookie and privacy practices, which we do not control.</p>
+      <h3 style={{ fontSize: 18, fontWeight: 700, marginTop: 20 }}>Advertising (Google AdSense)</h3>
+      <p>We display advertisements through Google AdSense. Google and its partners may use cookies to show relevant advertisements, measure advertising performance, and improve user experience. Google's use of advertising cookies is governed by Google's own policies.</p>
 
-      <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>Managing cookies</h2>
-      <p>Most browsers let you control or delete cookies through their settings. You can also opt out of personalized Google advertising at <a href="https://adssettings.google.com" style={{ color: '#1e3a8a' }}>adssettings.google.com</a>.</p>
+      <h3 style={{ fontSize: 18, fontWeight: 700, marginTop: 20 }}>Essential Site Functions</h3>
+      <p>Some information may be stored temporarily in your browser to support essential website functions, such as maintaining an administrator or vendor session. This information is deleted when your browser session ends.</p>
+
+      <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>Third-Party Links</h2>
+      <p>When you click "Enquire via WhatsApp" or visit a vendor's external website, you leave easafariroutes.com and become subject to that third party's privacy and cookie policies, which OSARE does not control.</p>
+
+      <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>Managing Cookies</h2>
+      <p>Most web browsers allow you to manage, block, or delete cookies through their settings.</p>
+      <p>You can also manage Google's advertising preferences through: <a href="https://adssettings.google.com" style={{ color: '#1e3a8a' }}>Google Ad Settings</a></p>
 
       <h2 style={{ fontSize: 22, fontWeight: 800, marginTop: 32 }}>Contact</h2>
-      <p>Questions about this policy can be sent to <a href="mailto:info@easafariroutes.com" style={{ color: '#1e3a8a' }}>info@easafariroutes.com</a>.</p>
+      <p>If you have questions about this Cookie Policy, please contact: <a href="mailto:info@easafariroutes.com" style={{ color: '#1e3a8a' }}>info@easafariroutes.com</a></p>
     </div>
   )
 }
