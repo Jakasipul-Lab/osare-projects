@@ -9,7 +9,7 @@ const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7
 
 const BUS_FALLBACK = LOCAL_HERO
 
-const SUGGESTIONS = ['Nairobi', 'Mombasa', 'Kampala', 'Kitui', 'Thika', 'Nanyuki', 'Kajiado']
+const SUGGESTIONS = ['Nairobi', 'Mombasa', 'Kisumu', 'Kampala', 'Kitui', 'Nanyuki', 'Kajiado']
 
 function formatDate(value) {
   if (!value) return ''
