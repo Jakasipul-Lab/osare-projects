@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select'
 import { toast } from 'sonner'
 import { validatePhone } from '@/lib/phone'
+import ListingFAQ from '@/components/ListingFAQ'
 
 const SAFARI_CATS = ['All', 'Safari Package', 'Kilimanjaro Climb', 'Hotel & Resort', 'Car & Caravan Hire', 'Light Aircraft Charter', 'Sightseeing']
 const LOCAL_CATS = ['All', 'Bus / Coach', 'Matatu / Shuttle', 'Train (SGR)', 'Taxi / Car Hire', 'Airport Transfer']
