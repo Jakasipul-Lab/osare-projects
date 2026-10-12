@@ -191,7 +191,8 @@ function VendorModal({ item, onClose, onBook, booking, onSearchKeyword }) {
                 <span key={i} className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">{inc}</span>
               ))}
             </div>
-          ) : null}
+         ) : null}
+          <ListingFAQ type={item.type} />
           <div className="mt-5 flex items-end justify-between border-t border-slate-100 pt-4">
             <div>
               <p className="text-2xl font-extrabold text-emerald-600">{item.priceLabel}</p>
