@@ -72,7 +72,8 @@ export default function LakeNakuruGuide() {
   <div
     className="absolute inset-0 bg-cover bg-center"
     style={{
-      backgroundImage: "url('/images/lake-nakuru-flamingos.jpg')",
+      backgroundImage:
+        "url('https://images.unsplash.com/photo-1609849007477-1063724e241d?q=80&w=1600&auto=format&fit=crop')",
     }}
   />
 
@@ -115,22 +116,22 @@ export default function LakeNakuruGuide() {
           🇰🇪 Explore Kenya
         </Link>
       </div>
-
       {/* HERO HIGHLIGHTS */}
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          ['🦏', 'Rhino country'],
-          ['🦅', 'Birdwatching'],
-          ['🌊', 'Rift Valley lake'],
-          ['🌄', 'Scenic viewpoints'],
-        ].map(([icon, label]) => (
-          <div
+          ['🦏', 'Rhino country', '#wildlife'],
+          ['🦅', 'Birdwatching', '#flamingo-reality'],
+          ['🌊', 'Rift Valley lake', '#quick-facts'],
+          ['🌄', 'Scenic viewpoints', '#experiences'],
+        ].map(([icon, label, href]) => (
+          <a
             key={label}
-            className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur"
+            href={href}
+            className="block rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur transition hover:bg-white/20"
           >
             <div className="text-3xl">{icon}</div>
             <p className="mt-3 font-black">{label}</p>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -263,11 +264,22 @@ export default function LakeNakuruGuide() {
             What could you see?
           </h2>
 
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+                   <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
             Lake Nakuru may be smaller than some of Kenya's famous safari
             destinations, but its different habitats support a surprisingly
             varied range of wildlife.
           </p>
+
+          <div className="mt-8 overflow-hidden rounded-3xl shadow-sm">
+            <img
+              src="https://images.unsplash.com/photo-1519439532776-1824a3e4a98c?q=80&w=1200&auto=format&fit=crop"
+              alt="Black rhino in Kenya"
+              className="h-72 w-full object-cover"
+            />
+            <p className="bg-white px-5 py-3 text-sm text-slate-500">
+              Black rhino — Lake Nakuru is one of Kenya&apos;s key rhino sanctuaries.
+            </p>
+          </div>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {WILDLIFE.map(([icon, title, text]) => (

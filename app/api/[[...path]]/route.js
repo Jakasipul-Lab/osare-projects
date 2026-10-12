@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import jwt from 'jsonwebtoken'
 import { NextResponse } from 'next/server'
 import { query } from '@/lib/db'
 import { STATIC_DATABASE, STATIC_LOCAL_IDS, mapVendorRow, getAllVendors } from '@/lib/vendorData'
@@ -96,6 +96,18 @@ async function handleRoute(request, { params }) {
     }
 
     if (route === '/verify-vendor' && method === 'POST') {
+               const cookieHeader = request.headers.get('cookie') || ''
+         const adminCookie = cookieHeader.split(';').map((s) => s.trim()).find((s) => s.startsWith('osare_admin='))
+         let isAdmin = false
+         try {
+           const secret = process.env.JWT_SECRET || 'dev-secret-change-in-production'
+           isAdmin = jwt.verify(adminCookie.slice('osare_admin='.length), secret).role === 'admin'
+         } catch (e) {
+           isAdmin = false
+         }
+         if (!isAdmin) {
+           return NextResponse.json({ error: 'Admin login required' }, { status: 401 })
+         }
       const body = await request.json()
       const { id, isVerified, vendorPrice, priceStatus, image } = body
 
@@ -211,46 +223,6 @@ async function handleRoute(request, { params }) {
         code,
         whatsappUrl: `https://wa.me/${cleanPhone}?text=${waMsg}`
       })
-    }
-
-    if (route === '/leads/mark-paid' && method === 'POST') {
-      const body = await request.json()
-      const { code } = body
-      if (!code) {
-        return NextResponse.json({ error: 'Code is required' }, { status: 400 })
-      }
-      try {
-        const res = await query(
-          "UPDATE leads SET commission_status = 'paid' WHERE code = $1 RETURNING *",
-          [code]
-        )
-        if (res.rows.length === 0) {
-          return NextResponse.json({ error: 'Booking code not found' }, { status: 404 })
-        }
-        return NextResponse.json({ success: true, lead: res.rows[0] })
-      } catch (e) {
-        return NextResponse.json({ error: e.message }, { status: 500 })
-      }
-    }
-
-    if (route === '/leads/mark-paid' && method === 'POST') {
-      const body = await request.json()
-      const { code } = body
-      if (!code) {
-        return NextResponse.json({ error: 'Code is required' }, { status: 400 })
-      }
-      try {
-        const res = await query(
-          "UPDATE leads SET commission_status = 'paid' WHERE code = $1 RETURNING *",
-          [code]
-        )
-        if (res.rows.length === 0) {
-          return NextResponse.json({ error: 'Booking code not found' }, { status: 404 })
-        }
-        return NextResponse.json({ success: true, lead: res.rows[0] })
-      } catch (e) {
-        return NextResponse.json({ error: e.message }, { status: 500 })
-      }
     }
 
     if (route === '/stats') {

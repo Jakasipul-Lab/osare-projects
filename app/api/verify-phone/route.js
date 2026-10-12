@@ -1,11 +1,23 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { allow, reset } from '@/lib/throttle';
 
 export async function POST(request) {
   try {
     const { listingId, code } = await request.json();
     if (!listingId || !code) {
       return NextResponse.json({ error: 'Missing listingId or code' }, { status: 400 });
+    }
+
+    const ip = (request.headers.get('x-forwarded-for') || 'unknown').split(',')[0].trim();
+    if (
+      !allow(`vp-ip:${ip}`, 30, 60 * 60 * 1000) ||
+      !allow(`vp:${listingId}`, 5, 10 * 60 * 1000)
+    ) {
+      return NextResponse.json(
+        { error: 'Too many attempts. Please request a new code.' },
+        { status: 429 }
+      );
     }
 
     const res = await query(
@@ -35,9 +47,10 @@ export async function POST(request) {
        WHERE id = $1`,
       [listingId]
     );
+    reset(`vp:${listingId}`);
 
     return NextResponse.json({ success: true, verified: true });
   } catch (e) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return NextResponse.json({ error: 'Could not verify the code. Please try again later.' }, { status: 500 });
   }
 }

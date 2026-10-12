@@ -20,7 +20,17 @@ function dualAmount(value, currency, fallbackLabel) {
 export default function RecentLeads({ leads = [], showVendorColumn = false, onMarkPaid, onRequestPesapal }) {
   return (
     <Card className="border-slate-200">
-      <CardHeader><CardTitle className="text-base">Recent booking leads</CardTitle></CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0">
+        <CardTitle className="text-base">Recent booking leads</CardTitle>
+        {showVendorColumn && (
+          <a
+            href="/api/leads/export"
+            className="rounded-md border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+          >
+            Export to Excel
+          </a>
+        )}
+      </CardHeader>
       <CardContent className="p-0">
         {leads.length === 0 ? (
           <p className="py-10 text-center text-slate-400">No booking leads yet.</p>

@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { isAdminRequest } from '@/lib/auth';
 
 export async function POST(request) {
+  if (!isAdminRequest(request)) {
+    return NextResponse.json({ success: false, error: 'Admin login required' }, { status: 401 });
+  }
   try {
     const { code } = await request.json();
     if (!code) {
