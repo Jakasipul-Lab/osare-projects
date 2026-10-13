@@ -2,23 +2,27 @@ export default function VerifiedBadge({ className = '' }) {
   return (
     <span
       title="Details confirmed by the operator"
-      className={`inline-flex items-center gap-1.5 rounded-full bg-[#1e3a8a] px-3 py-1 text-xs font-bold text-white shadow-sm ${className}`}
+      className={`inline-block h-[72px] w-[72px] drop-shadow-md ${className}`}
     >
-      <svg
-        viewBox="0 0 24 24"
-        width="14"
-        height="14"
-        aria-hidden="true"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6l-8-3z" fill="currentColor" stroke="none" />
-        <path d="m8.5 12 2.5 2.5 4.5-5" stroke="#1e3a8a" />
+      <svg viewBox="0 0 100 100" className="h-full w-full" role="img" aria-label="OSARE verified">
+        <defs>
+          <path id="osare-stamp-top" d="M 18 50 A 32 32 0 0 1 82 50" />
+          <path id="osare-stamp-bottom" d="M 11 50 A 39 39 0 0 0 89 50" />
+        </defs>
+        <circle cx="50" cy="50" r="49" fill="#ffffff" />
+        <circle cx="50" cy="50" r="46" fill="#1e3a8a" />
+        <circle cx="50" cy="50" r="43" fill="none" stroke="#ffffff" strokeWidth="1" />
+        <circle cx="50" cy="50" r="27" fill="none" stroke="#ffffff" strokeWidth="1" />
+        <text fill="#ffffff" fontSize="11" fontWeight="700" letterSpacing="1.5" fontFamily="Arial, Helvetica, sans-serif">
+          <textPath href="#osare-stamp-top" startOffset="50%" textAnchor="middle">OSARE</textPath>
+        </text>
+        <text fill="#ffffff" fontSize="9.5" fontWeight="700" letterSpacing="1" fontFamily="Arial, Helvetica, sans-serif">
+          <textPath href="#osare-stamp-bottom" startOffset="50%" textAnchor="middle">VERIFIED</textPath>
+        </text>
+        <circle cx="12" cy="50" r="1.6" fill="#ffffff" />
+        <circle cx="88" cy="50" r="1.6" fill="#ffffff" />
+        <path d="M 38 51 L 47 60 L 63 40" fill="none" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      Verified
     </span>
   )
 }
