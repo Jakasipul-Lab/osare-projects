@@ -1,4 +1,5 @@
 'use client'
+import VerifiedBadge from '@/components/VerifiedBadge'
 import { useEffect, useState, useCallback } from 'react'
 import {
   Search, MapPin, Menu, X, Compass, Bus, Plane, Car, Hotel, Mountain,
