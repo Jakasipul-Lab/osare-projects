@@ -36,20 +36,14 @@ const catIcon = (cat) => {
   return <Compass className="h-4 w-4" />
 }
 
-const isStock = (src) => !src || src.includes('unsplash.com')
+const DEFAULT_PHOTO = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'
 
 function CardPhoto({ item }) {
-  if (isStock(item.image)) {
-    return (
-      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-900 to-blue-600 px-5 text-center">
-        <span className="text-base font-bold leading-snug text-white">{item.title}</span>
-      </div>
-    )
-  }
   return (
     <img
-      src={item.image}
+      src={item.image || DEFAULT_PHOTO}
       alt={item.title}
+      onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_PHOTO }}
       className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
     />
   )
