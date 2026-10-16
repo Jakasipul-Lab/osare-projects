@@ -9,18 +9,31 @@ const SUGGESTIONS = ['Find me a safari', 'What is a resident rate?', 'I need a b
 
 const PAGES = ['/safari', '/local', '/guides', '/request-a-trip', '/about']
 
-// Turns known page paths in a reply into clickable links.
+// Turns page paths and listing links in a reply into clickable links.
 function renderText(text) {
-  const parts = text.split(/(\/[a-z-]+)/g)
-  return parts.map((part, i) =>
-    PAGES.includes(part) ? (
-      <Link key={i} href={part} className="font-semibold text-[#1e3a8a] underline">
-        {part}
-      </Link>
-    ) : (
-      <span key={i}>{part}</span>
-    )
-  )
+  const parts = text.split(/(https?:\/\/[^\s)]+|\/(?:safari|local|guides|request-a-trip|about)(?:\/[a-z0-9-]+)*)/g)
+  return parts.map((part, i) => {
+    if (/^https?:\/\//.test(part)) {
+      const clean = part.replace(/[.,;]+$/, '')
+      const tail = part.slice(clean.length)
+      return (
+        <span key={i}>
+          <a href={clean} className="font-semibold text-[#1e3a8a] underline">
+            View listing
+          </a>
+          {tail}
+        </span>
+      )
+    }
+    if (part.startsWith('/') && (PAGES.includes(part) || part.startsWith('/safari/'))) {
+      return (
+        <Link key={i} href={part} className="font-semibold text-[#1e3a8a] underline">
+          {part.startsWith('/safari/') ? 'View listing' : part}
+        </Link>
+      )
+    }
+    return <span key={i}>{part}</span>
+  })
 }
 
 export default function ChatWidget() {
