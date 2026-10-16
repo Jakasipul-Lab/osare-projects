@@ -34,6 +34,44 @@ function tooMany(ip) {
   return false
 }
 
+const SITE = 'https://www.easafariroutes.com'
+
+// Words that tell us the visitor is asking about specific places or offers.
+const TOPICS = [
+  ['festive', 'festive'], ['festival', 'festive'], ['christmas', 'festive'], ['new year', 'festive'],
+  ['resident', 'resident'], ['diani', 'diani'], ['mombasa', 'mombasa'], ['amboseli', 'amboseli'],
+  ['mara', 'mara'], ['zanzibar', 'zanzibar'], ['kilimanjaro', 'kilimanjaro'], ['serengeti', 'serengeti'],
+  ['nakuru', 'nakuru'], ['tsavo', 'tsavo'], ['malindi', 'malindi'], ['watamu', 'watamu'],
+]
+
+// Finds up to 5 real listings on the site for what the visitor asked about.
+async function findListings(userTexts) {
+  const text = userTexts.join(' ').toLowerCase()
+  const found = []
+  for (const [word, keyword] of TOPICS) {
+    if (text.includes(word) && !found.includes(keyword)) found.push(keyword)
+  }
+  if (!found.length) return ''
+  const q = found.slice(0, 3).join(' ')
+  try {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 4000)
+    const res = await fetch(`${SITE}/api/listings?q=${encodeURIComponent(q)}`, { signal: controller.signal })
+    clearTimeout(timer)
+    if (!res.ok) return ''
+    const items = await res.json()
+    if (!Array.isArray(items)) return ''
+    const lines = items
+      .filter((it) => it && it.slug && it.title)
+      .slice(0, 5)
+      .map((it) => `- ${it.title} by ${it.vendor || 'a partner'}, ${String(it.priceLabel || 'price on the listing page').slice(0, 120)}: ${SITE}/safari/${it.slug}`)
+    if (!lines.length) return ''
+    return `\n\nListings found on the site for this question. When they fit, mention the 2 to 4 best ones and write each full link exactly as given, on its own line. Never invent other links:\n${lines.join('\n')}`
+  } catch (e) {
+    return ''
+  }
+}
+
 const SYSTEM_PROMPT = `You are the OSARE Assistant, a friendly AI assistant on the website easafariroutes.com (OSARE, also called SafariRoutes EA). Always make clear you are an assistant if asked. Reply in English, in short, plain answers (about 120 words at most). Use plain text only: no markdown, no asterisks, no bold, no bullet symbols.
 
 What OSARE is:
@@ -88,6 +126,9 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Please type a question.' }, { status: 400 })
   }
 
+  const userTexts = incoming.filter((m) => m && m.role === 'user' && typeof m.text === 'string').slice(-2).map((m) => m.text)
+  const extra = await findListings(userTexts)
+
   try {
     const res = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
@@ -95,7 +136,7 @@ export async function POST(request) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT + extra }] },
           contents,
           generationConfig: { maxOutputTokens: 400, temperature: 0.4 },
         }),
