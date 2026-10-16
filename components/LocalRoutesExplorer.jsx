@@ -4,6 +4,7 @@ import { Search, MapPin, MessageCircle, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
 
 const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 
@@ -89,6 +90,20 @@ function RouteCard({ route, trip }) {
       </div>
     </div>
   )
+}
+
+// Route guides we have written. When a search has no buses yet but matches
+// one of these routes, the empty message points to the guide instead.
+const ROUTE_GUIDES = [
+  { href: '/local/nairobi-to-kisumu', label: 'Nairobi to Kisumu', towns: ['nairobi', 'kisumu'] },
+  { href: '/local/nairobi-to-dar-es-salaam', label: 'Nairobi to Dar es Salaam', towns: ['nairobi', 'dar'] },
+]
+
+function findRouteGuide(from, to) {
+  const a = (from || '').toLowerCase()
+  const b = (to || '').toLowerCase()
+  if (!a || !b) return null
+  return ROUTE_GUIDES.find((g) => g.towns.every((t) => a.includes(t) || b.includes(t))) || null
 }
 
 export function LocalRoutesExplorer() {
@@ -274,8 +289,21 @@ export function LocalRoutesExplorer() {
             The routes could not be loaded. Please try again in a moment.
           </div>
         ) : routes.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-300 bg-white py-20 text-center text-slate-500">
-            No buses found for this route yet. We add operators one by one. Try a single town, such as Nairobi.
+          <div className="rounded-xl border border-dashed border-slate-300 bg-white px-5 py-20 text-center text-slate-500">
+            {findRouteGuide(searched.from, searched.to) ? (
+              <>
+                No buses are listed for this route yet. We add operators one by one.{' '}
+                <Link
+                  href={findRouteGuide(searched.from, searched.to).href}
+                  className="font-semibold text-blue-700 underline"
+                >
+                  Read our {findRouteGuide(searched.from, searched.to).label} route guide
+                </Link>{' '}
+                for travel time, where you arrive and what to check before you go.
+              </>
+            ) : (
+              'No buses found for this route yet. We add operators one by one. Try a single town, such as Nairobi.'
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
