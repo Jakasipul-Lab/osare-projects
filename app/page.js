@@ -149,6 +149,9 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
           <div>
             <p className="text-2xl font-extrabold text-emerald-600">{item.priceLabel}</p>
             {item.season ? <p className="text-[11px] text-slate-400">{item.season}</p> : null}
+            {/resident rate/i.test(item.description || '') ? (
+              <p className="mt-1 inline-block rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800" title="Priced in KES for East Africa residents. The partner confirms who qualifies.">Resident rate</p>
+            ) : null}
           </div>
           <p className="flex items-center gap-1 text-[11px] text-slate-400"><Building2 className="h-3 w-3" /> {item.vendorOffice}</p>
         </div>
