@@ -319,10 +319,10 @@ function TierExplorer({ type }) {
         ) : items.length === 0 ? (
           <div className="rounded-xl border border-dashed border-slate-300 py-20 text-center text-slate-500">
             No matches found. Try broader terms like {isSafari ? '"safari", "beach", "hotel"' : '"train", "taxi", "matatu"'}.
-          </div>
+      </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} onOpen={setSelected} onSearchKeyword={handleKeywordSearch} />)}
+            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} onOpen={(it) => (it.type === 'safari' && it.slug ? (window.location.href = `/safari/${it.slug}`) : setSelected(it))} onSearchKeyword={handleKeywordSearch} />)}
           </div>
         )}
       </div>
