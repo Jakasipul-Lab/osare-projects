@@ -2,6 +2,20 @@
 import { useState } from 'react'
 import { validatePhone } from '@/lib/phone'
 
+function todayIso() {
+  const now = new Date()
+  const m = String(now.getMonth() + 1).padStart(2, '0')
+  const d = String(now.getDate()).padStart(2, '0')
+  return `${now.getFullYear()}-${m}-${d}`
+}
+
+function prettyDate(value) {
+  if (!value) return ''
+  const d = new Date(`${value}T00:00:00`)
+  if (Number.isNaN(d.getTime())) return ''
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
 const inputClass =
   'w-full rounded-lg border border-slate-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]'
 
@@ -16,6 +30,8 @@ export default function TripRequestForm() {
     message: '',
     website: '', // hidden spam trap, real visitors never fill it in
   })
+  const [dateFrom, setDateFrom] = useState('')
+  const [dateTo, setDateTo] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [doneCode, setDoneCode] = useState('')
@@ -34,12 +50,19 @@ export default function TripRequestForm() {
       setError(check.error)
       return
     }
+    // Combine the optional date pickers with the free-text "When?" note
+    let range = ''
+    if (dateFrom && dateTo) range = `${prettyDate(dateFrom)} to ${prettyDate(dateTo)}`
+    else if (dateFrom) range = `from ${prettyDate(dateFrom)}`
+    else if (dateTo) range = `until ${prettyDate(dateTo)}`
+    const note = form.travelDates.trim()
+    const travelDates = (range && note ? `${range} (${note})` : range || note).slice(0, 100)
     setBusy(true)
     try {
       const res = await fetch('/api/trip-requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, travelerPhone: check.e164 }),
+        body: JSON.stringify({ ...form, travelDates, travelerPhone: check.e164 }),
       })
       const data = await res.json()
       if (!res.ok || !data.success) {
@@ -81,7 +104,7 @@ export default function TripRequestForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium text-slate-700">When?</label>
+          <label className="mb-1 block text-sm font-medium text-slate-700">When? (or pick exact dates below)</label>
           <input
             value={form.travelDates}
             onChange={set('travelDates')}
@@ -99,6 +122,38 @@ export default function TripRequestForm() {
             inputMode="numeric"
             className={inputClass}
             maxLength={3}
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label htmlFor="trip-from" className="mb-1 block text-sm font-medium text-slate-700">
+            Travel from (optional)
+          </label>
+          <input
+            id="trip-from"
+            type="date"
+            value={dateFrom}
+            min={todayIso()}
+            onChange={(e) => {
+              setDateFrom(e.target.value)
+              if (dateTo && e.target.value && dateTo < e.target.value) setDateTo(e.target.value)
+            }}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label htmlFor="trip-to" className="mb-1 block text-sm font-medium text-slate-700">
+            Travel until (optional)
+          </label>
+          <input
+            id="trip-to"
+            type="date"
+            value={dateTo}
+            min={dateFrom || todayIso()}
+            onChange={(e) => setDateTo(e.target.value)}
+            className={inputClass}
           />
         </div>
       </div>
