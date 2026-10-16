@@ -79,7 +79,19 @@ export default async function VendorDetailPage({ params }) {
 
           <div className="mt-6 flex items-end justify-between border-t border-slate-100 pt-4">
             <div>
-              <p className="text-3xl font-extrabold text-emerald-600">{item.priceLabel}</p>
+              {(() => {
+                const label = String(item.priceLabel || '')
+                const i = label.indexOf(' for ')
+                if (i > 0 && i < 30) {
+                  return (
+                    <>
+                      <p className="text-3xl font-extrabold text-emerald-600">{label.slice(0, i)}</p>
+                      <p className="mt-1 text-sm font-medium text-slate-600">{label.slice(i + 1)}</p>
+                    </>
+                  )
+                }
+                return <p className="text-3xl font-extrabold text-emerald-600">{label}</p>
+              })()}
               {item.season ? <p className="text-sm text-slate-400">{item.season}</p> : null}
             </div>
             {item.vendorOffice ? (
