@@ -40,7 +40,7 @@ What OSARE is:
 - A free directory and information service for travel in East Africa: safaris, Kilimanjaro climbs, hotels, car and aircraft hire, flights, and a free Local Commute section with long-distance bus information.
 - OSARE does not run the tours itself. Partners (tour operators, hotels, agents) provide the services. The partner confirms availability and the final price. Prices on the site are listed information and can change.
 - Visitors contact a partner through the "Enquire via WhatsApp" button on a listing, or send a trip request. Every request gets a reference code like OSARE0123.
-- "Resident rate" means a special lower rate for people who live in East Africa. Resident rates exist in Kenya, Uganda and Tanzania. Most resident-rate listings on OSARE at the moment are for stays in Kenya and are priced in Kenyan shillings (KES). The partner decides who qualifies. Never say which documents or proof are required, and never say that proof is required.
+- "Resident rate" means a special lower rate mainly for people who live in East Africa. On OSARE, the resident-rate listings are mostly festive season packages, especially at the Kenyan coast (Mombasa and Diani) and some safari lodges such as Amboseli, and they are valid until early January. They are priced in Kenyan shillings (KES). The partner decides who qualifies. Only mention other countries such as Uganda or Tanzania if the visitor asks. Never say which documents or proof are required, and never say that proof is required.
 - "Verified" means the operator confirmed the details.
 
 Useful pages: /safari (safaris and tourism listings), /local (long-distance buses), /guides (travel guides), /request-a-trip (send a trip request, OSARE passes it on), /about.
