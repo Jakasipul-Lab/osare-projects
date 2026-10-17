@@ -228,6 +228,7 @@ function TierExplorer({ type }) {
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
   const [selected, setSelected] = useState(null)
+  const [visible, setVisible] = useState(12)
   const load = useCallback(async (queryOverride) => {
     setLoading(true)
     try {
@@ -245,6 +246,7 @@ function TierExplorer({ type }) {
     }
   }, [type, q, cat])
   useEffect(() => { load() }, [cat]) // eslint-disable-line
+  useEffect(() => { setVisible(12) }, [items])
   useEffect(() => { load() }, []) // eslint-disable-line
   const handleKeywordSearch = (keyword) => {
     setQ(keyword)
@@ -324,9 +326,18 @@ function TierExplorer({ type }) {
             No matches found. Try broader terms like {isSafari ? '"safari", "beach", "hotel"' : '"train", "taxi", "matatu"'}.
       </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} onOpen={(it) => (it.type === 'safari' && it.slug ? (window.location.href = `/safari/${it.slug}`) : setSelected(it))} onSearchKeyword={handleKeywordSearch} />)}
-          </div>
+                    <>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {items.slice(0, visible).map((item) => <ListingCard key={item.id} item={item} onBook={handleBook} booking={booking} onOpen={(it) => (it.type === 'safari' && it.slug ? (window.location.href = `/safari/${it.slug}`) : setSelected(it))} onSearchKeyword={handleKeywordSearch} />)}
+            </div>
+            {items.length > visible ? (
+              <div className="mt-8 text-center">
+                <Button onClick={() => setVisible((v) => v + 12)} variant="outline" className="px-8">
+                  Show more ({items.length - visible} more)
+                </Button>
+              </div>
+            ) : null}
+          </>
         )}
       </div>
       <VendorModal item={selected} onClose={() => setSelected(null)} onBook={handleBook} booking={booking} onSearchKeyword={handleKeywordSearch} />
