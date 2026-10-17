@@ -184,6 +184,7 @@ export function TierExplorer({ type }) {
   }, [type, q, cat])
   useEffect(() => { load() }, [cat]) // eslint-disable-line
   useEffect(() => { load() }, []) // eslint-disable-line
+  useEffect(() => { setVisible(12) }, [items])
   const searchWithTerm = async (term) => {
     setQ(term)
     setLoading(true)
