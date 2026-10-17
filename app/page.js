@@ -238,7 +238,16 @@ function TierExplorer({ type }) {
       if (cat && cat !== 'All') params.set('category', cat)
         const res = await fetch(`/api/search?${params.toString()}`)
       const data = await res.json()
-      setItems(Array.isArray(data) ? data : [])
+      const list = Array.isArray(data) ? data : []
+      if (type === 'safari' && !searchTerm && (!cat || cat === 'All')) {
+        const FEATURED = [['Click Expedition', 2], ['Kameraz of Afrika', 1], ['Oria Kenya Safaris', 1], ['Summit Africa Treks', 1], ['Wild Trails Tanzania', 1], ['Nyali Beach Holiday Resort', 1], ['Coral Coast Resorts', 1], ['Nungwi Heritage Resort', 1], ['Gorilla Encounters', 1], ['Shidolya Tours and Safaris', 1]]
+        const top = []
+        FEATURED.forEach(([name, n]) => { top.push(...list.filter((x) => x.vendor === name).slice(0, n)) })
+        const topIds = new Set(top.map((x) => x.id))
+        setItems([...top, ...list.filter((x) => !topIds.has(x.id))])
+      } else {
+        setItems(list)
+      }
     } catch (e) {
       toast.error('Failed to load listings')
     } finally {
