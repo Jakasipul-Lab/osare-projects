@@ -1,3 +1,4 @@
+
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 import {
@@ -164,6 +165,7 @@ export function TierExplorer({ type }) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(null)
+  const [visible, setVisible] = useState(12)
   const [selected, setSelected] = useState(null)
   const load = useCallback(async () => {
     setLoading(true)
