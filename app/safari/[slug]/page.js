@@ -44,13 +44,15 @@ export default async function VendorDetailPage({ params }) {
       </Link>
 
       <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
-        <div className="relative h-72 w-full overflow-hidden">
-          <img
-            src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'}
-            alt={item.title}
-            className="h-full w-full object-cover"
-          />
-        </div>
+                {item.image ? (
+          <div className="relative h-72 w-full overflow-hidden">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        ) : null}
 
         <div className="p-6">
           <span className="inline-block rounded-full bg-[#f97316] px-3 py-1 text-xs font-bold text-white">
