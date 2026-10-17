@@ -115,7 +115,7 @@ function ListingCard({ item, onBook, booking, onOpen, onSearchKeyword }) {
       onClick={() => onOpen(item)}
       className="cursor-pointer overflow-hidden border-slate-200 hover:shadow-xl transition-shadow duration-300 flex flex-col"
     >
-      <div className="relative h-52 w-full overflow-hidden">
+      <div className="relative h-64 w-full overflow-hidden">
         <img src={item.image || 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop'} alt={item.title} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop' }} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
         <Badge className="absolute left-3 top-3 gap-1 border-0 text-white shadow" style={{ backgroundColor: accent }}>
           {catIcon(item.category)} {item.category}
