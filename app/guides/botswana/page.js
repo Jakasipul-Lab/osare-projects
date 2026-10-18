@@ -7,7 +7,7 @@ const ATTRACTIONS = [
   {
     name: 'Okavango Delta',
     href: '#okavango-delta',
-    image: '/guides/botswana/okavango.jpg',
+    image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/okavango.jpg',
     alt: 'Aerial view of channels and floodplains in the Okavango Delta',
     text: 'A UNESCO World Heritage Site of lagoons, floodplains and islands, explored by mokoro, boat, game drive and on foot.',
     credit: { by: 'Diego Delso', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Vista_a%C3%A9rea_del_delta_del_Okavango,_Botsuana,_2018-08-01,_DD_39.jpg' },
@@ -15,7 +15,7 @@ const ATTRACTIONS = [
   {
     name: 'Chobe National Park',
     href: '#chobe-national-park',
-    image: '/guides/botswana/chobe.jpg',
+    image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/chobe.jpg',
     alt: 'Elephant herd walking beside the Chobe River',
     text: 'Northern Botswana park known for its large elephant herds, river cruises and floodplain wildlife.',
     credit: { by: 'AoneMokwena', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Elephants_on_the_Chobe_River.jpg' },
@@ -23,7 +23,7 @@ const ATTRACTIONS = [
   {
     name: 'Moremi Game Reserve',
     href: '#moremi-game-reserve',
-    image: '/guides/botswana/moremi.jpg',
+    image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/moremi.jpg',
     alt: 'Open floodplain in Moremi Game Reserve',
     text: 'Protected area within the Okavango, combining waterways, floodplains, woodland and dry land.',
     credit: { by: 'Mothusi Sekhomba', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Moremi_Game_Reserve_in_summer_04.jpg' },
@@ -31,7 +31,7 @@ const ATTRACTIONS = [
   {
     name: 'Makgadikgadi Pans',
     href: '#makgadikgadi',
-    image: '/guides/botswana/makgadikgadi.jpg',
+    image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/makgadikgadi.jpg',
     alt: 'Palm trees silhouetted at sunrise over the Makgadikgadi salt pans',
     text: 'Vast salt pans and grasslands that change with the rains and draw zebra, wildebeest and flamingos.',
     credit: { by: 'Eric Kilby', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Desert_Sunrise_-_Makgadikgadi_salt_pans.jpg' },
@@ -39,7 +39,7 @@ const ATTRACTIONS = [
   {
     name: 'Tsodilo Hills',
     href: '#tsodilo-hills',
-    image: '/guides/botswana/tsodilo.jpg',
+    image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/tsodilo.jpg',
     alt: 'Tsodilo Hills rising above the bush in northwestern Botswana',
     text: 'UNESCO World Heritage Site in northwestern Botswana, home to thousands of ancient rock paintings.',
     credit: { by: 'Joachim Huber', license: 'CC BY-SA 2.0', url: 'https://commons.wikimedia.org/wiki/File:Tsodilo_Hills,_Botswana_(2625371308).jpg' },
@@ -47,14 +47,14 @@ const ATTRACTIONS = [
 ]
 
 const ANIMALS = [
-  { name: 'Elephants', image: '/guides/botswana/elephants.jpg', credit: { by: 'Bernard Gagnon', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Elephant_in_Chobe_National_Park_03.jpg' } },
-  { name: 'Lions', image: '/guides/botswana/lions.jpg', credit: { by: 'Richardk85', license: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:Lion-savuti-botswana-april-2025.jpg' } },
-  { name: 'Buffalo', image: '/guides/botswana/buffalo.jpg', credit: { by: 'Eric Kilby', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Buffalo_Lookouts.jpg' } },
-  { name: 'Giraffes', image: '/guides/botswana/giraffes.jpg', credit: { by: 'Jeremy T. Hetzel', license: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Giraffe_crossing_a_road_in_Botswana.jpg' } },
-  { name: 'Zebras', image: '/guides/botswana/zebras.jpg', credit: { by: 'David Minty', license: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Zebra_(Botswana_Reserve).jpg' } },
-  { name: 'Hippos', image: '/guides/botswana/hippos.jpg', credit: { by: 'Diego Delso', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Hipop%C3%B3tamo_(Hippopotamus_amphibius),_parque_nacional_de_Chobe,_Botsuana,_2018-07-28,_DD_82.jpg' } },
-  { name: 'Crocodiles', image: '/guides/botswana/crocodiles.jpg', credit: { by: 'Matti Blume', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Nile_crocodile,_Nile_crocodile,_Kasane_(20260520-P1076220).jpg' } },
-  { name: 'Leopards', image: '/guides/botswana/leopards.jpg', credit: { by: 'Danh', license: 'CC BY-SA 3.0', url: 'https://commons.wikimedia.org/wiki/File:African_Leopard_4.JPG' } },
+  { name: 'Elephants', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/elephants.jpg', credit: { by: 'Bernard Gagnon', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Elephant_in_Chobe_National_Park_03.jpg' } },
+  { name: 'Lions', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/lions.jpg', credit: { by: 'Richardk85', license: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:Lion-savuti-botswana-april-2025.jpg' } },
+  { name: 'Buffalo', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/buffalo.jpg', credit: { by: 'Eric Kilby', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Buffalo_Lookouts.jpg' } },
+  { name: 'Giraffes', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/giraffes.jpg', credit: { by: 'Jeremy T. Hetzel', license: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Giraffe_crossing_a_road_in_Botswana.jpg' } },
+  { name: 'Zebras', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/zebras.jpg', credit: { by: 'David Minty', license: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Zebra_(Botswana_Reserve).jpg' } },
+  { name: 'Hippos', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/hippos.jpg', credit: { by: 'Diego Delso', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Hipop%C3%B3tamo_(Hippopotamus_amphibius),_parque_nacional_de_Chobe,_Botsuana,_2018-07-28,_DD_82.jpg' } },
+  { name: 'Crocodiles', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/crocodiles.jpg', credit: { by: 'Matti Blume', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Nile_crocodile,_Nile_crocodile,_Kasane_(20260520-P1076220).jpg' } },
+  { name: 'Leopards', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Botswana%20Okovango/leopards.jpg', credit: { by: 'Danh', license: 'CC BY-SA 3.0', url: 'https://commons.wikimedia.org/wiki/File:African_Leopard_4.JPG' } },
 ]
 
 export const metadata = buildMetadata({
