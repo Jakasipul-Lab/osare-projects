@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
+import GuideTripCta from '../../GuideTripCta'
 
 export const metadata = buildMetadata({
   title:
@@ -766,6 +767,16 @@ export default function ZanzibarPage() {
           Routes &amp; Discovery
         </p>
       </section>
+
+      <GuideTripCta
+        country="Tanzania"
+        wide
+        links={[
+          { label: 'Tanzania Tourist Board', href: 'https://www.tanzaniatourism.go.tz' },
+          { label: 'Tanzania e-Visa (Immigration)', href: 'https://visa.immigration.go.tz' },
+          { label: 'Tanzania National Parks (TANAPA)', href: 'https://www.tanzaniaparks.go.tz' },
+        ]}
+      />
 
     </main>
   )
