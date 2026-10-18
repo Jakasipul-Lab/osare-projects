@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
+import GuideTripCta from '../../GuideTripCta'
 
 export const metadata = buildMetadata({
   title:
@@ -366,6 +367,16 @@ export default function SerengetiGuide() {
       <section className="bg-[#7c4a03] px-6 py-8 text-center text-sm text-orange-100">
         <p>© {new Date().getFullYear()} eaSafariRoutes — East Africa Travel, Routes &amp; Discovery</p>
       </section>
+      <GuideTripCta
+        country="Tanzania"
+        wide
+        links={[
+          { label: 'Tanzania Tourist Board', href: 'https://www.tanzaniatourism.go.tz' },
+          { label: 'Tanzania e-Visa (Immigration)', href: 'https://visa.immigration.go.tz' },
+          { label: 'Tanzania National Parks (TANAPA)', href: 'https://www.tanzaniaparks.go.tz' },
+        ]}
+      />
+
     </main>
   )
 }
