@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
+import GuideTripCta from '../GuideTripCta'
 
 export const metadata = buildMetadata({
   title: 'Zimbabwe Travel Guide — Victoria Falls, Safari, Wildlife & Travel Information | OSARE',
@@ -596,6 +597,15 @@ export default function ZimbabweGuidePage() {
             </p>
           </div>
         </section>
+
+        <GuideTripCta
+          country="Zimbabwe"
+          links={[
+            { label: 'Zimbabwe Tourism Authority', href: 'https://www.zimbabwetourism.net' },
+            { label: 'Zimbabwe e-Visa', href: 'https://www.evisa.gov.zw' },
+            { label: 'Zimbabwe Parks & Wildlife (ZimParks)', href: 'https://www.zimparks.org.zw' },
+          ]}
+        />
 
         {/* NAVIGATION */}
         <section className="border-t pt-8">
