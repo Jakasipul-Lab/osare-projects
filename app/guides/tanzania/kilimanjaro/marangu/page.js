@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
-import GuideTripCta from '../../GuideTripCta'
+import GuideTripCta from '../../../GuideTripCta'
 
 export const metadata = buildMetadata({
   title: 'Mount Kilimanjaro Climbing Guide — Routes, Best Time, What to Expect | OSARE',
