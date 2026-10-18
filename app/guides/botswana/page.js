@@ -1,6 +1,62 @@
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
 
+// Photos: Wikimedia Commons, used under their Creative Commons licences.
+// Each credit links to the original file page, as the licence requires.
+const ATTRACTIONS = [
+  {
+    name: 'Okavango Delta',
+    href: '#okavango-delta',
+    image: '/guides/botswana/okavango.jpg',
+    alt: 'Aerial view of channels and floodplains in the Okavango Delta',
+    text: 'A UNESCO World Heritage Site of lagoons, floodplains and islands, explored by mokoro, boat, game drive and on foot.',
+    credit: { by: 'Diego Delso', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Vista_a%C3%A9rea_del_delta_del_Okavango,_Botsuana,_2018-08-01,_DD_39.jpg' },
+  },
+  {
+    name: 'Chobe National Park',
+    href: '#chobe-national-park',
+    image: '/guides/botswana/chobe.jpg',
+    alt: 'Elephant herd walking beside the Chobe River',
+    text: 'Northern Botswana park known for its large elephant herds, river cruises and floodplain wildlife.',
+    credit: { by: 'AoneMokwena', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Elephants_on_the_Chobe_River.jpg' },
+  },
+  {
+    name: 'Moremi Game Reserve',
+    href: '#moremi-game-reserve',
+    image: '/guides/botswana/moremi.jpg',
+    alt: 'Open floodplain in Moremi Game Reserve',
+    text: 'Protected area within the Okavango, combining waterways, floodplains, woodland and dry land.',
+    credit: { by: 'Mothusi Sekhomba', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Moremi_Game_Reserve_in_summer_04.jpg' },
+  },
+  {
+    name: 'Makgadikgadi Pans',
+    href: '#makgadikgadi',
+    image: '/guides/botswana/makgadikgadi.jpg',
+    alt: 'Palm trees silhouetted at sunrise over the Makgadikgadi salt pans',
+    text: 'Vast salt pans and grasslands that change with the rains and draw zebra, wildebeest and flamingos.',
+    credit: { by: 'Eric Kilby', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Desert_Sunrise_-_Makgadikgadi_salt_pans.jpg' },
+  },
+  {
+    name: 'Tsodilo Hills',
+    href: '#tsodilo-hills',
+    image: '/guides/botswana/tsodilo.jpg',
+    alt: 'Tsodilo Hills rising above the bush in northwestern Botswana',
+    text: 'UNESCO World Heritage Site in northwestern Botswana, home to thousands of ancient rock paintings.',
+    credit: { by: 'Joachim Huber', license: 'CC BY-SA 2.0', url: 'https://commons.wikimedia.org/wiki/File:Tsodilo_Hills,_Botswana_(2625371308).jpg' },
+  },
+]
+
+const ANIMALS = [
+  { name: 'Elephants', image: '/guides/botswana/elephants.jpg', credit: { by: 'Bernard Gagnon', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Elephant_in_Chobe_National_Park_03.jpg' } },
+  { name: 'Lions', image: '/guides/botswana/lions.jpg', credit: { by: 'Richardk85', license: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:Lion-savuti-botswana-april-2025.jpg' } },
+  { name: 'Buffalo', image: '/guides/botswana/buffalo.jpg', credit: { by: 'Eric Kilby', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Buffalo_Lookouts.jpg' } },
+  { name: 'Giraffes', image: '/guides/botswana/giraffes.jpg', credit: { by: 'Jeremy T. Hetzel', license: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Giraffe_crossing_a_road_in_Botswana.jpg' } },
+  { name: 'Zebras', image: '/guides/botswana/zebras.jpg', credit: { by: 'David Minty', license: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Zebra_(Botswana_Reserve).jpg' } },
+  { name: 'Hippos', image: '/guides/botswana/hippos.jpg', credit: { by: 'Diego Delso', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Hipop%C3%B3tamo_(Hippopotamus_amphibius),_parque_nacional_de_Chobe,_Botsuana,_2018-07-28,_DD_82.jpg' } },
+  { name: 'Crocodiles', image: '/guides/botswana/crocodiles.jpg', credit: { by: 'Matti Blume', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Nile_crocodile,_Nile_crocodile,_Kasane_(20260520-P1076220).jpg' } },
+  { name: 'Leopards', image: '/guides/botswana/leopards.jpg', credit: { by: 'Danh', license: 'CC BY-SA 3.0', url: 'https://commons.wikimedia.org/wiki/File:African_Leopard_4.JPG' } },
+]
+
 export const metadata = buildMetadata({
   title: 'Botswana Travel Guide — Okavango Delta, Safari, Wildlife & Travel Information | OSARE',
   description:
@@ -259,19 +315,29 @@ export default function BotswanaGuidePage() {
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <AnimalCard emoji="🐘" name="Elephants" />
-            <AnimalCard emoji="🦁" name="Lions" />
-            <AnimalCard emoji="🐃" name="Buffalo" />
-            <AnimalCard emoji="🦒" name="Giraffes" />
-            <AnimalCard emoji="🦓" name="Zebras" />
-            <AnimalCard emoji="🦛" name="Hippos" />
-            <AnimalCard emoji="🐊" name="Crocodiles" />
-            <AnimalCard emoji="🐆" name="Leopards" />
+            {ANIMALS.map((a) => (
+              <AnimalCard key={a.name} {...a} />
+            ))}
+          </div>
+        </section>
+
+        {/* MAJOR ATTRACTIONS */}
+        <section className="mb-16">
+          <SectionHeading
+            eyebrow="Where to Go"
+            title="Major Attractions"
+            description="Botswana's best-known wildlife areas and heritage sites."
+          />
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {ATTRACTIONS.map((a) => (
+              <AttractionCard key={a.name} {...a} />
+            ))}
           </div>
         </section>
 
         {/* OKAVANGO */}
-        <section className="mb-16">
+        <section id="okavango-delta" className="mb-16 scroll-mt-24">
           <SectionHeading
             eyebrow="Botswana Icon"
             title="Okavango Delta"
@@ -341,6 +407,7 @@ export default function BotswanaGuidePage() {
             />
 
             <DestinationCard
+              id="moremi-game-reserve"
               emoji="🌊"
               title="Moremi Game Reserve"
               description="A major wildlife area within the Okavango region, combining waterways, floodplains, woodland and dryland habitats."
@@ -378,7 +445,7 @@ export default function BotswanaGuidePage() {
         </section>
 
         {/* CHOBE */}
-        <section className="mb-16 rounded-3xl bg-gradient-to-br from-amber-900 via-amber-800 to-orange-700 p-8 text-white sm:p-10">
+        <section id="chobe-national-park" className="mb-16 scroll-mt-24 rounded-3xl bg-gradient-to-br from-amber-900 via-amber-800 to-orange-700 p-8 text-white sm:p-10">
           <p className="text-sm font-bold uppercase tracking-widest text-amber-200">
             Northern Botswana
           </p>
@@ -454,6 +521,7 @@ export default function BotswanaGuidePage() {
             />
 
             <PlaceCard
+              id="tsodilo-hills"
               emoji="🪨"
               title="Tsodilo Hills"
               text="An important cultural and heritage landscape in northwestern Botswana."
@@ -468,7 +536,7 @@ export default function BotswanaGuidePage() {
         </section>
 
         {/* MAKGADIKGADI */}
-        <section className="mb-16 rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-8 sm:p-10">
+        <section id="makgadikgadi" className="mb-16 scroll-mt-24 rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-8 sm:p-10">
           <p className="text-sm font-bold uppercase tracking-widest text-amber-700">
             Kalahari Landscape
           </p>
@@ -780,17 +848,71 @@ function GuideCard({ emoji, title, description, color }) {
   )
 }
 
-function AnimalCard({ emoji, name }) {
+function AnimalCard({ name, image, credit }) {
   return (
-    <div className="rounded-2xl bg-white/10 p-5 text-center backdrop-blur transition hover:bg-white/20">
-      <div className="text-4xl">{emoji}</div>
+    <figure className="overflow-hidden rounded-2xl bg-white/10 backdrop-blur">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={image}
+        alt={`${name} in Botswana`}
+        loading="lazy"
+        className="aspect-[4/3] w-full object-cover"
+      />
 
-      <p className="mt-3 font-semibold">{name}</p>
-    </div>
+      <figcaption className="px-4 py-3">
+        <p className="font-semibold">{name}</p>
+        <Credit {...credit} className="text-green-200/80 hover:text-white" />
+      </figcaption>
+    </figure>
   )
 }
 
-function DestinationCard({ emoji, title, description, color }) {
+function Credit({ by, license, url, className }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`mt-1 block text-xs ${className}`}
+    >
+      Photo: {by} · {license}
+    </a>
+  )
+}
+
+function AttractionCard({ name, href, image, alt, text, credit }) {
+  return (
+    <article className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <a href={href} className="block">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={image}
+          alt={alt}
+          loading="lazy"
+          className="aspect-[4/3] w-full object-cover"
+        />
+      </a>
+
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-gray-900">
+          <a href={href} className="hover:text-green-700">
+            {name}
+          </a>
+        </h3>
+
+        <p className="mt-2 text-sm leading-6 text-gray-600">{text}</p>
+
+        <a href={href} className="mt-4 inline-block text-sm font-bold text-green-700 hover:underline">
+          Read more →
+        </a>
+
+        <Credit {...credit} className="mt-3 text-gray-400 hover:text-gray-600" />
+      </div>
+    </article>
+  )
+}
+
+function DestinationCard({ id, emoji, title, description, color }) {
   const colors = {
     green: 'border-green-200 bg-green-50',
     blue: 'border-blue-200 bg-blue-50',
@@ -801,7 +923,8 @@ function DestinationCard({ emoji, title, description, color }) {
 
   return (
     <article
-      className={`rounded-2xl border p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${colors[color]}`}
+      id={id}
+      className={`scroll-mt-24 rounded-2xl border p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${colors[color]}`}
     >
       <div className="text-4xl">{emoji}</div>
 
@@ -812,9 +935,9 @@ function DestinationCard({ emoji, title, description, color }) {
   )
 }
 
-function PlaceCard({ emoji, title, text }) {
+function PlaceCard({ id, emoji, title, text }) {
   return (
-    <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+    <article id={id} className="scroll-mt-24 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
       <div className="text-3xl">{emoji}</div>
 
       <h3 className="mt-4 text-lg font-bold text-gray-900">{title}</h3>
