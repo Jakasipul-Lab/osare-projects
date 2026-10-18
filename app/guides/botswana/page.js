@@ -388,6 +388,8 @@ export default function BotswanaGuidePage() {
               </div>
             </div>
           </div>
+
+          <TripCta place="the Okavango Delta" />
         </section>
 
         {/* NATIONAL PARKS */}
@@ -467,6 +469,8 @@ export default function BotswanaGuidePage() {
             <MiniCard emoji="🦁" text="Predators" />
             <MiniCard emoji="🦅" text="Bird Safaris" />
           </div>
+
+          <TripCta place="Chobe" dark />
         </section>
 
         {/* DESTINATIONS */}
@@ -678,11 +682,13 @@ export default function BotswanaGuidePage() {
             <SourceCard
               title="Botswana Tourism Organisation"
               text="Official national tourism organisation providing information about destinations, parks, reserves, accommodation and tourism activities."
+              href="https://www.botswanatourism.co.bw"
             />
 
             <SourceCard
               title="Government of Botswana"
               text="Official government information, including immigration and tourism visa services."
+              href="https://www.gov.bw"
             />
           </div>
         </section>
@@ -700,12 +706,14 @@ export default function BotswanaGuidePage() {
               emoji="🏛️"
               title="Botswana Tourism Organisation"
               text="Official tourism information and destination resources."
+              href="https://www.botswanatourism.co.bw"
             />
 
             <ContactCard
               emoji="🛂"
               title="Immigration"
               text="Government of Botswana immigration and visa services."
+              href="https://www.gov.bw"
             />
 
             <ContactCard
@@ -713,6 +721,35 @@ export default function BotswanaGuidePage() {
               title="Wildlife Authorities"
               text="Official information concerning parks, wildlife and conservation."
             />
+          </div>
+        </section>
+
+        {/* PLAN A TRIP */}
+        <section className="mb-12 rounded-3xl bg-green-900 p-8 text-white sm:p-10">
+          <h2 className="text-3xl font-extrabold">Planning a trip to Botswana?</h2>
+
+          <p className="mt-4 max-w-3xl leading-7 text-green-50">
+            Tell us where you want to go, your dates, group size and budget.
+            We will reply with options and put you in touch with an operator.
+            There is no charge for asking.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/request-a-trip?destination=Botswana"
+              className="rounded-full bg-amber-400 px-6 py-3 font-bold text-green-950 transition hover:bg-amber-300"
+            >
+              Request a Botswana trip
+            </Link>
+
+            <a
+              href="https://wa.me/254758378729?text=Hello%20OSARE%2C%20I%20am%20planning%20a%20trip%20to%20Botswana."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/40 px-6 py-3 font-bold text-white transition hover:bg-white/10"
+            >
+              Ask on WhatsApp
+            </a>
           </div>
         </section>
 
@@ -985,17 +1022,51 @@ function SeasonCard({ emoji, title, text, color }) {
   )
 }
 
-function SourceCard({ title, text }) {
+function SourceCard({ title, text, href }) {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-6 shadow-sm">
       <h3 className="font-bold text-gray-900">{title}</h3>
 
       <p className="mt-2 text-sm leading-6 text-gray-600">{text}</p>
+
+      {href && <ExternalLink href={href} />}
     </div>
   )
 }
 
-function ContactCard({ emoji, title, text }) {
+function ExternalLink({ href }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-3 inline-block text-sm font-bold text-green-700 hover:underline"
+    >
+      Visit official website →
+    </a>
+  )
+}
+
+function TripCta({ place, dark }) {
+  return (
+    <div
+      className={`mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl p-5 ${dark ? 'bg-black/20' : 'border border-green-200 bg-white'}`}
+    >
+      <p className={`font-semibold ${dark ? 'text-white' : 'text-gray-900'}`}>
+        Want to visit {place}? Tell us your dates and group size.
+      </p>
+
+      <Link
+        href="/request-a-trip?destination=Botswana"
+        className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-bold text-green-950 transition hover:bg-amber-300"
+      >
+        Plan this trip
+      </Link>
+    </div>
+  )
+}
+
+function ContactCard({ emoji, title, text, href }) {
   return (
     <div className="rounded-2xl border bg-white p-6 shadow-sm">
       <div className="text-3xl">{emoji}</div>
@@ -1003,6 +1074,8 @@ function ContactCard({ emoji, title, text }) {
       <h3 className="mt-4 font-bold text-gray-900">{title}</h3>
 
       <p className="mt-2 text-sm leading-6 text-gray-600">{text}</p>
+
+      {href && <ExternalLink href={href} />}
     </div>
   )
 }
