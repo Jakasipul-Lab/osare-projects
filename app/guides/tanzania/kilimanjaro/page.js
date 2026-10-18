@@ -89,6 +89,35 @@ export default function KilimanjaroGuidePage() {
           <Nudge text="Not sure which route suits you? Tell us your fitness, dates and group size." />
         </section>
 
+        {/* FEATURED CLIMBS */}
+        <section className="mb-16">
+          <Heading
+            eyebrow="Priced climbs"
+            title="Climbs You Can Book"
+            text="Offered by Click Expedition from Moshi. Hotel nights, transfers, park fees, crew and meals included."
+          />
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {[
+              { name: 'Marangu Route — 8 days', note: 'Sleeping huts, acclimatisation day at Horombo', href: '/guides/tanzania/kilimanjaro/marangu' },
+              { name: 'Machame Route — 9 days', note: 'Camping, the most popular scenic route', href: '/guides/tanzania/kilimanjaro/machame' },
+            ].map((c) => (
+              <Link
+                key={c.name}
+                href={c.href}
+                className="group rounded-2xl border border-green-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-700">{c.name}</h3>
+                <p className="mt-2 leading-7 text-gray-600">{c.note}</p>
+                <p className="mt-4 text-2xl font-extrabold text-gray-900">
+                  USD 2,550 <span className="text-sm font-semibold text-gray-500">per person</span>
+                </p>
+                <p className="mt-3 text-sm font-bold text-green-700">See itinerary →</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* WHEN */}
         <section className="mb-16">
           <Heading
