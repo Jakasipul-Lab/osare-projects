@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buildMetadata, buildFAQSchema } from '@/lib/seo'
+import GuideTripCta from '../GuideTripCta'
 
 export const metadata = buildMetadata({
   title:
@@ -734,6 +735,16 @@ export default function MaasaiMaraGuide() {
           Routes &amp; Discovery
         </p>
       </section>
+      <GuideTripCta
+        country="Kenya"
+        wide
+        links={[
+          { label: 'Magical Kenya (Kenya Tourism Board)', href: 'https://www.magicalkenya.com' },
+          { label: 'Kenya eTA — entry authorisation', href: 'https://www.etakenya.go.ke' },
+          { label: 'Kenya Wildlife Service', href: 'https://www.kws.go.ke' },
+        ]}
+      />
+
     </main>
   )
 }
