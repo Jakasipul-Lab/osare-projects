@@ -93,6 +93,18 @@ const GUIDES = [
   img: 'https://images.unsplash.com/photo-1523027425231-692d4c697160?q=80&w=800&auto=format&fit=crop',
 },
 {
+  href: '/guides/zambia',
+  title: "Zambia Travel Guide",
+  blurb: "Victoria Falls, South Luangwa walking safaris, the Lower Zambezi and travel information for Zambia.",
+  img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_30-34_PAN.jpg/960px-Cataratas_Victoria%2C_Zambia-Zimbabue%2C_2018-07-27%2C_DD_30-34_PAN.jpg',
+},
+{
+  href: '/guides/malawi',
+  title: "Malawi Travel Guide",
+  blurb: "Lake Malawi, Liwonde river safaris, Mount Mulanje and practical travel information for Malawi.",
+  img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Otter_Point%2C_Cape_Maclear_%28Malawi%29.jpg/960px-Otter_Point%2C_Cape_Maclear_%28Malawi%29.jpg',
+},
+{
   href: '/guides/mozambique',
   title: "Mozambique Travel Guide",
   blurb: "Beaches, safari, wildlife and practical travel information for Mozambique.",
