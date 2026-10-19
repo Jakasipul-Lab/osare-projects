@@ -102,12 +102,12 @@ export default function GoogleTranslate() {
             style={{ position: 'fixed', inset: 0, zIndex: 49 }}
           />
         )}
-        <div style={{ position: 'fixed', bottom: 14, left: 14, zIndex: 50 }}>
+          <div style={{ position: 'fixed', top: 14, left: 14, zIndex: 50 }}>
           {open && (
             <div
               style={{
                 position: 'absolute',
-                bottom: 44,
+                top: 44,
                 left: 0,
                 width: 160,
                 maxHeight: '55vh',
