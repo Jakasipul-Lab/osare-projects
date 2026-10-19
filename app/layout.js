@@ -6,6 +6,7 @@ import GoogleTranslate from '@/components/GoogleTranslate'
 import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
 import SiteChrome from '@/components/SiteChrome'
 import ChatWidget from '@/components/ChatWidget'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 export const metadata = {
   metadataBase: new URL('https://easafariroutes.com'),
@@ -62,6 +63,7 @@ export default function RootLayout({ children }) {
   <CookieConsent />
   <GoogleTranslate />
   <ChatWidget />
+  <WhatsAppButton />
 </body>
     </html>
   )
