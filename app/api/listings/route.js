@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
-import { mapVendorRow } from '@/lib/vendorData';
+import { mapVendorRow, sortByLevel } from '@/lib/vendorData';
 import { verifyAuth, isAdminRequest } from '@/lib/auth';
 
 const FREE_LISTING_LIMIT = 2;
@@ -89,7 +89,7 @@ export async function GET(request) {
       result = await query(`${baseSql} ORDER BY created_at DESC`, baseParams);
     }
 
-    const items = result.rows.map(mapVendorRow);
+    const items = sortByLevel(result.rows.map(mapVendorRow));
     return NextResponse.json(items, {
       headers: { 'Access-Control-Allow-Origin': '*' }
     });
