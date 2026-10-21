@@ -44,12 +44,12 @@ export default async function VendorDetailPage({ params }) {
       </Link>
 
       <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
-                {item.image ? (
-          <div className="relative h-72 w-full overflow-hidden">
+                     {item.image ? (
+          <div className="w-full bg-slate-50">
             <img
               src={item.image}
               alt={item.title}
-              className="h-full w-full object-cover"
+              className="mx-auto block h-auto max-h-[1100px] w-full object-contain"
             />
           </div>
         ) : null}
