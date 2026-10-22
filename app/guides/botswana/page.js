@@ -633,12 +633,13 @@ export default function BotswanaGuidePage() {
             />
           </div>
         </section>
+                
+                <BotswanaBestTime />
 
         {/* SAFETY */}
         <section className="mb-16 rounded-3xl border border-amber-200 bg-amber-50 p-8">
           <div className="flex gap-4">
             <div className="text-4xl">⚠️</div>
-
             <div>
               <p className="text-sm font-bold uppercase tracking-widest text-amber-700">
                 Important Travel Information
