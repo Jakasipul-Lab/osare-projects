@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import BotswanaBestTime from '@/components/BotswanaBestTime'
 import { buildMetadata } from '@/lib/seo'
 
 // Photos: Wikimedia Commons, used under their Creative Commons licences.
