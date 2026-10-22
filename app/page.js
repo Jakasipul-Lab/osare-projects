@@ -31,6 +31,8 @@ import {
 import RecentLeads from '@/components/vendor/RecentLeads'
 import Link from 'next/link'
 import ListingFAQ from '@/components/ListingFAQ'
+import TopDestinations from '@/components/TopDestinations'
+import PopularTours from '@/components/PopularTours'
 const HERO = 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHw0fHxBZnJpY2FuJTIwc2FmYXJpfGVufDB8fHx8MTc4MzM4MjA2Nnww&ixlib=rb-4.1.0&q=85'
 const LOCAL_HERO = 'https://images.unsplash.com/photo-1770283553885-bad1d6f7acd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtYXRhdHUlMjBidXN8ZW58MHx8fHwxNzgzMzgyMDc4fDA&ixlib=rb-4.1.0&q=85'
 const NAV = [
@@ -324,7 +326,8 @@ function TierExplorer({ type }) {
           </CardContent>
         </Card>
       </div>
-      <div className="mx-auto max-w-7xl px-5 py-10">
+            {isSafari ? (<><TopDestinations /><PopularTours /></>) : null}
+        <div className="mx-auto max-w-7xl px-5 py-10">
         <div className="mb-5 flex items-center justify-between">
           <p className="text-sm text-slate-500">{loading ? 'Searching…' : `${items.length} option${items.length === 1 ? '' : 's'} found`}</p>
         </div>
