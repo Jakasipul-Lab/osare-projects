@@ -1,3 +1,5 @@
+'use client'
+import { useState } from 'react'
 import Link from 'next/link'
 
 const R2 = 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev'
@@ -54,10 +56,30 @@ const TOURS = [
     vendor: 'Oria Kenya Safaris',
     price: 'USD 110',
     unit: '',
-    image: 'https://www.oriakenyasafaris.co.ke/images/destinations/diani.jpg',
+    image: null,
     href: '/safari/oria-kenya-safaris-diani-city-tour-c9749b4c',
   },
 ]
+
+function TourImage({ src, alt }) {
+  const [failed, setFailed] = useState(false)
+  if (!src || failed) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-cyan-700 to-emerald-500 p-4 text-center text-xl font-extrabold text-white">
+        {alt}
+      </div>
+    )
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+    />
+  )
+}
 
 export default function PopularTours() {
   return (
@@ -72,25 +94,18 @@ export default function PopularTours() {
             className="group overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
           >
             <div className="relative h-48 overflow-hidden bg-slate-100">
-              <img
-                src={t.image}
-                alt={t.route}
-                loading="lazy"
-                className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-              />
-              <span className="absolute bottom-3 right-3 rounded-full bg-emerald-600 px-3 py-1 text-base font-extrabold text-white shadow-lg">
-                {t.price}
-              </span>
+              <TourImage src={t.image} alt={t.route} />
+              <div className="absolute bottom-3 right-3 rounded-xl bg-emerald-600 px-3 py-1 text-right text-white shadow-lg">
+                <div className="text-lg font-extrabold leading-tight">{t.price}</div>
+                {t.unit ? <div className="text-[11px] font-medium leading-tight text-white/90">{t.unit}</div> : null}
+              </div>
             </div>
             <div className="p-4">
               <h3 className="text-lg font-bold text-slate-900">{t.route}</h3>
               <p className="mt-1 text-sm text-slate-600">{t.detail}</p>
-              <div className="mt-3 flex items-end justify-between">
+              <div className="mt-3 flex items-center justify-between">
                 <span className="text-xs text-slate-500">{t.vendor}</span>
-                <span className="text-2xl font-extrabold text-emerald-700">
-                  {t.price}
-                  {t.unit ? <span className="ml-1 text-xs font-medium text-slate-500">{t.unit}</span> : null}
-                </span>
+                <span className="text-sm font-semibold text-emerald-700">View details →</span>
               </div>
             </div>
           </Link>
