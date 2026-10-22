@@ -51,13 +51,13 @@ const TOURS = [
     href: '/safari/oria-kenya-safaris-tsavo-east-safari-9546a7ac',
   },
   {
-    route: 'Diani City Tour',
-    detail: 'Kenya coast · Diani Beach',
+    route: 'Funzi Island Tour',
+    detail: '1 day · Kenya south coast',
     vendor: 'Oria Kenya Safaris',
-    price: 'USD 110',
+    price: 'USD 80',
     unit: '',
-    image: null,
-    href: '/safari/oria-kenya-safaris-diani-city-tour-c9749b4c',
+    image: `${R2}/destination-fuzzi.jpg`,
+    href: '/safari/oria-kenya-safaris-funzi-island-tour-4446ef6b',
   },
 ]
 
