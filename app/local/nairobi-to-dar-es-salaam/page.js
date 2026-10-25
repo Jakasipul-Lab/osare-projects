@@ -4,6 +4,7 @@ export const metadata = {
   title: 'Nairobi to Dar es Salaam by Bus via Arusha: Border, Travel Time and Tips',
   description:
     'How to travel from Nairobi to Dar es Salaam by bus through Arusha and the Namanga border: travel time, documents, where you arrive, and what to check before you go.',
+    alternates: { canonical: 'https://www.easafariroutes.com/local/nairobi-to-dar-es-salaam' },
 }
 
 const MAPS_URL =
