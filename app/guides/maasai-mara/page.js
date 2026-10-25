@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { buildMetadata, buildFAQSchema } from '@/lib/seo'
 import GuideTripCta from '../GuideTripCta'
+import MaraBestTime from '@/components/MaraBestTime'
 
 export const metadata = buildMetadata({
   title:
@@ -254,6 +255,8 @@ export default function MaasaiMaraGuide() {
         </div>
       </section>
 
+      <MaraBestTime />     
+              
       {/* AREAS */}
       <section className="bg-[#fef3e7]">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
