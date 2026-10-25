@@ -22,7 +22,7 @@ export const metadata = {
   openGraph: {
     title: "OSARE — East Africa Safari Routes & Transit Hub",
     description: "Free, verified safaris, hotels, car hire & transit across East Africa.",
-    url: "https://easafariroutes.com",
+    url: "https://www.easafariroutes.com",
     type: "website",
     images: ["/og-image.png"],
   },
