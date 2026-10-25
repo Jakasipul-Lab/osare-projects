@@ -10,12 +10,12 @@ export const metadata = buildMetadata({
 })
 
 const ROUTES = [
-  { name: 'Marangu', days: '5–6 days', text: "The only route with hut accommodation instead of tents. Often the lowest-priced option, but its short schedule gives less time to acclimatise." },
-  { name: 'Machame', days: '6–7 days', text: "A popular scenic route through rainforest, moorland and the Barranco Wall. Camping throughout." },
-  { name: 'Lemosho', days: '7–8 days', text: "Starts on the western side, quieter at first, with a longer schedule that helps acclimatisation." },
-  { name: 'Rongai', days: '6–7 days', text: "Approaches from the north near the Kenyan border. Drier and less crowded." },
-  { name: 'Northern Circuit', days: '8–9 days', text: "The longest route, circling the northern slopes. Strong acclimatisation and few other climbers." },
-  { name: 'Umbwe', days: '5–6 days', text: "Short and steep. Suited only to experienced, fit trekkers." },
+  { name: 'Marangu', days: '5–6 days', edge: 'border-t-green-500', badge: 'bg-green-50 text-green-800', text: "The only route with hut accommodation instead of tents. Often the lowest-priced option, but its short schedule gives less time to acclimatise." },
+  { name: 'Machame', days: '6–7 days', edge: 'border-t-orange-500', badge: 'bg-orange-50 text-orange-800', text: "A popular scenic route through rainforest, moorland and the Barranco Wall. Camping throughout." },
+  { name: 'Lemosho', days: '7–8 days', edge: 'border-t-blue-500', badge: 'bg-blue-50 text-blue-800', text: "Starts on the western side, quieter at first, with a longer schedule that helps acclimatisation." },
+  { name: 'Rongai', days: '6–7 days', edge: 'border-t-teal-500', badge: 'bg-teal-50 text-teal-800', text: "Approaches from the north near the Kenyan border. Drier and less crowded." },
+  { name: 'Northern Circuit', days: '8–9 days', edge: 'border-t-purple-500', badge: 'bg-purple-50 text-purple-800', text: "The longest route, circling the northern slopes. Strong acclimatisation and few other climbers." },
+  { name: 'Umbwe', days: '5–6 days', edge: 'border-t-red-500', badge: 'bg-red-50 text-red-800', text: "Short and steep. Suited only to experienced, fit trekkers." },
 ]
 
 export default function KilimanjaroGuidePage() {
@@ -86,11 +86,11 @@ export default function KilimanjaroGuidePage() {
           />
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {ROUTES.map((r) => (
-              <article key={r.name} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                        {ROUTES.map((r) => (
+              <article key={r.name} className={`rounded-2xl border border-gray-200 border-t-4 bg-white p-6 shadow-sm ${r.edge}`}>
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className="text-xl font-bold text-gray-900">{r.name}</h3>
-                  <span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-800">
+                  <span className={`rounded-full px-3 py-1 text-sm font-semibold ${r.badge}`}>
                     {r.days}
                   </span>
                 </div>
