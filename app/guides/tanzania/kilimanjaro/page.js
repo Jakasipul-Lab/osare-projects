@@ -139,11 +139,39 @@ export default function KilimanjaroGuidePage() {
             text="Kilimanjaro can be climbed all year, but the dry months are the most popular."
           />
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <Card title="Main dry season: June to October" text="Clear skies and the busiest period on the mountain. Nights near the summit are very cold." />
-            <Card title="Short dry season: January to early March" text="Usually good weather and fewer climbers than mid-year. A popular time for summit views." />
-            <Card title="Long rains: April and May" text="Wet trails and fewer climbers. Some operators run reduced schedules." />
-            <Card title="Short rains: November" text="Afternoon showers are common. Climbs still run." />
+                    <div className="mt-8 grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-12">
+            {[
+              { m: 'Jan', c: 'bg-amber-200 text-amber-900' },
+              { m: 'Feb', c: 'bg-amber-200 text-amber-900' },
+              { m: 'Mar', c: 'bg-amber-100 text-amber-800' },
+              { m: 'Apr', c: 'bg-blue-200 text-blue-900' },
+              { m: 'May', c: 'bg-blue-200 text-blue-900' },
+              { m: 'Jun', c: 'bg-amber-400 text-amber-950' },
+              { m: 'Jul', c: 'bg-amber-400 text-amber-950' },
+              { m: 'Aug', c: 'bg-amber-400 text-amber-950' },
+              { m: 'Sep', c: 'bg-amber-400 text-amber-950' },
+              { m: 'Oct', c: 'bg-amber-400 text-amber-950' },
+              { m: 'Nov', c: 'bg-sky-200 text-sky-900' },
+              { m: 'Dec', c: 'bg-gray-100 text-gray-500' },
+            ].map((x) => (
+              <div key={x.m} className={`rounded-lg py-2 text-center text-sm font-bold ${x.c}`}>
+                {x.m}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {[
+              { title: 'Main dry season: June to October', text: 'Clear skies and the busiest period on the mountain. Nights near the summit are very cold.', box: 'border-amber-300 bg-amber-50', head: 'text-amber-900' },
+              { title: 'Short dry season: January to early March', text: 'Usually good weather and fewer climbers than mid-year. A popular time for summit views.', box: 'border-yellow-300 bg-yellow-50', head: 'text-yellow-900' },
+              { title: 'Long rains: April and May', text: 'Wet trails and fewer climbers. Some operators run reduced schedules.', box: 'border-blue-300 bg-blue-50', head: 'text-blue-900' },
+              { title: 'Short rains: November', text: 'Afternoon showers are common. Climbs still run.', box: 'border-sky-300 bg-sky-50', head: 'text-sky-900' },
+            ].map((c) => (
+              <article key={c.title} className={`rounded-2xl border p-6 shadow-sm ${c.box}`}>
+                <h3 className={`text-lg font-bold ${c.head}`}>{c.title}</h3>
+                <p className="mt-2 leading-7 text-gray-700">{c.text}</p>
+              </article>
+            ))}
           </div>
         </section>
 
