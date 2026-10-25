@@ -22,8 +22,21 @@ export default function KilimanjaroGuidePage() {
   return (
     <main className="min-h-screen bg-stone-50">
       {/* HERO */}
-      <header className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-800 px-6 py-16 text-white">
-        <div className="mx-auto max-w-6xl">
+            <header className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-violet-900 to-orange-700 px-6 py-16 text-white">
+        <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-amber-300/30 blur-3xl" />
+        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-sky-400/20 blur-3xl" />
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mb-6 flex flex-wrap gap-3 text-sm font-semibold">
+            <span className="rounded-full bg-white/15 px-4 py-2 backdrop-blur">
+              🇹🇿 TANZANIA
+            </span>
+            <span className="rounded-full bg-amber-400 px-4 py-2 text-slate-900">
+              🏔️ 5,895 m
+            </span>
+            <span className="rounded-full bg-white/15 px-4 py-2 backdrop-blur">
+              Africa's highest mountain
+            </span>
+          </div>
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-amber-300">
             Tanzania · Climbing Guide
           </p>
