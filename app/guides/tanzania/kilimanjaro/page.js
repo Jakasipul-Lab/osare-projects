@@ -118,12 +118,13 @@ export default function KilimanjaroGuidePage() {
               <Link
                 key={c.name}
                 href={c.href}
-                className="group rounded-2xl border border-green-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                className="group rounded-2xl border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-100 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-700">{c.name}</h3>
-                <p className="mt-2 leading-7 text-gray-600">{c.note}</p>
-                <p className="mt-4 text-2xl font-extrabold text-gray-900">
-                  USD 2,550 <span className="text-sm font-semibold text-gray-500">per person</span>
+                <p className="mt-2 leading-7 text-gray-700">{c.note}</p>
+                <p className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-green-600 px-4 py-2 text-xl font-extrabold text-white">USD 2,550</span>
+                  <span className="text-sm font-semibold text-gray-600">per person</span>
                 </p>
                 <p className="mt-3 text-sm font-bold text-green-700">See itinerary →</p>
               </Link>
