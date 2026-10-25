@@ -64,9 +64,43 @@ export const metadata = buildMetadata({
   path: '/guides/botswana',
 })
 
+const FAQS = [
+  {
+    question: "When is the best time to visit Botswana?",
+    answer:
+      "Botswana can be visited all year. The dry season, roughly May to October, is the most popular time for game viewing because animals gather around rivers and remaining water. The Okavango Delta flood arrives during the dry months. The green season brings rain, young animals and migratory birds, usually with fewer visitors.",
+  },
+  {
+    question: "What is the Okavango Delta and why do people visit it?",
+    answer:
+      "The Okavango Delta is a large inland delta in northern Botswana where the Okavango River spreads across the Kalahari. It is known for wildlife, water channels and experiences such as mokoro trips, boat excursions and game drives.",
+  },
+  {
+    question: "What currency and languages are used in Botswana?",
+    answer:
+      "Botswana uses the Pula (BWP). The main languages are Setswana and English. Check current payment options and exchange arrangements before you travel.",
+  },
+  {
+    question: "Do I need a visa to visit Botswana?",
+    answer:
+      "Visa and entry rules depend on your nationality and can change. Check the current requirements with the official Botswana authorities or the nearest embassy before you book.",
+  },
+  {
+    question: "Which places should I include on a Botswana safari?",
+    answer:
+      "Popular choices include the Okavango Delta, Chobe National Park and the Chobe River near Kasane, Makgadikgadi and the Maun area. Many trips combine more than one of these.",
+  },
+]
+
 export default function BotswanaGuidePage() {
+  const faqSchema = buildFAQSchema(FAQS)
+
   return (
     <main className="min-h-screen bg-stone-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* HERO */}
       <header className="bg-gradient-to-br from-green-950 via-green-800 to-emerald-700 px-6 py-16 text-white">
         <div className="mx-auto max-w-6xl">
