@@ -4,6 +4,7 @@ export const metadata = {
   title: 'Nairobi to Kisumu by Bus and Matatu: Stages, Travel Time and Tips',
   description:
     'How to travel from Nairobi to Kisumu by bus or matatu: where to board, how long it takes, how often vehicles leave, and where you arrive in Kisumu.',
+    alternates: { canonical: 'https://www.easafariroutes.com/local/nairobi-to-kisumu' },
 }
 
 const MAPS_URL =
