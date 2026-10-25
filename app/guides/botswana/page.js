@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import BotswanaBestTime from '@/components/BotswanaBestTime'
-import { buildMetadata } from '@/lib/seo'
-
+import { buildMetadata, buildFAQSchema } from '@/lib/seo'
 // Photos: Wikimedia Commons, used under their Creative Commons licences.
 // Each credit links to the original file page, as the licence requires.
 const ATTRACTIONS = [
