@@ -276,7 +276,35 @@ export function LocalRoutesExplorer() {
         </div>
       </div>
 
-            <div className="mx-auto mt-8 max-w-6xl px-5">
+                <div className="mx-auto mt-8 max-w-6xl px-5">
+        <div className="mb-8 rounded-2xl border-2 border-emerald-300 bg-emerald-50 p-5">
+          <h2 className="text-lg font-bold text-slate-900">Popular routes with buses listed</h2>
+          <p className="mt-1 text-sm text-slate-700">
+            Tap a route to see the buses and send your request on WhatsApp.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {[
+              ['Nairobi', 'Mombasa'],
+              ['Nairobi', 'Kisumu'],
+              ['Nairobi', 'Kampala'],
+              ['Nairobi', 'Nanyuki'],
+              ['Nairobi', 'Kajiado'],
+            ].map(([a, b]) => (
+              <button
+                key={a + b}
+                type="button"
+                onClick={() => {
+                  setFrom(a)
+                  setTo(b)
+                  load(a, b)
+                }}
+                className="rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
+              >
+                {a} to {b}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="mb-8 rounded-2xl border-2 border-amber-300 bg-amber-50 p-5">
           <h2 className="text-lg font-bold text-slate-900">Route guides</h2>
           <p className="mt-1 text-sm text-slate-700">
@@ -293,6 +321,7 @@ export function LocalRoutesExplorer() {
               </Link>
             ))}
           </div>
+        </div>
   
         <p className="mb-5 text-sm font-medium text-slate-600">
           {loading ? 'Searching…' : `${routes.length} bus route${routes.length === 1 ? '' : 's'} found`}
