@@ -45,12 +45,6 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
         <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5760405093106435"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        <Script
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "619947f69dc64b7cab505a64811950b3"}'
