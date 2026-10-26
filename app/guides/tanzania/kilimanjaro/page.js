@@ -132,6 +132,40 @@ export default function KilimanjaroGuidePage() {
           </div>
         </section>
 
+               {/* ALTEZZA CLIMBS */}
+        <section className="mb-16">
+          <Heading
+            eyebrow="More climbs"
+            title="More Kilimanjaro Routes with Altezza Travel"
+            text="A licensed operator based in Moshi. Open a route to see the price and what is included, then send your enquiry."
+          />
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              { name: 'Machame Route', days: '6 to 7 days', note: 'Rainforest, moorland and the Barranco Wall. Camping.', price: 'See price', href: '/safari/altezza-travel-kilimanjaro-machame-route-6-to-7-days-trek-e261bbc6' },
+              { name: 'Lemosho Route', days: '6 to 8 days', note: 'Quiet western start and a longer schedule for acclimatisation.', price: 'See price', href: '/safari/altezza-travel-kilimanjaro-lemosho-route-6-to-8-days-trek-5964c24d' },
+              { name: 'Northern Circuit', days: '8 days', note: 'The longest route, circling the mountain with few other climbers.', price: 'From USD 3,123', href: '/safari/altezza-travel-kilimanjaro-northern-circuit-route-8-days-trek-ce215cb1' },
+              { name: 'Marangu Route', days: '5 to 6 days', note: 'The only route with hut accommodation instead of tents.', price: 'See price', href: '/safari/altezza-travel-kilimanjaro-marangu-route-5-to-6-days-trek-f9574fd9' },
+              { name: 'Rongai Route', days: '6 to 7 days', note: 'Approaches from the north. Drier and less crowded.', price: 'See price', href: '/safari/altezza-travel-kilimanjaro-rongai-route-6-to-7-days-trek-c99c2147' },
+              { name: 'Umbwe Route', days: '6 to 7 days', note: 'Short and steep. For experienced, fit trekkers.', price: 'See price', href: '/safari/altezza-travel-kilimanjaro-umbwe-route-6-to-7-days-trek-68e2fbc6' },
+            ].map((c) => (
+              <Link
+                key={c.name}
+                href={c.href}
+                className="group rounded-2xl border-2 border-indigo-200 bg-gradient-to-br from-indigo-50 to-violet-100 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
+                <p className="text-sm font-bold text-indigo-700">{c.days}</p>
+                <h3 className="mt-1 text-xl font-bold text-gray-900 group-hover:text-indigo-700">{c.name}</h3>
+                <p className="mt-2 leading-7 text-gray-700">{c.note}</p>
+                <p className="mt-4">
+                  <span className="rounded-full bg-indigo-600 px-4 py-2 text-base font-extrabold text-white">{c.price}</span>
+                </p>
+                <p className="mt-3 text-sm font-bold text-indigo-700">View route →</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* WHEN */}
         <section className="mb-16">
           <Heading
