@@ -54,6 +54,23 @@ export default function NairobiToKisumuPage() {
           </ul>
         </section>
 
+        <section className="rounded-xl border-2 border-amber-300 bg-amber-50 p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">Typical bus fares</h2>
+          <ul className="mt-3 space-y-2 text-slate-700">
+            <li><strong>Easy Coach, Nairobi to Kisumu:</strong> KES 1,900 (from 20 April 2026).</li>
+            <li><strong>ENA Coach, Kisumu to Nairobi via Ahero:</strong> KES 1,700 (notice of 15 July 2026).</li>
+            <li><strong>Matatu:</strong> no published fare. It depends on the day and how busy it is, so ask at the stage and agree the price before you board.</li>
+          </ul>
+          <p className="mt-4 rounded-lg bg-white p-4 text-sm text-slate-700">
+            <strong>Fares change.</strong> Bus companies adjust their prices when fuel prices change, and fares can rise in busy travel periods such as Christmas. Treat these figures as a guide, and confirm the price with the company when you book.
+          </p>
+          <p className="mt-3 text-xs text-slate-500">
+            Figures as reported by Kenyans.co.ke on{' '}
+            <a href="https://www.kenyans.co.ke/news/122699-easy-coach-announces-new-bus-fares-after-fuel-hike" target="_blank" rel="noopener noreferrer" className="underline">18 April 2026</a>
+            {' '}and{' '}
+            <a href="https://www.kenyans.co.ke/news/125312-ena-coach-announces-fares-various-routes-after-epras-fuel-price-review" target="_blank" rel="noopener noreferrer" className="underline">16 July 2026</a>. Last checked October 2026.
+          </p>
+        </section>
         <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-slate-900">By bus</h2>
           <p className="mt-3 text-slate-700">
