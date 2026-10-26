@@ -293,7 +293,7 @@ export function LocalRoutesExplorer() {
               </Link>
             ))}
           </div>
-        </div>
+  
         <p className="mb-5 text-sm font-medium text-slate-600">
           {loading ? 'Searching…' : `${routes.length} bus route${routes.length === 1 ? '' : 's'} found`}
         </p>
