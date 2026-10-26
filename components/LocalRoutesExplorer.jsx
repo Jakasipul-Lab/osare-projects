@@ -276,7 +276,24 @@ export function LocalRoutesExplorer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 max-w-6xl px-5">
+            <div className="mx-auto mt-8 max-w-6xl px-5">
+        <div className="mb-8 rounded-2xl border-2 border-amber-300 bg-amber-50 p-5">
+          <h2 className="text-lg font-bold text-slate-900">Route guides</h2>
+          <p className="mt-1 text-sm text-slate-700">
+            Travel time, where to board and where you arrive, before you go.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {ROUTE_GUIDES.map((g) => (
+              <Link
+                key={g.href}
+                href={g.href}
+                className="rounded-full bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
+              >
+                {g.label} →
+              </Link>
+            ))}
+          </div>
+        </div>
         <p className="mb-5 text-sm font-medium text-slate-600">
           {loading ? 'Searching…' : `${routes.length} bus route${routes.length === 1 ? '' : 's'} found`}
         </p>
