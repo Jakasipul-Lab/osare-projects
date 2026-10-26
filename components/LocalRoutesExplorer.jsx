@@ -176,8 +176,24 @@ export function LocalRoutesExplorer() {
         <div className="relative mx-auto max-w-6xl px-5 py-12 text-white">
           <h1 className="text-3xl font-extrabold md:text-4xl">Local Commute — Buses &amp; Matatus</h1>
           <p className="mt-2 max-w-2xl text-white/90">
-            Plan your trip: choose where you travel from and to, and the day. See the buses on that route and send your request to the operator on WhatsApp.
+                  <div className="mx-auto mt-8 max-w-6xl px-5">
+        <div className="mb-8 rounded-2xl border-2 border-amber-300 bg-amber-50 p-5">
+          <h2 className="text-lg font-bold text-slate-900">Route guides</h2>
+          <p className="mt-1 text-sm text-slate-700">
+            Travel time, where to board and where you arrive, before you go.
           </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {ROUTE_GUIDES.map((g) => (
+              <Link
+                key={g.href}
+                href={g.href}
+                className="rounded-full bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
+              >
+                {g.label} →
+              </Link>
+            ))}
+          </div>
+        </div>
 
           <div className="mt-8 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm md:p-5">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-[1.3fr_1.3fr_1fr_1fr_auto] md:items-end">
