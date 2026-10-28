@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import VerifiedBadge from '@/components/VerifiedBadge'
 
 const R2 = 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev'
 
