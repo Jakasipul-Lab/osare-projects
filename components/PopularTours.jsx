@@ -83,7 +83,7 @@ function TourImage({ src, alt }) {
 }
 
 // Vendors whose details are confirmed (they get the OSARE Verified seal).
-const VERIFIED_VENDORS = new Set(['Click Expedition'])
+const VERIFIED_VENDORS = new Set(['Click Expedition', 'Oria Kenya Safaris'])
 
 export default function PopularTours() {
   return (
