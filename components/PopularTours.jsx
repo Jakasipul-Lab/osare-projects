@@ -81,11 +81,14 @@ function TourImage({ src, alt }) {
   )
 }
 
+// Vendors whose details are confirmed (they get the OSARE Verified seal).
+const VERIFIED_VENDORS = new Set(['Click Expedition'])
+
 export default function PopularTours() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
       <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Popular Safari Tours</h2>
-      <p className="mt-1 text-slate-600">Real routes, real prices in USD, from our verified vendors.</p>
+      <p className="mt-1 text-slate-600">Real routes and real prices in USD, from our partners.</p>
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {TOURS.map((t) => (
           <Link
@@ -95,6 +98,11 @@ export default function PopularTours() {
           >
             <div className="relative h-48 overflow-hidden bg-slate-100">
               <TourImage src={t.image} alt={t.route} />
+              {VERIFIED_VENDORS.has(t.vendor) ? (
+                <div className="absolute left-3 top-3 origin-top-left scale-75">
+                  <VerifiedBadge />
+                </div>
+              ) : null}
               <div className="absolute bottom-3 right-3 rounded-xl bg-emerald-600 px-3 py-1 text-right text-white shadow-lg">
                 <div className="text-lg font-extrabold leading-tight">{t.price}</div>
                 {t.unit ? <div className="text-[11px] font-medium leading-tight text-white/90">{t.unit}</div> : null}
