@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   return buildMetadata({
     title: `${item.title} — ${item.vendor} | OSARE`,
     description: item.description?.slice(0, 160) || `${item.title} by ${item.vendor} in ${item.location}. Compare and book direct on OSARE.`,
-    path: `/safari/${slug}`,
+    path: `/safari/${item.slug}`,
     image: item.image,
   })
 }
