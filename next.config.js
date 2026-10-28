@@ -24,6 +24,7 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/ads', destination: '/advertise', permanent: false },
+      { source: '/index.html', destination: '/', permanent: true },
     ];
   },
   async headers() {
