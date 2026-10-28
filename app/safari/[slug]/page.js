@@ -26,7 +26,7 @@ export default async function VendorDetailPage({ params }) {
 
   if (!item) notFound()
 
-  const pageUrl = `https://easafariroutes.com/safari/${slug}`
+   const pageUrl = `https://easafariroutes.com/safari/${slug}`
 
   // Build JSON-LD structured data from the same `item` object already
   // powering the visible page — no extra data fetching required.
