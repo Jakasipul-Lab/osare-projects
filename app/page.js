@@ -321,7 +321,7 @@ function TierExplorer({ type }) {
                 {cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
               </SelectContent>
             </Select>
-            <Button onClick={load} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: accent }}>
+              <Button onClick={() => load()} className="h-12 gap-2 px-6 text-white" style={{ backgroundColor: accent }}>
               <Search className="h-4 w-4" /> Search
             </Button>
           </CardContent>
