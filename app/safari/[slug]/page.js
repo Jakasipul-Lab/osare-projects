@@ -30,7 +30,7 @@ export default async function VendorDetailPage({ params }) {
 
   // Build JSON-LD structured data from the same `item` object already
   // powering the visible page — no extra data fetching required.
-  const jsonLd = buildProductSchema(item, `/safari/${slug}`)
+   const jsonLd = buildProductSchema(item, `/safari/${item.slug}`)
   return (
     <div className="mx-auto max-w-4xl px-5 py-12">
       <AdSense />
