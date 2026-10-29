@@ -279,7 +279,73 @@ export default function KilimandscharoPage() {
           </p>
         </section>
 
-        {/* FAQ */}
+        {/* ANBIETER WAEHLEN */}
+        <section className="mb-16 rounded-3xl bg-white p-8 shadow-sm sm:p-10">
+          <p className="text-sm font-bold uppercase tracking-widest text-green-700">Vor der Buchung</p>
+          <h2 className="mt-2 text-3xl font-extrabold text-gray-900">Worauf Sie bei einem Anbieter achten sollten</h2>
+          <p className="mt-4 max-w-3xl leading-7 text-gray-600">
+            OSARE leitet Ihre Anfrage weiter. Ob ein Anbieter zu Ihnen passt,
+            sollten Sie selbst prüfen. Diese Fragen helfen dabei. Stellen Sie
+            sie am besten schriftlich und lassen Sie sich die Antworten im
+            Angebot bestätigen.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {[
+              { t: 'Lizenz', d: 'Die Besteigung ist nur mit lizenziertem Bergführer erlaubt. Fragen Sie nach der Registrierung des Anbieters und der Lizenz der Führer.' },
+              { t: 'Träger und Mannschaft', d: 'Fragen Sie, wie die Träger bezahlt, ausgerüstet und untergebracht werden und ob Gewichtsgrenzen eingehalten werden. Organisationen wie das Kilimanjaro Porters Assistance Project (KPAP) setzen sich für faire Bedingungen ein.' },
+              { t: 'Gruppengröße und Führer', d: 'Wie groß ist die Gruppe, und wie viele Führer begleiten sie? Je mehr Betreuung, desto besser lassen sich Probleme früh erkennen.' },
+              { t: 'Sicherheit', d: 'Fragen Sie nach Erste-Hilfe-Ausrüstung, der Überwachung der Höhenanpassung und dem Notfallplan, falls jemand absteigen muss.' },
+              { t: 'Schriftliches Angebot', d: 'Preis, Termin, Route, enthaltene und nicht enthaltene Leistungen sowie Stornobedingungen sollten schriftlich vorliegen.' },
+              { t: 'Versicherung', d: 'Schließen Sie eine Reiseversicherung ab, die Trekking in großer Höhe und einen Rücktransport abdeckt.' },
+            ].map((x) => (
+              <article key={x.t} className="rounded-2xl bg-stone-50 p-5">
+                <h3 className="font-bold text-gray-900">{x.t}</h3>
+                <p className="mt-2 leading-7 text-gray-600">{x.d}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* KONDITION UND AUSRUESTUNG */}
+        <section className="mb-16 rounded-3xl border border-sky-200 bg-sky-50 p-8 sm:p-10">
+          <p className="text-sm font-bold uppercase tracking-widest text-sky-700">Vorbereitung</p>
+          <h2 className="mt-2 text-3xl font-extrabold text-sky-950">Kondition und Ausrüstung</h2>
+          <p className="mt-4 max-w-3xl leading-7 text-sky-900">
+            Sie brauchen keine Kletterkenntnisse, aber Ausdauer. Gehen Sie in den
+            Wochen vor der Reise regelmäßig lange Strecken mit Gepäck, am besten
+            mehrere Stunden am Stück und bergauf. Tragen Sie Ihre Wanderschuhe
+            vorher ein.
+          </p>
+          <h3 className="mt-6 text-lg font-bold text-sky-950">Typische Packliste</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {[
+              'Eingelaufene Wanderschuhe',
+              'Kleidung im Schichtensystem',
+              'Warme Jacke, Mütze und Handschuhe',
+              'Regenjacke und Regenhose',
+              'Sonnenschutz und Sonnenbrille',
+              'Stirnlampe mit Ersatzbatterien',
+              'Trekkingstöcke',
+              'Trinkflaschen oder Trinkblase',
+              'Persönliche Medikamente',
+              'Kopien wichtiger Dokumente',
+            ].map((t) => (
+              <li key={t} className="rounded-xl bg-white px-4 py-3 text-gray-700">✓ {t}</li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-sky-900">
+            Die Nächte nahe dem Gipfel sind sehr kalt. Manche Anbieter vermieten
+            Schlafsack, Stöcke oder Jacken. Fragen Sie danach, bevor Sie
+            kaufen.
+          </p>
+          <p className="mt-4 text-sm font-semibold text-sky-900">
+            Zu Impfungen und Gesundheitsfragen lassen Sie sich von einem Arzt
+            oder einer reisemedizinischen Beratung beraten. Aktuelle
+            Reisehinweise für Tansania finden Sie beim{' '}
+            <a href="https://www.auswaertiges-amt.de" className="underline" rel="noopener noreferrer" target="_blank">Auswärtigen Amt</a>.
+          </p>
+        </section>
+            {/* FAQ */}
         <section className="mb-16">
           <Heading
             eyebrow="Häufige Fragen"
