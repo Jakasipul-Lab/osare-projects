@@ -64,6 +64,13 @@ export default function KilimanjaroGuidePage() {
             >
               See climbing listings
             </Link>
+                            <Link
+              href="/de/kilimandscharo"
+              hrefLang="de"
+              className="rounded-full border border-white/40 px-6 py-3 font-bold text-white transition hover:bg-white/10"
+            >
+              Auf Deutsch lesen
+            </Link>
           </div>
         </div>
       </header>
