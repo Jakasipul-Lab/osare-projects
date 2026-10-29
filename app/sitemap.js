@@ -43,6 +43,10 @@ export default async function sitemap() {
     { url: `${baseUrl}/guides/kenya/lake-nakuru`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/guides/tanzania/serengeti`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/guides/tanzania/zanzibar`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/de/kilimandscharo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/guides/tanzania/kilimanjaro`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/guides/tanzania/kilimanjaro/machame`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/guides/tanzania/kilimanjaro/marangu`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ]
 
   let vendorRoutes = []
