@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
+import GuideTripCta from '../GuideTripCta'
 
 export const metadata = buildMetadata({
   title:
@@ -662,6 +663,15 @@ export default function MozambiqueGuidePage() {
           </div>
         </section>
 
+        <GuideTripCta
+          country="Mozambique"
+          links={[
+            { label: 'Visit Mozambique (National Tourism Institute)', href: 'https://www.visitmozambique.net' },
+            { label: 'Mozambique e-Visa', href: 'https://evisa.gov.mz' },
+            { label: 'UK travel advice for Mozambique', href: 'https://www.gov.uk/foreign-travel-advice/mozambique' },
+          ]}
+        />
+
         {/* SOURCE NOTE */}
         <section className="mb-12 rounded-2xl border bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-gray-900">
@@ -677,7 +687,7 @@ export default function MozambiqueGuidePage() {
               Development Office travel advice
             </p>
             <p>
-              <strong>Last reviewed:</strong> September 2026
+              <strong>Last reviewed:</strong> October 2026
             </p>
             <p>
               <strong>Note:</strong> Time-sensitive requirements should always
