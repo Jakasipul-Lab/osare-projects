@@ -6,7 +6,7 @@ export const metadata = {
     title: 'Kilimandscharo Kosten: Was kostet die Besteigung? | OSARE',
     description:
       'Was kostet eine Kilimandscharo-Besteigung? Veröffentlichte Preise von Anbietern aus Moshi, was im Preis steckt, was extra kommt und wie Sie Angebote vergleichen.',
-    path: '/de/kilimandscharo-kosten',
+        path: '/de/kilimandscharo/kilimandscharo-kosten',
   }),
 }
 
