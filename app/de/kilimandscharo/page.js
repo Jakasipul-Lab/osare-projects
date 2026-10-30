@@ -118,6 +118,12 @@ export default function KilimandscharoPage() {
             >
               English version
             </Link>
+            <Link
+              href="/de/kilimandscharo/kilimandscharo-kosten"
+              className="rounded-full border border-white/40 px-6 py-3 font-bold text-white transition hover:bg-white/10"
+            >
+              Kosten im Überblick
+            </Link>
           </div>
         </div>
       </header>
