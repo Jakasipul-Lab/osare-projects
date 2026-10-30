@@ -5,6 +5,8 @@ import { validatePhone } from '@/lib/phone'
 export default function EnquireButton({ listingId }) {
   const [phone, setPhone] = useState('')
   const [name, setName] = useState('')
+  const [month, setMonth] = useState('')
+  const [travelers, setTravelers] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
@@ -24,6 +26,8 @@ export default function EnquireButton({ listingId }) {
           listingId,
           travelerPhone: check.e164,
           travelerName: name.trim() || undefined,
+          travelMonth: month || undefined,
+          travelers: travelers.trim() || undefined,
         }),
       })
       const data = await res.json()
@@ -48,6 +52,25 @@ export default function EnquireButton({ listingId }) {
         placeholder="Your name (optional)"
         className="w-full rounded-lg border border-slate-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
       />
+      <div className="grid grid-cols-2 gap-3">
+        <select
+          value={month}
+          onChange={(e) => setMonth(e.target.value)}
+          className="w-full rounded-lg border border-slate-200 bg-white p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+        >
+          <option value="">Month of travel (optional)</option>
+          {['January','February','March','April','May','June','July','August','September','October','November','December'].map((m) => (
+            <option key={m} value={m}>{m}</option>
+          ))}
+        </select>
+        <input
+          value={travelers}
+          onChange={(e) => setTravelers(e.target.value.replace(/[^0-9]/g, '').slice(0, 2))}
+          placeholder="Travelers (optional)"
+          inputMode="numeric"
+          className="w-full rounded-lg border border-slate-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+        />
+      </div>
       <input
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
