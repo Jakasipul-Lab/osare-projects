@@ -3,6 +3,7 @@ import { query } from '@/lib/db';
 import { isAdminRequest } from '@/lib/auth';
 import { validatePhone } from '@/lib/phone';
 import { notifyOwner } from '@/lib/notify';
+import { buildEnquiryMessage } from '@/lib/enquiryMessage';
 
 function mapLead(row) {
   return {
@@ -41,7 +42,7 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { listingId, travelerName, travelerPhone } = body;
+    const { listingId, travelerName, travelerPhone, travelMonth, travelers } = body;
 
     if (!listingId) {
       return NextResponse.json({ success: false, error: 'listingId is required' }, { status: 400 });
@@ -106,7 +107,13 @@ export async function POST(request) {
     const digitsOnly = String(rawPhone).replace(/[^0-9]/g, '');
     const cleanPhone = digitsOnly.startsWith('0') ? '254' + digitsOnly.slice(1) : digitsOnly;
     const waMsg = encodeURIComponent(
-      `Hello, I found your listing "${listing.title}" on EA SafariRoutes/OSARE and I would like to enquire. (Ref: ${code})`
+      buildEnquiryMessage({
+        title: listing.title,
+        category: listing.category,
+        code,
+        month: travelMonth,
+        travelers,
+      })
     );
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
     return NextResponse.json({ success: true, whatsappUrl, lead: mapLead(lead) });
