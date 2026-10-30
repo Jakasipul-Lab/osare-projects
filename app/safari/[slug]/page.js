@@ -61,6 +61,12 @@ export default async function VendorDetailPage({ params }) {
 
           <h1 className="mt-3 text-3xl font-extrabold text-slate-900">{item.title}</h1>
           <p className="mt-1 text-lg font-semibold text-[#1e3a8a]">By {item.vendor}</p>
+                    {item.isVerified ? (
+            <p className="mt-2 text-sm font-semibold text-blue-800">
+              ✓ OSARE Verified ·{' '}
+              <Link href="/verified" className="underline hover:text-blue-950">What does this mean?</Link>
+            </p>
+          ) : null}
 
           <p className="mt-1 text-sm text-slate-500">📍 {item.location}</p>
 <LocationMap location={item.location} />
