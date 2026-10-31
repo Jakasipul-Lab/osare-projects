@@ -138,7 +138,7 @@ export default function AboutView() {
       {/* HERO — leads with the real number */}
       <div className="relative overflow-hidden bg-gradient-to-br from-[#1e3a8a] via-[#1e3a8a] to-[#f97316] px-5 py-24 text-center text-white">
         <div className="relative mx-auto max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight">Connecting Travelers to 90+ Verified Tourism Operators Across East Africa</h1>
+         <h1 className="text-4xl md:text-5xl font-black tracking-tight">Connecting Travelers to Tourism Operators Across East Africa</h1>
           <p className="mt-4 text-lg text-white/90">Kenya · Tanzania · Uganda</p>
         </div>
       </div>
