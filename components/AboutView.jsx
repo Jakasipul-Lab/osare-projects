@@ -188,4 +188,57 @@ export default function AboutView() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
             {MILESTONES.map((m, i) => (
               <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                <span
+                                <span className="text-orange-600 font-bold text-lg">{m.year}</span>
+                <p className="mt-2 text-slate-700 font-medium">{m.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* PARTNER / LEGAL — replaces Investor Relations, Careers, Newsletter, Feedback */}
+        <div className="mt-24 rounded-3xl bg-slate-900 p-8 text-white">
+          <h2 className="text-2xl font-black">Interested in Partnering, Investing, or Joining Our Team?</h2>
+          <p className="mt-3 text-slate-300">Reach out directly — we'd love to hear from you.</p>
+          <a href="mailto:info@easafariroutes.com" className="mt-4 inline-block font-bold text-orange-400 underline">info@easafariroutes.com</a>
+          <p className="mt-6 text-sm text-slate-400">
+            Registered as SafariRoutes EA (Kleingewerbe, Germany) ·{' '}
+            <a href="/impressum" className="underline hover:text-white">View our Impressum</a>
+          </p>
+        </div>
+
+        {/* CONTACT FORM */}
+        <div className="mt-24 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+          <h2 className="text-2xl font-black text-slate-900">Contact Us</h2>
+          <div className="grid gap-4 mt-6">
+            <input value={contact.name} onChange={(e) => setContactField('name', e.target.value)} className="border border-slate-200 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]" placeholder="Full Name" />
+            <input value={contact.email} onChange={(e) => setContactField('email', e.target.value)} className="border border-slate-200 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]" placeholder="Email Address" type="email" />
+            <input value={contact.phone} onChange={(e) => setContactField('phone', e.target.value)} className="border border-slate-200 rounded-2xl p-4 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]" placeholder="Phone Number" />
+            <textarea value={contact.message} onChange={(e) => setContactField('message', e.target.value)} className="border border-slate-200 rounded-2xl p-4 h-40 focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]" placeholder="Message" />
+          </div>
+          <button onClick={sendContact} disabled={sendingContact} className="mt-6 rounded-xl bg-gradient-to-r from-[#1e3a8a] to-[#f97316] px-6 py-3 font-bold text-white shadow transition-opacity hover:opacity-90 disabled:opacity-60">
+            {sendingContact ? 'Sending…' : 'Send Inquiry'}
+          </button>
+        </div>
+
+      </section>
+
+      {/* SELF-CONTAINED FOOTER — black & white, in case this page loads standalone */}
+      <footer className="border-t border-slate-800 bg-black py-10 text-slate-400">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-5 md:flex-row md:justify-between">
+          <p className="text-xs">© 2026 OSARE — easafariroutes.com. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="https://x.com/osaresson" target="_blank" rel="noopener noreferrer" aria-label="X" className="hover:text-white"><XIcon className="h-5 w-5" /></a>
+            <a href="https://www.facebook.com/profile.php?id=61593524609763" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-white">
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/142404145/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@osaressonnakinsson" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="hover:text-white"><TikTokIcon className="h-5 w-5" /></a>
+            <a href="https://www.threads.com/@nakinsonosareson" target="_blank" rel="noopener noreferrer" aria-label="Threads" className="hover:text-white"><ThreadsIcon className="h-5 w-5" /></a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
