@@ -188,7 +188,7 @@ export default function AboutView() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
             {MILESTONES.map((m, i) => (
               <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                                <span className="text-orange-600 font-bold text-lg">{m.year}</span>
+                <span className="text-orange-600 font-bold text-lg">{m.year}</span>
                 <p className="mt-2 text-slate-700 font-medium">{m.text}</p>
               </div>
             ))}
