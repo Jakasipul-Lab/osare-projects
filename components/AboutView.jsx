@@ -65,10 +65,10 @@ const BRANCHES = [
 
 const MILESTONES = [
   { year: '2025', text: 'OSARE founded to simplify East African travel discovery' },
-  { year: '2026', text: 'Platform launched with verified vendor listings across Kenya, Tanzania, and Uganda' },
-  { year: '2026', text: 'Reached 90+ verified tourism and transport operators' },
-  { year: '2026', text: 'Launched SMS phone verification for vendor trust and safety' },
-  { year: 'Ongoing', text: 'Expanding across East Africa, one verified operator at a time' },
+  { year: '2026', text: 'Platform launched with operator listings across Kenya, Tanzania, and Uganda' },
+  { year: '2026', text: 'Listed 90+ tourism and transport operators' },
+  { year: '2026', text: 'Introduced the OSARE Verified stamp for confirmed partners' },
+  { year: 'Ongoing', text: 'Expanding across East Africa, one confirmed operator at a time' },
 ]
 
 function initials(name) {
