@@ -163,7 +163,7 @@ export default function AboutView() {
         {/* FOUNDER */}
         <div className="mt-20 rounded-3xl bg-gradient-to-br from-[#1e3a8a]/5 to-[#f97316]/10 p-8 border border-[#1e3a8a]/10">
           <h2 className="text-3xl font-black text-slate-900">Founder &amp; Lead Developer</h2>
-          <p className="mt-5 text-slate-600 leading-relaxed">Osare Nakinson founded OSARE to address regional transport fragmentation and create a digital gateway connecting transport, tourism and logistics services throughout East Africa.</p>
+          <p className="mt-5 text-slate-600 leading-relaxed">Osare Nakinson founded OSARE to make it easier for travellers to find and contact tourism and transport operators across East Africa, in one place and with clear information.</p>
         </div>
 
         {/* HEAD OFFICE TEAM */}
