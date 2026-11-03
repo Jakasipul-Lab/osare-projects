@@ -152,7 +152,18 @@ export default function KilimandscharoKostenPage() {
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-sm text-gray-500">
+                    <div className="mt-6 rounded-2xl border-2 border-amber-300 bg-amber-50 p-5">
+            <h3 className="font-bold text-amber-900">Angebot im November und Dezember 2026</h3>
+            <p className="mt-2 leading-7 text-amber-900">
+              Click Expedition bietet im November und Dezember 2026 zwei Touren zu Angebotspreisen an:
+              Lemosho, 10 Tage, USD 2.500 pro Person, und Marangu als Gruppentour, 8 Tage, USD 2.200
+              pro Person. Parkgebühren, Träger, Koch und alle nötigen Leistungen am Berg sind laut
+              Anbieter enthalten.{' '}
+              <Link href="/de/kilimandscharo" className="font-bold underline">
+                Zu den Angeboten
+              </Link>
+            </p>
+          </div><p className="mt-4 text-sm text-gray-500">
             Bei Click Expedition sind laut Anbieter Hotelnächte, Transfers, Parkgebühren, Mannschaft
             und Mahlzeiten enthalten. Die genauen Leistungen der anderen Angebote bestätigt der
             jeweilige Anbieter.
