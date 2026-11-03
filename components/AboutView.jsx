@@ -155,7 +155,7 @@ export default function AboutView() {
             </div>
             <div className="rounded-2xl bg-gradient-to-br from-[#f97316] to-[#fb923c] p-6 text-white shadow-md">
               <h3 className="font-bold text-lg">Vision</h3>
-              <p className="mt-3 text-white/90">To become East Africa&rsquo;s most trusted mobility and logistics platform.</p>
+              <p className="mt-3 text-white/90">To become East Africa&rsquo;s most trusted platform for finding tourism and transport operators.</p>
             </div>
           </div>
         </div>
