@@ -168,7 +168,59 @@ export default function KilimandscharoPage() {
           </div>
         </section>
 
-        {/* BUCHBARE TOUREN */}
+         {/* ANGEBOTE ZUM JAHRESWECHSEL */}
+        <section className="mb-16">
+          <Heading
+            eyebrow="Black Friday, Weihnachten und Neujahr"
+            title="Angebote zum Jahreswechsel"
+            text="Zwei Touren von Click Expedition aus Moshi zu Angebotspreisen, gültig im November und Dezember 2026. Die Preise nennt der Anbieter. Termine und die Buchung bestätigt Click Expedition."
+          />
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
+              <p className="text-sm font-bold text-amber-800">10 Tage</p>
+              <h3 className="mt-1 text-xl font-bold text-gray-900">Lemosho-Route</h3>
+              <p className="mt-2 leading-7 text-gray-700">
+                Ruhiger Start im Westen über das Shira-Plateau, mit Lava Tower und Barranco-Camp.
+                Im Preis enthalten laut Anbieter: Parkgebühren, Träger, Koch, Zelte und alle nötigen
+                Leistungen am Berg, dazu Unterkunft, Führer, Mahlzeiten und Transport.
+              </p>
+              <p className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2.500</span>
+                <span className="text-sm font-semibold text-gray-600">pro Person</span>
+              </p>
+              <Link
+                href="/request-a-trip?destination=Kilimanjaro"
+                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
+              >
+                Angebot anfragen
+              </Link>
+            </article>
+            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
+              <p className="text-sm font-bold text-amber-800">8 Tage · Gruppentour</p>
+              <h3 className="mt-1 text-xl font-bold text-gray-900">Marangu-Route</h3>
+              <p className="mt-2 leading-7 text-gray-700">
+                Übernachtung in Hütten statt Zelten, mit einem Akklimatisierungstag am Horombo-Camp.
+                Im Preis enthalten laut Anbieter: Parkgebühren, Träger, Koch und alle nötigen Leistungen
+                am Berg. Abreise an beliebigen Terminen im November und Dezember, nach Verfügbarkeit
+                und Gruppenbestätigung.
+              </p>
+              <p className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2.200</span>
+                <span className="text-sm font-semibold text-gray-600">pro Person</span>
+              </p>
+              <Link
+                href="/request-a-trip?destination=Kilimanjaro"
+                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
+              >
+                Angebot anfragen
+              </Link>
+            </article>
+          </div>
+          <p className="mt-4 text-sm text-gray-500">
+            Angebotspreise Stand November 2026, vom Anbieter bestätigt. OSARE ist ein Verzeichnis
+            und leitet Ihre Anfrage an den Anbieter weiter.
+          </p>
+        </section>{/* BUCHBARE TOUREN */}
         <section className="mb-16">
           <Heading
             eyebrow="Tour mit Preis"
