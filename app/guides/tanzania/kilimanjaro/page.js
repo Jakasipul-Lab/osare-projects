@@ -109,7 +109,60 @@ export default function KilimanjaroGuidePage() {
           <Nudge text="Not sure which route suits you? Tell us your fitness, dates and group size." />
         </section>
 
-        {/* FEATURED CLIMBS */}
+         {/* NOVEMBER AND DECEMBER OFFERS */}
+        <section className="mb-16">
+          <Heading
+            eyebrow="Black Friday, Christmas and New Year"
+            title="Offers for November and December 2026"
+            text="Two climbs from Click Expedition in Moshi at offer prices, valid in November and December 2026. Prices are stated by the operator. Dates and booking are confirmed by Click Expedition."
+          />
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
+              <p className="text-sm font-bold text-amber-800">10 days</p>
+              <h3 className="mt-1 text-xl font-bold text-gray-900">Lemosho Route</h3>
+              <p className="mt-2 leading-7 text-gray-700">
+                A quiet start in the west across the Shira Plateau, with Lava Tower and Barranco Camp.
+                Included according to the operator: park fees, porters, cook, tents and all necessary
+                mountain services, plus accommodation, guide, meals and transport.
+              </p>
+              <p className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2,500</span>
+                <span className="text-sm font-semibold text-gray-600">per person</span>
+              </p>
+              <Link
+                href="/request-a-trip?destination=Kilimanjaro"
+                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
+              >
+                Enquire about this offer
+              </Link>
+            </article>
+            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
+              <p className="text-sm font-bold text-amber-800">8 days · Group joining</p>
+              <h3 className="mt-1 text-xl font-bold text-gray-900">Marangu Route</h3>
+              <p className="mt-2 leading-7 text-gray-700">
+                Sleeping huts instead of tents, with an acclimatisation day at Horombo Camp.
+                Included according to the operator: park fees, porters, cook and all necessary mountain
+                services. Departures on any date in November and December, subject to availability and
+                group confirmation.
+              </p>
+              <p className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2,200</span>
+                <span className="text-sm font-semibold text-gray-600">per person</span>
+              </p>
+              <Link
+                href="/request-a-trip?destination=Kilimanjaro"
+                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
+              >
+                Enquire about this offer
+              </Link>
+            </article>
+          </div>
+          <p className="mt-4 text-sm text-gray-500">
+            Offer prices as of November 2026, confirmed by the operator. OSARE is a directory and
+            passes your enquiry on to the operator.
+          </p>
+        </section>
+{/* FEATURED CLIMBS */}
         <section className="mb-16">
           <Heading
             eyebrow="Priced climbs"
