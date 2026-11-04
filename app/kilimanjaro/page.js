@@ -61,6 +61,15 @@ const ROUTES = [
   },
 ]
 
+const HOLIDAY_ROUTES = ['marangu', 'rongai', 'lemosho', 'northern']
+
+function isHolidayOffer(item) {
+  return (
+    String(item.vendor || '') === 'Click Expedition' &&
+    HOLIDAY_ROUTES.includes(routeKey(item.title))
+  )
+}
+
 function routeKey(title) {
   const t = String(title || '').toLowerCase()
   if (t.includes('northern circuit')) return 'northern'
