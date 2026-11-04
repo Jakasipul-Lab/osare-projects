@@ -142,13 +142,7 @@ export default function MachamePage() {
             <Link href="/kilimanjaro" className="font-bold text-green-700 hover:underline">
               Compare routes and prices
             </Link>
-            <Link href="/de/kilimandscharo" hrefLang="de" className="font-bold text-green-700 hover:underline">
-              Auf Deutsch lesen
-            </Link>
-          </div>
-        </section>
-
-                    <Link href="/de/kilimandscharo" hrefLang="de" className="font-bold text-green-700 hover:underline">
+                      <Link href="/de/kilimandscharo" hrefLang="de" className="font-bold text-green-700 hover:underline">
               Auf Deutsch lesen
             </Link>
           </div>
