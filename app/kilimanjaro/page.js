@@ -58,17 +58,17 @@ const ROUTES = [
     key: 'other',
     name: 'Other Kilimanjaro packages',
     blurb: 'Other climbs and packages from our partners. Ask the operator for the route and price.',
-          <span className="text-sm text-slate-500">We reply as soon as we can.</span>
-      </div>
+  },
+]
 
-      <div className="mt-8 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm text-orange-900">
-        <p className="font-bold">Holiday offers: Black Friday, Christmas and New Year 2026/27</p>
-        <p className="mt-1">
-          Click Expedition offers private and joining-group climbs on Marangu, Rongai, Lemosho and the Northern Circuit,
-          and a mountain biking package, for departures from November 2026 to January 2027, subject to availability.
-          Prices are in USD per person. Joining a group saves USD 150 per person on the climbs and USD 200 on the biking package.
-        </p>
-      </div>
+const HOLIDAY_ROUTES = ['marangu', 'rongai', 'lemosho', 'northern']
+
+function isHolidayOffer(item) {
+  if (String(item.vendor || '') !== 'Click Expedition') return false
+  if (/mountain biking/i.test(String(item.title || ''))) return true
+  return HOLIDAY_ROUTES.includes(routeKey(item.title))
+}
+
 function routeKey(title) {
   const t = String(title || '').toLowerCase()
   if (t.includes('northern circuit')) return 'northern'
@@ -155,7 +155,7 @@ export default async function KilimanjaroPage() {
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center rounded-lg bg-[#25d366] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1ebe5b]"
-               >
+        >
           Not sure which route? Ask us on WhatsApp
         </a>
         <span className="text-sm text-slate-500">We reply as soon as we can.</span>
@@ -164,9 +164,9 @@ export default async function KilimanjaroPage() {
       <div className="mt-8 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm text-orange-900">
         <p className="font-bold">Holiday offers: Black Friday, Christmas and New Year 2026/27</p>
         <p className="mt-1">
-          Click Expedition offers private and joining-group climbs on Marangu, Rongai, Lemosho and the Northern Circuit
-          for departures from November 2026 to January 2027, subject to availability. Prices are in USD per person, and
-          joining a group saves USD 150 per person compared with a private climb.
+          Click Expedition offers private and joining-group climbs on Marangu, Rongai, Lemosho and the Northern Circuit,
+          and a mountain biking package, for departures from November 2026 to January 2027, subject to availability.
+          Prices are in USD per person. Joining a group saves USD 150 per person on the climbs and USD 200 on the biking package.
         </p>
       </div>
 
@@ -209,7 +209,7 @@ export default async function KilimanjaroPage() {
                       ) : null}
                     </div>
                     <p className="text-lg font-bold text-[#1e3a8a]">{priceText(it)}</p>
-                          {isHolidayOffer(it) ? (
+                    {isHolidayOffer(it) ? (
                       <span className="w-fit rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">
                         Holiday offer
                       </span>
