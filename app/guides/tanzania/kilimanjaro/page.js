@@ -196,9 +196,9 @@ export default function KilimanjaroGuidePage() {
           />
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
-                     {[
-              { name: 'Marangu Route — 8 days', note: 'Sleeping huts, acclimatisation day at Horombo', href: '/guides/tanzania/kilimanjaro/marangu', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/12-horombo-hut-bikes.jpg', price: 'USD 2,600', per: 'per person, private' },
-              { name: 'Machame Route — 9 days', note: 'Camping, the most popular scenic route', href: '/guides/tanzania/kilimanjaro/machame', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/15-tents-sunrise.jpg', price: 'USD 2,550', per: 'per person' },
+                               {[
+              { name: 'Marangu Route — 8 days', note: 'Sleeping huts, acclimatisation day at Horombo', href: '/guides/tanzania/kilimanjaro/marangu', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/photo2/photos2/12-horombo-hut-bikes.jpg', price: 'USD 2,600', per: 'per person, private' },
+              { name: 'Machame Route — 9 days', note: 'Camping, the most popular scenic route', href: '/guides/tanzania/kilimanjaro/machame', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/photo2/photos2/15-tents-sunrise.jpg', price: 'USD 2,550', per: 'per person' },
             ].map((c) => (
               <Link
                 key={c.name}
