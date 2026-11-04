@@ -18,6 +18,14 @@ const ROUTES = [
   { name: 'Umbwe', days: '5–6 days', edge: 'border-t-red-500', badge: 'bg-red-50 text-red-800', text: "Short and steep. Suited only to experienced, fit trekkers." },
 ]
 
+const OFFERS = [
+  { days: '8 days', name: 'Marangu Route', note: 'Sleeping huts instead of tents, with an acclimatisation day at Horombo Camp. 6 days on the mountain plus 2 hotel nights in Moshi.', priv: '2,600', group: '2,450' },
+  { days: '8 days', name: 'Rongai Route', note: 'Approaches from the north. Drier and less crowded. 6 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,700', group: '2,550' },
+  { days: '10 days', name: 'Lemosho Route', note: 'A quiet start in the west across the Shira Plateau, with Lava Tower and Barranco Camp. 8 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,800', group: '2,650' },
+  { days: '10 days', name: 'Northern Circuit', note: 'The longest route, circling the northern slopes with few other climbers. Includes 2 hotel nights in Moshi. Camping.', priv: '2,900', group: '2,750' },
+  { days: '8 days', name: 'Mountain Biking', note: '6 days of cycling plus 2 hotel nights in Moshi. Bike hire and a support vehicle are included.', priv: '3,200', group: '3,000' },
+]
+
 export default function KilimanjaroGuidePage() {
   return (
     <main className="min-h-screen bg-stone-50">
@@ -109,57 +117,68 @@ export default function KilimanjaroGuidePage() {
           <Nudge text="Not sure which route suits you? Tell us your fitness, dates and group size." />
         </section>
 
-         {/* NOVEMBER AND DECEMBER OFFERS */}
+         {/* HOLIDAY OFFERS */}
         <section className="mb-16">
           <Heading
             eyebrow="Black Friday, Christmas and New Year"
-            title="Offers for November and December 2026"
-            text="Two climbs from Click Expedition in Moshi at offer prices, valid in November and December 2026. Prices are stated by the operator. Dates and booking are confirmed by Click Expedition."
+            title="Holiday Offers: November 2026 to January 2027"
+            text="Holiday climbs and a mountain biking package from Click Expedition in Moshi, for departures from November 2026 to January 2027, subject to availability. Prices are stated by the operator, in USD per person. Joining a group saves USD 150 per person on the climbs and USD 200 on the biking package."
           />
           <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
-              <p className="text-sm font-bold text-amber-800">10 days</p>
-              <h3 className="mt-1 text-xl font-bold text-gray-900">Lemosho Route</h3>
-              <p className="mt-2 leading-7 text-gray-700">
-                A quiet start in the west across the Shira Plateau, with Lava Tower and Barranco Camp.
-                Included according to the operator: park fees, porters, cook, tents and all necessary
-                mountain services, plus accommodation, guide, meals and transport.
+            {OFFERS.map((o) => (
+              <article key={o.name} className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
+                <p className="text-sm font-bold text-amber-800">{o.days} in total</p>
+                <h3 className="mt-1 text-xl font-bold text-gray-900">{o.name}</h3>
+                <p className="mt-2 leading-7 text-gray-700">{o.note}</p>
+                <p className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD {o.priv}</span>
+                  <span className="text-sm font-semibold text-gray-600">per person, private</span>
+                </p>
+                <p className="mt-2 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-amber-100 px-4 py-2 text-xl font-extrabold text-amber-900">USD {o.group}</span>
+                  <span className="text-sm font-semibold text-gray-600">per person, joining a group</span>
+                </p>
+                <Link
+                  href="/request-a-trip?destination=Kilimanjaro"
+                  className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
+                >
+                  Enquire about this offer
+                </Link>
+              </article>
+            ))}
+          </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900">Included in the climbs, according to the operator</h3>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-gray-700">
+                <li>Kilimanjaro National Park fees and permits</li>
+                <li>Camping or mountain hut fees, depending on the route</li>
+                <li>English-speaking guides, assistant guides, porters and cook</li>
+                <li>All meals and purified drinking water on the climb</li>
+                <li>Mountain tents and sleeping mattresses (camping routes)</li>
+                <li>Two hotel nights in Moshi, airport transfers and transfers to the park</li>
+                <li>Rescue fees, oxygen and emergency first-aid equipment</li>
+                <li>Summit certificates</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900">Not included</h3>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-gray-700">
+                <li>International and domestic flights</li>
+                <li>Tanzania visa fees</li>
+                <li>Travel and medical insurance</li>
+                <li>Personal trekking equipment and gear rental</li>
+                <li>Tips for guides, porters and cook</li>
+                <li>Personal expenses, drinks at the hotel and extra hotel nights</li>
+              </ul>
+              <p className="mt-3 text-sm text-gray-500">
+                For the mountain biking package, ask the operator about the guide, park fees and meals before you book.
               </p>
-              <p className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2,500</span>
-                <span className="text-sm font-semibold text-gray-600">per person</span>
-              </p>
-              <Link
-                href="/request-a-trip?destination=Kilimanjaro"
-                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
-              >
-                Enquire about this offer
-              </Link>
-            </article>
-            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
-              <p className="text-sm font-bold text-amber-800">8 days · Group joining</p>
-              <h3 className="mt-1 text-xl font-bold text-gray-900">Marangu Route</h3>
-              <p className="mt-2 leading-7 text-gray-700">
-                Sleeping huts instead of tents, with an acclimatisation day at Horombo Camp.
-                Included according to the operator: park fees, porters, cook and all necessary mountain
-                services. Departures on any date in November and December, subject to availability and
-                group confirmation.
-              </p>
-              <p className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2,200</span>
-                <span className="text-sm font-semibold text-gray-600">per person</span>
-              </p>
-              <Link
-                href="/request-a-trip?destination=Kilimanjaro"
-                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
-              >
-                Enquire about this offer
-              </Link>
-            </article>
+            </div>
           </div>
           <p className="mt-4 text-sm text-gray-500">
-            Offer prices as of November 2026, confirmed by the operator. OSARE is a directory and
-            passes your enquiry on to the operator.
+            Offer prices as of November 2026, confirmed by the operator. Dates and booking are confirmed by Click Expedition.
+            OSARE is a directory and passes your enquiry on to the operator.
           </p>
         </section>
 {/* FEATURED CLIMBS */}
@@ -172,8 +191,8 @@ export default function KilimanjaroGuidePage() {
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {[
-              { name: 'Marangu Route — 8 days', note: 'Sleeping huts, acclimatisation day at Horombo', href: '/guides/tanzania/kilimanjaro/marangu' },
-              { name: 'Machame Route — 9 days', note: 'Camping, the most popular scenic route', href: '/guides/tanzania/kilimanjaro/machame' },
+              { name: 'Marangu Route — 8 days', note: 'Sleeping huts, acclimatisation day at Horombo', href: '/guides/tanzania/kilimanjaro/marangu', price: 'USD 2,600', per: 'per person, private' },
+              { name: 'Machame Route — 9 days', note: 'Camping, the most popular scenic route', href: '/guides/tanzania/kilimanjaro/machame', price: 'USD 2,550', per: 'per person' },
             ].map((c) => (
               <Link
                 key={c.name}
@@ -183,8 +202,8 @@ export default function KilimanjaroGuidePage() {
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-700">{c.name}</h3>
                 <p className="mt-2 leading-7 text-gray-700">{c.note}</p>
                 <p className="mt-4 flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-green-600 px-4 py-2 text-xl font-extrabold text-white">USD 2,550</span>
-                  <span className="text-sm font-semibold text-gray-600">per person</span>
+                  <span className="rounded-full bg-green-600 px-4 py-2 text-xl font-extrabold text-white">{c.price}</span>
+                  <span className="text-sm font-semibold text-gray-600">{c.per}</span>
                 </p>
                 <p className="mt-3 text-sm font-bold text-green-700">See itinerary →</p>
               </Link>
