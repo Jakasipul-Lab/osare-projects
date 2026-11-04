@@ -58,17 +58,17 @@ const ROUTES = [
     key: 'other',
     name: 'Other Kilimanjaro packages',
     blurb: 'Other climbs and packages from our partners. Ask the operator for the route and price.',
-  },
-]
+          <span className="text-sm text-slate-500">We reply as soon as we can.</span>
+      </div>
 
-const HOLIDAY_ROUTES = ['marangu', 'rongai', 'lemosho', 'northern']
-
-function isHolidayOffer(item) {
-  if (String(item.vendor || '') !== 'Click Expedition') return false
-  if (/mountain biking/i.test(String(item.title || ''))) return true
-  return HOLIDAY_ROUTES.includes(routeKey(item.title))
-}
-
+      <div className="mt-8 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm text-orange-900">
+        <p className="font-bold">Holiday offers: Black Friday, Christmas and New Year 2026/27</p>
+        <p className="mt-1">
+          Click Expedition offers private and joining-group climbs on Marangu, Rongai, Lemosho and the Northern Circuit,
+          and a mountain biking package, for departures from November 2026 to January 2027, subject to availability.
+          Prices are in USD per person. Joining a group saves USD 150 per person on the climbs and USD 200 on the biking package.
+        </p>
+      </div>
 function routeKey(title) {
   const t = String(title || '').toLowerCase()
   if (t.includes('northern circuit')) return 'northern'
