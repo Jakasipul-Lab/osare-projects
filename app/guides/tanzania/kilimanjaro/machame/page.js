@@ -148,12 +148,18 @@ export default function MachamePage() {
           </div>
         </section>
 
+                    <Link href="/de/kilimandscharo" hrefLang="de" className="font-bold text-green-700 hover:underline">
+              Auf Deutsch lesen
+            </Link>
+          </div>
+        </section>
+
         <GuideTripCta
           country="Tanzania"
           links={[
             { label: 'Tanzania National Parks (TANAPA)', href: 'https://www.tanzaniaparks.go.tz' },
             { label: 'Tanzania e-Visa (Immigration)', href: 'https://visa.immigration.go.tz' },
-            { label: 'Tanzania Tourist Board', href: 'https://www.tanzaniaparks.go.tz' },
+            { label: 'Tanzania Tourist Board', href: 'https://www.tanzaniatourism.go.tz' },
           ]}
         />
       </div>
