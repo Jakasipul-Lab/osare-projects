@@ -19,11 +19,11 @@ const ROUTES = [
 ]
 
 const OFFERS = [
-  { days: '8 days', name: 'Marangu Route', note: 'Sleeping huts instead of tents, with an acclimatisation day at Horombo Camp. 6 days on the mountain plus 2 hotel nights in Moshi.', priv: '2,600', group: '2,450' },
-  { days: '8 days', name: 'Rongai Route', note: 'Approaches from the north. Drier and less crowded. 6 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,700', group: '2,550' },
-  { days: '10 days', name: 'Lemosho Route', note: 'A quiet start in the west across the Shira Plateau, with Lava Tower and Barranco Camp. 8 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,800', group: '2,650' },
-  { days: '10 days', name: 'Northern Circuit', note: 'The longest route, circling the northern slopes with few other climbers. Includes 2 hotel nights in Moshi. Camping.', priv: '2,900', group: '2,750' },
-  { days: '8 days', name: 'Mountain Biking', note: '6 days of cycling plus 2 hotel nights in Moshi. Bike hire and a support vehicle are included.', priv: '3,200', group: '3,000' },
+  { days: '8 days', name: 'Marangu Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-marangu-route-6days.jpg', note: 'Sleeping huts instead of tents, with an acclimatisation day at Horombo Camp. 6 days on the mountain plus 2 hotel nights in Moshi.', priv: '2,600', group: '2,450' },
+  { days: '8 days', name: 'Rongai Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expeditation-click-rongai.jpg', note: 'Approaches from the north. Drier and less crowded. 6 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,700', group: '2,550' },
+  { days: '10 days', name: 'Lemosho Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-click-lemosho.jpg', note: 'A quiet start in the west across the Shira Plateau, with Lava Tower and Barranco Camp. 8 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,800', group: '2,650' },
+  { days: '10 days', name: 'Northern Circuit', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-click-northern-circuit.jpg', note: 'The longest route, circling the northern slopes with few other climbers. Includes 2 hotel nights in Moshi. Camping.', priv: '2,900', group: '2,750' },
+  { days: '8 days', name: 'Mountain Biking', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/click-biking-group.jpg', note: '6 days of cycling plus 2 hotel nights in Moshi. Bike hire and a support vehicle are included.', priv: '3,200', group: '3,000' },
 ]
 
 export default function KilimanjaroGuidePage() {
@@ -127,6 +127,12 @@ export default function KilimanjaroGuidePage() {
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {OFFERS.map((o) => (
               <article key={o.name} className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
+                <img
+                  src={o.image}
+                  alt={`${o.name}, ${o.days} in total, with Click Expedition`}
+                  loading="lazy"
+                  className="mb-4 h-48 w-full rounded-xl object-cover"
+                />
                 <p className="text-sm font-bold text-amber-800">{o.days} in total</p>
                 <h3 className="mt-1 text-xl font-bold text-gray-900">{o.name}</h3>
                 <p className="mt-2 leading-7 text-gray-700">{o.note}</p>
@@ -191,14 +197,20 @@ export default function KilimanjaroGuidePage() {
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {[
-              { name: 'Marangu Route — 8 days', note: 'Sleeping huts, acclimatisation day at Horombo', href: '/guides/tanzania/kilimanjaro/marangu', price: 'USD 2,600', per: 'per person, private' },
-              { name: 'Machame Route — 9 days', note: 'Camping, the most popular scenic route', href: '/guides/tanzania/kilimanjaro/machame', price: 'USD 2,550', per: 'per person' },
+              { name: 'Marangu Route — 8 days', note: 'Sleeping huts, acclimatisation day at Horombo', href: '/guides/tanzania/kilimanjaro/marangu', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-marangu-route-6days.jpg', price: 'USD 2,600', per: 'per person, private' },
+              { name: 'Machame Route — 9 days', note: 'Camping, the most popular scenic route', href: '/guides/tanzania/kilimanjaro/machame', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-machame7days.jpg', price: 'USD 2,550', per: 'per person' },
             ].map((c) => (
               <Link
                 key={c.name}
                 href={c.href}
                 className="group rounded-2xl border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-100 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
+                <img
+                  src={c.image}
+                  alt={`${c.name} with Click Expedition`}
+                  loading="lazy"
+                  className="mb-4 h-40 w-full rounded-xl object-cover"
+                />
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-700">{c.name}</h3>
                 <p className="mt-2 leading-7 text-gray-700">{c.note}</p>
                 <p className="mt-4 flex flex-wrap items-center gap-2">
