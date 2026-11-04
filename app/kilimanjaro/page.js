@@ -201,6 +201,11 @@ export default async function KilimanjaroPage() {
                       ) : null}
                     </div>
                     <p className="text-lg font-bold text-[#1e3a8a]">{priceText(it)}</p>
+                          {isHolidayOffer(it) ? (
+                      <span className="w-fit rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">
+                        Holiday offer
+                      </span>
+                    ) : null}
                     <Link
                       href={`/safari/${it.slug}`}
                       className="mt-1 inline-flex items-center justify-center rounded-lg bg-[#f97316] px-4 py-2 text-sm font-semibold text-white hover:bg-[#ea580c]"
