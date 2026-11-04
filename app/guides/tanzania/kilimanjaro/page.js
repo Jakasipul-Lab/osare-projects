@@ -19,11 +19,11 @@ const ROUTES = [
 ]
 
 const OFFERS = [
-  { days: '8 days', name: 'Marangu Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-marangu-route-6days.jpg', note: 'Sleeping huts instead of tents, with an acclimatisation day at Horombo Camp. 6 days on the mountain plus 2 hotel nights in Moshi.', priv: '2,600', group: '2,450' },
-  { days: '8 days', name: 'Rongai Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expeditation-click-rongai.jpg', note: 'Approaches from the north. Drier and less crowded. 6 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,700', group: '2,550' },
-  { days: '10 days', name: 'Lemosho Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-click-lemosho.jpg', note: 'A quiet start in the west across the Shira Plateau, with Lava Tower and Barranco Camp. 8 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,800', group: '2,650' },
-  { days: '10 days', name: 'Northern Circuit', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/Expedition-click-northern-circuit.jpg', note: 'The longest route, circling the northern slopes with few other climbers. Includes 2 hotel nights in Moshi. Camping.', priv: '2,900', group: '2,750' },
-  { days: '8 days', name: 'Mountain Biking', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/click-biking-group.jpg', note: '6 days of cycling plus 2 hotel nights in Moshi. Bike hire and a support vehicle are included.', priv: '3,200', group: '3,000' },
+  { days: '8 days', name: 'Marangu Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/16-summit-sign-couple.jpg', note: 'Sleeping huts instead of tents, with an acclimatisation day at Horombo Camp. 6 days on the mountain plus 2 hotel nights in Moshi.', priv: '2,600', group: '2,450' },
+  { days: '8 days', name: 'Rongai Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/14-hiker-red-backpack.jpg', note: 'Approaches from the north. Drier and less crowded. 6 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,700', group: '2,550' },
+  { days: '10 days', name: 'Lemosho Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/20-trekking-line.jpg', note: 'A quiet start in the west across the Shira Plateau, with Lava Tower and Barranco Camp. 8 days on the mountain plus 2 hotel nights in Moshi. Camping.', priv: '2,800', group: '2,650' },
+  { days: '10 days', name: 'Northern Circuit', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/18-hiker-woman-kili.jpg', note: 'The longest route, circling the northern slopes with few other climbers. Includes 2 hotel nights in Moshi. Camping.', priv: '2,900', group: '2,750' },
+  { days: '8 days', name: 'Mountain Biking', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/08-bikes-lifted-kili.jpg', note: '6 days of cycling plus 2 hotel nights in Moshi. Bike hire and a support vehicle are included.', priv: '3,200', group: '3,000' },
 ]
 
 export default function KilimanjaroGuidePage() {
