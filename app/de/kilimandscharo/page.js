@@ -230,9 +230,9 @@ export default function KilimandscharoPage() {
             text="Angeboten von Click Expedition aus Moshi. Hotelnächte, Transfers, Parkgebühren, Mannschaft und Mahlzeiten sind enthalten."
           />
           <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {[
-              { name: 'Marangu-Route, 8 Tage', note: 'Übernachtung in Hütten, Akklimatisierungstag in Horombo', href: '/guides/tanzania/kilimanjaro/marangu', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/12-horombo-hut-bikes.jpg', price: 'USD 2.600', per: 'pro Person, privat' },
-              { name: 'Machame-Route, 9 Tage', note: 'Zelt, die beliebteste landschaftlich reizvolle Route', href: '/guides/tanzania/kilimanjaro/machame', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/15-tents-sunrise.jpg', price: 'USD 2.550', per: 'pro Person' },
+                       {[
+              { name: 'Marangu-Route, 8 Tage', note: 'Übernachtung in Hütten, Akklimatisierungstag in Horombo', href: '/guides/tanzania/kilimanjaro/marangu', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/photo2/photos2/12-horombo-hut-bikes.jpg', price: 'USD 2.600', per: 'pro Person, privat' },
+              { name: 'Machame-Route, 9 Tage', note: 'Zelt, die beliebteste landschaftlich reizvolle Route', href: '/guides/tanzania/kilimanjaro/machame', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/photo2/photos2/15-tents-sunrise.jpg', price: 'USD 2.550', per: 'pro Person' },
             ].map((c) => (
               <Link
                 key={c.name}
