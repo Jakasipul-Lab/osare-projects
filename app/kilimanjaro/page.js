@@ -197,6 +197,14 @@ export default async function KilimanjaroPage() {
                     key={it.id}
                     className="flex flex-col gap-2 rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
                   >
+                    {it.image ? (
+                      <img
+                        src={it.image}
+                        alt={`${it.vendor} ${days || ''}`.trim()}
+                        loading="lazy"
+                        className="h-40 w-full rounded-lg object-cover"
+                      />
+                    ) : null}
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <p className="font-semibold text-slate-900">{it.vendor}</p>
