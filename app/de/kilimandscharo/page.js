@@ -168,59 +168,61 @@ export default function KilimandscharoPage() {
           </div>
         </section>
 
-         {/* ANGEBOTE ZUM JAHRESWECHSEL */}
+                 {/* ANGEBOTE ZUM JAHRESWECHSEL */}
         <section className="mb-16">
           <Heading
             eyebrow="Black Friday, Weihnachten und Neujahr"
             title="Angebote zum Jahreswechsel"
-            text="Zwei Touren von Click Expedition aus Moshi zu Angebotspreisen, gültig im November und Dezember 2026. Die Preise nennt der Anbieter. Termine und die Buchung bestätigt Click Expedition."
+            text="Vier Touren und ein Mountainbike-Paket von Click Expedition aus Moshi, für Abreisen von November 2026 bis Januar 2027, nach Verfügbarkeit. Die Preise nennt der Anbieter, in USD pro Person. Wer sich einer Gruppe anschließt, spart 150 USD pro Person bei den Touren und 200 USD beim Mountainbike-Paket. Termine und die Buchung bestätigt Click Expedition."
           />
           <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
-              <p className="text-sm font-bold text-amber-800">10 Tage</p>
-              <h3 className="mt-1 text-xl font-bold text-gray-900">Lemosho-Route</h3>
-              <p className="mt-2 leading-7 text-gray-700">
-                Ruhiger Start im Westen über das Shira-Plateau, mit Lava Tower und Barranco-Camp.
-                Im Preis enthalten laut Anbieter: Parkgebühren, Träger, Koch, Zelte und alle nötigen
-                Leistungen am Berg, dazu Unterkunft, Führer, Mahlzeiten und Transport.
-              </p>
-              <p className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2.500</span>
-                <span className="text-sm font-semibold text-gray-600">pro Person</span>
-              </p>
-              <Link
-                href="/request-a-trip?destination=Kilimanjaro"
-                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
-              >
-                Angebot anfragen
-              </Link>
-            </article>
-            <article className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
-              <p className="text-sm font-bold text-amber-800">8 Tage · Gruppentour</p>
-              <h3 className="mt-1 text-xl font-bold text-gray-900">Marangu-Route</h3>
-              <p className="mt-2 leading-7 text-gray-700">
-                Übernachtung in Hütten statt Zelten, mit einem Akklimatisierungstag am Horombo-Camp.
-                Im Preis enthalten laut Anbieter: Parkgebühren, Träger, Koch und alle nötigen Leistungen
-                am Berg. Abreise an beliebigen Terminen im November und Dezember, nach Verfügbarkeit
-                und Gruppenbestätigung.
-              </p>
-              <p className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD 2.200</span>
-                <span className="text-sm font-semibold text-gray-600">pro Person</span>
-              </p>
-              <Link
-                href="/request-a-trip?destination=Kilimanjaro"
-                className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
-              >
-                Angebot anfragen
-              </Link>
-            </article>
+            {[
+              { days: '8 Tage', name: 'Marangu-Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/16-summit-sign-couple.jpg', note: 'Übernachtung in Hütten statt Zelten, mit einem Akklimatisierungstag am Horombo-Camp. 6 Tage am Berg plus 2 Hotelnächte in Moshi.', priv: '2.600', group: '2.450' },
+              { days: '8 Tage', name: 'Rongai-Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/14-hiker-red-backpack.jpg', note: 'Aufstieg von Norden, trockener und mit weniger Andrang. 6 Tage am Berg plus 2 Hotelnächte in Moshi. Zelt.', priv: '2.700', group: '2.550' },
+              { days: '10 Tage', name: 'Lemosho-Route', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/20-trekking-line.jpg', note: 'Ruhiger Start im Westen über das Shira-Plateau, mit Lava Tower und Barranco-Camp. 8 Tage am Berg plus 2 Hotelnächte in Moshi. Zelt.', priv: '2.800', group: '2.650' },
+              { days: '10 Tage', name: 'Nordumgehung', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/18-hiker-woman-kili.jpg', note: 'Die längste Route, sie umrundet die Nordhänge, mit wenigen anderen Bergsteigern. Inklusive 2 Hotelnächte in Moshi. Zelt.', priv: '2.900', group: '2.750' },
+              { days: '8 Tage', name: 'Mountainbike-Tour', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/08-bikes-lifted-kili.jpg', note: '6 Tage Radfahren plus 2 Hotelnächte in Moshi. Fahrradmiete und Begleitfahrzeug sind inklusive.', priv: '3.200', group: '3.000' },
+            ].map((o) => (
+              <article key={o.name} className="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-100 p-6 shadow-sm">
+                <img
+                  src={o.image}
+                  alt={`${o.name}, ${o.days} insgesamt, mit Click Expedition`}
+                  loading="lazy"
+                  className="mb-4 h-48 w-full rounded-xl object-cover"
+                />
+                <p className="text-sm font-bold text-amber-800">{o.days} insgesamt</p>
+                <h3 className="mt-1 text-xl font-bold text-gray-900">{o.name}</h3>
+                <p className="mt-2 leading-7 text-gray-700">{o.note}</p>
+                <p className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD {o.priv}</span>
+                  <span className="text-sm font-semibold text-gray-600">pro Person, privat</span>
+                </p>
+                <p className="mt-2 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-amber-100 px-4 py-2 text-xl font-extrabold text-amber-900">USD {o.group}</span>
+                  <span className="text-sm font-semibold text-gray-600">pro Person, in der Gruppe</span>
+                </p>
+                <Link
+                  href="/request-a-trip?destination=Kilimanjaro"
+                  className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
+                >
+                  Angebot anfragen
+                </Link>
+              </article>
+            ))}
           </div>
+          <p className="mt-4 text-sm text-gray-600">
+            Im Preis enthalten laut Anbieter (Touren): Parkgebühren, Führer, Träger und Koch, Mahlzeiten, Zelte
+            bzw. Hütten, 2 Hotelnächte in Moshi, Transfers sowie Rettungs- und Erste-Hilfe-Ausrüstung. Nicht
+            enthalten: Flüge, Visum, Reiseversicherung, persönliche Ausrüstung und Trinkgelder. Beim
+            Mountainbike-Paket fragen Sie vor der Buchung nach Führer, Parkgebühren und Mahlzeiten.
+          </p>
           <p className="mt-4 text-sm text-gray-500">
             Angebotspreise Stand November 2026, vom Anbieter bestätigt. OSARE ist ein Verzeichnis
             und leitet Ihre Anfrage an den Anbieter weiter.
           </p>
-        </section>{/* BUCHBARE TOUREN */}
+        </section>
+
+        {/* BUCHBARE TOUREN */}
         <section className="mb-16">
           <Heading
             eyebrow="Tour mit Preis"
@@ -229,26 +231,31 @@ export default function KilimandscharoPage() {
           />
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {[
-              { name: 'Marangu-Route, 8 Tage', note: 'Übernachtung in Hütten, Akklimatisierungstag in Horombo', href: '/guides/tanzania/kilimanjaro/marangu' },
-              { name: 'Machame-Route, 9 Tage', note: 'Zelt, die beliebteste landschaftlich reizvolle Route', href: '/guides/tanzania/kilimanjaro/machame' },
+              { name: 'Marangu-Route, 8 Tage', note: 'Übernachtung in Hütten, Akklimatisierungstag in Horombo', href: '/guides/tanzania/kilimanjaro/marangu', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/12-horombo-hut-bikes.jpg', price: 'USD 2.600', per: 'pro Person, privat' },
+              { name: 'Machame-Route, 9 Tage', note: 'Zelt, die beliebteste landschaftlich reizvolle Route', href: '/guides/tanzania/kilimanjaro/machame', image: 'https://pub-5dd88be363aa4578af71ad764a6806b9.r2.dev/15-tents-sunrise.jpg', price: 'USD 2.550', per: 'pro Person' },
             ].map((c) => (
               <Link
                 key={c.name}
                 href={c.href}
                 className="group rounded-2xl border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-100 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
+                <img
+                  src={c.image}
+                  alt={`${c.name} mit Click Expedition`}
+                  loading="lazy"
+                  className="mb-4 h-40 w-full rounded-xl object-cover"
+                />
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-700">{c.name}</h3>
                 <p className="mt-2 leading-7 text-gray-700">{c.note}</p>
                 <p className="mt-4 flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-green-600 px-4 py-2 text-xl font-extrabold text-white">USD 2.550</span>
-                  <span className="text-sm font-semibold text-gray-600">pro Person</span>
+                  <span className="rounded-full bg-green-600 px-4 py-2 text-xl font-extrabold text-white">{c.price}</span>
+                  <span className="text-sm font-semibold text-gray-600">{c.per}</span>
                 </p>
                 <p className="mt-3 text-sm font-bold text-green-700">Ablauf ansehen (auf Englisch) →</p>
               </Link>
             ))}
           </div>
         </section>
-
         {/* ALTEZZA */}
         <section className="mb-16">
           <Heading
