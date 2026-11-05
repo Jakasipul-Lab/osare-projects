@@ -5,9 +5,9 @@ import MaraBestTime from '@/components/MaraBestTime'
 
 export const metadata = buildMetadata({
   title:
-    'Maasai Mara Travel Guide — Safari, Great Migration, When to Go & Where to Stay | OSARE',
+    'Maasai Mara Safari Guide: Best Time, How Many Days and What to Check Before Booking | OSARE',
   description:
-    'Plan a Maasai Mara safari: when to go, how to get there from Nairobi, where to stay, what to pack, the Great Migration, and how to book verified camps and operators.',
+    'Plan a Maasai Mara safari: best time to go, how many days you need, how to get there from Nairobi, where to stay and what to check before you book. Compare safaris from partner operators.',
   path: '/guides/maasai-mara',
 })
 
