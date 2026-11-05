@@ -11,11 +11,12 @@ export const metadata = {
 }
 
 const PRICES = [
-  { vendor: 'Click Expedition', route: 'Marangu', days: '8 Tage', price: 'USD 2.550' },
+  { vendor: 'Click Expedition', route: 'Marangu', days: '8 Tage', price: 'USD 2.600 privat, USD 2.450 Gruppe' },
   { vendor: 'Click Expedition', route: 'Machame', days: '9 Tage', price: 'USD 2.550' },
-  { vendor: 'Click Expedition', route: 'Rongai', days: '9 Tage', price: 'USD 2.475' },
-  { vendor: 'Click Expedition', route: 'Lemosho', days: '10 Tage', price: 'USD 2.750' },
-  { vendor: 'Click Expedition', route: 'Nordumgehung', days: '10 Tage', price: 'USD 2.783' },
+  { vendor: 'Click Expedition', route: 'Rongai', days: '8 Tage', price: 'USD 2.700 privat, USD 2.550 Gruppe' },
+  { vendor: 'Click Expedition', route: 'Lemosho', days: '10 Tage', price: 'USD 2.800 privat, USD 2.650 Gruppe' },
+  { vendor: 'Click Expedition', route: 'Nordumgehung', days: '10 Tage', price: 'USD 2.900 privat, USD 2.750 Gruppe' },
+  { vendor: 'Click Expedition', route: 'Mountainbike-Tour', days: '8 Tage', price: 'USD 3.200 privat, USD 3.000 Gruppe' },
   { vendor: 'Altezza Travel', route: 'Nordumgehung', days: '8 Tage', price: 'ab USD 3.123' },
 ]
 
