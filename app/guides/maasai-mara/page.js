@@ -624,6 +624,50 @@ export default function MaasaiMaraGuide() {
         </div>
       </section>
 
+      {/* BEFORE YOU BOOK */}
+      <section className="bg-[#fff7ed]">
+        <div className="mx-auto max-w-5xl px-6 py-16 lg:px-8">
+          <p className="font-bold uppercase tracking-widest text-emerald-700">
+            Before you book
+          </p>
+
+          <h2 className="mt-3 text-4xl font-black text-[#7c4a03]">
+            What to check with any Mara operator
+          </h2>
+
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+            Two safaris with the same name can include very different
+            things. Ask these questions before you pay.
+          </p>
+
+          <ul className="mt-8 grid gap-4 md:grid-cols-2">
+            {[
+              'What is included: park or conservancy fees, accommodation, meals, drinks, transport and game drives.',
+              'The vehicle: a 4x4 with a roof that opens, and a window seat for every guest.',
+              'The group: a private safari, or shared with other travelers.',
+              'Fees and taxes: they change, so ask the operator to confirm the current ones in writing.',
+              'Cancellation terms, and what happens if weather or roads change the plan.',
+              'Which area your camp is in: the main reserve, or a private conservancy.',
+            ].map((t) => (
+              <li
+                key={t}
+                className="rounded-2xl bg-white p-5 leading-7 text-slate-700 shadow-sm"
+              >
+                ✓ {t}
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-8">
+            <Link
+              href="/safari"
+              className="font-black text-[#7c4a03] underline underline-offset-4"
+            >
+              Compare listed safaris from partner operators →
+            </Link>
+          </p>
+        </div>
+      </section>
       {/* WHAT TO PACK / SAFETY */}
       <section className="bg-[#fef3e7]">
         <div className="mx-auto max-w-5xl px-6 py-16 lg:px-8">
