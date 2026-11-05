@@ -1,18 +1,55 @@
 import Link from 'next/link'
+import { buildFAQSchema } from '@/lib/seo'
 
 export const metadata = {
-  title: 'Nairobi to Kisumu by Bus and Matatu: Stages, Travel Time and Tips',
+  title: 'Nairobi to Kisumu Bus Fare, Travel Time and Where to Board',
   description:
-    'How to travel from Nairobi to Kisumu by bus or matatu: where to board, how long it takes, how often vehicles leave, and where you arrive in Kisumu.',
+    'Nairobi to Kisumu by bus or matatu: typical bus fares, travel time of about 6 to 8 hours, where to board in Nairobi, and where you arrive in Kisumu.',
     alternates: { canonical: 'https://www.easafariroutes.com/local/nairobi-to-kisumu' },
 }
+
+const FAQS = [
+  {
+    question: 'How much is the bus from Nairobi to Kisumu?',
+    answer:
+      'Easy Coach reported KES 1,900 from Nairobi to Kisumu from 20 April 2026, and ENA Coach reported KES 1,700 from Kisumu to Nairobi via Ahero in a notice of 15 July 2026. Fares change with fuel prices and busy travel periods, so confirm the price with the company when you book.',
+  },
+  {
+    question: 'How long does the journey from Nairobi to Kisumu take?',
+    answer: 'About 6 to 8 hours by road.',
+  },
+  {
+    question: 'Where do I board in Nairobi?',
+    answer: 'Buses and matatus for Kisumu leave from the Accra Road area and the Kenya Bus terminus.',
+  },
+  {
+    question: 'Is there a timetable for matatus?',
+    answer: 'No. Matatus on this route leave when the vehicle is full. Ask at the stage and agree the price before you board.',
+  },
+  {
+    question: 'Where do matatus from Nairobi stop in Kisumu?',
+    answer: 'Matatus from Nairobi are directed to the Nyamasaria Bus Terminus on the edge of the city. From there you can continue by boda boda, taxi or local matatu.',
+  },
+  {
+    question: 'Is there a train from Nairobi to Kisumu?',
+    answer: 'Kenya Railways has run a weekly passenger train between Nairobi and Kisumu, leaving in the evening and arriving the next morning. Days and times change, so check with Kenya Railways first.',
+  },
+]
+
+const WA_URL = `https://wa.me/254758378729?text=${encodeURIComponent('Hello, I need help with a bus from Nairobi to Kisumu.')}`
 
 const MAPS_URL =
   'https://www.google.com/maps/dir/?api=1&origin=Accra+Road+Nairobi&destination=Nyamasaria+Bus+Terminus+Kisumu&travelmode=driving'
 
 export default function NairobiToKisumuPage() {
+  const faqSchema = buildFAQSchema(FAQS)
+
   return (
     <main style={{ backgroundColor: '#eef2f9' }} className="min-h-screen pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <section
         className="px-5 py-12 text-white"
         style={{ background: 'linear-gradient(135deg, #172a69, #1e3a8a)' }}
@@ -97,6 +134,42 @@ export default function NairobiToKisumuPage() {
           <p className="mt-3 text-slate-700">
             Since 2021, matatus from Nairobi, Kisii, Homa Bay, Migori and Kericho have been directed to the Nyamasaria Bus Terminus on the edge of the city, and matatus are not allowed into the town centre. From the terminus you can continue by boda boda, taxi or local matatu.
           </p>
+        </section>
+
+        <section className="rounded-xl border-2 border-green-300 bg-green-50 p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">Need help with this trip?</h2>
+          <p className="mt-3 text-slate-700">
+            Tell us your date and how many of you are travelling, and we will point you to bus companies on this route. It is free.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md px-5 py-3 text-sm font-semibold text-white"
+              style={{ backgroundColor: '#25d366' }}
+            >
+              Ask us on WhatsApp
+            </a>
+            <Link
+              href="/local"
+              className="rounded-md border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-white"
+            >
+              See other local routes
+            </Link>
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">Frequently asked questions</h2>
+          <div className="mt-4 space-y-5">
+            {FAQS.map((f) => (
+              <div key={f.question}>
+                <h3 className="font-semibold text-slate-900">{f.question}</h3>
+                <p className="mt-1 text-slate-700">{f.answer}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <p className="text-sm text-slate-500">
