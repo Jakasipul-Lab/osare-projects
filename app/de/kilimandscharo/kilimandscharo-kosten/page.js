@@ -124,7 +124,7 @@ export default function KilimandscharoKostenPage() {
         {/* PREISTABELLE */}
         <section className="mb-16">
           <p className="text-sm font-bold uppercase tracking-widest text-green-700">Beispiele</p>
-          <h2 className="mt-2 text-3xl font-extrabold text-gray-900">Veröffentlichte Preise, Stand Oktober 2026</h2>
+                    <h2 className="mt-2 text-3xl font-extrabold text-gray-900">Veröffentlichte Preise, Stand November 2026</h2>
           <p className="mt-3 max-w-3xl leading-7 text-gray-600">
             Preise in US-Dollar pro Person, so wie die Anbieter sie veröffentlichen. Die Touren
             unterscheiden sich in Dauer und Leistungen. Fragen Sie vor der Buchung nach dem
