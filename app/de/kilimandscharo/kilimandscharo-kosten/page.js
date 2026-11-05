@@ -113,7 +113,7 @@ export default function KilimandscharoKostenPage() {
           <p className="text-sm font-bold uppercase tracking-widest text-emerald-700">Kurz gesagt</p>
           <p className="mt-3 text-xl font-bold leading-8 text-emerald-950">
             Die bei OSARE veröffentlichten Preise für Kilimandscharo-Touren liegen derzeit
-            zwischen USD 2.475 und USD 3.123 pro Person.
+            zwischen USD 2.450 und USD 3.123 pro Person.
           </p>
           <p className="mt-3 leading-7 text-emerald-900">
             Das sind die Preise, die die Anbieter selbst nennen. Der endgültige Preis hängt von Ihrem
