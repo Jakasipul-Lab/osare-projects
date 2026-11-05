@@ -15,7 +15,12 @@ const FAQS = [
   {
     question: 'When is the best time to visit Maasai Mara?',
     answer:
-      'June through October is the dry season with the best game viewing. For the famous river crossings during the Great Migration, aim for late July through October. Avoid March and April, when heavy rains make roads difficult.',
+      'June through October is the dry season with the best game viewing. For the famous river crossings during the Great Migration, aim for late July through October. River crossings never happen on a fixed date, so no operator can promise one. January and February are also good and usually quieter. Avoid March and April, when heavy rains make roads difficult.',
+  },
+  {
+    question: 'How many days do I need in the Maasai Mara?',
+    answer:
+      'Three days is a good minimum for a first visit. Two days is possible but rushed, because much of the time goes on driving. Four to five days is better for photography, for visiting a conservancy as well as the main reserve, and for a relaxed pace.',
   },
   {
     question: 'How do I get to Maasai Mara from Nairobi?',
@@ -26,6 +31,21 @@ const FAQS = [
     question: 'Where can I stay in Maasai Mara on a budget?',
     answer:
       'Alongside luxury tented camps and mid-range lodges, there are budget-friendly bandas, public campsites, and guesthouses run by smaller local operators — a great way to experience the Mara without luxury prices.',
+  },
+  {
+    question: 'Should I choose the main reserve or a conservancy?',
+    answer:
+      'The Maasai Mara National Reserve is the classic choice. Private conservancies on its borders usually allow fewer vehicles at each sighting, and sometimes night drives and walking safaris. They can cost more. Ask each operator which one your package uses.',
+  },
+  {
+    question: 'What should I check before I book a Mara safari?',
+    answer:
+      'Ask what is included (park or conservancy fees, accommodation, meals, drinks, transport and game drives), whether the vehicle is a 4x4 with a roof that opens and a window seat for every guest, whether the safari is private or shared, and which fees and taxes apply. Get the price and the cancellation terms in writing.',
+  },
+  {
+    question: 'Is a Maasai Mara safari safe?',
+    answer:
+      'Safaris in the Mara run every day with trained guides. Follow your guide\'s instructions, stay in the vehicle during game drives, and choose an operator with good reviews.',
   },
   {
     question: 'What should I pack for a Maasai Mara safari?',
