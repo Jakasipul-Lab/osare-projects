@@ -42,7 +42,7 @@ const FAQS = [
   {
     question: 'Was kostet eine Kilimandscharo-Besteigung?',
     answer:
-      'Die bei OSARE von Anbietern veröffentlichten Preise für Kilimandscharo-Touren liegen im Oktober 2026 zwischen USD 2.475 und USD 3.123 pro Person, je nach Route, Dauer und Anbieter. Der Anbieter bestätigt den endgültigen Preis für Ihren Termin und Ihre Gruppengröße.',
+      'Die bei OSARE von Anbietern veröffentlichten Preise für Kilimandscharo-Touren liegen im November 2026 zwischen USD 2.450 und USD 3.123 pro Person, je nach Route, Dauer und Anbieter. Der Anbieter bestätigt den endgültigen Preis für Ihren Termin und Ihre Gruppengröße.',
   },
   {
     question: 'Warum sind die Preise so unterschiedlich?',
