@@ -10,6 +10,7 @@ import WhatsAppButton from '@/components/WhatsAppButton'
 
 export const metadata = {
     metadataBase: new URL('https://www.easafariroutes.com'),
+  alternates: { canonical: './' },
   title: "OSARE — East Africa Safari Routes & Transit Hub",
   description: "Free information assistant & booking hub for tourists and locals across East Africa. Safaris, Kilimanjaro, hotels, car hire, flights & Nairobi transit.",
   robots: {
