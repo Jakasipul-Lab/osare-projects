@@ -65,7 +65,7 @@ export default function ClickExpeditionFeatured() {
                   alt={item.title}
                   loading="lazy"
                   onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMG }}
-                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
                 <span className="absolute left-3 top-3 rounded-full bg-[#f97316] px-2.5 py-0.5 text-[11px] font-bold text-white shadow">
                   {item.category}
