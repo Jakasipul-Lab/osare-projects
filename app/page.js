@@ -415,7 +415,8 @@ function Home({ go }) {
             </div>
           </div>
         </div>
-      </div>
+        </div>
+      <ClickExpeditionFeatured />
       <div className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="text-center text-3xl font-extrabold text-slate-900">Two platforms. One trusted hub.</h2>
         <p className="mt-2 text-center text-slate-500">Choose your journey.</p>
