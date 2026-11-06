@@ -86,7 +86,7 @@ export default function OsareAiPage() {
   if (leads.last7 === 0 && views >= 20) warnings.push(`${views} website visits from ads but 0 enquiries in the last 7 days. Check the landing page and the enquiry button.`)
   const leadVendors30 = new Set(byVendor.filter((v) => v.last30 > 0).map((v) => v.vendor))
   const silent = listings.filter((l) => l.published > 0 && l.vendor !== 'unknown' && !leadVendors30.has(l.vendor))
-  if (silent.length) warnings.push(`Published but no enquiry in 30 days: ${silent.map((s) => s.vendor).join(', ')}.`)
+   if (silent.length) warnings.push(`${silent.length} of ${listings.filter((l) => l.published > 0 && l.vendor !== 'unknown').length} vendors with published listings had no enquiry in 30 days. The ones with the most listings: ${silent.slice(0, 6).map((s) => `${s.vendor} (${s.published})`).join(', ')}.`)
 
   return (
     <main className="mx-auto max-w-5xl space-y-6 px-5 py-10">
