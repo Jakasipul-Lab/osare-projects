@@ -24,7 +24,6 @@ function mapLead(row) {
     vendorId: row.vendor_id,
     travelerName: row.traveler_name,
     travelerPhone: row.traveler_phone,
-    utmCampaign: row.utm_campaign,
   };
 }
 
@@ -43,8 +42,7 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { listingId, travelerName, travelerPhone, travelMonth, travelers, utmCampaign } = body;
-    const utm = String(utmCampaign || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 60) || null;
+    const { listingId, travelerName, travelerPhone, travelMonth, travelers } = body;
 
     if (!listingId) {
       return NextResponse.json({ success: false, error: 'listingId is required' }, { status: 400 });
@@ -72,9 +70,9 @@ export async function POST(request) {
       `INSERT INTO leads (
         listing_id, listing_title, vendor, category, type,
         price_label, price_value, currency, commission, channel,
-        code, commission_status, vendor_id, traveler_name, traveler_phone, utm_campaign, created_at
+        code, commission_status, vendor_id, traveler_name, traveler_phone, created_at
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, 'whatsapp', $10, 'unpaid', $11, $12, $13, $14, NOW()
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, 'whatsapp', $10, 'unpaid', $11, $12, $13, NOW()
       ) RETURNING *`,
       [
         listing.id,
@@ -90,7 +88,6 @@ export async function POST(request) {
         listing.owner_id || null,
         travelerName || null,
         phoneCheck.e164,
-        utm,
       ]
     );
 
