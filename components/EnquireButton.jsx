@@ -19,10 +19,6 @@ export default function EnquireButton({ listingId }) {
     setError('')
     setBusy(true)
     try {
-      // Campaign tag from the page address (?utm_campaign=...). Read on click only, never stored on the device.
-      const utm = (new URLSearchParams(window.location.search).get('utm_campaign') || '')
-        .replace(/[^A-Za-z0-9_-]/g, '')
-        .slice(0, 60)
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,7 +28,6 @@ export default function EnquireButton({ listingId }) {
           travelerName: name.trim() || undefined,
           travelMonth: month || undefined,
           travelers: travelers.trim() || undefined,
-          utmCampaign: utm || undefined,
         }),
       })
       const data = await res.json()
