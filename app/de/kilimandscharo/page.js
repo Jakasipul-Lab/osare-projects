@@ -107,7 +107,7 @@ export default function KilimandscharoPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href="/request-a-trip?destination=Kilimanjaro"
+              href="/de/reiseanfrage?destination=Kilimanjaro"
               className="rounded-full bg-amber-400 px-6 py-3 font-bold text-slate-900 transition hover:bg-amber-300"
             >
               Kilimandscharo-Tour anfragen
@@ -160,7 +160,7 @@ export default function KilimandscharoPage() {
               Unsicher, welche Route passt? Nennen Sie uns Kondition, Reisedatum und Gruppengröße.
             </p>
             <Link
-              href="/request-a-trip?destination=Kilimanjaro"
+              href="/de/reiseanfrage?destination=Kilimanjaro"
               className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-bold text-green-950 transition hover:bg-amber-300"
             >
               Meine Tour planen
@@ -203,7 +203,7 @@ export default function KilimandscharoPage() {
                 </p>
                                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link
-                    href="/request-a-trip?destination=Kilimanjaro"
+                    href="/de/reiseanfrage?destination=Kilimanjaro"
                     className="inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
                   >
                     Angebot anfragen
@@ -444,10 +444,9 @@ export default function KilimandscharoPage() {
           <p className="mt-4 max-w-3xl leading-7 text-green-50">
             OSARE ist ein Verzeichnis. Wir leiten Ihre Anfrage an den Anbieter
             weiter. Preis, Termin und Buchung klären Sie direkt mit dem Anbieter.
-            Das Anfrageformular ist auf Englisch.
           </p>
           <Link
-            href="/request-a-trip?destination=Kilimanjaro"
+            href="/de/reiseanfrage?destination=Kilimanjaro"
             className="mt-6 inline-flex rounded-full bg-amber-400 px-6 py-3 font-bold text-green-950 transition hover:bg-amber-300"
           >
             Kilimandscharo-Tour anfragen
