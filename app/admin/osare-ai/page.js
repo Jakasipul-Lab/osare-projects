@@ -39,9 +39,9 @@ function fmtDate(d) {
   return new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
-function Card({ label, value, note }) {
+function Card({ label, value, note, accent = 'border-blue-600' }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className={`rounded-xl border border-slate-200 border-t-4 ${accent} bg-white p-4 shadow-md`}>
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
       <p className="mt-1 text-3xl font-extrabold text-slate-900">{value}</p>
       {note ? <p className="mt-1 text-xs text-slate-500">{note}</p> : null}
@@ -124,7 +124,7 @@ export default function OsareAiPage() {
 
   if (error) {
     return (
-      <main className="mx-auto max-w-3xl px-5 py-16">
+      <main className="mx-auto min-h-screen max-w-3xl bg-blue-50 px-5 py-16">
         <h1 className="text-2xl font-extrabold text-slate-900">OSARE AI</h1>
         <p className="mt-4 rounded-lg border border-amber-300 bg-amber-50 p-4 text-slate-800">
           {error}. Log in to your OSARE admin area first, then open this page again.
@@ -134,7 +134,7 @@ export default function OsareAiPage() {
   }
   if (!data) {
     return (
-      <main className="mx-auto max-w-3xl px-5 py-16">
+      <main className="mx-auto min-h-screen max-w-3xl bg-blue-50 px-5 py-16">
         <p className="text-slate-600">Loading numbers...</p>
       </main>
     )
@@ -180,15 +180,16 @@ export default function OsareAiPage() {
    if (silent.length) warnings.push(`${silent.length} of ${listings.filter((l) => l.published > 0 && l.vendor !== 'unknown').length} vendors with published listings had no enquiry in 30 days. The ones with the most listings: ${silent.slice(0, 6).map((s) => `${s.vendor} (${s.published})`).join(', ')}.`)
 
   return (
+    <div className="min-h-screen bg-blue-50">
     <main className="mx-auto max-w-5xl space-y-6 px-5 py-10">
-      <div>
-        <h1 className="text-3xl font-extrabold text-slate-900">OSARE AI</h1>
-        <p className="mt-1 text-sm text-slate-500">Private business dashboard. Updated {new Date(data.generatedAt).toLocaleString('en-GB')}.</p>
+      <div className="rounded-2xl bg-blue-900 p-6 shadow-md">
+        <h1 className="text-3xl font-extrabold text-white">OSARE AI</h1>
+        <p className="mt-1 text-sm text-blue-100">Private business dashboard. Updated {new Date(data.generatedAt).toLocaleString('en-GB')}.</p>
       </div>
 
       {warnings.length ? (
         <section className="rounded-xl border-2 border-amber-300 bg-amber-50 p-5">
-          <h2 className="font-bold text-slate-900">Needs attention</h2>
+          <h2 className="text-lg font-bold text-blue-900">Needs attention</h2>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-slate-800">
             {warnings.map((w) => (<li key={w}>{w}</li>))}
           </ul>
@@ -198,14 +199,14 @@ export default function OsareAiPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <Card label="Enquiries, all time" value={leads.total} note="includes your own tests" />
-        <Card label="Last 7 days" value={leads.last7} />
-        <Card label="Last 30 days" value={leads.last30} />
-        <Card label="Days since last" value={leads.daysSinceLast === null ? '-' : leads.daysSinceLast} note={fmtDate(leads.lastAt)} />
+        <Card accent="border-blue-600" label="Enquiries, all time" value={leads.total} note="includes your own tests" />
+        <Card accent="border-emerald-600" label="Last 7 days" value={leads.last7} />
+        <Card accent="border-amber-500" label="Last 30 days" value={leads.last30} />
+        <Card accent="border-purple-600" label="Days since last" value={leads.daysSinceLast === null ? '-' : leads.daysSinceLast} note={fmtDate(leads.lastAt)} />
       </div>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="font-bold text-slate-900">Enquiries per week (last 12 weeks)</h2>
+      <section className="rounded-xl border border-slate-200 border-l-8 border-blue-600 bg-white p-5 shadow-md">
+        <h2 className="text-lg font-bold text-blue-900">Enquiries per week (last 12 weeks)</h2>
         {weekly.length === 0 ? (
           <p className="mt-3 text-sm text-slate-500">No enquiries in the last 12 weeks.</p>
         ) : (
@@ -221,8 +222,8 @@ export default function OsareAiPage() {
         )}
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="font-bold text-slate-900">Weekly numbers from Meta and Search Console</h2>
+      <section className="rounded-xl border border-slate-200 border-l-8 border-amber-500 bg-white p-5 shadow-md">
+        <h2 className="text-lg font-bold text-blue-900">Weekly numbers from Meta and Search Console</h2>
         <p className="mt-1 text-sm text-slate-500">Type them in once a week. They stay in this browser only.</p>
         <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
           {[
@@ -249,8 +250,8 @@ export default function OsareAiPage() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="font-bold text-slate-900">Campaigns</h2>
+      <section className="rounded-xl border border-slate-200 border-l-8 border-emerald-600 bg-white p-5 shadow-md">
+        <h2 className="text-lg font-bold text-blue-900">Campaigns</h2>
         <p className="mt-1 text-sm text-slate-500">
           One card per campaign. Enquiries are the ones that arrived between the start and end date. This is an estimate, not proof that the ad caused them. Saved in this browser only.
         </p>
@@ -305,8 +306,8 @@ export default function OsareAiPage() {
       </section>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="font-bold text-slate-900">Enquiries by vendor</h2>
+        <section className="rounded-xl border border-slate-200 border-l-8 border-indigo-600 bg-white p-5 shadow-md">
+          <h2 className="text-lg font-bold text-blue-900">Enquiries by vendor</h2>
           <table className="mt-3 w-full text-sm">
             <thead><tr className="text-left text-slate-500"><th className="py-1">Vendor</th><th>30 days</th><th>All</th></tr></thead>
             <tbody>
@@ -316,8 +317,8 @@ export default function OsareAiPage() {
             </tbody>
           </table>
         </section>
-        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="font-bold text-slate-900">Listings by vendor</h2>
+        <section className="rounded-xl border border-slate-200 border-l-8 border-teal-600 bg-white p-5 shadow-md">
+          <h2 className="text-lg font-bold text-blue-900">Listings by vendor</h2>
           <table className="mt-3 w-full text-sm">
             <thead><tr className="text-left text-slate-500"><th className="py-1">Vendor</th><th>Published</th><th>All</th></tr></thead>
             <tbody>
@@ -329,8 +330,8 @@ export default function OsareAiPage() {
         </section>
       </div>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="font-bold text-slate-900">Latest enquiries</h2>
+      <section className="rounded-xl border border-slate-200 border-l-8 border-slate-700 bg-white p-5 shadow-md">
+        <h2 className="text-lg font-bold text-blue-900">Latest enquiries</h2>
         <p className="mt-1 text-xs text-slate-500">Status: {byStatus.map((s) => `${s.status} ${s.n}`).join(' · ')}</p>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full text-sm">
@@ -350,5 +351,6 @@ export default function OsareAiPage() {
         </div>
       </section>
     </main>
+    </div>
   )
 }
