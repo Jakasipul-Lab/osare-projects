@@ -201,12 +201,23 @@ export default function KilimandscharoPage() {
                   <span className="rounded-full bg-amber-100 px-4 py-2 text-xl font-extrabold text-amber-900">USD {o.group}</span>
                   <span className="text-sm font-semibold text-gray-600">pro Person, in der Gruppe</span>
                 </p>
-                <Link
-                  href="/request-a-trip?destination=Kilimanjaro"
-                  className="mt-4 inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
-                >
-                  Angebot anfragen
-                </Link>
+                                <div className="mt-4 flex flex-wrap gap-3">
+                  <Link
+                    href="/request-a-trip?destination=Kilimanjaro"
+                    className="inline-flex rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-green-800"
+                  >
+                    Angebot anfragen
+                  </Link>
+                  <a
+                    href={`https://wa.me/254758378729?text=${encodeURIComponent(`Hallo, ich interessiere mich für die ${o.name} (${o.days}, Angebot zum Jahreswechsel). (Von easafariroutes.com)`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex rounded-full px-5 py-2.5 text-sm font-bold text-white transition hover:opacity-90"
+                    style={{ backgroundColor: '#25d366' }}
+                  >
+                    Per WhatsApp fragen
+                  </a>
+                </div>
               </article>
             ))}
           </div>
