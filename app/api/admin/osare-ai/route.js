@@ -10,7 +10,7 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
   }
   try {
-    const [totals, weekly, byVendor, byStatus, listings, recent] = await Promise.all([
+    const [totals, weekly, byVendor, byStatus, listings, recent, leadDates] = await Promise.all([
       query(`SELECT
                COUNT(*)::int AS total,
                COUNT(*) FILTER (WHERE created_at >= NOW() - INTERVAL '7 days')::int AS last7,
@@ -35,6 +35,8 @@ export async function GET(request) {
              GROUP BY 1 ORDER BY total DESC`),
       query(`SELECT code, listing_title, vendor, traveler_name, commission_status, created_at
              FROM leads ORDER BY created_at DESC LIMIT 10`),
+      query(`SELECT created_at, vendor, traveler_name
+             FROM leads ORDER BY created_at DESC LIMIT 1000`),
     ]);
 
     const t = totals.rows[0] || {};
@@ -57,6 +59,7 @@ export async function GET(request) {
       byStatus: byStatus.rows,
       listings: listings.rows,
       recent: recent.rows,
+      leadDates: leadDates.rows,
     });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
