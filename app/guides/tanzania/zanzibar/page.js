@@ -3,10 +3,9 @@ import { buildMetadata } from '@/lib/seo'
 import GuideTripCta from '../../GuideTripCta'
 
 export const metadata = buildMetadata({
-  title:
-    'Zanzibar Travel Guide — Beaches, Stone Town, Spices & Islands | OSARE',
+  title: 'Zanzibar Travel Guide: Stone Town, Beaches & Tours | OSARE',
   description:
-    'Explore Zanzibar, Tanzania with practical travel information about Stone Town, beaches, spice tours, food, culture, getting there from Dar es Salaam and where to stay.',
+    'Plan Zanzibar: Stone Town, beaches, spice tours, how to get there from Dar es Salaam and where to stay.',
   path: '/guides/tanzania/zanzibar',
 })
 
