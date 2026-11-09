@@ -58,9 +58,9 @@ const ANIMALS = [
 ]
 
 export const metadata = buildMetadata({
-  title: 'Botswana Travel Guide — Okavango Delta, Safari, Wildlife & Travel Information | OSARE',
+  title: 'Botswana Travel Guide: Okavango Delta, Chobe & Safari | OSARE',
   description:
-    'Practical Botswana travel information covering the Okavango Delta, Chobe, wildlife, national parks, entry requirements, destinations, transport, accommodation, costs, safety and travel planning.',
+    'Plan your Botswana trip: best time for the Okavango Delta and Chobe, entry requirements, transport, costs and safari styles.',
   path: '/guides/botswana',
 })
 
