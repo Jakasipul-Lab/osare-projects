@@ -21,7 +21,7 @@ const POSTS = [
   { id: 'm1', day: 'Once', where: 'Message to Altezza (replace [Name])', text: 'Hello [Name], this is Osare, CEO of OSARE (easafariroutes.com). We are updating our East Africa directory. Your company is listed with several Kilimanjaro routes, and people searching for Altezza Travel on Google already find your page on our site. We have also built a German-language page for Kilimanjaro that includes your routes, for German travelers. Requests reach you directly by WhatsApp, and we only take a commission on confirmed bookings. Could you tell me who handles enquiries from German-speaking travelers, and confirm that your listed prices are correct? Thank you.' },
 ]
 const IGNORE_KEY = 'osare-ai-ignore'
-const DEFAULT_IGNORE = 'ema, adac, test'
+const DEFAULT_IGNORE = 'ema, adac, test, (no name)'
 const DEFAULT_CAMPAIGNS = [
   { id: 'c1', name: 'Kilimanjaro DE test (Facebook boost)', country: 'Germany', destination: 'Kilimanjaro', start: '2026-11-06', end: '2026-11-13', spend: '', views: '' },
   { id: 'c2', name: 'Kilimanjaro Routes - Traffic (old, off)', country: 'DE, UK, US, CA', destination: 'Kilimanjaro', start: '', end: '', spend: '7.76', views: '35' },
@@ -208,9 +208,10 @@ export default function OsareAiPage() {
 
   const hasLeadDates = Array.isArray(data.leadDates)
   const ignoreList = ignore.split(',').map((x) => x.trim().toLowerCase()).filter(Boolean)
-  const leadList = (data.leadDates || []).filter(
-    (l) => !ignoreList.includes(String(l.traveler_name || '').trim().toLowerCase())
-  )
+  const leadList = (data.leadDates || []).filter((l) => {
+    const nm = String(l.traveler_name || '').trim().toLowerCase()
+    return !ignoreList.includes(nm === '' ? '(no name)' : nm)
+  })
   function campaignStats(c) {
     const s = num(c.spend)
     const v = num(c.views)
@@ -235,6 +236,44 @@ export default function OsareAiPage() {
   const leadVendors30 = new Set(byVendor.filter((v) => v.last30 > 0).map((v) => v.vendor))
   const silent = listings.filter((l) => l.published > 0 && l.vendor !== 'unknown' && !leadVendors30.has(l.vendor))
    if (silent.length) warnings.push(`${silent.length} of ${listings.filter((l) => l.published > 0 && l.vendor !== 'unknown').length} vendors with published listings had no enquiry in 30 days. The ones with the most listings: ${silent.slice(0, 6).map((s) => `${s.vendor} (${s.published})`).join(', ')}.`)
+
+  const todayKey = new Date().toISOString().slice(0, 10)
+  const todayDay = new Date().toLocaleDateString('en-US', { weekday: 'short' })
+  const realTotal = hasLeadDates ? leadList.length : null
+  const realLast7 =
+    hasLeadDates ? leadList.filter((l) => Date.now() - new Date(l.created_at).getTime() < 7 * 86400000).length : null
+  const recs = []
+  if (realTotal === 0) {
+    recs.push({ level: 'High', text: 'No real enquiries yet (your own tests are ignored). The first goal is visitors: post today\'s items from the Marketing box and check the Germany ad when it ends.' })
+  } else if (realTotal !== null && realLast7 === 0) {
+    recs.push({ level: 'Medium', text: 'No real enquiry in the last 7 days. Post from the Marketing box and look at what the last real enquiry came from.' })
+  }
+  campaigns.forEach((c) => {
+    if (c.end && todayKey > c.end && !num(c.spend)) {
+      recs.push({ level: 'High', text: `Campaign "${c.name || 'unnamed'}" ended on ${c.end}. Type its spend and landing page visits into its card so the result is calculated.` })
+    }
+    const st = campaignStats(c)
+    if (num(c.spend) > 0 && num(c.views) >= 20 && st.enq === 0) {
+      recs.push({ level: 'High', text: `"${c.name || 'unnamed'}": ${num(c.views)} visits and 0 enquiries. The problem is the page or the offer, not reach. Look at the landing page and the enquiry button before spending more.` })
+    }
+    if (st.cpv !== null && st.cpv > 0.5) {
+      recs.push({ level: 'Medium', text: `"${c.name || 'unnamed'}": each visit costs EUR ${st.cpv.toFixed(2)}. Change only one thing (picture or text), run it for a few days, and compare.` })
+    }
+    if (st.cpe !== null) {
+      recs.push({ level: 'Info', text: `"${c.name || 'unnamed'}": cost per enquiry is EUR ${st.cpe.toFixed(2)}. Compare it with your next campaign.` })
+    }
+  })
+  const todays = POSTS.filter((p) => p.day === todayDay && !mk.done[p.id])
+  if (todays.length) {
+    recs.push({ level: 'Medium', text: `Today (${todayDay}) there ${todays.length === 1 ? 'is 1 post' : `are ${todays.length} posts`} not yet marked Done in the Marketing box.` })
+  }
+  if (silent.length > 20) {
+    recs.push({ level: 'Info', text: `${silent.length} vendors have had no enquiry. Do not chase all of them. Work with the 2 or 3 who answer you, and bring them real travelers first.` })
+  }
+  if (impressions > 500 && ctr !== null && ctr < 1) {
+    recs.push({ level: 'Medium', text: `Google shows your site often but only ${ctr.toFixed(1)}% click. Improve the page titles of the pages that get impressions.` })
+  }
+  if (!recs.length) recs.push({ level: 'Info', text: 'Nothing urgent. Keep posting from the Marketing box and update your campaign cards.' })
 
   return (
     <div className="min-h-screen bg-blue-50">
@@ -261,6 +300,19 @@ export default function OsareAiPage() {
         <Card accent="border-amber-500" label="Last 30 days" value={leads.last30} />
         <Card accent="border-purple-600" label="Days since last" value={leads.daysSinceLast === null ? '-' : leads.daysSinceLast} note={fmtDate(leads.lastAt)} />
       </div>
+
+      <section className="rounded-xl border border-slate-200 border-l-8 border-rose-500 bg-white p-5 shadow-md">
+        <h2 className="text-lg font-bold text-blue-900">Recommendations</h2>
+        <p className="mt-1 text-sm text-slate-500">Worked out from your own numbers on this page. Rules, not guesses.</p>
+        <ul className="mt-3 space-y-2">
+          {recs.map((r, i) => (
+            <li key={i} className="flex items-start gap-3 text-sm text-slate-800">
+              <span className={`mt-0.5 shrink-0 rounded px-2 py-0.5 text-xs font-bold text-white ${r.level === 'High' ? 'bg-rose-600' : r.level === 'Medium' ? 'bg-amber-500' : 'bg-slate-500'}`}>{r.level}</span>
+              <span>{r.text}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="rounded-xl border border-slate-200 border-l-8 border-orange-500 bg-white p-5 shadow-md">
         <h2 className="text-lg font-bold text-blue-900">Marketing: posts to copy</h2>
@@ -352,7 +404,7 @@ export default function OsareAiPage() {
           One card per campaign. Enquiries are the ones that arrived between the start and end date. This is an estimate, not proof that the ad caused them. Saved in this browser only.
         </p>
         <label className="mt-3 block text-sm text-slate-700">
-          Ignore these names (your own tests), separated by commas
+          Ignore these names (your own tests), separated by commas. Write (no name) to ignore enquiries without a name.
           <input
             value={ignore}
             onChange={(e) => changeIgnore(e.target.value)}
