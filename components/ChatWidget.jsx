@@ -1,17 +1,23 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const WELCOME =
   'Hello, I am the OSARE Assistant, an AI assistant. I can help you find safaris, hotels and buses, explain resident rates, or point you to Request a Trip. What are you planning?'
 
 const SUGGESTIONS = ['Find me a safari', 'What is a resident rate?', 'I need a bus to Kisumu']
 
-const PAGES = ['/safari', '/local', '/guides', '/request-a-trip', '/about']
+const WELCOME_DE =
+  'Guten Tag, ich bin der OSARE Assistent, ein KI-Assistent. Ich helfe Ihnen bei Safaris, Kilimandscharo-Touren, Hotels und Bussen in Ostafrika oder führe Sie zur Reiseanfrage. Was planen Sie?'
+
+const SUGGESTIONS_DE = ['Kilimandscharo besteigen', 'Safari in Kenia', 'Reiseanfrage senden']
+
+const PAGES = ['/safari', '/local', '/guides', '/request-a-trip', '/about', '/de/reiseanfrage', '/de/kilimandscharo']
 
 // Turns page paths and listing links in a reply into clickable links.
-function renderText(text) {
-  const parts = text.split(/(https?:\/\/[^\s)]+|\/(?:safari|local|guides|request-a-trip|about)(?:\/[a-z0-9-]+)*)/g)
+function renderText(text, de) {
+  const parts = text.split(/(https?:\/\/[^\s)]+|\/(?:safari|local|guides|request-a-trip|about|de\/reiseanfrage|de\/kilimandscharo)(?:\/[a-z0-9-]+)*)/g)
   return parts.map((part, i) => {
     if (/^https?:\/\//.test(part)) {
       const clean = part.replace(/[.,;]+$/, '')
@@ -19,7 +25,7 @@ function renderText(text) {
       return (
         <span key={i}>
           <a href={clean} className="font-semibold text-[#1e3a8a] underline">
-            View listing
+            {clean.includes('wa.me') ? 'WhatsApp' : de ? 'Angebot ansehen' : 'View listing'}
           </a>
           {tail}
         </span>
@@ -28,7 +34,11 @@ function renderText(text) {
     if (part.startsWith('/') && (PAGES.includes(part) || part.startsWith('/safari/'))) {
       return (
         <Link key={i} href={part} className="font-semibold text-[#1e3a8a] underline">
-          {part.startsWith('/safari/') ? 'View listing' : part}
+          {part.startsWith('/safari/')
+            ? de ? 'Angebot ansehen' : 'View listing'
+            : part === '/de/reiseanfrage' ? 'Reiseanfrage'
+            : part === '/de/kilimandscharo' ? 'Kilimandscharo-Angebote'
+            : part}
         </Link>
       )
     }
@@ -37,8 +47,10 @@ function renderText(text) {
 }
 
 export default function ChatWidget() {
+  const pathname = usePathname()
+  const de = !!pathname && pathname.startsWith('/de')
   const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState([{ role: 'assistant', text: WELCOME }])
+  const [messages, setMessages] = useState([{ role: 'assistant', text: de ? WELCOME_DE : WELCOME }])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const endRef = useRef(null)
@@ -64,12 +76,12 @@ export default function ChatWidget() {
       })
       const data = await res.json().catch(() => ({}))
       const reply =
-        data.reply || data.error || 'The chat could not answer just now. Please use Request a Trip.'
+        data.reply || data.error || (de ? 'Der Chat kann gerade nicht antworten. Bitte nutzen Sie die Reiseanfrage.' : 'The chat could not answer just now. Please use Request a Trip.')
       setMessages((m) => [...m, { role: 'assistant', text: reply }])
     } catch (e) {
       setMessages((m) => [
         ...m,
-        { role: 'assistant', text: 'The chat could not answer just now. Please use Request a Trip.' },
+        { role: 'assistant', text: de ? 'Der Chat kann gerade nicht antworten. Bitte nutzen Sie die Reiseanfrage.' : 'The chat could not answer just now. Please use Request a Trip.' },
       ])
     } finally {
       setBusy(false)
@@ -87,12 +99,12 @@ export default function ChatWidget() {
           <div className="flex items-center justify-between bg-[#1e3a8a] px-4 py-3 text-white">
             <div>
               <p className="text-sm font-bold">OSARE Assistant</p>
-              <p className="text-[11px] text-blue-100">AI assistant. Partners confirm price and availability.</p>
+              <p className="text-[11px] text-blue-100">{de ? 'KI-Assistent. Partner bestätigen Preis und Verfügbarkeit.' : 'AI assistant. Partners confirm price and availability.'}</p>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              aria-label="Close chat"
+              aria-label={de ? 'Chat schließen' : 'Close chat'}
               className="rounded-full px-2 text-xl leading-none text-white hover:bg-white/20"
             >
               &times;
@@ -109,13 +121,13 @@ export default function ChatWidget() {
                       : 'max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-white px-3 py-2 text-sm text-slate-800 shadow-sm'
                   }
                 >
-                  {m.role === 'assistant' ? renderText(m.text) : m.text}
+                  {m.role === 'assistant' ? renderText(m.text, de) : m.text}
                 </div>
               </div>
             ))}
             {messages.length === 1 ? (
               <div className="flex flex-wrap gap-2">
-                {SUGGESTIONS.map((s) => (
+                {(de ? SUGGESTIONS_DE : SUGGESTIONS).map((s) => (
                   <button
                     key={s}
                     type="button"
@@ -127,7 +139,7 @@ export default function ChatWidget() {
                 ))}
               </div>
             ) : null}
-            {busy ? <p className="text-xs text-slate-500">Typing...</p> : null}
+            {busy ? <p className="text-xs text-slate-500">{de ? 'Schreibt...' : 'Typing...'}</p> : null}
             <div ref={endRef} />
           </div>
 
@@ -142,7 +154,7 @@ export default function ChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               maxLength={600}
-              placeholder="Type your question"
+              placeholder={de ? 'Ihre Frage eingeben' : 'Type your question'}
               className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
             />
             <button
@@ -150,7 +162,7 @@ export default function ChatWidget() {
               disabled={busy || !input.trim()}
               className="rounded-lg bg-[#1e3a8a] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
             >
-              Send
+              {de ? 'Senden' : 'Send'}
             </button>
           </form>
         </div>
@@ -159,10 +171,10 @@ export default function ChatWidget() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        aria-label={open ? 'Close chat' : 'Open chat'}
+        aria-label={open ? (de ? 'Chat schließen' : 'Close chat') : (de ? 'Chat öffnen' : 'Open chat')}
         className="fixed bottom-4 right-4 z-50 rounded-full bg-[#1e3a8a] px-5 py-3 text-sm font-semibold text-white shadow-lg hover:bg-[#1e3a8a]/90"
       >
-        {open ? 'Close' : 'Chat with us'}
+        {open ? (de ? 'Schließen' : 'Close') : (de ? 'Fragen Sie uns' : 'Chat with us')}
       </button>
     </>
   )
