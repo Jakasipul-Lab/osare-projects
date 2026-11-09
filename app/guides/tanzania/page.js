@@ -3,10 +3,9 @@ import { buildMetadata } from '@/lib/seo'
 import GuideTripCta from '../GuideTripCta'
 
 export const metadata = buildMetadata({
-  title:
-    'Tanzania Travel Guide — Safari, Wildlife, Zanzibar, Kilimanjaro & Travel Information | OSARE',
+  title: 'Tanzania Travel Guide: Safari, Kilimanjaro & Zanzibar | OSARE',
   description:
-    'Complete Tanzania travel guide covering safari, Serengeti, Ngorongoro, Kilimanjaro, Zanzibar, national parks, beaches, transport, accommodation, entry requirements, costs, culture and travel planning.',
+    'Plan a Tanzania trip: Serengeti, Ngorongoro, Kilimanjaro and Zanzibar, plus costs, entry requirements and when to go.',
   path: '/guides/tanzania',
 })
 
