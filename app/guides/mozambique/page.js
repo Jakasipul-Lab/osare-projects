@@ -3,10 +3,9 @@ import { buildMetadata } from '@/lib/seo'
 import GuideTripCta from '../GuideTripCta'
 
 export const metadata = buildMetadata({
-  title:
-    'Mozambique Travel Guide — Beaches, Safari, Wildlife & Travel Information | OSARE',
+  title: 'Mozambique Travel Guide: Beaches, Islands & Safari | OSARE',
   description:
-    'Practical Mozambique travel information covering beaches, islands, wildlife, national parks, destinations, entry requirements, transport, accommodation, costs, safety and travel planning.',
+    'Planning travel to Mozambique? Beaches, islands, wildlife parks, entry requirements, transport and costs in one practical guide.',
   path: '/guides/mozambique',
 })
 
