@@ -38,6 +38,14 @@ const ALTEZZA = [
   { name: 'Umbwe-Route', days: '6 bis 7 Tage', note: 'Kurz und steil. Für erfahrene, fitte Bergwanderer.', price: 'Preis ansehen', href: '/safari/altezza-travel-kilimanjaro-umbwe-route-6-to-7-days-trek-68e2fbc6' },
 ]
 
+// Ungefaehre Euro-Betraege. EZB-Referenzkurs vom 6. November 2026: 1 EUR = 1,1165 USD.
+const USD_TO_EUR = 1 / 1.1165
+function eur(usdText) {
+  const n = parseInt(String(usdText).replace(/[^0-9]/g, ''), 10)
+  if (!n) return ''
+  return (Math.round((n * USD_TO_EUR) / 10) * 10).toLocaleString('de-DE')
+}
+
 const SEASONS = [
   { title: 'Haupttrockenzeit: Juni bis Oktober', text: 'Klarer Himmel und die meisten Besteiger am Berg. Die Nächte nahe dem Gipfel sind sehr kalt.', box: 'border-amber-300 bg-amber-50', head: 'text-amber-900' },
   { title: 'Kleine Trockenzeit: Januar bis Anfang März', text: 'Meist gutes Wetter und weniger Andrang als in der Jahresmitte. Eine beliebte Zeit für Gipfelaussichten.', box: 'border-yellow-300 bg-yellow-50', head: 'text-yellow-900' },
@@ -195,11 +203,11 @@ export default function KilimandscharoPage() {
                 <p className="mt-2 leading-7 text-gray-700">{o.note}</p>
                 <p className="mt-4 flex flex-wrap items-center gap-2">
                   <span className="rounded-full bg-amber-500 px-4 py-2 text-xl font-extrabold text-white">USD {o.priv}</span>
-                  <span className="text-sm font-semibold text-gray-600">pro Person, privat</span>
+                  <span className="text-sm font-semibold text-gray-600">pro Person, privat (ca. {eur(o.priv)} EUR)</span>
                 </p>
                 <p className="mt-2 flex flex-wrap items-center gap-2">
                   <span className="rounded-full bg-amber-100 px-4 py-2 text-xl font-extrabold text-amber-900">USD {o.group}</span>
-                  <span className="text-sm font-semibold text-gray-600">pro Person, in der Gruppe</span>
+                  <span className="text-sm font-semibold text-gray-600">pro Person, in der Gruppe (ca. {eur(o.group)} EUR)</span>
                 </p>
                                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link
@@ -228,7 +236,9 @@ export default function KilimandscharoPage() {
             Mountainbike-Paket fragen Sie vor der Buchung nach Führer, Parkgebühren und Mahlzeiten.
           </p>
           <p className="mt-4 text-sm text-gray-500">
-            Angebotspreise Stand November 2026, vom Anbieter bestätigt. OSARE ist ein Verzeichnis
+            Angebotspreise Stand November 2026, vom Anbieter bestätigt. Die Euro-Beträge sind Näherungswerte
+            (EZB-Referenzkurs vom 6. November 2026: 1 EUR = 1,1165 USD). Abgerechnet wird laut Anbieter in USD,
+            der Anbieter bestätigt den endgültigen Preis. OSARE ist ein Verzeichnis
             und leitet Ihre Anfrage an den Anbieter weiter.
           </p>
         </section>
@@ -260,7 +270,7 @@ export default function KilimandscharoPage() {
                 <p className="mt-2 leading-7 text-gray-700">{c.note}</p>
                 <p className="mt-4 flex flex-wrap items-center gap-2">
                   <span className="rounded-full bg-green-600 px-4 py-2 text-xl font-extrabold text-white">{c.price}</span>
-                  <span className="text-sm font-semibold text-gray-600">{c.per}</span>
+                  <span className="text-sm font-semibold text-gray-600">{c.per} (ca. {eur(c.price)} EUR)</span>
                 </p>
                 <p className="mt-3 text-sm font-bold text-green-700">Ablauf ansehen (auf Englisch) →</p>
               </Link>
