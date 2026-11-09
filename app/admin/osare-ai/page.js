@@ -5,6 +5,21 @@ import { useEffect, useState } from 'react'
 const KEY = 'osare-ai-manual'
 const EMPTY = { spend: '', views: '', clicks: '', impressions: '' }
 const CKEY = 'osare-ai-campaigns'
+const MKEY = 'osare-ai-marketing'
+const DEFAULT_LINK = 'https://www.easafariroutes.com/safari'
+const POSTS = [
+  { id: 'p1', day: 'Mon', where: 'English post (US followers)', text: 'Kilimanjaro via the Lemosho Route: 10 days, 8 of them on the mountain, summit at 5,895 m. From USD 2,650 per person in a group, with a locally owned team in Moshi. Details and a free request: [link]' },
+  { id: 'p2', day: 'Tue', where: 'English post (US followers)', text: 'Planning Kilimanjaro? Decide two things first: the route and the month. The drier months are January to March and June to October. Tell me your dates and I will point you to a route. easafariroutes.com/safari' },
+  { id: 'g1', day: 'Tue', where: 'German post (X / Threads)', text: 'Kilimandscharo besteigen? Routen vergleichen und kostenlos bei lokalen Veranstaltern in Moshi anfragen: easafariroutes.com/de/kilimandscharo #Kilimandscharo #Tansania #Reisen' },
+  { id: 'p3', day: 'Wed', where: 'English post (US followers)', text: 'What the Lemosho package includes: 2 hotel nights in Moshi, airport and gate transfers, guides, porters and cook, park and rescue fees, tents, all meals and purified water on the mountain, emergency oxygen. Not included: flights, visa, insurance, tips. [link]' },
+  { id: 'p4', day: 'Thu', where: 'English post (US followers)', text: 'Looking at a Kenya safari? Browse listings from local operators for Tsavo East, Masai Mara and the coast, and send one free request. easafariroutes.com/safari' },
+  { id: 'g2', day: 'Thu', where: 'German post (X / Threads)', text: 'Lemosho-Route am Kilimandscharo: 10 Tage, davon 8 am Berg, Gipfel auf 5.895 m. Ab 2.650 USD pro Person in der Gruppe. Alle Leistungen: easafariroutes.com/de/kilimandscharo #Kilimandscharo #Lemosho' },
+  { id: 'p5', day: 'Fri', where: 'English post (US followers)', text: 'Kilimanjaro or a Kenya safari: which one is on your list for 2027? Tell me why and I will suggest where to start.' },
+  { id: 'p6', day: 'Sat', where: 'English post (US followers)', text: 'Altitude is a common reason people miss the Kilimanjaro summit. A longer route gives your body more time to adjust, which is why Lemosho, with 8 days on the mountain, is popular. [link]' },
+  { id: 'g3', day: 'Sat', where: 'German post (X / Threads)', text: 'Beste Reisezeit für den Kilimandscharo: Januar bis März und Juni bis Oktober. Was ein Paket enthalten sollte, steht hier: easafariroutes.com/de/kilimandscharo #Tansania #Wandern' },
+  { id: 'p7', day: 'Sun', where: 'English post (US followers)', text: 'Directory update: easafariroutes.com now has a German-language page for Kilimanjaro travelers, and more operators are being added. Questions about a trip? Send me a message.' },
+  { id: 'm1', day: 'Once', where: 'Message to Altezza (replace [Name])', text: 'Hello [Name], this is Osare, CEO of OSARE (easafariroutes.com). We are updating our East Africa directory. Your company is listed with several Kilimanjaro routes, and people searching for Altezza Travel on Google already find your page on our site. We have also built a German-language page for Kilimanjaro that includes your routes, for German travelers. Requests reach you directly by WhatsApp, and we only take a commission on confirmed bookings. Could you tell me who handles enquiries from German-speaking travelers, and confirm that your listed prices are correct? Thank you.' },
+]
 const IGNORE_KEY = 'osare-ai-ignore'
 const DEFAULT_IGNORE = 'ema, adac, test'
 const DEFAULT_CAMPAIGNS = [
@@ -55,6 +70,8 @@ export default function OsareAiPage() {
   const [manual, setManual] = useState(EMPTY)
   const [campaigns, setCampaigns] = useState(DEFAULT_CAMPAIGNS)
   const [ignore, setIgnore] = useState(DEFAULT_IGNORE)
+  const [mk, setMk] = useState({ link: DEFAULT_LINK, done: {} })
+  const [copied, setCopied] = useState('')
 
   useEffect(() => {
     document.title = 'OSARE AI'
@@ -74,6 +91,13 @@ export default function OsareAiPage() {
       }
       const savedI = localStorage.getItem(IGNORE_KEY)
       if (savedI !== null) setIgnore(savedI)
+    } catch (e) {}
+    try {
+      const savedM = localStorage.getItem(MKEY)
+      if (savedM) {
+        const m = JSON.parse(savedM)
+        setMk({ link: m.link || DEFAULT_LINK, done: m.done || {} })
+      }
     } catch (e) {}
     fetch('/api/admin/osare-ai', { cache: 'no-store' })
       .then(async (r) => {
@@ -113,6 +137,39 @@ export default function OsareAiPage() {
 
   function removeCampaign(id) {
     saveCampaigns(campaigns.filter((c) => c.id !== id))
+  }
+
+  function saveMk(next) {
+    setMk(next)
+    try {
+      localStorage.setItem(MKEY, JSON.stringify(next))
+    } catch (e) {}
+  }
+
+  function postText(p) {
+    return p.text.split('[link]').join(mk.link || DEFAULT_LINK)
+  }
+
+  async function copyPost(p) {
+    const text = postText(p)
+    try {
+      await navigator.clipboard.writeText(text)
+    } catch (e) {
+      try {
+        const ta = document.createElement('textarea')
+        ta.value = text
+        document.body.appendChild(ta)
+        ta.select()
+        document.execCommand('copy')
+        ta.remove()
+      } catch (e2) {}
+    }
+    setCopied(p.id)
+    setTimeout(() => setCopied(''), 1500)
+  }
+
+  function toggleDone(id) {
+    saveMk({ ...mk, done: { ...mk.done, [id]: !mk.done[id] } })
   }
 
   function changeIgnore(value) {
@@ -204,6 +261,45 @@ export default function OsareAiPage() {
         <Card accent="border-amber-500" label="Last 30 days" value={leads.last30} />
         <Card accent="border-purple-600" label="Days since last" value={leads.daysSinceLast === null ? '-' : leads.daysSinceLast} note={fmtDate(leads.lastAt)} />
       </div>
+
+      <section className="rounded-xl border border-slate-200 border-l-8 border-orange-500 bg-white p-5 shadow-md">
+        <h2 className="text-lg font-bold text-blue-900">Marketing: posts to copy</h2>
+        <p className="mt-1 text-sm text-slate-500">
+          Press Copy, paste it where you post, tick Done. {POSTS.filter((p) => mk.done[p.id]).length} of {POSTS.length} done. Saved in this browser only.
+        </p>
+        <label className="mt-3 block text-sm text-slate-700">
+          Link for the Lemosho posts (open the listing, copy the address from the top bar, paste it here once)
+          <input
+            value={mk.link}
+            onChange={(e) => saveMk({ ...mk, link: e.target.value })}
+            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+          />
+        </label>
+        <div className="mt-4 space-y-3">
+          {POSTS.map((p) => (
+            <div key={p.id} className={`rounded-lg border p-3 ${mk.done[p.id] ? 'border-green-300 bg-green-50' : 'border-slate-200'}`}>
+              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+                <span className="rounded bg-blue-900 px-2 py-0.5 text-white">{p.day}</span>
+                <span className="text-slate-600">{p.where}</span>
+              </div>
+              <p className="mt-2 whitespace-pre-wrap text-sm text-slate-800">{postText(p)}</p>
+              <div className="mt-3 flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => copyPost(p)}
+                  className="rounded-md bg-orange-500 px-4 py-1.5 text-sm font-semibold text-white hover:bg-orange-600"
+                >
+                  {copied === p.id ? 'Copied' : 'Copy'}
+                </button>
+                <label className="flex items-center gap-2 text-sm text-slate-700">
+                  <input type="checkbox" checked={!!mk.done[p.id]} onChange={() => toggleDone(p.id)} />
+                  Done
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="rounded-xl border border-slate-200 border-l-8 border-blue-600 bg-white p-5 shadow-md">
         <h2 className="text-lg font-bold text-blue-900">Enquiries per week (last 12 weeks)</h2>
