@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
   if (!item) return { title: 'Listing not found | OSARE' }
   return buildMetadata({
     title: `${item.title} — ${item.vendor} | OSARE`,
-    description: item.description?.slice(0, 160) || `${item.title} by ${item.vendor} in ${item.location}. Compare and book direct on OSARE.`,
+    description: item.description?.replace(/\*\*/g, '').slice(0, 160) || `${item.title} by ${item.vendor} in ${item.location}. Compare and book direct on OSARE.`,
     path: `/safari/${item.slug}`,
     image: item.image,
   })
@@ -42,6 +42,18 @@ export default async function VendorDetailPage({ params }) {
       <Link href="/safari" className="text-sm text-slate-500 hover:text-slate-700">
         ← Back to Safari & Tourism
       </Link>
+
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+        <p className="text-sm font-semibold text-emerald-900">
+          Free request, no payment now. {item.vendor} confirms the price and dates.
+        </p>
+        <a
+          href="#enquire"
+          className="rounded-full bg-[#1e3a8a] px-5 py-2 text-sm font-bold text-white hover:bg-blue-900"
+        >
+          Request this tour ↓
+        </a>
+      </div>
 
       <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
                      {item.image ? (
@@ -72,7 +84,7 @@ export default async function VendorDetailPage({ params }) {
 <LocationMap location={item.location} />
 
           {item.description ? (
-            <p className="mt-4 text-slate-700 leading-relaxed">{item.description}</p>
+            <p className="mt-4 text-slate-700 leading-relaxed">{String(item.description).replace(/\*\*/g, '')}</p>
           ) : null}
 
           {Array.isArray(item.includes) && item.includes.length ? (
@@ -107,7 +119,7 @@ export default async function VendorDetailPage({ params }) {
             ) : null}
           </div>
 
-          <div className="mt-6"><EnquireButton listingId={item.id} /></div>
+          <div id="enquire" className="mt-6 scroll-mt-24"><EnquireButton listingId={item.id} /></div>
         </div>
       </div>
     </div>
