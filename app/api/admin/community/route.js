@@ -1,0 +1,42 @@
+import { NextResponse } from 'next/server'
+import { query } from '@/lib/db'
+import { isAdminRequest } from '@/lib/auth'
+
+export const dynamic = 'force-dynamic'
+
+// Admin only: list all community posts (newest first).
+export async function GET(request) {
+  if (!isAdminRequest(request)) {
+    return NextResponse.json({ error: 'Admin login required' }, { status: 401 })
+  }
+  try {
+    const result = await query(
+      `SELECT id, created_at, kind, name, interest, message, status, reply, replied_at
+       FROM community_posts
+       ORDER BY (status = 'pending') DESC, created_at DESC
+       LIMIT 200`
+    )
+    return NextResponse.json({ posts: result.rows })
+  } catch (error) {
+    return NextResponse.json({ error: 'Could not load posts' }, { status: 500 })
+  }
+}
+
+// Admin only: approve, hide or reply to one post.
+export async function POST(request) {
+  if (!isAdminRequest(request)) {
+    return NextResponse.json({ error: 'Admin login required' }, { status: 401 })
+  }
+  try {
+    const body = await request.json()
+    const id = Number(body?.id)
+    const action = String(body?.action || '')
+    if (!Number.isInteger(id) || id < 1) {
+      return NextResponse.json({ error: 'Bad id' }, { status: 400 })
+    }
+
+    if (action === 'approve') {
+      await query(`UPDATE community_posts SET status = 'approved' WHERE id = $1`, [id])
+    } else if (action === 'hide') {
+      await query(`UPDATE community_posts SET status = 'hidden' WHERE id = $1`, [id])
+    } else if (action === 'reply') {
