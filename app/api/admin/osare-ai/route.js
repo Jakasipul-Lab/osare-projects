@@ -10,7 +10,7 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Admin login required' }, { status: 401 });
   }
   try {
-    const [totals, weekly, byVendor, byStatus, listings, recent, leadDates] = await Promise.all([
+    const [totals, weekly, byVendor, byStatus, listings, recent, leadDates, visits] = await Promise.all([
       query(`SELECT
                COUNT(*)::int AS total,
                COUNT(*) FILTER (WHERE created_at >= NOW() - INTERVAL '7 days')::int AS last7,
@@ -37,6 +37,13 @@ export async function GET(request) {
              FROM leads ORDER BY created_at DESC LIMIT 10`),
       query(`SELECT created_at, vendor, traveler_name
              FROM leads ORDER BY created_at DESC LIMIT 1000`),
+      query(`SELECT to_char(created_at AT TIME ZONE 'Europe/Berlin', 'YYYY-MM-DD') AS day,
+                    COALESCE(source, '') AS source,
+                    COALESCE(campaign, '') AS campaign,
+                    COUNT(*)::int AS n
+             FROM page_visits
+             WHERE created_at >= NOW() - INTERVAL '90 days'
+             GROUP BY 1, 2, 3 ORDER BY 1`).catch(() => ({ rows: [] })),
     ]);
 
     const t = totals.rows[0] || {};
@@ -60,6 +67,7 @@ export async function GET(request) {
       listings: listings.rows,
       recent: recent.rows,
       leadDates: leadDates.rows,
+      visits: visits.rows,
     });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
