@@ -48,7 +48,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/guides/tanzania/kilimanjaro/machame`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/guides/tanzania/kilimanjaro/marangu`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/verified`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/de/kilimandscharo/kilimandscharo-kosten`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/community`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
   ]
 
   let vendorRoutes = []
