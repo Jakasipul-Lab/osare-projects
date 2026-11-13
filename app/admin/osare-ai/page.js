@@ -198,6 +198,13 @@ export default function OsareAiPage() {
   }
 
   const { leads, weekly, byVendor, byStatus, listings, recent } = data
+  const visitRows = Array.isArray(data.visits) ? data.visits : []
+  const berlinDay = (back) => new Date(Date.now() - back * 86400000).toLocaleDateString('sv-SE', { timeZone: 'Europe/Berlin' })
+  const visitsSince = (fromDay) => visitRows.filter((v) => v.day >= fromDay).reduce((sum, v) => sum + (Number(v.n) || 0), 0)
+  const visitsToday = visitsSince(berlinDay(0))
+  const visits7 = visitsSince(berlinDay(6))
+  const visits30 = visitsSince(berlinDay(29))
+  const visits90 = visitsSince('0000-00-00')
   const spend = parseFloat(String(manual.spend).replace(',', '.')) || 0
   const views = parseFloat(manual.views) || 0
   const clicks = parseFloat(manual.clicks) || 0
@@ -300,6 +307,16 @@ export default function OsareAiPage() {
         <Card accent="border-amber-500" label="Last 30 days" value={leads.last30} />
         <Card accent="border-purple-600" label="Days since last" value={leads.daysSinceLast === null ? '-' : leads.daysSinceLast} note={fmtDate(leads.lastAt)} />
       </div>
+
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <Card accent="border-blue-600" label="Visits today" value={visitsToday} />
+        <Card accent="border-emerald-600" label="Visits, last 7 days" value={visits7} />
+        <Card accent="border-amber-500" label="Visits, last 30 days" value={visits30} />
+        <Card accent="border-purple-600" label="Visits, last 90 days" value={visits90} note="counted by site tracking" />
+      </div>
+      {visits90 === 0 && (
+        <p className="text-sm text-slate-600">No visits recorded yet. If this stays at 0 after you browse the site, tracking is not saving visits.</p>
+      )}
 
       <section className="rounded-xl border border-slate-200 border-l-8 border-rose-500 bg-white p-5 shadow-md">
         <h2 className="text-lg font-bold text-blue-900">Recommendations</h2>
