@@ -13,19 +13,21 @@ export async function GET(request) {
       `SELECT path,
               COALESCE(source, '(none)') AS source,
               COALESCE(campaign, '(none)') AS campaign,
-              COUNT(*)::int AS visits,
+              COUNT(*) FILTER (WHERE event = 'view')::int AS visits,
+              COUNT(*) FILTER (WHERE event = 'click_request')::int AS request_taps,
+              COUNT(*) FILTER (WHERE event = 'click_whatsapp')::int AS whatsapp_taps,
               MAX(created_at) AS last_visit
        FROM page_visits
        WHERE created_at > now() - interval '30 days'
        GROUP BY 1, 2, 3
-       ORDER BY visits DESC
+       ORDER BY visits DESC, request_taps DESC
        LIMIT 100`
     )
     const byDay = await query(
       `SELECT to_char(created_at AT TIME ZONE 'Europe/Berlin', 'YYYY-MM-DD') AS day,
               COUNT(*)::int AS visits
        FROM page_visits
-       WHERE created_at > now() - interval '14 days'
+       WHERE created_at > now() - interval '14 days' AND event = 'view'
        GROUP BY 1
        ORDER BY 1 DESC`
     )
