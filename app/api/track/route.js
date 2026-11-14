@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic'
 const BOT = /bot|crawl|spider|facebookexternalhit|preview|headless|lighthouse|monitor/i
 const LIMIT_PER_IP_PER_HOUR = 60
 const hits = new Map()
+const EVENTS = ['view', 'click_request', 'click_whatsapp']
 
 function tooMany(ip) {
   const now = Date.now()
@@ -39,10 +40,11 @@ export async function POST(request) {
 
     const source = clean(body.source, 60) || null
     const campaign = clean(body.campaign, 60) || null
+    const event = EVENTS.includes(body.event) ? body.event : 'view'
 
     await query(
-      'INSERT INTO page_visits (path, source, campaign) VALUES ($1, $2, $3)',
-      [path, source, campaign]
+      'INSERT INTO page_visits (path, source, campaign, event) VALUES ($1, $2, $3, $4)',
+      [path, source, campaign, event]
     )
     return NextResponse.json({ ok: true })
   } catch (e) {
