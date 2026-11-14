@@ -2,27 +2,31 @@ import Link from 'next/link'
 import { buildMetadata, buildFAQSchema } from '@/lib/seo'
 
 export const metadata = buildMetadata({
-  title: "East Africa Visa & Entry Requirements 2026 — Kenya, Tanzania, Uganda | OSARE",
-  description: "Everything you need to know before you fly: which countries need a visa, how the East Africa Tourist Visa works, how to apply online, and what to have ready at the border.",
+  title: "East Africa Visa & Entry Requirements 2026 — Kenya eTA, Tanzania & Uganda eVisa | OSARE",
+  description: "Kenya now uses an eTA instead of a visa. Tanzania and Uganda issue eVisas. Which document you need, where to apply officially, and what to have ready at the border.",
   path: '/guides/visa-entry-requirements',
 })
 
 const FAQS = [
   {
-    question: "Do I need a visa to visit Kenya, Tanzania or Uganda?",
-    answer: "Most visitors do. Kenya, Tanzania and Uganda each issue visas on arrival or, better, online in advance as an eVisa. A handful of nationalities are visa-exempt for short stays, so always check your specific passport on the official immigration portal before you fly.",
+    question: "Do I need a visa to visit Kenya?",
+    answer: "Kenya no longer issues tourist visas. Since January 2024 most visitors need an Electronic Travel Authorisation (eTA) instead, applied for online at etakenya.go.ke before travel. Citizens of East African Community countries, and citizens of most African Union countries, are exempt. Always check your own nationality on the official portal.",
+  },
+  {
+    question: "Do I need a visa for Tanzania and Uganda?",
+    answer: "Most visitors do. Tanzania issues eVisas online at visa.immigration.go.tz, and a Tanzania visa also covers Zanzibar. Uganda issues eVisas online at visas.immigration.go.ug and should be applied for before you travel.",
   },
   {
     question: "What is the East Africa Tourist Visa?",
-    answer: "It is a single visa that lets you travel freely between Kenya, Uganda and Rwanda on one entry, for up to 90 days. It does not currently cover Tanzania, which issues its own separate visa.",
+    answer: "A single visa for travelling between Kenya, Uganda and Rwanda, with multiple entries for up to 90 days. You apply through the official portal of the country you enter first, and enter that country first. Tanzania is not included and needs its own visa.",
   },
   {
     question: "How long before my trip should I apply?",
-    answer: "Apply for your eVisa at least one to two weeks before departure. Approval is often faster, but border queues move quicker for travelers who already have their approval letter printed or saved on their phone.",
+    answer: "At least two weeks before departure. Approval is often faster, but applying early leaves time to fix mistakes. Save or print the approval, as airlines and border officers ask for it.",
   },
   {
     question: "What documents do I need at the border?",
-    answer: "A passport valid for at least six months beyond your travel dates, your eVisa approval or the visa fee in cash if paying on arrival, a return or onward ticket, and often proof of a yellow fever vaccination if you are arriving from or have transited a country with yellow fever risk.",
+    answer: "A passport valid for at least six months beyond your arrival date with blank pages, your eTA or eVisa approval, a return or onward ticket, and a yellow fever vaccination certificate if you are arriving from, or have transited through, a country with yellow fever risk.",
   },
 ]
 
@@ -44,6 +48,14 @@ function Photo({ src, alt, caption }) {
   )
 }
 
+function Ext({ href, children }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" style={{ color: '#1e3a8a', fontWeight: 700 }}>
+      {children}
+    </a>
+  )
+}
+
 export default function VisaEntryGuide() {
   const faqSchema = buildFAQSchema(FAQS)
 
@@ -59,30 +71,48 @@ export default function VisaEntryGuide() {
           Visa &amp; Entry Requirements for East Africa
         </h1>
         <p style={{ color: '#64748b', fontSize: 18, marginTop: 12 }}>
-          Kenya, Tanzania and Uganda each have their own rules, but for most travelers the paperwork
-          is simple once you know which visa to get and when to apply. Here&rsquo;s the ground truth.
+          Kenya, Tanzania and Uganda each have their own rules. Here is which document you need,
+          where to apply officially, and what to have ready at the border.
         </p>
+        <p style={{ color: '#94a3b8', fontSize: 14, marginTop: 10 }}>Last checked: November 2026</p>
       </div>
 
       <div style={{ marginBottom: 8 }}>
         <Link href="/guides" style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', textDecoration: 'none' }}>&larr; Back to all guides</Link>
       </div>
 
-      <Section title="Do you need a visa?">
+      <div style={{ marginTop: 16, padding: 16, background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: 12, color: '#7c2d12', fontSize: 15, lineHeight: 1.6 }}>
+        <strong>Important:</strong> entry rules change. OSARE is not an official source. Always confirm
+        the current rules for your passport on the official government portal before you travel, and
+        never pay a third-party website for an eTA or eVisa.
+      </div>
+
+      <Section title="Kenya: Electronic Travel Authorisation (eTA)">
         <p>
-          Almost every visitor from outside East Africa needs a visa for Kenya, Tanzania and Uganda.
-          A small number of nationalities are visa-exempt for short stays, so the first step is always
-          checking your own passport against the official immigration portal for each country &mdash;
-          rules do change.
+          <strong>Kenya no longer issues tourist visas.</strong> Since January 2024, most visitors need an
+          Electronic Travel Authorisation (eTA) instead, applied for online before departure. There is
+          no eTA on arrival, so do not fly without your approval.
+        </p>
+        <ul style={{ paddingLeft: 20, marginTop: 12 }}>
+          <li style={{ marginBottom: 10 }}>Apply only on the official portal: <Ext href="https://etakenya.go.ke">etakenya.go.ke</Ext></li>
+          <li style={{ marginBottom: 10 }}>Apply <strong>at least two weeks</strong> before you travel.</li>
+          <li><strong>Exempt:</strong> citizens of East African Community countries, and citizens of most African Union countries. Check your nationality on the portal, as conditions and length of stay vary.</li>
+        </ul>
+      </Section>
+
+      <Section title="Tanzania and Zanzibar: eVisa">
+        <p>
+          Most visitors need a visa for Tanzania. Apply online in advance on the official portal:{' '}
+          <Ext href="https://visa.immigration.go.tz">visa.immigration.go.tz</Ext>. A Tanzania visa also
+          covers Zanzibar. Applying online before you travel avoids long queues on arrival.
         </p>
       </Section>
 
-      <Section title="The East Africa Tourist Visa">
+      <Section title="Uganda: eVisa">
         <p>
-          If you&rsquo;re planning to cross between <strong>Kenya, Uganda and Rwanda</strong>, the East Africa
-          Tourist Visa is the easiest option: one visa, multiple entries between those three countries,
-          valid for up to 90 days. <strong>Tanzania is not included</strong> &mdash; it issues its own
-          separate visa, so if your route includes the Serengeti or Zanzibar, budget for that too.
+          Most visitors need a visa for Uganda. Apply online <strong>before you travel</strong> on the
+          official portal: <Ext href="https://visas.immigration.go.ug">visas.immigration.go.ug</Ext>.
+          Look-alike websites charge far more for the same visa, so check the address carefully.
         </p>
       </Section>
 
@@ -92,21 +122,31 @@ export default function VisaEntryGuide() {
         caption="Beyond the paperwork: East Africa's communities are known for a genuinely warm welcome to visitors."
       />
 
-      <Section title="Applying online (eVisa)">
+      <Section title="The East Africa Tourist Visa">
         <p>
-          All three countries now offer online eVisa applications. Apply <strong>one to two weeks before
-          you travel</strong>, using the official government portal only &mdash; there are third-party sites
-          that charge extra fees for the same service. Save or print your approval letter; you&rsquo;ll be
-          asked for it at check-in and again at the border.
+          Travelling between <strong>Kenya, Uganda and Rwanda</strong>? The East Africa Tourist Visa covers
+          all three: multiple entries between them for up to 90 days. Apply through the official portal of
+          the country you <strong>enter first</strong>, and enter that country first.{' '}
+          <strong>Tanzania is not included</strong> &mdash; if your route includes the Serengeti,
+          Kilimanjaro or Zanzibar, you need a separate Tanzania visa.
         </p>
       </Section>
 
       <Section title="What to have ready at the border">
         <ul style={{ paddingLeft: 20, margin: 0 }}>
-          <li style={{ marginBottom: 10 }}><strong>Passport</strong> valid for at least 6 months beyond your travel dates, with blank pages.</li>
-          <li style={{ marginBottom: 10 }}><strong>Your eVisa approval</strong> (or visa fee in cash if applying on arrival).</li>
+          <li style={{ marginBottom: 10 }}><strong>Passport</strong> valid for at least 6 months beyond your arrival date, with blank pages.</li>
+          <li style={{ marginBottom: 10 }}><strong>Your eTA or eVisa approval</strong>, printed or saved on your phone.</li>
           <li style={{ marginBottom: 10 }}><strong>A return or onward ticket.</strong></li>
           <li><strong>Yellow fever certificate</strong> if arriving from, or having transited through, a country with yellow fever risk &mdash; officers do check this.</li>
+        </ul>
+      </Section>
+
+      <Section title="Check your own government's travel advice">
+        <p>Before you book, read the official travel advice from your home country. It covers safety, health and entry rules:</p>
+        <ul style={{ paddingLeft: 20, marginTop: 12 }}>
+          <li style={{ marginBottom: 10 }}>United Kingdom: <Ext href="https://www.gov.uk/foreign-travel-advice">gov.uk/foreign-travel-advice</Ext></li>
+          <li style={{ marginBottom: 10 }}>United States: <Ext href="https://travel.state.gov">travel.state.gov</Ext></li>
+          <li>Germany: <Ext href="https://www.auswaertiges-amt.de">auswaertiges-amt.de</Ext></li>
         </ul>
       </Section>
 
@@ -118,7 +158,7 @@ export default function VisaEntryGuide() {
       <div style={{ marginTop: 56, padding: 28, background: '#f0f9ff', borderRadius: 16, textAlign: 'center' }}>
         <h3 style={{ fontSize: 20, fontWeight: 800, color: '#1e3a8a' }}>Ready to plan the rest of your trip?</h3>
         <p style={{ color: '#475569', marginTop: 8 }}>
-          Compare verified safari operators, hotels and transport &mdash; and message them directly, free of charge.
+          Compare safari operators, hotels and transport &mdash; and send a free enquiry.
         </p>
         <Link href="/safari" style={{ display: 'inline-block', marginTop: 16, background: '#1e3a8a', color: 'white', fontWeight: 700, padding: '12px 28px', borderRadius: 999, textDecoration: 'none' }}>
           Browse Safaris on OSARE
