@@ -39,12 +39,14 @@ export default function AdminVisitsPage() {
   const rows = data ? data.bySource : []
   const days = data ? data.byDay : []
   const total = rows.reduce((n, r) => n + r.visits, 0)
+  const requestTaps = rows.reduce((n, r) => n + (r.request_taps || 0), 0)
+  const whatsappTaps = rows.reduce((n, r) => n + (r.whatsapp_taps || 0), 0)
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-10">
       <h1 className="text-2xl font-extrabold text-slate-900">Visits to the German Kilimanjaro pages</h1>
       <p className="mt-1 text-sm text-slate-600">
-        Our own count, last 30 days. Bots are left out. Each ad link carries a tag, so you can see which ad sent the visitor.
+        Our own count, last 30 days. Bots are left out. A visit is a page load. A tap is a click on a request or WhatsApp button. Each ad link carries a tag, so you can see which ad sent the visitor.
       </p>
 
       <button
@@ -65,6 +67,9 @@ export default function AdminVisitsPage() {
           <p className="mt-6 text-4xl font-extrabold text-emerald-700">
             {total} <span className="text-base font-semibold text-slate-600">visits in 30 days</span>
           </p>
+          <p className="mt-1 text-sm text-slate-600">
+            Button taps: {requestTaps} on the request buttons, {whatsappTaps} on the WhatsApp buttons.
+          </p>
 
           <h2 className="mt-8 text-lg font-bold text-slate-900">By ad tag</h2>
           {rows.length === 0 ? (
@@ -78,6 +83,8 @@ export default function AdminVisitsPage() {
                     <th className="px-3 py-2">Source</th>
                     <th className="px-3 py-2">Campaign</th>
                     <th className="px-3 py-2 text-right">Visits</th>
+                    <th className="px-3 py-2 text-right">Request taps</th>
+                    <th className="px-3 py-2 text-right">WhatsApp taps</th>
                     <th className="px-3 py-2">Last visit</th>
                   </tr>
                 </thead>
@@ -88,6 +95,8 @@ export default function AdminVisitsPage() {
                       <td className="px-3 py-2">{r.source}</td>
                       <td className="px-3 py-2">{r.campaign}</td>
                       <td className="px-3 py-2 text-right font-bold">{r.visits}</td>
+                      <td className="px-3 py-2 text-right">{r.request_taps}</td>
+                      <td className="px-3 py-2 text-right">{r.whatsapp_taps}</td>
                       <td className="px-3 py-2 text-slate-500">{fmt(r.last_visit)}</td>
                     </tr>
                   ))}
