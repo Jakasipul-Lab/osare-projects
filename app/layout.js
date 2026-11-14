@@ -1,74 +1,48 @@
-import Script from 'next/script'
-import "./globals.css"
-import { Providers } from "./providers"
-import CookieConsent from '@/components/CookieConsent'
-import GoogleTranslate from '@/components/GoogleTranslate'
-import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
-import SiteChrome from '@/components/SiteChrome'
-import ChatWidget from '@/components/ChatWidget'
-import WhatsAppButton from '@/components/WhatsAppButton'
+'use client'
 
-export const metadata = {
-    metadataBase: new URL('https://www.easafariroutes.com'),
-  alternates: { canonical: './' },
-  title: "OSARE — East Africa Safari Routes & Transit Hub",
-  description: "Free information assistant & booking hub for tourists and locals across East Africa. Safaris, Kilimanjaro, hotels, car hire, flights & Nairobi transit.",
-  robots: {
-    index: true,
-    follow: true,
-  },
-  icons: {
-    icon: "data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
-  },
-  openGraph: {
-    title: "OSARE — East Africa Safari Routes & Transit Hub",
-    description: "Free, verified safaris, hotels, car hire & transit across East Africa.",
-    url: "https://www.easafariroutes.com",
-    type: "website",
-    images: ["/og-image.png"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "OSARE — East Africa Safari Routes & Transit Hub",
-    images: ["/og-image.png"],
-  },
+import { useEffect } from 'react'
+
+// Counts one visit per page load, plus taps on the request and WhatsApp buttons, and sends them to /api/track.
+// Stores no cookie and no personal data. The ad link tags (utm_source, utm_campaign) say which ad sent the visitor.
+function send(event) {
+  try {
+    const params = new URLSearchParams(window.location.search)
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({
+        event,
+        path: window.location.pathname,
+        source: params.get('utm_source') || '',
+        campaign: params.get('utm_campaign') || '',
+      }),
+    }).catch(() => {})
+  } catch (e) {}
 }
 
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <head>
-        <script dangerouslySetInnerHTML={{__html:'window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);'}} />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5760405093106435"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        <Script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "619947f69dc64b7cab505a64811950b3"}'
-          strategy="afterInteractive"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationSchema()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebsiteSchema()) }}
-        />
-      </head>
-            <body>
-  <Providers>
-    <SiteChrome>{children}</SiteChrome>
-  </Providers>
-  <CookieConsent />
-  <GoogleTranslate />
-  <ChatWidget />
-  <WhatsAppButton />
-</body>
-    </html>
-  )
+function kindOfLink(href) {
+  if (/wa\.me|api\.whatsapp\.com|whatsapp:\/\//i.test(href)) return 'click_whatsapp'
+  if (/\/de\/reiseanfrage|\/request-a-trip/i.test(href)) return 'click_request'
+  return null
+}
+
+export default function KilimandscharoLayout({ children }) {
+  useEffect(() => {
+    send('view')
+
+    function onClick(e) {
+      try {
+        const link = e.target && e.target.closest ? e.target.closest('a') : null
+        if (!link) return
+        const kind = kindOfLink(link.getAttribute('href') || '')
+        if (kind) send(kind)
+      } catch (err) {}
+    }
+
+    document.addEventListener('click', onClick, true)
+    return () => document.removeEventListener('click', onClick, true)
+  }, [])
+
+  return <>{children}</>
 }
