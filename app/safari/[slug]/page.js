@@ -13,9 +13,33 @@ export async function generateMetadata({ params }) {
   const { slug } = await params
   const item = await getVendorBySlug(slug)
   if (!item) return { title: 'Listing not found | OSARE' }
+
+  const vendor = String(item.vendor || '').trim()
+  const listingTitle = String(item.title || '').trim()
+  const place = String(item.location || '').split(',')[0].trim()
+  const category = String(item.category || '').trim()
+
+  const sameName =
+    !listingTitle ||
+    listingTitle.toLowerCase() === vendor.toLowerCase() ||
+    listingTitle.toLowerCase().startsWith(vendor.toLowerCase())
+
+  let title
+  if (sameName) {
+    const what = category || 'Safari & Travel'
+    title = `${vendor} – ${what}${place ? ` in ${place}` : ''} | Prices & Enquiry`
+  } else {
+    title = `${vendor}: ${listingTitle} | OSARE`
+  }
+
+  const cleanDescription = String(item.description || '').replace(/\*\*/g, '').trim()
+  const description = cleanDescription
+    ? cleanDescription.slice(0, 160)
+    : `${vendor}${place ? ` in ${place}` : ''}: ${listingTitle || category}. Send a free enquiry on EA SafariRoutes, the operator confirms price and dates.`
+
   return buildMetadata({
-    title: `${item.title} — ${item.vendor} | OSARE`,
-    description: item.description?.replace(/\*\*/g, '').slice(0, 160) || `${item.title} by ${item.vendor} in ${item.location}. Compare and book direct on OSARE.`,
+    title,
+    description,
     path: `/safari/${item.slug}`,
     image: item.image,
   })
