@@ -42,7 +42,7 @@ export async function GET(request) {
                     COALESCE(campaign, '') AS campaign,
                     COUNT(*)::int AS n
              FROM page_visits
-             WHERE created_at >= NOW() - INTERVAL '90 days'
+             WHERE created_at >= NOW() - INTERVAL '90 days' AND event = 'view'
              GROUP BY 1, 2, 3 ORDER BY 1`).catch(() => ({ rows: [] })),
     ]);
 
