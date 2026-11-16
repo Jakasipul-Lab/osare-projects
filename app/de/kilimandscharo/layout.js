@@ -4,8 +4,18 @@ import { useEffect } from 'react'
 
 // Counts one visit per page load, plus taps on the request and WhatsApp buttons, and sends them to /api/track.
 // Stores no cookie and no personal data. The ad link tags (utm_source, utm_campaign) say which ad sent the visitor.
+// A browser that has opened any /admin page is marked as the owner's and is not counted.
+function ignoredBrowser() {
+  try {
+    return localStorage.getItem('osare-no-track') === '1'
+  } catch (e) {
+    return false
+  }
+}
+
 function send(event) {
   try {
+    if (ignoredBrowser()) return
     const params = new URLSearchParams(window.location.search)
     fetch('/api/track', {
       method: 'POST',
