@@ -6,11 +6,24 @@ const KEY = 'osare-ai-manual'
 const EMPTY = { spend: '', views: '', clicks: '', impressions: '' }
 const CKEY = 'osare-ai-campaigns'
 const MKEY = 'osare-ai-marketing'
-const DEFAULT_LINK = 'https://www.easafariroutes.com/safari'
+const OLD_DEFAULT_LINK = 'https://www.easafariroutes.com/safari'
+const DEFAULT_LINK = 'https://www.easafariroutes.com/guides/tanzania/kilimanjaro'
+const DE_LINK = 'https://www.easafariroutes.com/de/kilimandscharo'
+const SAFARI_LINK = 'https://www.easafariroutes.com/safari'
 const POSTS = [
-  { id: 'p1', day: 'Mon', where: 'English post (US followers)', text: 'Kilimanjaro via the Lemosho Route: 10 days, 8 of them on the mountain, summit at 5,895 m. From USD 2,650 per person in a group, with a locally owned team in Moshi. Details and a free request: [link]' },
-  { id: 'p2', day: 'Tue', where: 'English post (US followers)', text: 'Planning Kilimanjaro? Decide two things first: the route and the month. The drier months are January to March and June to October. Tell me your dates and I will point you to a route. easafariroutes.com/safari' },
-  { id: 'g1', day: 'Tue', where: 'German post (X / Threads)', text: 'Kilimandscharo besteigen? Routen vergleichen und kostenlos bei lokalen Veranstaltern in Moshi anfragen: easafariroutes.com/de/kilimandscharo #Kilimandscharo #Tansania #Reisen' },
+  { id: 'p1', day: 'Mon', where: 'English post (US followers)', text: 'Kilimanjaro via the Lemosho Route: 10 days, summit at 5,895 m. Offer for November and December 2026: USD 2,500 per person, with a locally owned team in Moshi. Details and a free request: [link]' },
+  { id: 'p2', day: 'Tue', where: 'English post (US followers)', text: 'Planning Kilimanjaro? Decide two things first: the route and the month. The drier months are January to March and June to October. Tell me your dates and I will point you to a route. [link]' },
+  { id: 'g1', day: 'Tue', where: 'German post (X / Threads)', url: DE_LINK, text: 'Kilimandscharo besteigen? Routen vergleichen und kostenlos bei lokalen Veranstaltern in Moshi anfragen: [link] #Kilimandscharo #Tansania #Reisen' },
+  { id: 'p3', day: 'Wed', where: 'English post (US followers)', text: 'What the Lemosho package includes: 2 hotel nights in Moshi, airport and gate transfers, guides, porters and cook, park and rescue fees, tents, all meals and purified water on the mountain, emergency oxygen. Not included: flights, visa, insurance, tips. [link]' },
+  { id: 'p4', day: 'Thu', where: 'English post (US followers)', url: SAFARI_LINK, text: 'Looking at a Kenya safari? Browse listings from local operators for Tsavo East, Masai Mara and the coast, and send one free request. [link]' },
+  { id: 'g2', day: 'Thu', where: 'German post (X / Threads)', url: DE_LINK, text: 'Lemosho-Route am Kilimandscharo: 10 Tage, Gipfel auf 5.895 m. Angebot im November und Dezember 2026: 2.500 USD pro Person. Alle Leistungen: [link] #Kilimandscharo #Lemosho' },
+  { id: 'p5', day: 'Fri', where: 'English post (US followers)', text: 'Kilimanjaro or a Kenya safari: which one is on your list for 2027? Tell me why and I will suggest where to start.' },
+  { id: 'p6', day: 'Sat', where: 'English post (US followers)', text: 'Altitude is a common reason people miss the Kilimanjaro summit. A longer route gives your body more time to adjust, which is why Lemosho, with 8 days on the mountain, is popular. [link]' },
+  { id: 'g3', day: 'Sat', where: 'German post (X / Threads)', url: DE_LINK, text: 'Beste Reisezeit für den Kilimandscharo: Januar bis März und Juni bis Oktober. Was ein Paket enthalten sollte, steht hier: [link] #Tansania #Wandern' },
+  { id: 'p7', day: 'Sun', where: 'English post (US followers)', text: 'Directory update: easafariroutes.com now has a German-language page for Kilimanjaro travelers, and more operators are being added. Questions about a trip? Send me a message.' },
+  { id: 'm1', day: 'Once', where: 'Message to Altezza (replace [Name])', text: 'Hello [Name], this is Osare, CEO of OSARE (easafariroutes.com). We are updating our East Africa directory. Your company is listed with several Kilimanjaro routes, and people searching for Altezza Travel on Google already find your page on our site. We have also built a German-language page for Kilimanjaro that includes your routes, for German travelers. Requests reach you directly by WhatsApp, and we only take a commission on confirmed bookings. Could you tell me who handles enquiries from German-speaking travelers, and confirm that your listed prices are correct? Thank you.' },
+]
+{ id: 'g1', day: 'Tue', where: 'German post (X / Threads)', text: 'Kilimandscharo besteigen? Routen vergleichen und kostenlos bei lokalen Veranstaltern in Moshi anfragen: easafariroutes.com/de/kilimandscharo #Kilimandscharo #Tansania #Reisen' },
   { id: 'p3', day: 'Wed', where: 'English post (US followers)', text: 'What the Lemosho package includes: 2 hotel nights in Moshi, airport and gate transfers, guides, porters and cook, park and rescue fees, tents, all meals and purified water on the mountain, emergency oxygen. Not included: flights, visa, insurance, tips. [link]' },
   { id: 'p4', day: 'Thu', where: 'English post (US followers)', text: 'Looking at a Kenya safari? Browse listings from local operators for Tsavo East, Masai Mara and the coast, and send one free request. easafariroutes.com/safari' },
   { id: 'g2', day: 'Thu', where: 'German post (X / Threads)', text: 'Lemosho-Route am Kilimandscharo: 10 Tage, davon 8 am Berg, Gipfel auf 5.895 m. Ab 2.650 USD pro Person in der Gruppe. Alle Leistungen: easafariroutes.com/de/kilimandscharo #Kilimandscharo #Lemosho' },
