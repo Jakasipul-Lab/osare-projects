@@ -69,6 +69,7 @@ export default function RootLayout({ children }) {
   <GoogleTranslate />
   <ChatWidget />
   <WhatsAppButton />
+  <SiteTracker />
 </body>
     </html>
   )
