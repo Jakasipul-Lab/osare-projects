@@ -7,6 +7,7 @@ import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo'
 import SiteChrome from '@/components/SiteChrome'
 import ChatWidget from '@/components/ChatWidget'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import SiteTracker from '@/components/SiteTracker'
 
 export const metadata = {
     metadataBase: new URL('https://www.easafariroutes.com'),
