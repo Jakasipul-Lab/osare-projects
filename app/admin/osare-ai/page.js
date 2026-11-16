@@ -100,7 +100,7 @@ export default function OsareAiPage() {
       const savedM = localStorage.getItem(MKEY)
       if (savedM) {
         const m = JSON.parse(savedM)
-        setMk({ link: m.link || DEFAULT_LINK, done: m.done || {} })
+         setMk({ link: !m.link || m.link === OLD_DEFAULT_LINK ? DEFAULT_LINK : m.link, done: m.done || {} })
       }
     } catch (e) {}
     fetch('/api/admin/osare-ai', { cache: 'no-store' })
