@@ -150,8 +150,20 @@ export default function OsareAiPage() {
     } catch (e) {}
   }
 
+    function taggedLink(base, p) {
+    try {
+      const u = new URL(base)
+      u.searchParams.set('utm_source', p.where.includes('German') ? 'x-threads' : 'facebook')
+      u.searchParams.set('utm_campaign', `post-${p.id}`)
+      return u.toString()
+    } catch (e) {
+      return base
+    }
+  }
+
   function postText(p) {
-    return p.text.split('[link]').join(mk.link || DEFAULT_LINK)
+    const base = p.url || mk.link || DEFAULT_LINK
+    return p.text.split('[link]').join(taggedLink(base, p))
   }
 
   async function copyPost(p) {
