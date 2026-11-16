@@ -15,27 +15,31 @@ export async function generateMetadata({ params }) {
   if (!item) return { title: 'Listing not found | OSARE' }
 
   const vendor = String(item.vendor || '').trim()
-  const listingTitle = String(item.title || '').trim()
   const place = String(item.location || '').split(',')[0].trim()
   const category = String(item.category || '').trim()
 
-  const sameName =
-    !listingTitle ||
-    listingTitle.toLowerCase() === vendor.toLowerCase() ||
-    listingTitle.toLowerCase().startsWith(vendor.toLowerCase())
+  const escapedVendor = vendor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  let offer = String(item.title || '').trim()
+  if (vendor) offer = offer.replace(new RegExp(escapedVendor, 'ig'), ' ')
+  offer = offer.replace(/\s+/g, ' ').replace(/^[\s\-–—:|,·]+|[\s\-–—:|,·]+$/g, '').trim()
+  if (!offer) offer = `${category || 'Safari & Travel'}${place ? ` in ${place}` : ''}`
 
-  let title
-  if (sameName) {
-    const what = category || 'Safari & Travel'
-    title = `${vendor} – ${what}${place ? ` in ${place}` : ''} | Prices & Enquiry`
+  let title = `${vendor}: ${offer} – Prices & Enquiry`
+  if (title.length > 65) title = `${vendor}: ${offer} | OSARE`
+  if (title.length > 65) title = `${vendor}: ${offer}`
+
+  const cleanDescription = String(item.description || '').replace(/\*\*/g, '').replace(/\s+/g, ' ').trim()
+  let description
+  if (cleanDescription) {
+    let text = cleanDescription
+    if (text.length > 120) {
+      text = text.slice(0, 120)
+      text = text.slice(0, text.lastIndexOf(' ')).replace(/[\s,;:\-–—]+$/, '') + '…'
+    }
+    description = `${text} Free enquiry on OSARE, no payment now.`
   } else {
-    title = `${vendor}: ${listingTitle} | OSARE`
+    description = `${vendor}${place ? ` in ${place}` : ''}: ${offer}. Send a free enquiry on OSARE, the operator confirms price and dates.`
   }
-
-  const cleanDescription = String(item.description || '').replace(/\*\*/g, '').trim()
-  const description = cleanDescription
-    ? cleanDescription.slice(0, 160)
-    : `${vendor}${place ? ` in ${place}` : ''}: ${listingTitle || category}. Send a free enquiry on EA SafariRoutes, the operator confirms price and dates.`
 
   return buildMetadata({
     title,
@@ -108,67 +112,4 @@ export default async function VendorDetailPage({ params }) {
 <LocationMap location={item.location} />
 
           {item.description ? (
-            <p className="mt-4 text-slate-700 leading-relaxed">{String(item.description).replace(/\*\*/g, '')}</p>
-          ) : null}
-
-          {Array.isArray(item.includes) && item.includes.length ? (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {item.includes.map((inc, i) => (
-                <span key={i} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                  {inc}
-                </span>
-              ))}
-            </div>
-          ) : null}
-
-          {item.slug === 'altezza-travel-kilimanjaro-climbs-safaris-altezza-travel-4db1c3e7' ? (
-            <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <h2 className="text-lg font-bold text-slate-900">Altezza Travel Kilimanjaro routes</h2>
-              <p className="mt-1 text-sm text-slate-600">Open a route to see its days, what is included and to send a free request.</p>
-              <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-                {[
-                  ['Machame route', '6 to 7 days', 'altezza-travel-kilimanjaro-machame-route-6-to-7-days-trek-e261bbc6'],
-                  ['Lemosho route', '6 to 8 days', 'altezza-travel-kilimanjaro-lemosho-route-6-to-8-days-trek-5964c24d'],
-                  ['Marangu route', '5 to 6 days', 'altezza-travel-kilimanjaro-marangu-route-5-to-6-days-trek-f9574fd9'],
-                  ['Rongai route', '6 to 7 days', 'altezza-travel-kilimanjaro-rongai-route-6-to-7-days-trek-c99c2147'],
-                  ['Umbwe route', '6 to 7 days', 'altezza-travel-kilimanjaro-umbwe-route-6-to-7-days-trek-68e2fbc6'],
-                  ['Northern Circuit', '8 days', 'altezza-travel-kilimanjaro-northern-circuit-route-8-days-trek-ce215cb1'],
-                ].map(([name, days, slug]) => (
-                  <li key={slug}>
-                    <Link href={`/safari/${slug}`} className="block rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-[#1e3a8a] hover:bg-blue-50">
-                      {name} <span className="font-normal text-slate-500">· {days}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          <div className="mt-6 flex items-end justify-between border-t border-slate-100 pt-4">
-            <div>
-              {(() => {
-                const label = String(item.priceLabel || '')
-                const i = label.indexOf(' for ')
-                if (i > 0 && i < 30) {
-                  return (
-                    <>
-                      <p className="text-3xl font-extrabold text-emerald-600">{label.slice(0, i)}</p>
-                      <p className="mt-1 text-sm font-medium text-slate-600">{label.slice(i + 1)}</p>
-                    </>
-                  )
-                }
-                return <p className="text-3xl font-extrabold text-emerald-600">{label}</p>
-              })()}
-              {item.season ? <p className="text-sm text-slate-400">{item.season}</p> : null}
-            </div>
-            {item.vendorOffice ? (
-              <p className="text-sm text-slate-400">{item.vendorOffice}</p>
-            ) : null}
-          </div>
-
-          <div id="enquire" className="mt-6 scroll-mt-24"><EnquireButton listingId={item.id} /></div>
-        </div>
-      </div>
-    </div>
-  )
-}
+            <p className="mt-4 text-slate-700 leading-relaxed">{String(item.description).replace(/\*\*/g,
