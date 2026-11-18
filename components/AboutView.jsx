@@ -67,7 +67,7 @@ const MILESTONES = [
   { year: '2025', text: 'OSARE founded to simplify East African travel discovery' },
   { year: '2026', text: 'Platform launched with operator listings across Kenya, Tanzania, and Uganda' },
   { year: '2026', text: 'Listed 90+ tourism and transport operators' },
-  { year: '2026', text: 'Introduced the OSARE Verified stamp for confirmed partners' },
+  { year: '2026', text: 'Introduced the OSARE Verified stamp for confirmed partners', href: '/verified' },
   { year: 'Ongoing', text: 'Expanding across East Africa, one confirmed operator at a time' },
 ]
 
