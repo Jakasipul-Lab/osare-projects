@@ -25,7 +25,7 @@ function waLink(route, trip) {
   const day = formatDate(trip.date)
   const people = `${trip.passengers} passenger${trip.passengers === 1 ? '' : 's'}`
   const text = day
-    ? `Hello ${route.operator}, I found you on easafariroutes.com. I would like to travel from ${tripFrom} to ${tripTo} on ${day}, ${people}. Is this available, and what is the fare?
+    ? `Hello ${route.operator}, I found you on easafariroutes.com. I would like to travel from ${tripFrom} to ${tripTo} on ${day}, ${people}. Is this available, and what is the fare?`
     : `Hello ${route.operator}, I found you on easafariroutes.com. I would like information about the ${tripFrom} to ${tripTo} trip for ${people}.`
   return `https://wa.me/${route.whatsapp}?text=${encodeURIComponent(text)}`
 }
