@@ -182,6 +182,26 @@ export default function AboutView() {
           </div>
         </div>
 
+         {/* HOW OSARE WORKS */}
+        <div className="mt-20">
+          <h2 className="text-3xl font-black text-slate-900">How OSARE Works</h2>
+          <p className="mt-3 max-w-3xl text-slate-600">Enquiries go straight to the operator, so you deal directly with the business. This is how OSARE earns its income:</p>
+          <div className="grid md:grid-cols-3 gap-6 mt-8">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="font-bold text-lg text-[#1e3a8a]">Free for travellers</h3>
+              <p className="mt-3 text-slate-600">Search, compare and send an enquiry at no cost. OSARE never charges travellers a booking fee.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="font-bold text-lg text-[#1e3a8a]">Free to be listed</h3>
+              <p className="mt-3 text-slate-600">Tourism and transport businesses are listed with no monthly fee and no upfront cost.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="font-bold text-lg text-[#f97316]">5% only on confirmed bookings</h3>
+              <p className="mt-3 text-slate-600">OSARE earns a 5% commission only when an enquiry sent through the platform turns into a confirmed booking.</p>
+            </div>
+          </div>
+          <p className="mt-6 text-sm text-slate-500">More details on the <a href="/how-it-works" className="underline text-[#1e3a8a]">How It Works</a> page.</p>
+        </div>
         {/* MILESTONES — real, specific */}
         <div className="mt-24">
           <h2 className="text-3xl font-black text-slate-900">Milestones</h2>
