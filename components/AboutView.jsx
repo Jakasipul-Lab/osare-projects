@@ -189,7 +189,7 @@ export default function AboutView() {
             {MILESTONES.map((m, i) => (
               <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
                 <span className="text-orange-600 font-bold text-lg">{m.year}</span>
-                <p className="mt-2 text-slate-700 font-medium">{m.text}</p>
+                  <p className="mt-2 text-slate-700 font-medium">{m.text}{m.href ? <> <a href={m.href} className="underline text-[#1e3a8a]">What this means</a></> : null}</p>
               </div>
             ))}
           </div>
