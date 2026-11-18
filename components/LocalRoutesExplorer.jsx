@@ -324,7 +324,7 @@ export function LocalRoutesExplorer() {
         </div>
   
         <p className="mb-5 text-sm font-medium text-slate-600">
-          {loading ? 'Searching…' : `${routes.length} bus route${routes.length === 1 ? '' : 's'} found`}
+          {loading ? 'Searching…' : `${routes.length} route${routes.length === 1 ? '' : 's'} found`}
         </p>
         {loading ? (
           <div className="flex justify-center py-20">
