@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { AdSense } from '@/components/AdSense'
 import LocationMap from '@/components/LocationMap'
 import EnquireButton from '@/components/EnquireButton'
+import { getIndependentReviews } from '@/lib/independentReviews'
 import { buildMetadata, buildProductSchema } from '@/lib/seo'
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -101,11 +102,24 @@ export default async function VendorDetailPage({ params }) {
 
           <h1 className="mt-3 text-3xl font-extrabold text-slate-900">{item.title}</h1>
           <p className="mt-1 text-lg font-semibold text-[#1e3a8a]">By {item.vendor}</p>
-                    {item.isVerified ? (
-            <p className="mt-2 text-sm font-semibold text-blue-800">
-              ✓ OSARE Verified ·{' '}
-              <Link href="/verified" className="underline hover:text-blue-950">What does this mean?</Link>
+                         <Link href="/verified" className="underline hover:text-blue-950">What does this mean?</Link>
             </p>
+          ) : null}
+
+          {getIndependentReviews(item.vendor) ? (
+            <p className="mt-2 text-sm text-slate-700">
+              ★ Independent reviews: {getIndependentReviews(item.vendor).rating} out of 5 from {getIndependentReviews(item.vendor).count} reviews on{' '}
+              <a
+                href={getIndependentReviews(item.vendor).url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-[#1e3a8a] underline"
+              >
+                {getIndependentReviews(item.vendor).site}
+              </a>{' '}
+              <span className="text-slate-500">(checked {getIndependentReviews(item.vendor).checked})</span>
+            </p>
+          ) : null}
           ) : null}
 
           <p className="mt-1 text-sm text-slate-500">📍 {item.location}</p>
