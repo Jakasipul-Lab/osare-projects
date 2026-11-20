@@ -45,9 +45,14 @@ export default function TripRequestFormDE({ initialDestination = '' }) {
       setError('Bitte nennen Sie uns Ihr Reiseziel.')
       return
     }
-    const check = validatePhone(form.travelerPhone)
+        // German visitors write their own number with a leading 0 (0151 ...): read it as +49
+    const rawPhone = form.travelerPhone.trim()
+    const phoneInput = /^0(?!0)/.test(rawPhone.replace(/[\s().-]/g, ''))
+      ? `+49${rawPhone.replace(/[^0-9]/g, '').slice(1)}`
+      : rawPhone
+    const check = validatePhone(phoneInput)
     if (!check.ok) {
-      setError(check.error)
+      setError('Bitte geben Sie eine gültige Handynummer mit Ländervorwahl ein, zum Beispiel +49 151 2345678.')
       return
     }
     // Combine the optional date pickers with the free-text "When?" note
