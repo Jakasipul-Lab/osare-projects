@@ -516,7 +516,7 @@ export default function OsareAiPage() {
         <p className="mt-1 text-xs text-slate-500">Status: {byStatus.map((s) => `${s.status} ${s.n}`).join(' · ')}</p>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full text-sm">
-            <thead><tr className="text-left text-slate-500"><th className="py-1">Code</th><th>Date</th><th>Listing</th><th>Vendor</th><th>Name</th></tr></thead>
+             <thead><tr className="text-left text-slate-500"><th className="py-1">Code</th><th>Date</th><th>Listing</th><th>Vendor</th><th>Name</th></tr></thead>
             <tbody>
               {recent.map((r) => (
                 <tr key={r.code} className="border-t border-slate-100">
@@ -528,10 +528,6 @@ export default function OsareAiPage() {
                 </tr>
               ))}
             </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
     </div>
   )
 }
