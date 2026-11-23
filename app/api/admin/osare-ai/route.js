@@ -33,7 +33,7 @@ export async function GET(request) {
                     COUNT(*) FILTER (WHERE published = true)::int AS published
              FROM listings
              GROUP BY 1 ORDER BY total DESC`),
-      query(`SELECT code, listing_title, vendor, traveler_name, commission_status, created_at
+            query(`SELECT code, listing_title, vendor, traveler_name, traveler_phone, commission_status, created_at
              FROM leads ORDER BY created_at DESC LIMIT 10`),
       query(`SELECT created_at, vendor, traveler_name
              FROM leads ORDER BY created_at DESC LIMIT 1000`),
