@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { validatePhone } from '@/lib/phone'
 
 export default function EnquireButton({ listingId }) {
@@ -8,20 +8,30 @@ export default function EnquireButton({ listingId }) {
   const [month, setMonth] = useState('')
   const [travelers, setTravelers] = useState('')
   const [busy, setBusy] = useState(false)
+  const [slow, setSlow] = useState(false)
   const [error, setError] = useState('')
+  const [sent, setSent] = useState(null)
+  const lock = useRef(false)
 
   const start = async () => {
+    if (lock.current) return
     const check = validatePhone(phone)
     if (!check.ok) {
       setError(check.error)
       return
     }
     setError('')
+    lock.current = true
     setBusy(true)
+    setSlow(false)
+    const slowTimer = setTimeout(() => setSlow(true), 5000)
+    const controller = new AbortController()
+    const abortTimer = setTimeout(() => controller.abort(), 20000)
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           listingId,
           travelerPhone: check.e164,
@@ -35,13 +45,39 @@ export default function EnquireButton({ listingId }) {
         setError(data.error || 'Could not start the enquiry. Please try again.')
         return
       }
+      setSent({ url: data.whatsappUrl, code: (data.lead && data.lead.code) || '' })
       const w = window.open(data.whatsappUrl, '_blank')
       if (!w) window.location.href = data.whatsappUrl
     } catch (e) {
-      setError('Could not start the enquiry. Please try again.')
+      setError(
+        e && e.name === 'AbortError'
+          ? 'This is taking longer than usual. Please check your connection and try again.'
+          : 'Could not start the enquiry. Please try again.'
+      )
     } finally {
+      clearTimeout(slowTimer)
+      clearTimeout(abortTimer)
       setBusy(false)
+      setSlow(false)
+      lock.current = false
     }
+  }
+
+  if (sent) {
+    return (
+      <div className="space-y-3 rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-slate-800">
+        <p className="font-semibold">Your request is saved{sent.code ? ` (${sent.code})` : ''}.</p>
+        <p>WhatsApp should open now. If it did not, tap the green button below, then press Send in WhatsApp so the message reaches the operator.</p>
+        <a
+          href={sent.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex w-full items-center justify-center rounded-lg bg-[#25d366] py-3 font-semibold text-white hover:bg-[#1ebe5b]"
+        >
+          Open WhatsApp
+        </a>
+      </div>
+    )
   }
 
   return (
@@ -85,7 +121,8 @@ export default function EnquireButton({ listingId }) {
         disabled={busy}
         className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#25d366] py-3 font-semibold text-white hover:bg-[#1ebe5b] disabled:opacity-60"
       >
-        {busy ? 'Opening WhatsApp…' : 'Enquire via WhatsApp'}
+        {busy ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" /> : null}
+        {busy ? (slow ? 'Still sending, please wait…' : 'Sending your request…') : 'Enquire via WhatsApp'}
       </button>
     </div>
   )
