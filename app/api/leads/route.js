@@ -53,10 +53,51 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: phoneCheck.error }, { status: 400 });
     }
 
-    const listingRes = await query('SELECT * FROM listings WHERE id = $1', [listingId]);
+        const listingRes = await query('SELECT * FROM listings WHERE id = $1', [listingId]);
     const listing = listingRes.rows[0];
     if (!listing) {
       return NextResponse.json({ success: false, error: 'Listing not found' }, { status: 404 });
+    }
+
+    const makeWhatsappUrl = (code) => {
+      const rawPhone = listing.vendor_phone || listing.vendor_phone_alt || '254758378729';
+      const digitsOnly = String(rawPhone).replace(/[^0-9]/g, '');
+      const cleanPhone = digitsOnly.startsWith('0') ? '254' + digitsOnly.slice(1) : digitsOnly;
+      const waMsg = encodeURIComponent(
+        buildEnquiryMessage({
+          title: listing.title,
+          category: listing.category,
+          code,
+          month: travelMonth,
+          travelers,
+        })
+      );
+      return `https://wa.me/${cleanPhone}?text=${waMsg}`;
+    };
+
+    // Protection against repeated taps and abuse, by phone number, last 24 hours.
+    // Same number + same listing: no new enquiry, the traveler gets the same code and link again.
+    const repeatRes = await query(
+      `SELECT * FROM leads
+       WHERE traveler_phone = $1 AND listing_id = $2 AND created_at > NOW() - INTERVAL '24 hours'
+       ORDER BY created_at DESC LIMIT 1`,
+      [phoneCheck.e164, listing.id]
+    );
+    if (repeatRes.rows[0]) {
+      const again = repeatRes.rows[0];
+      return NextResponse.json({ success: true, whatsappUrl: makeWhatsappUrl(again.code), lead: mapLead(again) });
+    }
+    // Same number, more than 3 enquiries in 24 hours: refused.
+    const countRes = await query(
+      `SELECT COUNT(*)::int AS n FROM leads
+       WHERE traveler_phone = $1 AND created_at > NOW() - INTERVAL '24 hours'`,
+      [phoneCheck.e164]
+    );
+    if ((countRes.rows[0] ? countRes.rows[0].n : 0) >= 3) {
+      return NextResponse.json(
+        { success: false, error: 'You have already sent several requests today. Please wait for the operators to reply on WhatsApp.' },
+        { status: 429 }
+      );
     }
 
     const priceValue = Number(listing.price_value) || 0;
@@ -103,20 +144,7 @@ export async function POST(request) {
       `Commission: ${commission} ${listing.currency || 'USD'}`,
     ]).catch(() => {});
 
-    const rawPhone = listing.vendor_phone || listing.vendor_phone_alt || '254758378729';
-    const digitsOnly = String(rawPhone).replace(/[^0-9]/g, '');
-    const cleanPhone = digitsOnly.startsWith('0') ? '254' + digitsOnly.slice(1) : digitsOnly;
-    const waMsg = encodeURIComponent(
-      buildEnquiryMessage({
-        title: listing.title,
-        category: listing.category,
-        code,
-        month: travelMonth,
-        travelers,
-      })
-    );
-    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
-    return NextResponse.json({ success: true, whatsappUrl, lead: mapLead(lead) });
+    return NextResponse.json({ success: true, whatsappUrl: makeWhatsappUrl(code), lead: mapLead(lead) });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
