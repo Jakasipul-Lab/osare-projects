@@ -516,18 +516,29 @@ export default function OsareAiPage() {
         <p className="mt-1 text-xs text-slate-500">Status: {byStatus.map((s) => `${s.status} ${s.n}`).join(' · ')}</p>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full text-sm">
-             <thead><tr className="text-left text-slate-500"><th className="py-1">Code</th><th>Date</th><th>Listing</th><th>Vendor</th><th>Name</th></tr></thead>
+                        <thead><tr className="text-left text-slate-500"><th className="py-1">Code</th><th>Date</th><th>Listing</th><th>Vendor</th><th>Name</th><th>Phone</th></tr></thead>
             <tbody>
-              {recent.map((r) => (
-                <tr key={r.code} className="border-t border-slate-100">
-                  <td className="py-1 font-mono">{r.code}</td>
-                  <td>{fmtDate(r.created_at)}</td>
-                  <td>{r.listing_title}</td>
-                  <td>{r.vendor}</td>
-                  <td>{r.traveler_name || '-'}</td>
-                </tr>
-              ))}
+              {recent.map((r) => {
+                const sameNumber = r.traveler_phone ? recent.filter((x) => x.traveler_phone === r.traveler_phone).length : 0
+                return (
+                  <tr key={r.code} className="border-t border-slate-100">
+                    <td className="py-1 font-mono">{r.code}</td>
+                    <td>{fmtDate(r.created_at)}</td>
+                    <td>{r.listing_title}</td>
+                    <td>{r.vendor}</td>
+                    <td>{r.traveler_name || '-'}</td>
+                    <td className="whitespace-nowrap">
+                      {r.traveler_phone || '-'}
+                      {sameNumber > 1 ? <span className="ml-1 rounded bg-amber-100 px-1 text-xs font-semibold text-amber-800">same number x{sameNumber}</span> : null}
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
     </div>
   )
 }
