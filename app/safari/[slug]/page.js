@@ -54,6 +54,10 @@ export default async function VendorDetailPage({ params }) {
   const item = await getVendorBySlug(slug)
 
   if (!item) notFound()
+    // Link to the vendor's overview page, only when the vendor has more than one offer.
+  const toVendorSlug = (name) => String(name || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
+  const vendorSlug = toVendorSlug(item.vendor)
+  const vendorOffers = (await getAllVendors()).filter((v) => toVendorSlug(v.vendor) === vendorSlug).length
 
   const pageUrl = `https://www.easafariroutes.com/safari/${item.slug}`
 
