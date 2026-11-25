@@ -1,4 +1,4 @@
-import { getVendorBySlug } from '@/lib/vendorData'
+import { getVendorBySlug, getAllVendors } from '@/lib/vendorData'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
